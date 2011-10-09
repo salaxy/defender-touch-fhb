@@ -1,8 +1,15 @@
 package de.fhb.defenderTouch.start;
+import java.util.ArrayList;
 import java.util.Vector;
 
-import processing.core.*;
-import TUIO.*;
+import processing.core.PApplet;
+import processing.core.PFont;
+import TUIO.TuioCursor;
+import TUIO.TuioObject;
+import TUIO.TuioPoint;
+import TUIO.TuioProcessing;
+import TUIO.TuioTime;
+import de.fhb.defenderTouch.units.movable.TestUnit;
 
 public class TUIOProcessingTest extends PApplet {
 
@@ -15,6 +22,9 @@ public class TUIOProcessingTest extends PApplet {
 	int width = 1024;
 	int height = 768;
 	PFont font;
+	
+	// zum testen
+	private ArrayList<TestUnit> units=new ArrayList<TestUnit>();
 	
 	public void setup()
 	{
@@ -34,6 +44,16 @@ public class TUIOProcessingTest extends PApplet {
 	  // since we add "this" class as an argument the TuioProcessing class expects
 	  // an implementation of the TUIO callback methods (see below)
 	  tuioClient  = new TuioProcessing(this); //listens to port 3333
+	  
+	  
+	  //TestUnits schaffen
+	  units.add(new TestUnit(100,200,TestUnit.MODE_ROTATE));
+	  units.add(new TestUnit(200,100,TestUnit.MODE_PULSE));
+	  units.add(new TestUnit(300,200,TestUnit.MODE_BOTH));
+	  units.add(new TestUnit(200,300,TestUnit.MODE_NONE));
+	  //kantenglättung aktivieren
+//	  this.smooth();
+	  this.rectMode(CENTER);
 	}
 
 	/** within the draw method we retrieve a Vector (List) of TuioObject and TuioCursor (polling)
@@ -46,6 +66,19 @@ public class TUIOProcessingTest extends PApplet {
 	  textFont(font,18);
 	  float obj_size = object_size; 
 	  float cur_size = cursor_size; 
+	  
+	  //alle Units zeichnen
+	  for(TestUnit u: units){
+		  u.paint(this);	  
+	  }
+	 
+//	  if (mousePressed) {
+//		    fill(0);
+//		  } else {
+//		    fill(255);
+//		  }
+//		  ellipse(mouseX, mouseY, 80, 80);
+	  
 	   
 	  Vector tuioObjectList = tuioClient.getTuioObjects(); //gets all objects which are currently on the screen
 	  for (int i=0;i<tuioObjectList.size();i++) {
@@ -55,7 +88,7 @@ public class TUIOProcessingTest extends PApplet {
 	     pushMatrix(); //save old coordinate system (bottom left is 0,0)
 	     translate(tobj.getScreenX(width),tobj.getScreenY(height)); //translate coordinate-system that 0,0 is at position of object (easier for drawing)
 	     rotate(tobj.getAngle()); //rotate coordinate system in same angle than object is
-	     rect(-obj_size/2,-obj_size/2,obj_size,obj_size); //draw rectangle
+//	     rect(-obj_size/2,-obj_size/2,obj_size,obj_size); //draw rectangle
 	     popMatrix(); //restore old coordinate system
 	     fill(255);
 	     text(""+tobj.getSymbolID(), tobj.getScreenX(width), tobj.getScreenY(height)); //draw objectID at position of object
@@ -83,6 +116,8 @@ public class TUIOProcessingTest extends PApplet {
 	        text(""+ tcur.getCursorID(),  tcur.getScreenX(width)-5,  tcur.getScreenY(height)+5); //draw id and position at current position of cursor
 	      }
 	   }
+	   
+	   
 	   
 	}
 
@@ -128,6 +163,6 @@ public class TUIOProcessingTest extends PApplet {
 	
     /** Start PApplet as a Java program (can also be run as an applet). */
     static public void main(String args[]) {
-        PApplet.main(new String[] { "TUIOProcessingTest" });
+        PApplet.main(new String[] { "de.fhb.defenderTouch.start.TUIOProcessingTest" });
     }
 }
