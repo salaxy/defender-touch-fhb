@@ -132,6 +132,7 @@ public class TUIOProcessingTest extends PApplet {
 	// called when an object is added to the scene
 	public void addTuioObject(TuioObject tobj) {
 	  println("add object "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle());
+	  
 	}
 
 	// called when an object is removed from the scene
@@ -148,6 +149,36 @@ public class TUIOProcessingTest extends PApplet {
 	// called when a cursor is added to the scene
 	public void addTuioCursor(TuioCursor tcur) {
 	  println("add cursor "+tcur.getCursorID()+" ("+tcur.getSessionID()+ ") " +tcur.getX()+" "+tcur.getY());
+	  
+	  	PVector vector=new PVector(tcur.getScreenX(width),tcur.getScreenY(height));
+	  	boolean wurdeEbendAktiviert=false;	
+	  	boolean warSchonAktiv=false;
+	
+		for(TestUnit u: units){
+			
+			
+			//wenn eine unit aktiviert wird dann die anderen deaktiveren
+			if(!wurdeEbendAktiviert){
+				
+				//wenn bereits aktiv dann deaktivieren
+				warSchonAktiv=u.isActive();
+				wurdeEbendAktiviert=u.isInner(vector);	
+				
+				if(wurdeEbendAktiviert&&warSchonAktiv){
+					u.deactivate();
+				}
+				
+			}else{
+				u.deactivate();
+			}
+		}
+		
+		//neues Ziel setzen wenn unit aktiv
+		for(TestUnit u: units){
+			if(u.isActive()){
+				u.setDestination(vector);				
+			}
+		}
 	}
 
 	// called when a cursor is moved
@@ -209,4 +240,6 @@ public class TUIOProcessingTest extends PApplet {
 		
 
     }
+    
+    
 }
