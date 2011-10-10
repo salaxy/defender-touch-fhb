@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.core.PVector;
 import TUIO.TuioCursor;
 import TUIO.TuioObject;
 import TUIO.TuioPoint;
@@ -22,6 +23,7 @@ public class TUIOProcessingTest extends PApplet {
 	int width = 1024;
 	int height = 768;
 	PFont font;
+	TestUnit test;
 	
 	// zum testen
 	private ArrayList<TestUnit> units=new ArrayList<TestUnit>();
@@ -46,13 +48,17 @@ public class TUIOProcessingTest extends PApplet {
 	  tuioClient  = new TuioProcessing(this); //listens to port 3333
 	  
 	  
+	  
 	  //TestUnits schaffen
 	  units.add(new TestUnit(100,200,TestUnit.MODE_ROTATE));
 	  units.add(new TestUnit(200,100,TestUnit.MODE_PULSE));
 	  units.add(new TestUnit(300,200,TestUnit.MODE_BOTH));
 	  units.add(new TestUnit(200,300,TestUnit.MODE_NONE));
+	  units.add(test=new TestUnit(400,300,TestUnit.MODE_BOTH));
+	  test.setDestination(new PVector(500,500));
+	  
 	  //kantenglättung aktivieren
-//	  this.smooth();
+	  this.smooth();
 	  this.rectMode(CENTER);
 	}
 
@@ -77,7 +83,7 @@ public class TUIOProcessingTest extends PApplet {
 //		  } else {
 //		    fill(255);
 //		  }
-//		  ellipse(mouseX, mouseY, 80, 80);
+//	  ellipse(mouseX, mouseY, 80, 80);
 	  
 	   
 	  Vector tuioObjectList = tuioClient.getTuioObjects(); //gets all objects which are currently on the screen
@@ -164,5 +170,43 @@ public class TUIOProcessingTest extends PApplet {
     /** Start PApplet as a Java program (can also be run as an applet). */
     static public void main(String args[]) {
         PApplet.main(new String[] { "de.fhb.defenderTouch.start.TUIOProcessingTest" });
+    }
+    
+    //mausclick ueberschreiben
+    public void mouseClicked(){
+    	PVector clickVector=new PVector(this.mouseX,this.mouseY);
+
+    	
+    	if(this.mouseButton==LEFT){
+    		
+	    	boolean istSchonEinesAktiv=false;	
+	    	
+			for(TestUnit u: units){
+				
+				//wenn eine unit aktiviert wird dann die anderen deaktiveren
+				if(!istSchonEinesAktiv){
+					istSchonEinesAktiv=u.isInner(clickVector);						
+				}else{
+					u.deactivate();
+				}
+			}
+			
+			//neues Ziel setzen wenn unit aktiv
+			for(TestUnit u: units){
+				if(u.isActive()){
+					u.setDestination(clickVector);				
+				}
+			}	
+    	}
+    	
+
+		
+		if(this.mouseButton==RIGHT){
+			for(TestUnit u: units){
+				u.deactivate();
+			}
+		}
+		
+
     }
 }
