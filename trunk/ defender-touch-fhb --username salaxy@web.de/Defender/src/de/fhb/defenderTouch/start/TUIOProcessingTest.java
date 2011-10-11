@@ -56,6 +56,7 @@ public class TUIOProcessingTest extends PApplet {
 	  units.add(new TestUnit(300,200,TestUnit.MODE_BOTH));
 	  units.add(new TestUnit(200,300,TestUnit.MODE_NONE));
 	  units.add(new Fighter(300,400,TestUnit.MODE_NONE));
+	  units.add(new Fighter(500,400,TestUnit.MODE_PULSE_IF_ACTIVE));
 	  units.add(test=new TestUnit(300,400,TestUnit.MODE_BOTH));
 	  test.setDestination(new PVector(500,500));
 	  
