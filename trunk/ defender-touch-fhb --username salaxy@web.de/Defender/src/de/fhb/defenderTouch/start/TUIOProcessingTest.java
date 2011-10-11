@@ -10,6 +10,10 @@ import TUIO.TuioObject;
 import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
+import de.fhb.defenderTouch.units.grounded.Defence;
+import de.fhb.defenderTouch.units.grounded.Ground;
+import de.fhb.defenderTouch.units.grounded.Navi;
+import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.Fighter;
 import de.fhb.defenderTouch.units.movable.TestUnit;
 
@@ -51,12 +55,27 @@ public class TUIOProcessingTest extends PApplet {
 	  
 	  
 	  //TestUnits schaffen
-	  units.add(new TestUnit(100,200,TestUnit.MODE_ROTATE));
-	  units.add(new TestUnit(200,100,TestUnit.MODE_PULSE));
-	  units.add(new TestUnit(300,200,TestUnit.MODE_BOTH));
-	  units.add(new TestUnit(200,300,TestUnit.MODE_NONE));
-	  units.add(new Fighter(300,400,TestUnit.MODE_NONE));
-	  units.add(new Fighter(500,400,TestUnit.MODE_PULSE_IF_ACTIVE));
+//	  units.add(new TestUnit(100,200,TestUnit.MODE_ROTATE));
+//	  units.add(new TestUnit(200,100,TestUnit.MODE_PULSE));
+//	  units.add(new TestUnit(300,200,TestUnit.MODE_BOTH));
+//	  units.add(new TestUnit(200,300,TestUnit.MODE_NONE));
+//	  units.add(new Fighter(300,400,TestUnit.MODE_NONE));
+//	  units.add(new Fighter(500,400,TestUnit.MODE_PULSE_IF_ACTIVE));
+	  //BuildingTest
+	  units.add(new Ground(400,700,TestUnit.MODE_NONE));
+	  units.add(new Navi(500,700,TestUnit.MODE_NONE));
+	  units.add(new Support(600,700,TestUnit.MODE_NONE));
+	  units.add(new Defence(700,700,TestUnit.MODE_NONE));
+	  
+	  //Testflugstaffel
+	  units.add(new Fighter(100,50,TestUnit.MODE_NONE));
+	  units.add(new Fighter(200,50,TestUnit.MODE_NONE));
+	  units.add(new Fighter(300,50,TestUnit.MODE_NONE));
+	  units.add(new Fighter(400,50,TestUnit.MODE_NONE));
+	  units.add(new Fighter(500,50,TestUnit.MODE_NONE));
+	  units.add(new Fighter(600,50,TestUnit.MODE_NONE));
+	  
+	  
 	  units.add(test=new TestUnit(300,400,TestUnit.MODE_BOTH));
 	  test.setDestination(new PVector(500,500));
 	  

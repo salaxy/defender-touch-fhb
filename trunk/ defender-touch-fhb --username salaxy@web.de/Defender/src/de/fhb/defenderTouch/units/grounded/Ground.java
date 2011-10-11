@@ -18,32 +18,15 @@ public class Ground extends Building{
 //		pa.stroke(0);
 //		pa.strokeWeight(10);
 //		pa.fill(0);
+		pa.noFill();
+		pa.rotate((float)Math.PI);
 		this.entscheideLineFarbe(pa);
-		pa.scale(2);
-//		pa.triangle(-20,+20, 0, -20, +20, +20);
-		ArrayList<PVector> vektoren=new ArrayList<PVector>();
-		vektoren.add(new PVector(0, -8));
-		vektoren.add(new PVector(-8, 8));
-		vektoren.add(new PVector(-4, 6));
-		vektoren.add(new PVector(0,8));
-		vektoren.add(new PVector(0, -8));
-		vektoren.add(new PVector(8,8));
-		vektoren.add(new PVector(4,6));
-		vektoren.add(new PVector(0,8));
-		
-
-		this.zeicheFigurNachVektoren(vektoren, pa);
+		pa.scale(4);
+		pa.triangle(-5,+5, 0, -5, +5, +5);
 		
 		pa.resetMatrix();
 		pa.stroke(0);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 }

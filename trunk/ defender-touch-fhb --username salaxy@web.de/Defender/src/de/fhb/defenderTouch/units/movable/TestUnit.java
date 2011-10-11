@@ -23,27 +23,28 @@ public class TestUnit
 	public static final int MODE_BOTH=3;
 	public static final int MODE_HALO=4;
 	public static final int MODE_PULSE_IF_ACTIVE=5;
-	private float[] pulseSkala={1.0f, 0.9f, 0.8f, 0.7f, 0.6f, 0.5f};
-	private float[] haloSkala={1.2f, 1.4f, 1.6f, 1.8f, 2.0f, 2.2f};
-	private float[] haloSkala2;
-	private int pulseStat=0;
-	private int haloStat=0;
-	private PVector position;
-	private PVector direction=new PVector(0,1);
-	private float angle;
-	private int mode;
-	private boolean active=false;
-	private int schweiflaenge=20;
-	private float actualAngle=0;
+	protected float[] pulseSkala={1.0f, 0.9f, 0.8f, 0.7f, 0.6f, 0.5f};
+	protected float[] haloSkala={1.2f, 1.4f, 1.6f, 1.8f, 2.0f, 2.2f};
+	protected float[] haloSkala2;
+	protected int pulseStat=0;
+	protected int haloStat=0;
+	protected PVector position;
+	protected PVector direction=new PVector(0,1);
+	protected float angle;
+	protected int mode;
+	protected boolean active=false;
+	protected int schweiflaenge=20;
+	protected float actualAngle=0;
 	
-	private float rotationSpeed=0.1f;
+	protected float rotationSpeed=0.1f;
 	//bei zu groﬂen werten von movementSpeed kann das objekt zum schwingen kommen
-	private float movementSpeed=2f;
+	protected float movementSpeed=2f;
 	
-	private Color activeColor=Color.ORANGE;
-	private Color passiveColor=Color.BLACK;
+	protected Color activeColor=Color.ORANGE;
+	protected Color passiveColor=Color.BLACK;
 	
-	private PVector destinationVector;
+	protected PVector destinationVector;
+	protected float activateRadius=15;
 	
 	
 	public TestUnit(int x, int y, int mode){
@@ -93,7 +94,7 @@ public class TestUnit
 			this.halo(pa);
 		break;
 		case MODE_NONE :
-			this.haloWithoutFigure(pa);	
+//			this.haloWithoutFigure(pa);	
 			
 			pa.translate(position.x, position.y);
 			pa.fill(0);
@@ -293,19 +294,15 @@ public class TestUnit
 			direction.normalize();
 			//normierten Richtungsvector zur position hinzurechnen
 			position.add(direction.mult(direction, movementSpeed));
-			
 			//zeichne Schweif
 			drawTail(direction, pa);
-			
-
 		}
-
 	}
 	
 
 
 
-	private void drawTail(PVector direction, PApplet pa) {
+	protected void drawTail(PVector direction, PApplet pa) {
 		
 		//Zielpunkt berechnen
 		PVector ende=direction.get();
@@ -345,7 +342,7 @@ public class TestUnit
 
 	
 	public boolean isInner(PVector clickVector){
-		if(position.dist(clickVector)<10){
+		if(position.dist(clickVector)<this.activateRadius){
 			//Einheit f¸r die Steureung aktivieren
 			active=true;
 			return true;
