@@ -9,6 +9,8 @@ import processing.core.PVector;
 
 public class Fighter extends TestUnit {
 
+	private float movementSpeed=5f;
+	
 	public Fighter(int x, int y, int mode) {
 		super(x, y, mode);
 	}
@@ -38,6 +40,20 @@ public class Fighter extends TestUnit {
 		pa.resetMatrix();
 		pa.stroke(0);
 		
+	}
+	
+	public void calcNewPosition(PApplet pa){
+		//wenn aktuelle position nicht nahe herankommt an ziel, dann weiter bewegen
+		if(position.dist(destinationVector)>3){
+			//Richtugnsvector berechnen
+			direction=position.sub( destinationVector, position);
+			//richtungsvector normieren
+			direction.normalize();
+			//normierten Richtungsvector zur position hinzurechnen
+			position.add(direction.mult(direction, movementSpeed));
+			//zeichne Schweif
+			drawTail(direction, pa);
+		}
 	}
 	
 
