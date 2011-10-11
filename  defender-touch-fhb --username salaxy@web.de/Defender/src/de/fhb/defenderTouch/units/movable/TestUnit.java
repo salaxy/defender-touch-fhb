@@ -2,6 +2,8 @@ package de.fhb.defenderTouch.units.movable;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.Iterator;
+import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -20,16 +22,19 @@ public class TestUnit
 	public static final int MODE_PULSE=2;
 	public static final int MODE_BOTH=3;
 	public static final int MODE_HALO=4;
+	public static final int MODE_PULSE_IF_ACTIVE=5;
 	private float[] pulseSkala={1.0f, 0.9f, 0.8f, 0.7f, 0.6f, 0.5f};
 	private float[] haloSkala={1.2f, 1.4f, 1.6f, 1.8f, 2.0f, 2.2f};
 	private float[] haloSkala2;
 	private int pulseStat=0;
 	private int haloStat=0;
 	private PVector position;
+	private PVector direction=new PVector(0,1);
 	private float angle;
 	private int mode;
 	private boolean active=false;
 	private int schweiflaenge=20;
+	private float actualAngle=0;
 	
 	private float rotationSpeed=0.1f;
 	//bei zu großen werten von movementSpeed kann das objekt zum schwingen kommen
@@ -64,6 +69,10 @@ public class TestUnit
 		//punkte links,oben,rechts	
 //		pa.translate(x, y);
 		
+
+		
+		
+		
 		//korrektur für dreiecke??????
 //		pa.translate(1%3*(-20+0+20),1%3*(20+-20+20));
 		
@@ -88,7 +97,26 @@ public class TestUnit
 			
 			pa.translate(position.x, position.y);
 			pa.fill(0);
+			berechneNeueBlickrichtung();
+			pa.rotate(actualAngle);
+			
+			this.entscheideFarbe(pa);		
 			this.drawFigure(pa);
+		break;
+		case MODE_PULSE_IF_ACTIVE :
+			if(!active){
+				//normal zeichnen
+				pa.translate(position.x, position.y);
+				pa.fill(0);
+				berechneNeueBlickrichtung();
+				pa.rotate(actualAngle);
+				
+				this.entscheideFarbe(pa);		
+				this.drawFigure(pa);				
+			}else{
+				//pulsierend zeichnen
+				this.pulse(pa);
+			}
 		break;
 		}
 
@@ -111,6 +139,10 @@ public class TestUnit
 	
 	public void pulse(PApplet pa){
 		pa.translate(position.x, position.y);
+		
+		berechneNeueBlickrichtung();
+		pa.rotate(actualAngle);
+
 		
 		//solange die skala noch nicht durchlaufen ist
 		if(pulseStat<pulseSkala.length-1){
@@ -148,7 +180,7 @@ public class TestUnit
 		pa.noFill();
 		pa.stroke(0);
 //		this.drawFigure(pa);		
-		pa.translate(position.x, position.y);
+		pa.translate(position.x, position.y);		
 		pa.ellipse(0, 0, 20, 20);
 		
 		pa.resetMatrix();
@@ -256,7 +288,7 @@ public class TestUnit
 		//wenn aktuelle position nicht nahe herankommt an ziel, dann weiter bewegen
 		if(position.dist(destinationVector)>3){
 			//Richtugnsvector berechnen
-			PVector direction=position.sub( destinationVector, position);
+			direction=position.sub( destinationVector, position);
 			//richtungsvector normieren
 			direction.normalize();
 			//normierten Richtungsvector zur position hinzurechnen
@@ -264,6 +296,8 @@ public class TestUnit
 			
 			//zeichne Schweif
 			drawTail(direction, pa);
+			
+
 		}
 
 	}
@@ -332,11 +366,58 @@ public class TestUnit
 	}
 	
 
-	private void entscheideFarbe(PApplet pa){
+	public void entscheideFarbe(PApplet pa){
 		if(this.active){
 			pa.fill(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
 		}else{
 			pa.fill(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
 		}
+	}
+	
+	public void entscheideLineFarbe(PApplet pa){
+		if(this.active){
+			pa.stroke(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+		}else{
+			pa.stroke(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
+		}
+	}
+	
+	public void berechneNeueBlickrichtung(){
+		//berechne neue Blickrichtung
+		if(direction.x>0){
+			//rechts
+			actualAngle=PVector.angleBetween(direction, new PVector(0,-1));
+		}else{
+			//links
+			actualAngle=2f*(float)Math.PI - PVector.angleBetween(direction, new PVector(0,-1));
+		}
+	}
+	
+	public void zeicheFigurNachVektoren(List<PVector>liste,PApplet pa){
+		PVector firstPoint=null;
+		PVector actualPoint=null;
+		PVector leastPoint=null;
+		int num=0;
+		
+		//alle punkte durchlaufen
+		for(Iterator<PVector> i=liste.iterator();i.hasNext();){
+			//aktuellen punkt holen
+			actualPoint=i.next();
+			
+			//wenn nicht erster punkt dann zeichen linen zwischen ersten und 
+			if(num>0){
+				pa.line(leastPoint.x, leastPoint.y, actualPoint.x, actualPoint.y);								
+			}else{
+				firstPoint=actualPoint;				
+			}
+				num++;	
+				
+				leastPoint=actualPoint;
+		}
+		
+//		if(actualPoint!=null&&firstPoint!=null){
+//			pa.line(actualPoint.x, actualPoint.y, firstPoint.x, firstPoint.y);		
+//		}
+		
 	}
 }
