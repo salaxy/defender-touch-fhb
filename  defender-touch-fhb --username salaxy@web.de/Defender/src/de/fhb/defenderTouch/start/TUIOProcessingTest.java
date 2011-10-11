@@ -10,6 +10,7 @@ import TUIO.TuioObject;
 import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
+import de.fhb.defenderTouch.units.movable.Fighter;
 import de.fhb.defenderTouch.units.movable.TestUnit;
 
 public class TUIOProcessingTest extends PApplet {
@@ -36,7 +37,7 @@ public class TUIOProcessingTest extends PApplet {
 	  fill(0); //fill shapes (e.g. rectangles, ellipses) with black
 	  
 	  loop(); //loop the draw-methode
-	  frameRate(30);
+	  frameRate(25);
 	  //noLoop();
 	  
 	  hint(ENABLE_NATIVE_FONTS); //render fonts faster
@@ -54,7 +55,8 @@ public class TUIOProcessingTest extends PApplet {
 	  units.add(new TestUnit(200,100,TestUnit.MODE_PULSE));
 	  units.add(new TestUnit(300,200,TestUnit.MODE_BOTH));
 	  units.add(new TestUnit(200,300,TestUnit.MODE_NONE));
-	  units.add(test=new TestUnit(400,300,TestUnit.MODE_BOTH));
+	  units.add(new Fighter(300,400,TestUnit.MODE_NONE));
+	  units.add(test=new TestUnit(300,400,TestUnit.MODE_BOTH));
 	  test.setDestination(new PVector(500,500));
 	  
 	  //kantenglättung aktivieren
