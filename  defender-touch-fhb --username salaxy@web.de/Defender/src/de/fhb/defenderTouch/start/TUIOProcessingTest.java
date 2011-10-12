@@ -77,7 +77,7 @@ public class TUIOProcessingTest extends PApplet {
 	  
 	  
 	  units.add(test=new TestUnit(300,400,TestUnit.MODE_BOTH));
-	  test.setDestination(new PVector(500,500));
+	  test.commandDestination(new PVector(500,500));
 	  
 	  //kantenglättung aktivieren
 	  this.smooth();
@@ -198,7 +198,7 @@ public class TUIOProcessingTest extends PApplet {
 		//neues Ziel setzen wenn unit aktiv
 		for(TestUnit u: units){
 			if(u.isActive()){
-				u.setDestination(vector);				
+				u.commandDestination(vector);				
 			}
 		}
 	}
@@ -247,7 +247,7 @@ public class TUIOProcessingTest extends PApplet {
 			//neues Ziel setzen wenn unit aktiv
 			for(TestUnit u: units){
 				if(u.isActive()){
-					u.setDestination(clickVector);				
+					u.commandDestination(clickVector);				
 				}
 			}	
     	}
