@@ -13,7 +13,7 @@ import processing.core.PVector;
  * @author Andy Klay <klay@fh-brandenburg.de>
  *
  */
-public class TestUnit 
+public class TestUnitOld 
 //implements MouseWheelListener
 {
 
@@ -51,7 +51,7 @@ public class TestUnit
 	protected float activateRadius=15;
 	
 	
-	public TestUnit(int x, int y, int mode){
+	public TestUnitOld(int x, int y, int mode){
 		this.position=new PVector(x,y);
 		this.angle=0;
 		this.mode=mode;
