@@ -1,7 +1,5 @@
 package de.fhb.defenderTouch.start;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Vector;
 
 import processing.core.PApplet;
@@ -16,10 +14,15 @@ import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Navi;
 import de.fhb.defenderTouch.units.grounded.Support;
-import de.fhb.defenderTouch.units.movable.Fighter;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
+import de.fhb.defenderTouch.units.movable.Fighter;
 
 public class TUIOProcessingTest extends PApplet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	TuioProcessing tuioClient;
 	
