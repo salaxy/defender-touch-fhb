@@ -1,9 +1,9 @@
 package de.fhb.defenderTouch.units.grounded;
 
 import processing.core.PApplet;
-import de.fhb.defenderTouch.units.movable.TestUnitBeta;
+import de.fhb.defenderTouch.units.movable.BaseUnit;
 
-public class Building extends TestUnitBeta{
+public class Building extends BaseUnit{
 
 //	private float movementSpeed=0.5f;
 	
