@@ -2,10 +2,12 @@ package de.fhb.defenderTouch.units.movable;
 
 import java.util.ArrayList;
 
+import de.fhb.defenderTouch.graphics.GraphicTools;
+
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class Fighter extends TestUnitBeta {
+public class Fighter extends BaseUnit {
 
 //	private float movementSpeed=5f;
 	
@@ -35,7 +37,7 @@ public class Fighter extends TestUnitBeta {
 		vektoren.add(new PVector(0,8));
 		
 
-		this.zeicheFigurNachVektoren(vektoren);
+		GraphicTools.zeicheFigurNachVektoren(vektoren,display);
 		
 		display.resetMatrix();
 		display.stroke(0);

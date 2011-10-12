@@ -1,5 +1,7 @@
 package de.fhb.defenderTouch.start;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import processing.core.PApplet;
@@ -15,7 +17,7 @@ import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Navi;
 import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.Fighter;
-import de.fhb.defenderTouch.units.movable.TestUnitBeta;
+import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 public class TUIOProcessingTest extends PApplet {
 
@@ -28,10 +30,10 @@ public class TUIOProcessingTest extends PApplet {
 	int width = 1024;
 	int height = 768;
 	PFont font;
-	TestUnitBeta test;
+	BaseUnit test;
 	
 	// zum testen
-	private ArrayList<TestUnitBeta> units=new ArrayList<TestUnitBeta>();
+	private ArrayList<BaseUnit> units=new ArrayList<BaseUnit>();
 	
 	public void setup()
 	{
@@ -55,28 +57,28 @@ public class TUIOProcessingTest extends PApplet {
 	  
 	  
 	  //TestUnitBetas schaffen
-	  units.add(new TestUnitBeta(100,200,TestUnitBeta.MODE_ROTATE,this));
-	  units.add(new TestUnitBeta(200,100,TestUnitBeta.MODE_PULSE,this));
-	  units.add(new TestUnitBeta(300,200,TestUnitBeta.MODE_BOTH,this));
-	  units.add(new TestUnitBeta(200,300,TestUnitBeta.MODE_NONE,this));
-	  units.add(new Fighter(300,400,TestUnitBeta.MODE_NONE,this));
-	  units.add(new Fighter(500,400,TestUnitBeta.MODE_PULSE_IF_ACTIVE,this));
+	  units.add(new BaseUnit(100,200,BaseUnit.MODE_ROTATE,this));
+	  units.add(new BaseUnit(200,100,BaseUnit.MODE_PULSE,this));
+	  units.add(new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,this));
+	  units.add(new BaseUnit(200,300,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Fighter(300,400,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,this));
 	  //BuildingTest
-	  units.add(new Ground(400,700,TestUnitBeta.MODE_NONE,this));
-	  units.add(new Navi(500,700,TestUnitBeta.MODE_NONE,this));
-	  units.add(new Support(600,700,TestUnitBeta.MODE_NONE,this));
-	  units.add(new Defence(700,700,TestUnitBeta.MODE_NONE,this));
+	  units.add(new Ground(400,700,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Navi(500,700,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Support(600,700,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Defence(700,700,BaseUnit.MODE_NORMAL,this));
 	  
 	  //Testflugstaffel
-	  units.add(new Fighter(100,50,TestUnitBeta.MODE_NONE,this));
-	  units.add(new Fighter(200,50,TestUnitBeta.MODE_NONE,this));
-	  units.add(new Fighter(300,50,TestUnitBeta.MODE_NONE,this));
-	  units.add(new Fighter(400,50,TestUnitBeta.MODE_NONE,this));
-	  units.add(new Fighter(500,50,TestUnitBeta.MODE_NONE,this));
-	  units.add(new Fighter(600,50,TestUnitBeta.MODE_HALO,this));
+	  units.add(new Fighter(100,50,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Fighter(200,50,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Fighter(300,50,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Fighter(400,50,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Fighter(500,50,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Fighter(600,50,BaseUnit.MODE_HALO,this));
 	  
 	  
-	  units.add(test=new TestUnitBeta(300,400,TestUnitBeta.MODE_BOTH,this));
+	  units.add(test=new BaseUnit(300,400,BaseUnit.MODE_ROTATE_AND_PULSE,this));
 	  test.commandDestination(new PVector(500,500));
 	  
 	  //kantenglättung aktivieren
@@ -96,7 +98,7 @@ public class TUIOProcessingTest extends PApplet {
 	  float cur_size = cursor_size; 
 	  
 	  //alle Units zeichnen
-	  for(TestUnitBeta u: units){
+	  for(BaseUnit u: units){
 		  u.paint();	  
 	  }
 	 
@@ -176,7 +178,7 @@ public class TUIOProcessingTest extends PApplet {
 	  	boolean wurdeEbendAktiviert=false;	
 	  	boolean warSchonAktiv=false;
 	
-		for(TestUnitBeta u: units){
+		for(BaseUnit u: units){
 			
 			
 			//wenn eine unit aktiviert wird dann die anderen deaktiveren
@@ -196,7 +198,7 @@ public class TUIOProcessingTest extends PApplet {
 		}
 		
 		//neues Ziel setzen wenn unit aktiv
-		for(TestUnitBeta u: units){
+		for(BaseUnit u: units){
 			if(u.isActive()){
 				u.commandDestination(vector);				
 			}
@@ -234,7 +236,7 @@ public class TUIOProcessingTest extends PApplet {
     		
 	    	boolean istSchonEinesAktiv=false;	
 	    	
-			for(TestUnitBeta u: units){
+			for(BaseUnit u: units){
 				
 				//wenn eine unit aktiviert wird dann die anderen deaktiveren
 				if(!istSchonEinesAktiv){
@@ -245,7 +247,7 @@ public class TUIOProcessingTest extends PApplet {
 			}
 			
 			//neues Ziel setzen wenn unit aktiv
-			for(TestUnitBeta u: units){
+			for(BaseUnit u: units){
 				if(u.isActive()){
 					u.commandDestination(clickVector);				
 				}
@@ -255,13 +257,16 @@ public class TUIOProcessingTest extends PApplet {
 
 		
 		if(this.mouseButton==RIGHT){
-			for(TestUnitBeta u: units){
+			for(BaseUnit u: units){
 				u.deactivate();
 			}
 		}
 		
 
     }
+    
+    
+
     
     
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PVector;
+import de.fhb.defenderTouch.graphics.GraphicTools;
 
 public class Navi extends Building{
 
@@ -21,19 +22,13 @@ public class Navi extends Building{
 		display.rotate((float)Math.PI);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
 		vektoren.add(new PVector(0, 0));
-//		vektoren.add(new PVector(0, 0));
 		vektoren.add(new PVector(0,-8));
 		vektoren.add(new PVector(-8,0));
 		vektoren.add(new PVector(0, 0));
 		vektoren.add(new PVector(0,4));
 		vektoren.add(new PVector(4,4));
-		
-//		vektoren.add(new PVector(8,8));
-//		vektoren.add(new PVector(4,6));
-//		vektoren.add(new PVector(0,8));
-		
 
-		this.zeicheFigurNachVektoren(vektoren);
+		GraphicTools.zeicheFigurNachVektoren(vektoren,display);
 		
 		display.resetMatrix();
 		display.stroke(0);

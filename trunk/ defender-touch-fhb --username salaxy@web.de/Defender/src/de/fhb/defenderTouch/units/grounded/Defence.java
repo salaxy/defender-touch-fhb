@@ -2,6 +2,8 @@ package de.fhb.defenderTouch.units.grounded;
 
 import java.util.ArrayList;
 
+import de.fhb.defenderTouch.graphics.GraphicTools;
+
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -33,7 +35,7 @@ public class Defence extends Building{
 		display.noFill();
 		display.ellipse(0,-4 , 8, 8);
 
-		this.zeicheFigurNachVektoren(vektoren);
+		GraphicTools.zeicheFigurNachVektoren(vektoren,display);
 		
 		display.resetMatrix();
 		display.stroke(0);

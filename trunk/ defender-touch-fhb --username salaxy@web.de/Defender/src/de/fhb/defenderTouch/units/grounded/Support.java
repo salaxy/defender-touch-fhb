@@ -2,6 +2,8 @@ package de.fhb.defenderTouch.units.grounded;
 
 import java.util.ArrayList;
 
+import de.fhb.defenderTouch.graphics.GraphicTools;
+
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -31,7 +33,7 @@ public class Support extends Building{
 		vektoren.add(new PVector(-8, 0));
 
 		//zeichnen
-		this.zeicheFigurNachVektoren(vektoren);
+		GraphicTools.zeicheFigurNachVektoren(vektoren,display);
 		
 		//zurücksetzen der Umgebungseinstellungen
 		display.resetMatrix();

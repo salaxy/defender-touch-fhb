@@ -8,19 +8,18 @@ import java.util.List;
 import processing.core.PApplet;
 import processing.core.PVector;
 /**
- *  Unit Version 0.2 vom 13.10.2011
- *  (Erste Einsatzversion)
+ *  BaseUnit Version 0.3 vom 13.10.2011
  *  
  * @author Andy Klay <klay@fh-brandenburg.de>
  *
  */
-public class TestUnitBeta{	
+public class BaseUnit{	
 	
 	
 	/**
 	 * beinhaltet alle Einheiten die existent sind
 	 */
-	public static ArrayList<TestUnitBeta> globalUnits=new ArrayList<TestUnitBeta>();
+	public static ArrayList<BaseUnit> globalUnits=new ArrayList<BaseUnit>();
 	
 	/**
 	 * Ist das Applet auf dem die einheiten zugeordnet sind
@@ -122,7 +121,7 @@ public class TestUnitBeta{
 	
 	
 	
-	public TestUnitBeta(int x, int y, int mode, PApplet disp){
+	public BaseUnit(int x, int y, int mode, PApplet disp){
 		
 		this.display=disp;
 		this.mode=mode;
@@ -132,7 +131,7 @@ public class TestUnitBeta{
 		this.initHaloSkala();
 		
 		//fuegt sich selbst zur globalen Menge der Einheiten hinzu
-		TestUnitBeta.globalUnits.add(this);
+		BaseUnit.globalUnits.add(this);
 	}
 	
 	/**
@@ -148,6 +147,9 @@ public class TestUnitBeta{
 	}
 	
 	
+	/**
+	 * zeichnet die Einheit, wird je Frame 1 mal aufgerufen!
+	 */
 	public void paint(){
 		
 		//neue position berechnen
@@ -489,6 +491,6 @@ public class TestUnitBeta{
 	 * (trägt einheit aus der globalen Einheiten Liste aus)
 	 */
 	public void delete(){
-		TestUnitBeta.globalUnits.remove(this);
+		BaseUnit.globalUnits.remove(this);
 	}
 }
