@@ -7,19 +7,19 @@ import processing.core.PVector;
 
 public class Defence extends Building{
 
-	public Defence(int x, int y, int mode) {
-		super(x, y, mode);
+	public Defence(int x, int y, int mode, PApplet disp){
+		super(x, y, mode, disp);
 		// TODO Auto-generated constructor stub
 	}
 
 	
 	
-	public void drawFigure(PApplet pa){
+	public void drawFigure(){
 		
 
-		this.entscheideLineFarbe(pa);
-		pa.scale(4);
-		pa.rotate((float)Math.PI);
+		this.entscheideLineFarbe();
+		display.scale(4);
+		display.rotate((float)Math.PI);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
 		vektoren.add(new PVector(-4, -4));
 		vektoren.add(new PVector(4, -4));
@@ -30,13 +30,13 @@ public class Defence extends Building{
 		vektoren.add(new PVector(-4,4));
 		
 		
-		pa.noFill();
-		pa.ellipse(0,-4 , 8, 8);
+		display.noFill();
+		display.ellipse(0,-4 , 8, 8);
 
-		this.zeicheFigurNachVektoren(vektoren, pa);
+		this.zeicheFigurNachVektoren(vektoren);
 		
-		pa.resetMatrix();
-		pa.stroke(0);
+		display.resetMatrix();
+		display.stroke(0);
 		
 	}
 

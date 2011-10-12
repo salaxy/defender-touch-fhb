@@ -7,18 +7,18 @@ import processing.core.PVector;
 
 public class Navi extends Building{
 
-	public Navi(int x, int y, int mode) {
-		super(x, y, mode);
+	public Navi(int x, int y, int mode, PApplet disp){
+		super(x, y, mode, disp);
 		// TODO Auto-generated constructor stub
 	}
 	
 	
-	public void drawFigure(PApplet pa){
+	public void drawFigure(){
 		
 
-		this.entscheideLineFarbe(pa);
-		pa.scale(4);
-		pa.rotate((float)Math.PI);
+		this.entscheideLineFarbe();
+		display.scale(4);
+		display.rotate((float)Math.PI);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
 		vektoren.add(new PVector(0, 0));
 //		vektoren.add(new PVector(0, 0));
@@ -33,10 +33,10 @@ public class Navi extends Building{
 //		vektoren.add(new PVector(0,8));
 		
 
-		this.zeicheFigurNachVektoren(vektoren, pa);
+		this.zeicheFigurNachVektoren(vektoren);
 		
-		pa.resetMatrix();
-		pa.stroke(0);
+		display.resetMatrix();
+		display.stroke(0);
 		
 	}
 

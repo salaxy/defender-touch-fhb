@@ -7,20 +7,20 @@ import processing.core.PVector;
 
 public class Support extends Building{
 
-	public Support(int x, int y, int mode) {
-		super(x, y, mode);
+	public Support(int x, int y, int mode, PApplet disp){
+		super(x, y, mode, disp);
 		// TODO Auto-generated constructor stub
 	}
 
 	
-	public void drawFigure(PApplet pa){
+	public void drawFigure(){
 		
 		//farbewechsel bei Aktivierung
-		this.entscheideLineFarbe(pa);
+		this.entscheideLineFarbe();
 		//Skalieren
-		pa.scale(4);
+		display.scale(4);
 		//Nach norden ausrichten
-		pa.rotate((float)Math.PI);
+		display.rotate((float)Math.PI);
 		
 		//Punkte hinzufuegen
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
@@ -31,11 +31,11 @@ public class Support extends Building{
 		vektoren.add(new PVector(-8, 0));
 
 		//zeichnen
-		this.zeicheFigurNachVektoren(vektoren, pa);
+		this.zeicheFigurNachVektoren(vektoren);
 		
 		//zurücksetzen der Umgebungseinstellungen
-		pa.resetMatrix();
-		pa.stroke(0);
+		display.resetMatrix();
+		display.stroke(0);
 		
 	}
 }
