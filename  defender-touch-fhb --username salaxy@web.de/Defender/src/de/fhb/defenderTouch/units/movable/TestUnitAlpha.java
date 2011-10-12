@@ -13,8 +13,7 @@ import processing.core.PVector;
  * @author Andy Klay <klay@fh-brandenburg.de>
  *
  */
-public class TestUnitOld 
-//implements MouseWheelListener
+public class TestUnitAlpha
 {
 
 //	private final float TWO_PI=(float)Math.PI*2;
@@ -51,7 +50,7 @@ public class TestUnitOld
 	protected float activateRadius=15;
 	
 	
-	public TestUnitOld(int x, int y, int mode){
+	public TestUnitAlpha(int x, int y, int mode){
 		this.position=new PVector(x,y);
 		this.angle=0;
 		this.mode=mode;

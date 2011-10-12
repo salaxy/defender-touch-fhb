@@ -1,31 +1,29 @@
 package de.fhb.defenderTouch.units.grounded;
 
-import java.util.ArrayList;
-
 import processing.core.PApplet;
-import processing.core.PVector;
+
 
 public class Ground extends Building{
 
 	
-	public Ground(int x, int y, int mode) {
-		super(x, y, mode);
+	public Ground(int x, int y, int mode, PApplet disp){
+		super(x, y, mode, disp);
 		// TODO Auto-generated constructor stub
 	}
 
-	public void drawFigure(PApplet pa){
+	public void drawFigure(){
 		
-//		pa.stroke(0);
-//		pa.strokeWeight(10);
-//		pa.fill(0);
-		pa.noFill();
-		pa.rotate((float)Math.PI);
-		this.entscheideLineFarbe(pa);
-		pa.scale(4);
-		pa.triangle(-5,+5, 0, -5, +5, +5);
+//		display.stroke(0);
+//		display.strokeWeight(10);
+//		display.fill(0);
+		display.noFill();
+		display.rotate((float)Math.PI);
+		this.entscheideLineFarbe();
+		display.scale(4);
+		display.triangle(-5,+5, 0, -5, +5, +5);
 		
-		pa.resetMatrix();
-		pa.stroke(0);
+		display.resetMatrix();
+		display.stroke(0);
 		
 	}
 	
