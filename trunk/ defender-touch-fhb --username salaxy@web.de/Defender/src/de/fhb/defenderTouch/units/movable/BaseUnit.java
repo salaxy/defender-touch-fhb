@@ -2,8 +2,6 @@ package de.fhb.defenderTouch.units.movable;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PVector;
