@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7"/>
-	<classpathentry kind="lib" path="D:/Informatik Studium/Eclipse Indigo 32 Workspace/Defender/lib/core.jar"/>
-	<classpathentry kind="lib" path="D:/Informatik Studium/Eclipse Indigo 32 Workspace/Defender/lib/libTUIO.jar"/>
-	<classpathentry kind="lib" path="D:/Informatik Studium/Eclipse Indigo 32 Workspace/Defender/lib/TUIO.jar"/>
+	<classpathentry kind="lib" path="lib/core.jar"/>
+	<classpathentry kind="lib" path="lib/libTUIO.jar"/>
+	<classpathentry kind="lib" path="lib/TUIO.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

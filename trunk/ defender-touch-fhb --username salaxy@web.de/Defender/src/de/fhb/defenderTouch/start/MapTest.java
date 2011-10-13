@@ -10,6 +10,7 @@ import TUIO.TuioObject;
 import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
+import de.fhb.defenderTouch.map.Map;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Navi;
@@ -37,6 +38,8 @@ public class MapTest extends PApplet {
 	
 	// zum testen
 	private ArrayList<BaseUnit> units=new ArrayList<BaseUnit>();
+	
+	private Map karte = new Map(32, 24);
 	
 	public void setup()
 	{
@@ -100,18 +103,12 @@ public class MapTest extends PApplet {
 	  float obj_size = object_size; 
 	  float cur_size = cursor_size; 
 	  
+	  karte.paint();
+	  
 	  //alle Units zeichnen
 	  for(BaseUnit u: units){
 		  u.paint();	  
-	  }
-	 
-//	  if (mousePressed) {
-//		    fill(0);
-//		  } else {
-//		    fill(255);
-//		  }
-//	  ellipse(mouseX, mouseY, 80, 80);
-	  
+	  }	  
 	   
 	  Vector tuioObjectList = tuioClient.getTuioObjects(); //gets all objects which are currently on the screen
 	  for (int i=0;i<tuioObjectList.size();i++) {
