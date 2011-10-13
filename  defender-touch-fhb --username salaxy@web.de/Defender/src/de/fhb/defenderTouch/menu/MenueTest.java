@@ -41,14 +41,11 @@ public class MenueTest extends PApplet {
 	private ArrayList<BaseUnit> units = new ArrayList<BaseUnit>();
 
 	public void setup() {
-		// size(screen.width,screen.height);
 		size(width, height); // size of window
 		noStroke(); // draw no borders
-		fill(0); // fill shapes (e.g. rectangles, ellipses) with black
 
 		loop(); // loop the draw-methode
-		frameRate(25);
-		// noLoop();
+		frameRate(60);
 
 		hint(ENABLE_NATIVE_FONTS); // render fonts faster
 		font = createFont("Arial", 18);
@@ -98,91 +95,14 @@ public class MenueTest extends PApplet {
 	 * 
 	 */
 	public void draw() {
-		background(255);
+		background(200);
 		textFont(font, 18);
-		float obj_size = object_size;
-		float cur_size = cursor_size;
 
-		// alle Units zeichnen
-		for (BaseUnit u : units) {
-			u.paint();
-		}
 
+		// create menue for building options
 		menue.drawMenu();
 
-//		 if (mousePressed) {
-//		 fill(0);
-//		 } else {
-//		 fill(255);
-//		 }
-//		 ellipse(mouseX, mouseY, 80, 80);
-
-		Vector tuioObjectList = tuioClient.getTuioObjects(); // gets all objects
-																// which are
-																// currently on
-																// the screen
-		for (int i = 0; i < tuioObjectList.size(); i++) {
-			TuioObject tobj = (TuioObject) tuioObjectList.elementAt(i);
-			stroke(0);
-			fill(0);
-			pushMatrix(); // save old coordinate system (bottom left is 0,0)
-			translate(tobj.getScreenX(width), tobj.getScreenY(height)); // translate
-																		// coordinate-system
-																		// that
-																		// 0,0
-																		// is at
-																		// position
-																		// of
-																		// object
-																		// (easier
-																		// for
-																		// drawing)
-			rotate(tobj.getAngle()); // rotate coordinate system in same angle
-										// than object is
-			// rect(-obj_size/2,-obj_size/2,obj_size,obj_size); //draw rectangle
-			popMatrix(); // restore old coordinate system
-			fill(255);
-			text("" + tobj.getSymbolID(), tobj.getScreenX(width),
-					tobj.getScreenY(height)); // draw objectID at position of
-												// object
-		}
-
-		Vector tuioCursorList = tuioClient.getTuioCursors(); // gets all cursors
-																// (fingers)
-																// which are
-																// currently on
-																// the screen
-		for (int i = 0; i < tuioCursorList.size(); i++) {
-			TuioCursor tcur = (TuioCursor) tuioCursorList.elementAt(i);
-			Vector pointList = tcur.getPath(); // get path of cursors (the
-												// positions they have already
-												// been in the past)
-
-			// if points exist (no points will exists when cursor not moved)
-			if (pointList.size() > 0) { // draw path
-				stroke(0, 0, 255);
-				TuioPoint start_point = (TuioPoint) pointList.firstElement();
-				for (int j = 0; j < pointList.size(); j++) {
-					TuioPoint end_point = (TuioPoint) pointList.elementAt(j);
-					line(start_point.getScreenX(width),
-							start_point.getScreenY(height),
-							end_point.getScreenX(width),
-							end_point.getScreenY(height));
-					start_point = end_point;
-				}
-
-				stroke(192, 192, 192); // border is grey
-				fill(192, 192, 192); // fill with grey
-				ellipse(tcur.getScreenX(width), tcur.getScreenY(height),
-						cur_size, cur_size); // draw ellipse at (current)
-												// position of cursor
-				fill(0);
-				text("" + tcur.getCursorID(), tcur.getScreenX(width) - 5,
-						tcur.getScreenY(height) + 5); // draw id and position at
-														// current position of
-														// cursor
-			}
-		}
+		
 
 	}
 
@@ -275,36 +195,13 @@ public class MenueTest extends PApplet {
 	public void mouseClicked() {
 		PVector clickVector = new PVector(this.mouseX, this.mouseY);
 		
-		menue.showMenu(clickVector);
+		
 			
 		if (this.mouseButton == LEFT) {
 
+			menue.showMenuPoint(clickVector);
 
-
-			// boolean istSchonEinesAktiv=false;
-			//
-			// for(BaseUnit u: units){
-			//
-			// //wenn eine unit aktiviert wird dann die anderen deaktiveren
-			// if(!istSchonEinesAktiv){
-			// istSchonEinesAktiv=u.isInner(clickVector);
-			// }else{
-			// u.deactivate();
-			// }
-			// }
-			//
-			// //neues Ziel setzen wenn unit aktiv
-			// for(BaseUnit u: units){
-			// if(u.isActive()){
-			// u.commandDestination(clickVector);
-			// }
-			// }
-		}
-
-		if (this.mouseButton == RIGHT) {
-			// for(BaseUnit u: units){
-			// u.deactivate();
-			// }
+			
 		}
 
 	}
