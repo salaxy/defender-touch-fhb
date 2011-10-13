@@ -41,7 +41,7 @@ public class TUIOProcessingTest extends PApplet {
 	public void setup()
 	{
 	  //size(screen.width,screen.height);
-	  size(width,height); //size of window
+	  size(width,height, JAVA2D); //size of window
 	  noStroke(); //draw no borders
 	  fill(0); //fill shapes (e.g. rectangles, ellipses) with black
 	  
