@@ -7,7 +7,7 @@ import processing.core.PVector;
 public class Menu {
 
 	/**
-	 * Ist das Applet auf dem die einheiten zugeordnet sind
+	 * Ist das Applet auf dem die Einheiten zugeordnet sind
 	 */
 	protected PApplet display;
 
@@ -21,6 +21,9 @@ public class Menu {
 	 */
 	protected boolean visible = false;
 
+	/**
+	 * Konstruktor
+	 */
 	public Menu(PApplet display) {
 		this.position = new PVector(0, 0);
 		this.display = display;
@@ -28,42 +31,56 @@ public class Menu {
 	}
 
 	/**
-	 * Menu anzeigen
+	 * Menupunkt anzeigen
 	 */
-	public void showMenu(PVector position) {
+	public void showMenuPoint(PVector position) {
 		this.position = position;
 		this.visible = true;
-
+		// showMenu();
 	}
 
 	/**
-	 * Menu verstecken
+	 * Menu anzeigen
 	 */
-	public void hideMenu() {
+	public void showMenu() {
 
-		this.visible = false;
+		display.ellipseMode(PConstants.CENTER);
+		display.translate(this.position.x - 30, this.position.y);
 
+		display.ellipse(0, 0, 20, 20);
+
+		display.translate(this.position.x - 30, this.position.y);
 	}
+
+	// /**
+	// * Menu verstecken
+	// */
+	// public void hideMenu() {
+	//
+	// this.visible = false;
+	//
+	// }
 
 	/**
 	 * nur Aufruf wenn auch wirklich zeichnen
 	 */
 	public void drawMenu() {
 
-			display.ellipseMode(PConstants.CENTER);
-			display.translate(this.position.x, this.position.y);
-//			System.out.println("hier");
-		// showMenu();
-		// TODO: Kreis machen
+		display.ellipseMode(PConstants.CENTER);
+		display.translate(this.position.x, this.position.y);
 
 		if (visible) {
 
 			display.noFill();
-			display.fill(0);
-			display.stroke(0);
+			display.stroke(100);
 
 			display.ellipse(0, 0, 20, 20);
+			display.ellipse(30, -35, 30, 30);
+			display.ellipse(30, 0, 30, 30);
+			display.ellipse(30, 35, 30, 30);
 		}
+
+		
 
 	}
 
