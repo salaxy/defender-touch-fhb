@@ -49,37 +49,9 @@ public class MenueTest extends PApplet {
 
 		hint(ENABLE_NATIVE_FONTS); // render fonts faster
 		font = createFont("Arial", 18);
+		
 
-		// we create an instance of the TuioProcessing client
-		// since we add "this" class as an argument the TuioProcessing class
-		// expects
-		// an implementation of the TUIO callback methods (see below)
 		tuioClient = new TuioProcessing(this); // listens to port 3333
-
-		// //TestUnitBetas schaffen
-		// units.add(new BaseUnit(100,200,BaseUnit.MODE_ROTATE,this));
-		// units.add(new BaseUnit(200,100,BaseUnit.MODE_PULSE,this));
-		// units.add(new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,this));
-		// units.add(new BaseUnit(200,300,BaseUnit.MODE_NORMAL,this));
-		// units.add(new Fighter(300,400,BaseUnit.MODE_NORMAL,this));
-		// units.add(new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,this));
-		// //BuildingTest
-		// units.add(new Ground(400,700,BaseUnit.MODE_NORMAL,this));
-		// units.add(new Navi(500,700,BaseUnit.MODE_NORMAL,this));
-		// units.add(new Support(600,700,BaseUnit.MODE_NORMAL,this));
-		// units.add(new Defence(700,700,BaseUnit.MODE_NORMAL,this));
-		//
-		// //Testflugstaffel
-		// units.add(new Fighter(100,50,BaseUnit.MODE_NORMAL,this));
-		// units.add(new Fighter(200,50,BaseUnit.MODE_NORMAL,this));
-		// units.add(new Fighter(300,50,BaseUnit.MODE_NORMAL,this));
-		// units.add(new Fighter(400,50,BaseUnit.MODE_NORMAL,this));
-		// units.add(new Fighter(500,50,BaseUnit.MODE_NORMAL,this));
-		// units.add(new Fighter(600,50,BaseUnit.MODE_HALO,this));
-
-		// units.add(test=new
-		// BaseUnit(300,400,BaseUnit.MODE_ROTATE_AND_PULSE,this));
-		// test.commandDestination(new PVector(500,500));
 
 		menue = new Menu(this);
 
@@ -96,8 +68,10 @@ public class MenueTest extends PApplet {
 	 */
 	public void draw() {
 		background(200);
-		textFont(font, 18);
-
+		textFont(font, 15);
+		
+		textAlign(CENTER);
+		text("Dein aktuelles Gold: 200",width/2,15);
 
 		// create menue for building options
 		menue.drawMenu();
