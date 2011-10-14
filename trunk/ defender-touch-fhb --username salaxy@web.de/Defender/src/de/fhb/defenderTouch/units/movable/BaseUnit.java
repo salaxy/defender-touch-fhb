@@ -5,13 +5,14 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PVector;
+import de.fhb.defenderTouch.interfaces.Drawable;
 /**
  *  BaseUnit Version 0.3 vom 13.10.2011
  *  
  * @author Andy Klay <klay@fh-brandenburg.de>
  *
  */
-public class BaseUnit{	
+public class BaseUnit implements Drawable{	
 	
 	
 	/**

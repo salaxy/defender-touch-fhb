@@ -3,12 +3,13 @@ package de.fhb.defenderTouch.menu;
 import java.util.ArrayList;
 
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.interfaces.Drawable;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PVector;
 
-public class Menu {
+public class Menu implements Drawable{
 
 	/**
 	 * Ist das Applet auf dem die Einheiten zugeordnet sind
@@ -62,7 +63,7 @@ public class Menu {
 	/**
 	 * nur Aufruf wenn auch wirklich zeichnen
 	 */
-	public void drawMenu() {
+	public void paint() {
 
 		mainPoint.ellipseMode(PConstants.CENTER);
 		mainPoint.translate(this.position.x, this.position.y);

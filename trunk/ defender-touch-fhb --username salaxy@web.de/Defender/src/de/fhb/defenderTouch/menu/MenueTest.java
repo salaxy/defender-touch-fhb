@@ -74,7 +74,7 @@ public class MenueTest extends PApplet {
 		text("Dein aktuelles Gold: 200",width/2,15);
 
 		// create menue for building options
-		menue.drawMenu();
+		menue.paint();
 
 		
 
