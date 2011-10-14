@@ -1,5 +1,9 @@
 package de.fhb.defenderTouch.menu;
 
+import java.util.ArrayList;
+
+import de.fhb.defenderTouch.graphics.GraphicTools;
+
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PVector;
@@ -9,7 +13,8 @@ public class Menu {
 	/**
 	 * Ist das Applet auf dem die Einheiten zugeordnet sind
 	 */
-	protected PApplet display;
+	protected PApplet mainPoint;
+	protected PApplet mainPoints;
 
 	/**
 	 * aktuelle Position der Einheit
@@ -20,14 +25,24 @@ public class Menu {
 	 * aktuelle Sichtbarkeit
 	 */
 	protected boolean visible = false;
+	
+	/**
+	 * Aktivierungsradius eines Menupunkts
+	 */
+	protected float activateRadius=35;
+	
+	/**
+	 * sagt aus ob ein Menupunkt geklickt wurde
+	 */
+	protected boolean active=false;
 
 	/**
 	 * Konstruktor
 	 */
 	public Menu(PApplet display) {
 		this.position = new PVector(0, 0);
-		this.display = display;
-
+		this.mainPoint = display;
+		this.mainPoints = display;
 	}
 
 	/**
@@ -36,52 +51,50 @@ public class Menu {
 	public void showMenuPoint(PVector position) {
 		this.position = position;
 		this.visible = true;
-		// showMenu();
 	}
 
-	/**
-	 * Menu anzeigen
-	 */
-	public void showMenu() {
-
-		display.ellipseMode(PConstants.CENTER);
-		display.translate(this.position.x - 30, this.position.y);
-
-		display.ellipse(0, 0, 20, 20);
-
-		display.translate(this.position.x - 30, this.position.y);
-	}
-
-	// /**
-	// * Menu verstecken
-	// */
-	// public void hideMenu() {
-	//
-	// this.visible = false;
-	//
-	// }
 
 	/**
 	 * nur Aufruf wenn auch wirklich zeichnen
 	 */
 	public void drawMenu() {
 
-		display.ellipseMode(PConstants.CENTER);
-		display.translate(this.position.x, this.position.y);
-
+		mainPoint.ellipseMode(PConstants.CENTER);
+		mainPoint.translate(this.position.x, this.position.y);
+		
 		if (visible) {
 
-			display.noFill();
-			display.stroke(100);
+			mainPoint.noFill();
+			mainPoint.stroke(100);
+			mainPoints.rotate((float)Math.PI/2);
 
-			display.ellipse(0, 0, 20, 20);
-			display.ellipse(30, -35, 30, 30);
-			display.ellipse(30, 0, 30, 30);
-			display.ellipse(30, 35, 30, 30);
+			mainPoint.ellipse(0, 0, 20, 20);
+			mainPoint.ellipse(-35, -35, 30, 30);
+			mainPoints.triangle(-40,-30, -35, -40, -30, -30);
+			mainPoint.ellipse(0, -35, 30, 30);
+			mainPoint.ellipse(35, -35, 30, 30);
+			
+			
+			
+			
 		}
 
+	}
+	
+	/**
+	 * 
+	 * @param clickVector
+	 * @return
+	 */
+	public boolean isInner(PVector clickVector){
 		
-
+		if(position.dist(clickVector)<this.activateRadius){
+			//Einheit für die Steureung aktivieren
+			active=true;
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }
