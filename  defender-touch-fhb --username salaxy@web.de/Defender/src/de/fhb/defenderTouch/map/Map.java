@@ -2,8 +2,9 @@ package de.fhb.defenderTouch.map;
 
 import processing.core.PApplet;
 import processing.core.PVector;
+import de.fhb.defenderTouch.interfaces.Drawable;
 
-public class Map {
+public class Map implements  Drawable{
 	/**
 	 *  Das Applet, auf dem diese Karte anzeigt werden soll.
 	 */
