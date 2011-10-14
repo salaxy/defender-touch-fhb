@@ -27,6 +27,11 @@ public class Menu {
 	protected boolean visible = false;
 	
 	/**
+	 * aktuelle Sichtbarkeit
+	 */
+	protected boolean menuOpen = false;
+	
+	/**
 	 * Aktivierungsradius eines Menupunkts
 	 */
 	protected float activateRadius=35;
@@ -62,8 +67,9 @@ public class Menu {
 		mainPoint.ellipseMode(PConstants.CENTER);
 		mainPoint.translate(this.position.x, this.position.y);
 		
-		if (visible) {
+		if (visible && menuOpen == false) {
 
+			menuOpen = true;
 			mainPoint.noFill();
 			mainPoint.stroke(100);
 			mainPoints.rotate((float)Math.PI/2);
