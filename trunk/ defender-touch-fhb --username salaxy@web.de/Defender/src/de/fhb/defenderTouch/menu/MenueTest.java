@@ -1,22 +1,15 @@
 package de.fhb.defenderTouch.menu;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PVector;
 import TUIO.TuioCursor;
 import TUIO.TuioObject;
-import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
-import de.fhb.defenderTouch.units.grounded.Defence;
-import de.fhb.defenderTouch.units.grounded.Ground;
-import de.fhb.defenderTouch.units.grounded.Navi;
-import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
-import de.fhb.defenderTouch.units.movable.Fighter;
 
 public class MenueTest extends PApplet {
 
@@ -45,11 +38,10 @@ public class MenueTest extends PApplet {
 		noStroke(); // draw no borders
 
 		loop(); // loop the draw-methode
-		frameRate(60);
+		frameRate(25);
 
 		hint(ENABLE_NATIVE_FONTS); // render fonts faster
 		font = createFont("Arial", 18);
-		
 
 		tuioClient = new TuioProcessing(this); // listens to port 3333
 
@@ -69,14 +61,12 @@ public class MenueTest extends PApplet {
 	public void draw() {
 		background(200);
 		textFont(font, 15);
-		
+
 		textAlign(CENTER);
-		text("Dein aktuelles Gold: 200",width/2,15);
+		text("Dein aktuelles Gold: 200", width / 2, 15);
 
 		// create menue for building options
-		menue.paint();
-
-		
+		menue.drawMenu();
 
 	}
 
@@ -168,14 +158,34 @@ public class MenueTest extends PApplet {
 	// mausclick ueberschreiben
 	public void mouseClicked() {
 		PVector clickVector = new PVector(this.mouseX, this.mouseY);
-		
-		
-			
+
 		if (this.mouseButton == LEFT) {
 
-			menue.showMenuPoint(clickVector);
-
+			// if menu is not already open, just open it
+			// if its open, dont do anything
+			if (menue.isMenuOpen() == false) {
+				menue.showMenuPoint(clickVector);
+				System.out.println("menu offen");
+			}
 			
+			//building a Building
+			if (menue.isMenuOpen() && menue.isInnerGroundUnit(clickVector)) {
+				System.out.println("Building a Ground Unit if enough Gold");
+				menue.createGroundUnit();
+				
+			}
+			
+
+		}
+
+		if (this.mouseButton == RIGHT) {
+
+			// if menu is open und click in menu point -> close it
+			if (menue.isMenuOpen() == true && menue.isInner(clickVector)) {
+				menue.setMenuOpen(false);
+				System.out.println("menu geschlossen");
+			}
+
 		}
 
 	}
