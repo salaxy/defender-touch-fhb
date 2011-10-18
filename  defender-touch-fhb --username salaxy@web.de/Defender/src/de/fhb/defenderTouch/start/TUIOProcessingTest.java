@@ -81,8 +81,8 @@ public class TUIOProcessingTest extends PApplet {
 	  units.add(new Fighter(600,50,BaseUnit.MODE_HALO,this));
 	  
 	  
-	  units.add(test=new BaseUnit(300,400,BaseUnit.MODE_ROTATE_AND_PULSE,this));
-	  test.commandDestination(new PVector(500,500));
+//	  units.add(test=new BaseUnit(300,400,BaseUnit.MODE_ROTATE_AND_PULSE,this));
+//	  test.commandDestination(new PVector(500,500));
 	  
 	  //kantenglättung aktivieren
 	  this.smooth();

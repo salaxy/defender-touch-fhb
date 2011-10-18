@@ -21,6 +21,11 @@ public class BaseUnit implements Drawable{
 	public static ArrayList<BaseUnit> globalUnits=new ArrayList<BaseUnit>();
 	
 	/**
+	 * beinhaltet alle Einheiten die existent sind
+	 */
+	public static int idCounter=0;
+	
+	/**
 	 * Ist das Applet auf dem die einheiten zugeordnet sind
 	 */
 	protected PApplet display;
@@ -119,6 +124,17 @@ public class BaseUnit implements Drawable{
 	protected float activateRadius=15;
 	
 	
+	/**
+	 * Kollisionssradius um das Zentrum der Einheit
+	 */
+	protected float collisionRadius=15;
+	
+	/**
+	 * jede einheit hat eine eindeutige ID zur identifizierung
+	 */
+	protected int id;
+	
+	
 	
 	public BaseUnit(int x, int y, int mode, PApplet disp){
 		
@@ -129,6 +145,10 @@ public class BaseUnit implements Drawable{
 		this.berechneNeueBlickrichtung();
 		this.initHaloSkala();
 		
+		//Id verpassen
+		this.id=BaseUnit.idCounter;
+		//und ids weiter zählen
+		BaseUnit.idCounter++;
 		//fuegt sich selbst zur globalen Menge der Einheiten hinzu
 		BaseUnit.globalUnits.add(this);
 	}
@@ -370,14 +390,45 @@ public class BaseUnit implements Drawable{
 	 */
 	protected void calcNewPosition(){
 		
+		PVector newPosition;
+		
 		//wenn aktuelle position noch weit weg vom ziel, dann weiter bewegen
 		if(position.dist(destinationVector)>3){
 			
-			//normierten Richtungsvector zur position hinzurechnen
-			position.add(PVector.mult(direction, movementSpeed));
-			//zeichne Schweif
-			drawTail();
+			//neue Position erechnen, normierten Richtungsvector zur position hinzurechnen
+			newPosition=PVector.add(this.position, PVector.mult(direction, movementSpeed));
+			
+			if(!isCollision(newPosition)){
+
+				//neue Position setzen
+				this.position=newPosition;
+				//zeichne Schweif
+				drawTail();				
+			}else{
+				//falls Kollision vorliegt dann bewegung stoppen 
+				// reset des zielvector (auf aktuelle position)
+				this.destinationVector=this.position;
+			}
+
 		}
+	}
+	
+	private boolean isCollision(PVector newPosition){
+		
+		for(BaseUnit unit : BaseUnit.globalUnits){
+			//wenn nicht diese Unit (die ist in der menge mit drin)
+			if(this.id!=unit.id){
+				//und wenn entfernung kleiner ist als die kollisionsradien der beiden einheiten zusammen
+				if(PVector.dist(unit.position, newPosition)<(unit.collisionRadius+this.collisionRadius)){
+					System.out.println("UNIT " + this.id + " is in collision at "+ newPosition+" with UNIT " + unit.id + " at " + unit.position);
+					//dann ist es eine moegliche kollison
+					return true;
+				}	
+			}
+
+		}
+		
+		return false;
 	}
 
 	/**
@@ -492,4 +543,6 @@ public class BaseUnit implements Drawable{
 	public void delete(){
 		BaseUnit.globalUnits.remove(this);
 	}
+	
+
 }
