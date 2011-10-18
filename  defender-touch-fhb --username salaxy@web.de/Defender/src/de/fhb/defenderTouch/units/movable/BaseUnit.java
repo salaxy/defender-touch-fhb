@@ -398,21 +398,23 @@ public class BaseUnit implements Drawable{
 			//neue Position erechnen, normierten Richtungsvector zur position hinzurechnen
 			newPosition=PVector.add(this.position, PVector.mult(direction, movementSpeed));
 			
+			//wenn keien kollision dann bewegen
 			if(!isCollision(newPosition)){
 
 				//neue Position setzen
 				this.position=newPosition;
 				//zeichne Schweif
 				drawTail();				
-			}else{
-				//falls Kollision vorliegt dann bewegung stoppen 
-				// reset des zielvector (auf aktuelle position)
-				this.destinationVector=this.position;
 			}
 
 		}
 	}
 	
+	/**
+	 * Methode sagt vorraus ob Unit kollidieren würde mit einer anderen Unit
+	 * @param newPosition
+	 * @return
+	 */
 	private boolean isCollision(PVector newPosition){
 		
 		for(BaseUnit unit : BaseUnit.globalUnits){
@@ -421,11 +423,18 @@ public class BaseUnit implements Drawable{
 				//und wenn entfernung kleiner ist als die kollisionsradien der beiden einheiten zusammen
 				if(PVector.dist(unit.position, newPosition)<(unit.collisionRadius+this.collisionRadius)){
 					System.out.println("UNIT " + this.id + " is in collision at "+ newPosition+" with UNIT " + unit.id + " at " + unit.position);
-					//dann ist es eine moegliche kollison
-					return true;
+							
+					//nur wenn die naechste position nicht weiter entfernt sein wird, soll sich unit nicht mehr weiter bewegen
+					if(!(PVector.dist(unit.position, newPosition)>PVector.dist(unit.position, this.position))){
+						// Kollision liegt vor, bewegung stoppen 
+						// reset des zielvector (auf aktuelle position)
+						this.destinationVector=this.position;
+					
+						//dann ist es eine moegliche kollison
+						return true;
+					}//sonstwenn die naechste position weiter entfernt sein würde, darf unit sich aber bewegen
 				}	
 			}
-
 		}
 		
 		return false;
