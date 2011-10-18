@@ -66,7 +66,7 @@ public class Menu {
 
 		mainPoint.ellipseMode(PConstants.CENTER);
 		mainPoint.translate(this.position.x, this.position.y);
-		// System.out.println(isMenuOpen());
+		
 		if (menuOpen) {
 
 			mainPoint.noFill();
