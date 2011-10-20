@@ -18,19 +18,19 @@ public class Map implements  Drawable{
 	/**
 	 * Position der linken oberen Kartenecke.
 	 */
-	protected PVector position = new PVector(15, 15);
+	protected PVector position = new PVector(16, 16);
 
 	/**
 	 * Array mit allen Components (Kartenbestandteile)
 	 */
-	protected MapComponent[][] karte;
+	protected MapComponent[][] karte = new MapComponent[32][24];
 	
 	/**
 	 * Konstruktor
 	 * @param width Breite (32 für 1024x768)
 	 * @param height Höhe (24 für 1024x768)
 	 */
-	public Map(int width, int height) {
+	public Map(PApplet display, int width, int height) {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				karte[x][y] = new MapComponent(display, this);
@@ -49,4 +49,21 @@ public class Map implements  Drawable{
 		}
 	}
 	
+	/**
+	 * 
+	 */
+	public PVector WorldCoordinatesToScreenCoordinates(PVector worldCoodinates) {
+	
+		
+		return new PVector();
+	}
+	
+	/**
+	 * 
+	 */
+	public PVector ScreenCoodinatesToMapCoodinates(PVector screenCoordinates) {
+		
+		
+		return new PVector();
+	}
 }

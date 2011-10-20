@@ -1,6 +1,9 @@
 package de.fhb.defenderTouch.map;
 
 import java.awt.Color;
+import java.util.ArrayList;
+
+import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -16,6 +19,11 @@ public class MapComponent {
 	 * Referenz auf das Map-Objekt, zu dem das Component gehört.
 	 */
 	protected Map map;
+	
+	/**
+	 * Einheiten, die sich auf diesem MapComponent befinden.
+	 */
+	private ArrayList<BaseUnit> units=new ArrayList<BaseUnit>();
 	
 	/**
 	 * Darüber dürfen Einheiten laufen.
@@ -43,6 +51,11 @@ public class MapComponent {
 	protected Color borderColorHighlightened = Color.RED;
 	
 	/**
+	 * Hintergrundfarbe
+	 */
+	protected Color backgroundColor = new Color(64, 128, 64);
+	
+	/**
 	 * Konstruktor für ein Component (Kartenbestandteil)
 	 */
 	public MapComponent(PApplet display, Map map) {
@@ -57,6 +70,7 @@ public class MapComponent {
 		display.translate(position.x, position.y);
 		display.rotate(map.angle);
 		
+		display.fill(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue());
 		
 		if (isHighlighted)
 			display.stroke(borderColorHighlightened.getRed(), borderColorHighlightened.getGreen(), borderColorHighlightened.getBlue());
@@ -64,7 +78,9 @@ public class MapComponent {
 			display.stroke(borderColor.getRed(), borderColor.getGreen(), borderColor.getBlue());
 			
 		display.rect(0, 0, 31, 31);
-
+		display.rect(0, 0, 19, 19);
+		/*display
+*/
 		display.resetMatrix();
 	}
 	
