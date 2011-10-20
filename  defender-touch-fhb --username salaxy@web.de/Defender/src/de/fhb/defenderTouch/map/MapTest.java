@@ -1,12 +1,7 @@
 package de.fhb.defenderTouch.map;
 
-import processing.core.PApplet;
-import processing.core.PFont;
-import processing.core.PVector;
-import TUIO.TuioCursor;
-import TUIO.TuioObject;
-import TUIO.TuioProcessing;
-import TUIO.TuioTime;
+import TUIO.*;
+import processing.core.*;
 
 public class MapTest extends PApplet {
 
@@ -25,12 +20,11 @@ public class MapTest extends PApplet {
 	int height = 768;
 	PFont font;
 	
-	private Map karte = new Map(32, 24);
+	private Map karte = new Map(this, 32, 24);
 	
 	public void setup()
 	{
 	  size(width,height, JAVA2D); //size of window
-	  fill(0); //fill shapes (e.g. rectangles, ellipses) with black
 	  
 	  loop(); //loop the draw-methode
 	  frameRate(25);
@@ -55,7 +49,7 @@ public class MapTest extends PApplet {
 	 */
 	public void draw()
 	{
-	  background(255);
+	  background(128);
 	  textFont(font,18);
 	  
 	  karte.paint();
@@ -104,7 +98,7 @@ public class MapTest extends PApplet {
 	
     /** Start PApplet as a Java program (can also be run as an applet). */
     static public void main(String args[]) {
-        PApplet.main(new String[] { "de.fhb.defenderTouch.start.TUIOProcessingTest" });
+        PApplet.main(new String[] { "de.fhb.defenderTouch.map.MapTest" });
     }
     
     //mausclick ueberschreiben
