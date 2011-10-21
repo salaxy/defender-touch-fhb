@@ -103,6 +103,6 @@ public class MapTest extends PApplet {
     
     //mausclick ueberschreiben
     public void mouseClicked(){
-    	PVector clickVector=new PVector(this.mouseX,this.mouseY);
+    	//PVector clickVector=new PVector(this.mouseX,this.mouseY);
     }
 }
