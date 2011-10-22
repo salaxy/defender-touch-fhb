@@ -52,12 +52,12 @@ public class Menu {
 	 * aktuelle Position der Einheit
 	 */
 	protected PVector menue6;
-	
+
 	/**
 	 * 
 	 */
 	protected PApplet builtBuildings;
-
+	ArrayList<PVector> bBuildings = new ArrayList<PVector>();
 
 	/**
 	 * aktuelle Sichtbarkeit
@@ -78,7 +78,7 @@ public class Menu {
 	 * Aktivierungsradius eines Menupunkts
 	 */
 	protected float activateRadiusBuildings = 35;
-	
+
 	/**
 	 * Aktivierungsradius eines Menupunkts
 	 */
@@ -98,7 +98,6 @@ public class Menu {
 		menue4 = new PVector(-100, -100);
 		menue5 = new PVector(-100, -100);
 		menue6 = new PVector(-100, -100);
-		
 
 	}
 
@@ -113,6 +112,7 @@ public class Menu {
 	/**
 	 * is always been done
 	 */
+	@SuppressWarnings("deprecation")
 	public void drawMenu() {
 
 		mainPoint.ellipseMode(PConstants.CENTER);
@@ -122,8 +122,6 @@ public class Menu {
 
 			mainPoint.noFill();
 			mainPoint.stroke(100);
-			
-			
 
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
@@ -151,7 +149,7 @@ public class Menu {
 			menue1.add(position);
 			// System.out.println(menue1+"");
 			mainPoint.ellipse(0, DISTANCE, 38, 38);
-			mainPoint.triangle(-5,DISTANCE+5, 0, DISTANCE-5, +5, DISTANCE+5);
+			mainPoint.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
 
@@ -163,16 +161,16 @@ public class Menu {
 			menue2.add(position);
 			// System.out.println(menue2+"");
 			mainPoint.ellipse(0, DISTANCE, 38, 38);
-			ArrayList<PVector> vektoren1=new ArrayList<PVector>();
-			vektoren1.add(new PVector(-4, DISTANCE-4));
-			vektoren1.add(new PVector(4, DISTANCE-4));
-			vektoren1.add(new PVector(0,DISTANCE-4));
-			vektoren1.add(new PVector(0,DISTANCE-8));
-			vektoren1.add(new PVector(0, DISTANCE+4));
-			vektoren1.add(new PVector(4,DISTANCE+4));
-			vektoren1.add(new PVector(-4,DISTANCE+4));
-			mainPoint.ellipse(0,DISTANCE-4 , 8, 8);
-			GraphicTools.zeicheFigurNachVektoren(vektoren1,mainPoint);
+			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
+			vektoren1.add(new PVector(-4, DISTANCE - 4));
+			vektoren1.add(new PVector(4, DISTANCE - 4));
+			vektoren1.add(new PVector(0, DISTANCE - 4));
+			vektoren1.add(new PVector(0, DISTANCE - 8));
+			vektoren1.add(new PVector(0, DISTANCE + 4));
+			vektoren1.add(new PVector(4, DISTANCE + 4));
+			vektoren1.add(new PVector(-4, DISTANCE + 4));
+			mainPoint.ellipse(0, DISTANCE - 4, 8, 8);
+			GraphicTools.zeicheFigurNachVektoren(vektoren1, mainPoint);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
 
@@ -184,13 +182,13 @@ public class Menu {
 			menue3.add(position);
 			// System.out.println(menue3+"");
 			mainPoint.ellipse(0, DISTANCE, 38, 38);
-			ArrayList<PVector> vektoren2=new ArrayList<PVector>();
-			vektoren2.add(new PVector(0, DISTANCE-8));
-			vektoren2.add(new PVector(0, DISTANCE+8));
+			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
+			vektoren2.add(new PVector(0, DISTANCE - 8));
+			vektoren2.add(new PVector(0, DISTANCE + 8));
 			vektoren2.add(new PVector(0, DISTANCE));
-			vektoren2.add(new PVector(8,DISTANCE));
+			vektoren2.add(new PVector(8, DISTANCE));
 			vektoren2.add(new PVector(-8, DISTANCE));
-			GraphicTools.zeicheFigurNachVektoren(vektoren2,mainPoint);
+			GraphicTools.zeicheFigurNachVektoren(vektoren2, mainPoint);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
 
@@ -253,15 +251,20 @@ public class Menu {
 			// mainPoint.translate(35, 20);
 			// mainPoint.ellipse(0, 0, 30, 30);
 
-			//mainPoint.translate(-35, -15);
+			// mainPoint.translate(-35, -15);
 
 			// System.out.println(this.position.x + " und " + this.position.y);
+		} else {
+			// bBuildings.translate(this.position.x, this.position.y);
+			// mainPoint.translate(this.position.x, this.position.y);
+			// builtBuildings.show();
+
+			// bBuildings.add(new PVector(-4,4));
+			// mainPoint.ellipse(0,DISTANCE-4 , 8, 8);
+			// GraphicTools.zeicheFigurNachVektoren(bBuildings,mainPoint);
+			// // builtBuildings.triangle(-5,+5, 0, -5, +5, +5);
 		}
-		else{
-			builtBuildings.translate(this.position.x, this.position.y);
-//			builtBuildings.triangle(-5,+5, 0, -5, +5, +5);
-		}
-		
+
 	}
 
 	/**
@@ -272,15 +275,22 @@ public class Menu {
 	public boolean isInner(PVector clickVector) {
 
 		if (this.isMenuOpen()) {
-			
-			//builtBuildings.translate(this.position.x, this.position.y);
+
+			// builtBuildings.translate(this.position.x, this.position.y);
 
 			if (this.menue1.dist(clickVector) < this.activatediameterMenu / 2) {
 				System.out.println("Menue 1");
+				// builtBuildings.pushMatrix();
+				// builtBuildings.triangle(-5,+5, 0, -5, +5, +5);
+				// builtBuildings.pushMatrix();
+
 				builtBuildings.pushMatrix();
-				builtBuildings.triangle(-5,+5, 0, -5, +5, +5);
-				builtBuildings.pushMatrix();
-				
+				builtBuildings.translate(this.position.x, this.position.y);
+				builtBuildings.triangle(-5, 5, 0, -5, 5, 5);
+				mainPoint.resetMatrix();
+
+				System.out.println("Etwas gebaut!");
+
 				setMenuOpen(false);
 			}
 
@@ -316,24 +326,25 @@ public class Menu {
 		}
 	}
 
-//	/**
-//	 * 
-//	 * @param clickVector
-//	 * @return
-//	 */
-//	public boolean isInnerGroundUnit(PVector clickVector) {
-//		PVector helpPosition = new PVector(0, 0);
-//		helpPosition.x = position.x + 35;
-//		helpPosition.y = position.y - 35;
-//		System.out.println(position.x + " und " + position.y + " oder " + helpPosition.x + " und " + helpPosition.y + " ist "
-//				+ helpPosition.dist(clickVector));
-//		if (helpPosition.dist(clickVector) < this.activateRadiusBuildings / 2) {
-//			createGroundUnit();
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
+	// /**
+	// *
+	// * @param clickVector
+	// * @return
+	// */
+	// public boolean isInnerGroundUnit(PVector clickVector) {
+	// PVector helpPosition = new PVector(0, 0);
+	// helpPosition.x = position.x + 35;
+	// helpPosition.y = position.y - 35;
+	// System.out.println(position.x + " und " + position.y + " oder " +
+	// helpPosition.x + " und " + helpPosition.y + " ist "
+	// + helpPosition.dist(clickVector));
+	// if (helpPosition.dist(clickVector) < this.activateRadiusBuildings / 2) {
+	// createGroundUnit();
+	// return true;
+	// } else {
+	// return false;
+	// }
+	// }
 
 	public void createGroundUnit() {
 		// verweis auf andies klasse
