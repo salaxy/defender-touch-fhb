@@ -210,7 +210,7 @@ public class MenueTest extends PApplet {
 
 			// building a Building
 			if (menue.isMenuOpen() && menue.isInner(clickVector)) {
-				System.out.println("Building a Ground Unit if enough Gold");
+				//System.out.println("Building a Ground Unit if enough Gold");
 				menue.createGroundUnit();
 
 			}

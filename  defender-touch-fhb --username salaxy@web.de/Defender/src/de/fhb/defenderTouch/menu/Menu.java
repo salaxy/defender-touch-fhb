@@ -1,6 +1,9 @@
 package de.fhb.defenderTouch.menu;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import de.fhb.defenderTouch.graphics.GraphicTools;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -13,44 +16,48 @@ public class Menu {
 	 * Ist das Applet auf dem die Einheiten zugeordnet sind
 	 */
 	protected PApplet mainPoint;
-	//protected PApplet mainPoints;
+	// protected PApplet mainPoints;
 
 	/**
 	 * aktuelle Position der Einheit
 	 */
 	protected PVector position;
-	
 
 	/**
 	 * aktuelle Position der Einheit
 	 */
 	protected PVector menue1;
-	
+
 	/**
 	 * aktuelle Position der Einheit
 	 */
 	protected PVector menue2;
-	
+
 	/**
 	 * aktuelle Position der Einheit
 	 */
 	protected PVector menue3;
-	
+
 	/**
 	 * aktuelle Position der Einheit
 	 */
 	protected PVector menue4;
-	
+
 	/**
 	 * aktuelle Position der Einheit
 	 */
 	protected PVector menue5;
 
-	
 	/**
 	 * aktuelle Position der Einheit
 	 */
 	protected PVector menue6;
+	
+	/**
+	 * 
+	 */
+	protected PApplet builtBuildings;
+
 
 	/**
 	 * aktuelle Sichtbarkeit
@@ -72,10 +79,10 @@ public class Menu {
 	 */
 	protected float activateRadiusBuildings = 35;
 	
-	// /**
-	// * sagt aus ob ein Menupunkt geklickt wurde
-	// */
-	// protected boolean menuActive = false;
+	/**
+	 * Aktivierungsradius eines Menupunkts
+	 */
+	protected final int DISTANCE = -40;
 
 	/**
 	 * Konstruktor
@@ -83,15 +90,16 @@ public class Menu {
 	public Menu(PApplet display) {
 		this.position = new PVector(0, 0);
 		this.mainPoint = display;
-		//this.mainPoints = display;
+		this.builtBuildings = display;
+
+		menue1 = new PVector(-100, -100);
+		menue2 = new PVector(-100, -100);
+		menue3 = new PVector(-100, -100);
+		menue4 = new PVector(-100, -100);
+		menue5 = new PVector(-100, -100);
+		menue6 = new PVector(-100, -100);
 		
-		menue1=new PVector(-100,-100);
-		menue2=new PVector(-100,-100);
-		menue3=new PVector(-100,-100);
-		menue4=new PVector(-100,-100);
-		menue5=new PVector(-100,-100);
-		menue6=new PVector(-100,-100);
-		
+
 	}
 
 	/**
@@ -108,137 +116,152 @@ public class Menu {
 	public void drawMenu() {
 
 		mainPoint.ellipseMode(PConstants.CENTER);
-//		mainPoint.translate(this.position.x, this.position.y);
-		
+		// mainPoint.translate(this.position.x, this.position.y);
+
 		if (menuOpen) {
 
 			mainPoint.noFill();
 			mainPoint.stroke(100);
 			
-			float drehung=0f;
-			float drehungProUntermenue=PApplet.TWO_PI/6;
-			
-//			for(;drehung<PApplet.TWO_PI;){
-//				mainPoint.translate(this.position.x, this.position.y);
-//				System.out.println(drehung+"");
-//				mainPoint.rotate(drehung);
-//				PVector v=new PVector(0,-40);
-//				v.rotate(drehung);
-//				v.add(position);
-//				
-//				System.out.println(v+"");
-//				mainPoint.ellipse(0, -40, 38, 38);
-//				drehung=drehung+drehungProUntermenue;
-//				mainPoint.resetMatrix();
-//				
-//			}
-			
-			
-		mainPoint.translate(this.position.x, this.position.y);
-//		System.out.println(drehung+"");
-		mainPoint.rotate(0);
-		menue1=new PVector(0,-40);
-		menue1.rotate(0);
-		menue1.add(position);
-//		System.out.println(menue1+"");
-		mainPoint.ellipse(0, -40, 38, 38);
-		drehung=drehung+drehungProUntermenue;
-		mainPoint.resetMatrix();
-		
-		
-		mainPoint.translate(this.position.x, this.position.y);
-//		System.out.println(drehung+"");
-		mainPoint.rotate(PApplet.TWO_PI/6);
-		menue2=new PVector(0,-40);
-		menue2.rotate(PApplet.TWO_PI/6);
-		menue2.add(position);
-//		System.out.println(menue2+"");
-		mainPoint.ellipse(0, -40, 38, 38);
-		drehung=drehung+drehungProUntermenue;
-		mainPoint.resetMatrix();
-		
-		mainPoint.translate(this.position.x, this.position.y);
-//		System.out.println(drehung+"");
-		mainPoint.rotate(PApplet.TWO_PI/6*2);
-		menue3=new PVector(0,-40);
-		menue3.rotate(PApplet.TWO_PI/6*2);
-		menue3.add(position);
-//		System.out.println(menue3+"");
-		mainPoint.ellipse(0, -40, 38, 38);
-		drehung=drehung+drehungProUntermenue;
-		mainPoint.resetMatrix();
-		
-		
-		mainPoint.translate(this.position.x, this.position.y);
-//		System.out.println(drehung+"");
-		mainPoint.rotate(PApplet.TWO_PI/6*3);
-		menue4=new PVector(0,-40);
-		menue4.rotate(PApplet.TWO_PI/6*3);
-		menue4.add(position);
-//		System.out.println(menue4+"");
-		mainPoint.ellipse(0, -40, 38, 38);
-		drehung=drehung+drehungProUntermenue;
-		mainPoint.resetMatrix();
-		
-		mainPoint.translate(this.position.x, this.position.y);
-//		System.out.println(drehung+"");
-		mainPoint.rotate(PApplet.TWO_PI/6*4);
-		menue5=new PVector(0,-40);
-		menue5.rotate(PApplet.TWO_PI/6*4);
-		menue5.add(position);
-//		System.out.println(menue5+"");
-		mainPoint.ellipse(0, -40, 38, 38);
-		drehung=drehung+drehungProUntermenue;
-		mainPoint.resetMatrix();
-		
-		
-		mainPoint.translate(this.position.x, this.position.y);
-		mainPoint.rotate(PApplet.TWO_PI/6*5);
-		menue6=new PVector(0,-40);
-		menue6.rotate(PApplet.TWO_PI/6*5);
-		menue6.add(position);
-		mainPoint.ellipse(0, -40, 38, 38);
-		drehung=drehung+drehungProUntermenue;
-		mainPoint.resetMatrix();
-
 			
 
-			
-//			mainPoint.rotate((float) Math.PI);
-//
-//			// Menupoint
-//			mainPoint.ellipse(0, 0, 20, 20);
-//			// Groundunit Point
-//			mainPoint.translate(-35, -15);
-//			mainPoint.triangle(-5,+5, 0, -5, +5, +5);
-//			mainPoint.ellipse(0, 0, 30, 30);
-//			
-//			
-//			//mainPoints.triangle(-20, -10, -15, -20, -10, -10);
-//			// Supportunit Point
-//			mainPoint.translate(35, -20);
-//			//Punkte hinzufuegen
-//			ArrayList<PVector> vektoren=new ArrayList<PVector>();
-//			vektoren.add(new PVector(0, -8));
-//			vektoren.add(new PVector(0, 8));
-//			vektoren.add(new PVector(0, 0));
-//			vektoren.add(new PVector(8,0));
-//			vektoren.add(new PVector(-8, 0));
-//
-//			//zeichnen
-//			//GraphicTools.zeicheFigurNachVektoren(vektoren,display);
-//			mainPoint.ellipse(0, 0, 30, 30);
-//			// Defenceunit Point
-//			mainPoint.translate(35, 20);
-//			mainPoint.ellipse(0, 0, 30, 30);
+			float drehung = 0f;
+			float drehungProUntermenue = PApplet.TWO_PI / 6;
 
-			
-			
-			mainPoint.translate(-35, -15);
-			
+			// for(;drehung<PApplet.TWO_PI;){
+			// mainPoint.translate(this.position.x, this.position.y);
+			// System.out.println(drehung+"");
+			// mainPoint.rotate(drehung);
+			// PVector v=new PVector(0,-40);
+			// v.rotate(drehung);
+			// v.add(position);
+			//
+			// System.out.println(v+"");
+			// mainPoint.ellipse(0, -40, 38, 38);
+			// drehung=drehung+drehungProUntermenue;
+			// mainPoint.resetMatrix();
+			//
+			// }
+
+			mainPoint.translate(this.position.x, this.position.y);
+			// System.out.println(drehung+"");
+			mainPoint.rotate(0);
+			menue1 = new PVector(0, DISTANCE);
+			menue1.rotate(0);
+			menue1.add(position);
+			// System.out.println(menue1+"");
+			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			mainPoint.triangle(-5,DISTANCE+5, 0, DISTANCE-5, +5, DISTANCE+5);
+			drehung = drehung + drehungProUntermenue;
+			mainPoint.resetMatrix();
+
+			mainPoint.translate(this.position.x, this.position.y);
+			// System.out.println(drehung+"");
+			mainPoint.rotate(PApplet.TWO_PI / 6);
+			menue2 = new PVector(0, DISTANCE);
+			menue2.rotate(PApplet.TWO_PI / 6);
+			menue2.add(position);
+			// System.out.println(menue2+"");
+			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			ArrayList<PVector> vektoren1=new ArrayList<PVector>();
+			vektoren1.add(new PVector(-4, DISTANCE-4));
+			vektoren1.add(new PVector(4, DISTANCE-4));
+			vektoren1.add(new PVector(0,DISTANCE-4));
+			vektoren1.add(new PVector(0,DISTANCE-8));
+			vektoren1.add(new PVector(0, DISTANCE+4));
+			vektoren1.add(new PVector(4,DISTANCE+4));
+			vektoren1.add(new PVector(-4,DISTANCE+4));
+			mainPoint.ellipse(0,DISTANCE-4 , 8, 8);
+			GraphicTools.zeicheFigurNachVektoren(vektoren1,mainPoint);
+			drehung = drehung + drehungProUntermenue;
+			mainPoint.resetMatrix();
+
+			mainPoint.translate(this.position.x, this.position.y);
+			// System.out.println(drehung+"");
+			mainPoint.rotate(PApplet.TWO_PI / 6 * 2);
+			menue3 = new PVector(0, DISTANCE);
+			menue3.rotate(PApplet.TWO_PI / 6 * 2);
+			menue3.add(position);
+			// System.out.println(menue3+"");
+			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			ArrayList<PVector> vektoren2=new ArrayList<PVector>();
+			vektoren2.add(new PVector(0, DISTANCE-8));
+			vektoren2.add(new PVector(0, DISTANCE+8));
+			vektoren2.add(new PVector(0, DISTANCE));
+			vektoren2.add(new PVector(8,DISTANCE));
+			vektoren2.add(new PVector(-8, DISTANCE));
+			GraphicTools.zeicheFigurNachVektoren(vektoren2,mainPoint);
+			drehung = drehung + drehungProUntermenue;
+			mainPoint.resetMatrix();
+
+			mainPoint.translate(this.position.x, this.position.y);
+			// System.out.println(drehung+"");
+			mainPoint.rotate(PApplet.TWO_PI / 6 * 3);
+			menue4 = new PVector(0, DISTANCE);
+			menue4.rotate(PApplet.TWO_PI / 6 * 3);
+			menue4.add(position);
+			// System.out.println(menue4+"");
+			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			drehung = drehung + drehungProUntermenue;
+			mainPoint.resetMatrix();
+
+			mainPoint.translate(this.position.x, this.position.y);
+			// System.out.println(drehung+"");
+			mainPoint.rotate(PApplet.TWO_PI / 6 * 4);
+			menue5 = new PVector(0, DISTANCE);
+			menue5.rotate(PApplet.TWO_PI / 6 * 4);
+			menue5.add(position);
+			// System.out.println(menue5+"");
+			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			drehung = drehung + drehungProUntermenue;
+			mainPoint.resetMatrix();
+
+			mainPoint.translate(this.position.x, this.position.y);
+			mainPoint.rotate(PApplet.TWO_PI / 6 * 5);
+			menue6 = new PVector(0, DISTANCE);
+			menue6.rotate(PApplet.TWO_PI / 6 * 5);
+			menue6.add(position);
+			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			drehung = drehung + drehungProUntermenue;
+			mainPoint.resetMatrix();
+
+			// mainPoint.rotate((float) Math.PI);
+			//
+			// // Menupoint
+			// mainPoint.ellipse(0, 0, 20, 20);
+			// // Groundunit Point
+			// mainPoint.translate(-35, -15);
+			// mainPoint.triangle(-5,+5, 0, -5, +5, +5);
+			// mainPoint.ellipse(0, 0, 30, 30);
+			//
+			//
+			// //mainPoints.triangle(-20, -10, -15, -20, -10, -10);
+			// // Supportunit Point
+			// mainPoint.translate(35, -20);
+			// //Punkte hinzufuegen
+			// ArrayList<PVector> vektoren=new ArrayList<PVector>();
+			// vektoren.add(new PVector(0, -8));
+			// vektoren.add(new PVector(0, 8));
+			// vektoren.add(new PVector(0, 0));
+			// vektoren.add(new PVector(8,0));
+			// vektoren.add(new PVector(-8, 0));
+			//
+			// //zeichnen
+			// //GraphicTools.zeicheFigurNachVektoren(vektoren,display);
+			// mainPoint.ellipse(0, 0, 30, 30);
+			// // Defenceunit Point
+			// mainPoint.translate(35, 20);
+			// mainPoint.ellipse(0, 0, 30, 30);
+
+			//mainPoint.translate(-35, -15);
+
 			// System.out.println(this.position.x + " und " + this.position.y);
 		}
-
+		else{
+			builtBuildings.translate(this.position.x, this.position.y);
+//			builtBuildings.triangle(-5,+5, 0, -5, +5, +5);
+		}
+		
 	}
 
 	/**
@@ -247,37 +270,43 @@ public class Menu {
 	 * @return
 	 */
 	public boolean isInner(PVector clickVector) {
-		
-		if(this.isMenuOpen()){
+
+		if (this.isMenuOpen()) {
 			
-			if (this.menue1.dist(clickVector) < this.activatediameterMenu/2) {
+			//builtBuildings.translate(this.position.x, this.position.y);
+
+			if (this.menue1.dist(clickVector) < this.activatediameterMenu / 2) {
 				System.out.println("Menue 1");
+				builtBuildings.pushMatrix();
+				builtBuildings.triangle(-5,+5, 0, -5, +5, +5);
+				builtBuildings.pushMatrix();
+				
+				setMenuOpen(false);
 			}
-			
-			
-			if (this.menue2.dist(clickVector) < this.activatediameterMenu/2) {
+
+			if (this.menue2.dist(clickVector) < this.activatediameterMenu / 2) {
 				System.out.println("Menue 2");
 			}
-			
-			if (this.menue3.dist(clickVector) < this.activatediameterMenu/2) {
+
+			if (this.menue3.dist(clickVector) < this.activatediameterMenu / 2) {
 				System.out.println("Menue 3");
 			}
-			
-			if (this.menue4.dist(clickVector) < this.activatediameterMenu/2) {
+
+			if (this.menue4.dist(clickVector) < this.activatediameterMenu / 2) {
 				System.out.println("Menue 4");
 			}
-			
-			if (this.menue5.dist(clickVector) < this.activatediameterMenu/2) {
+
+			if (this.menue5.dist(clickVector) < this.activatediameterMenu / 2) {
 				System.out.println("Menue 5");
 			}
-			
-			if (this.menue6.dist(clickVector) < this.activatediameterMenu/2) {
+
+			if (this.menue6.dist(clickVector) < this.activatediameterMenu / 2) {
 				System.out.println("Menue 6");
 			}
-			
+
 		}
 
-		if (position.dist(clickVector) < this.activatediameterMenu/2) {
+		if (position.dist(clickVector) < this.activatediameterMenu / 2) {
 			// Einheit für die Steureung aktivieren
 			// setMenuActive(true);
 			return true;
@@ -287,25 +316,24 @@ public class Menu {
 		}
 	}
 
-	/**
-	 * 
-	 * @param clickVector
-	 * @return
-	 */
-	public boolean isInnerGroundUnit(PVector clickVector) {
-		PVector helpPosition = new PVector(0, 0);
-		helpPosition.x = position.x + 35;
-		helpPosition.y = position.y - 35;
-		 System.out.println(position.x + " und "+position.y +
-		 " oder "+helpPosition.x + " und " + helpPosition.y + " ist "+
-		 helpPosition.dist(clickVector));
-		if (helpPosition.dist(clickVector) < this.activateRadiusBuildings/2) {
-			createGroundUnit();
-			return true;
-		} else {
-			return false;
-		}
-	}
+//	/**
+//	 * 
+//	 * @param clickVector
+//	 * @return
+//	 */
+//	public boolean isInnerGroundUnit(PVector clickVector) {
+//		PVector helpPosition = new PVector(0, 0);
+//		helpPosition.x = position.x + 35;
+//		helpPosition.y = position.y - 35;
+//		System.out.println(position.x + " und " + position.y + " oder " + helpPosition.x + " und " + helpPosition.y + " ist "
+//				+ helpPosition.dist(clickVector));
+//		if (helpPosition.dist(clickVector) < this.activateRadiusBuildings / 2) {
+//			createGroundUnit();
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
 
 	public void createGroundUnit() {
 		// verweis auf andies klasse
