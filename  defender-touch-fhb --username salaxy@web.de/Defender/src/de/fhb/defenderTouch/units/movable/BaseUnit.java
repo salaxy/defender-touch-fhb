@@ -7,7 +7,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 import de.fhb.defenderTouch.interfaces.Drawable;
 /**
- *  BaseUnit Version 0.3 vom 13.10.2011
+ *  BaseUnit Version 0.5 vom 23.10.2011
  *  
  * @author Andy Klay <klay@fh-brandenburg.de>
  *
@@ -569,6 +569,7 @@ public class BaseUnit implements Drawable{
 	 * (trägt einheit aus der globalen Einheiten Liste aus)
 	 */
 	public void delete(){
+		this.deactivate();
 		BaseUnit.globalUnits.remove(this);
 	}
 	

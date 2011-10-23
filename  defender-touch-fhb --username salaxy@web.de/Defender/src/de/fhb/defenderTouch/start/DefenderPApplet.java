@@ -19,7 +19,7 @@ import de.fhb.defenderTouch.units.movable.BaseUnit;
 import de.fhb.defenderTouch.units.movable.Fighter;
 import de.fhb.defenderTouch.units.movable.Shoot;
 
-public class TUIOProcessingTest extends PApplet {
+public class DefenderPApplet extends PApplet {
 
 	/**
 	 * 
@@ -231,10 +231,10 @@ public class TUIOProcessingTest extends PApplet {
 	  redraw();
 	}
 	
-    /** Start PApplet as a Java program (can also be run as an applet). */
-    static public void main(String args[]) {
-        PApplet.main(new String[] { "de.fhb.defenderTouch.start.TUIOProcessingTest" });
-    }
+//    /** Start PApplet as a Java program (can also be run as an applet). */
+//    static public void main(String args[]) {
+//        PApplet.main(new String[] { "de.fhb.defenderTouch.start.TUIOProcessingTest" });
+//    }
     
     //speziell fuer SPIELER 2
     //mausclick ueberschreiben
