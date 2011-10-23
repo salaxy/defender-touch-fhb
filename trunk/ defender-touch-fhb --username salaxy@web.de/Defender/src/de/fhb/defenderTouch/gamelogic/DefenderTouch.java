@@ -3,7 +3,6 @@ package de.fhb.defenderTouch.gamelogic;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-
 import de.fhb.defenderTouch.display.DefenderPApplet;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
@@ -11,12 +10,13 @@ import de.fhb.defenderTouch.units.movable.BaseUnit;
  * Diese Klasse stellt die Verbindung zwischen Anzeige, also dem PApplet dar
  * und dem eigentlichen Spielinhalt wie die Units, Spiellogik usw. (und noch zukünftige dinge)
  * @author Salaxy
- *
+// * @deprecated Funktioniert Alles nicht, kannste vergessen ...scheiß Animationthread beißt sich alles,
+// * da dann mehere sachen aufs selbe zugreifen gleichzeitig verdammt!!
  */
 public class DefenderTouch {
 	
 	// zum testen
-	private ArrayList<BaseUnit> globalUnits=new ArrayList<BaseUnit>();
+	private GlobalUnits globalUnits;
 	
 	private PApplet display;
 	
@@ -25,6 +25,7 @@ public class DefenderTouch {
 	
 	private DefenderTouch(PApplet display){
 		this.display=display;
+		globalUnits=new GlobalUnits();
 	}
 	
 	public static DefenderTouch getInstance(PApplet display){
@@ -38,11 +39,10 @@ public class DefenderTouch {
 	
 
 	public ArrayList<BaseUnit> getGlobalUnits() {
-		return globalUnits;
+
+		return globalUnits.getGlobalUnits();
+	     
 	}
-	
-	
-//	public void addUnit(int x, int y, int mode, int playerID, PApplet disp){
-//		this.globalUnits.add(new  x, y, mode, playerID, disp);
-//	}
+
+
 }

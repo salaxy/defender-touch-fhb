@@ -170,7 +170,8 @@ public class BaseUnit implements Drawable{
 		//und ids weiter zählen
 		BaseUnit.idCounter++;
 		//fuegt sich selbst zur globalen Menge der Einheiten hinzu
-//		BaseUnit.globalUnits.add(this);
+		
+		this.gamelogic.getGlobalUnits().add(this);
 	}
 	
 	/**
@@ -588,8 +589,9 @@ public class BaseUnit implements Drawable{
 		//TODO Reichweite einbauen
 		//TODO Wiederholung einbauen....nach einer Schuss rate (d.h. erinheit muss sich ziel merken)
 		//Schuss erstellen
+
 		new Shoot((int)this.position.x, (int)this.position.y, BaseUnit.MODE_NORMAL, BaseUnit.PLAYER_SYSTEM, display, destinationUnit);
-		
+
 //		//neue Blickrichtung berechnen
 //		berechneNeueBlickrichtung();
 	}
