@@ -19,21 +19,14 @@ import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 public class MenueTest extends PApplet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	TuioProcessing tuioClient;
 
-	// these are some helper variables which are used
-	// to create scalable graphical feedback
-	float object_size = 60;
 	int width = 1024;
 	int height = 600;
 	PFont font;
-	BaseUnit test;
-	Menu menue;
+	Menu menu;
 
 	// list with all elements of one player
 	private ArrayList<BaseUnit> buildings = new ArrayList<BaseUnit>();
@@ -52,7 +45,7 @@ public class MenueTest extends PApplet {
 		// listens to port 3333
 		tuioClient = new TuioProcessing(this);
 
-		menue = new Menu(this);
+		menu = new Menu(this);
 
 		// activate anti aliaising
 		this.smooth();
@@ -73,7 +66,7 @@ public class MenueTest extends PApplet {
 		text("Dein aktuelles Gold: 200", width / 2, 15);
 
 		// create menue for building options
-		menue.drawMenu();
+		menu.drawMenu();
 
 		// shows all buildings of the players
 		for (BaseUnit u : buildings) {
@@ -138,24 +131,24 @@ public class MenueTest extends PApplet {
 		if (this.mouseButton == LEFT) {
 
 			// watching if menu is open and click is into a building element
-			if (menue.isMenuOpen()) {
+			if (menu.isMenuOpen()) {
 				// Choosing which Building should be placed
-				if (menue.isInnerMenuElement(clickVector)) {
+				if (menu.isInnerMenuElement(clickVector)) {
 
-					switch (menue.getNumber()) {
+					switch (menu.getNumberBuilding()) {
 					case 0:
-						buildings.add(new Ground((int) menue.getPositionX(), (int) menue.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
-						menue.setMenuOpen(false);
+						buildings.add(new Ground((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						menu.setMenuOpen(false);
 						break;
 
 					case 1:
-						buildings.add(new Defence((int) menue.getPositionX(), (int) menue.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
-						menue.setMenuOpen(false);
+						buildings.add(new Defence((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						menu.setMenuOpen(false);
 						break;
 
 					case 2:
-						buildings.add(new Support((int) menue.getPositionX(), (int) menue.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
-						menue.setMenuOpen(false);
+						buildings.add(new Support((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						menu.setMenuOpen(false);
 						break;
 					// TODO
 					default:
@@ -165,7 +158,7 @@ public class MenueTest extends PApplet {
 			}else{
 				// if menu is not already open, just open it
 				// if its open, don't do anything
-				menue.showMenuPoint(clickVector);
+				menu.showMenuPoint(clickVector);
 				System.out.println("menu offen");
 			}
 		}
@@ -173,8 +166,8 @@ public class MenueTest extends PApplet {
 		if (this.mouseButton == RIGHT) {
 
 			// if menu is open und click in menu point -> close it
-			if (menue.isMenuOpen() && menue.isInnerMainElement(clickVector)) {
-				menue.setMenuOpen(false);
+			if (menu.isMenuOpen() && menu.isInnerMainElement(clickVector)) {
+				menu.setMenuOpen(false);
 				System.out.println("menu geschlossen");
 			}
 
