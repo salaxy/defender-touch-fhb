@@ -22,19 +22,19 @@ public class GlobalUnits{
 	
 	public void add(BaseUnit bu) {
 		
-        try 
-        { 
-          semaphore.acquire(); 
-          System.out.println( "Thread=" + Thread.currentThread().getName() +
-            ", Available Permits=" + semaphore.availablePermits() ); 
+//        try 
+//        { 
+//          semaphore.acquire(); 
+//          System.out.println( "Thread=" + Thread.currentThread().getName() +
+//            ", Available Permits=" + semaphore.availablePermits() ); 
         		globalUnits.add(bu);  
-        } 
-        catch ( InterruptedException e ) { 
-          e.printStackTrace(); 
-        } 
-        finally { 
-          semaphore.release(); 
-        } 
+//        } 
+//        catch ( InterruptedException e ) { 
+//          e.printStackTrace(); 
+//        } 
+//        finally { 
+//          semaphore.release(); 
+//        } 
 	}
 	
 	public void remove(BaseUnit bu) {

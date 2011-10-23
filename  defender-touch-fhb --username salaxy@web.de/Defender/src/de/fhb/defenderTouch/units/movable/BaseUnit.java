@@ -170,8 +170,11 @@ public class BaseUnit implements Drawable{
 		//und ids weiter zählen
 		BaseUnit.idCounter++;
 		//fuegt sich selbst zur globalen Menge der Einheiten hinzu
-		
+//		synchronized( BaseUnit.class ) 
+//		{ 
 		this.gamelogic.getGlobalUnits().add(this);
+//		}
+
 	}
 	
 	/**
