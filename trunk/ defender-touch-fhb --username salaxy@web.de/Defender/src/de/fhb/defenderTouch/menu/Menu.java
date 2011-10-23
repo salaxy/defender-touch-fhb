@@ -278,18 +278,26 @@ public class Menu {
 	/**
 	 * 
 	 * @param clickVector
-	 * @return
+	 * @return 	false - if click is not inner circle
+	 * 			true  - if click is inner circle
 	 */
-	public boolean isInner(PVector clickVector) {
+	public boolean isInnerMainElement(PVector clickVector) {
 
-		if (this.isMenuOpen()) {
-
+		if (this.position.dist(clickVector) < this.activatediameterMenu / 2) {
+			System.out.println("Menu close choosed");
+			number = 0;
+			setMenuOpen(false);
 			return true;
 		}
 		return false;
 
 	}
 
+	/**
+	 * 
+	 * @param clickVector
+	 * @return false - if
+	 */
 	public boolean isInnerMenuElement(PVector clickVector) {
 
 		if (this.menue1.dist(clickVector) < this.activatediameterMenu / 2) {

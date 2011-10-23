@@ -35,9 +35,8 @@ public class MenueTest extends PApplet {
 	BaseUnit test;
 	Menu menue;
 
-	// TODO
-	// private ArrayList<BaseUnit> buildings = new ArrayList<BaseUnit>();
-	private ArrayList<BaseUnit> units = new ArrayList<BaseUnit>();
+	// list with all elements of one player
+	private ArrayList<BaseUnit> buildings = new ArrayList<BaseUnit>();
 
 	public void setup() {
 		size(width, height); // size of window
@@ -46,14 +45,16 @@ public class MenueTest extends PApplet {
 		loop(); // loop the draw-methode
 		frameRate(25);
 
-		hint(ENABLE_NATIVE_FONTS); // render fonts faster
+		// render fonts faster
+		hint(ENABLE_NATIVE_FONTS);
 		font = createFont("Arial", 18);
 
-		tuioClient = new TuioProcessing(this); // listens to port 3333
+		// listens to port 3333
+		tuioClient = new TuioProcessing(this);
 
 		menue = new Menu(this);
 
-		// kantenglättung aktivieren
+		// activate anti aliaising
 		this.smooth();
 		this.rectMode(CENTER);
 	}
@@ -74,7 +75,8 @@ public class MenueTest extends PApplet {
 		// create menue for building options
 		menue.drawMenu();
 
-		for (BaseUnit u : units) {
+		// shows all buildings of the players
+		for (BaseUnit u : buildings) {
 			u.paint();
 		}
 
@@ -104,11 +106,6 @@ public class MenueTest extends PApplet {
 	// called when a cursor is added to the scene
 	public void addTuioCursor(TuioCursor tcur) {
 		println("add cursor " + tcur.getCursorID() + " (" + tcur.getSessionID() + ") " + tcur.getX() + " " + tcur.getY());
-
-		PVector vector = new PVector(tcur.getScreenX(width), tcur.getScreenY(height));
-		boolean wurdeEbendAktiviert = false;
-		boolean warSchonAktiv = false;
-
 	}
 
 	// called when a cursor is moved
@@ -133,54 +130,50 @@ public class MenueTest extends PApplet {
 		PApplet.main(new String[] { "de.fhb.defenderTouch.menu.MenueTest" });
 	}
 
-	// mausclick ueberschreiben
+	// override mouseclick
 	public void mouseClicked() {
+		// create Point where mouse was clicked in
 		PVector clickVector = new PVector(this.mouseX, this.mouseY);
 
 		if (this.mouseButton == LEFT) {
 
-			// if menu is not already open, just open it
-			// if its open, dont do anything
-			if (menue.isMenuOpen() == false) {
-				menue.showMenuPoint(clickVector);
-				System.out.println("menu offen");
-			}
-
-			// building a Building
-			if (menue.isMenuOpen() && menue.isInner(clickVector)) {
-				// System.out.println("Building a Ground Unit if enough Gold");
-				// menue.createGroundUnit();
-				// buildings.add(new MakeBuilding(100,200,this));
-				System.out.println("test");
-
+			// watching if menu is open and click is into a building element
+			if (menue.isMenuOpen()) {
+				// Choosing which Building should be placed
 				if (menue.isInnerMenuElement(clickVector)) {
 
 					switch (menue.getNumber()) {
 					case 0:
-						units.add(new Ground((int) menue.getPositionX(), (int) menue.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						buildings.add(new Ground((int) menue.getPositionX(), (int) menue.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						menue.setMenuOpen(false);
 						break;
 
 					case 1:
-						units.add(new Defence((int) menue.getPositionX(), (int) menue.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						buildings.add(new Defence((int) menue.getPositionX(), (int) menue.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						menue.setMenuOpen(false);
 						break;
 
 					case 2:
-						units.add(new Support((int) menue.getPositionX(), (int) menue.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						buildings.add(new Support((int) menue.getPositionX(), (int) menue.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						menue.setMenuOpen(false);
 						break;
 					// TODO
 					default:
 						System.out.println();
 					}
 				}
-
+			}else{
+				// if menu is not already open, just open it
+				// if its open, don't do anything
+				menue.showMenuPoint(clickVector);
+				System.out.println("menu offen");
 			}
-
 		}
 
 		if (this.mouseButton == RIGHT) {
 
 			// if menu is open und click in menu point -> close it
-			if (menue.isMenuOpen() == true && menue.isInner(clickVector)) {
+			if (menue.isMenuOpen() && menue.isInnerMainElement(clickVector)) {
 				menue.setMenuOpen(false);
 				System.out.println("menu geschlossen");
 			}
