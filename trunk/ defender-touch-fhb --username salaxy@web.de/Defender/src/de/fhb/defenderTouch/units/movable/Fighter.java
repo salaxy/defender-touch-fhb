@@ -11,8 +11,8 @@ public class Fighter extends BaseUnit {
 
 //	private float movementSpeed=5f;
 	
-	public Fighter(int x, int y, int mode, PApplet disp){
-		super(x, y, mode, disp);
+	public Fighter(int x, int y, int mode, int playerID, PApplet disp){
+		super(x, y, mode, playerID, disp);
 		this.movementSpeed=5f;
 		// TODO Auto-generated constructor stub
 	}

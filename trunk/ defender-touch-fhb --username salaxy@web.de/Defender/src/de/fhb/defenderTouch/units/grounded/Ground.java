@@ -6,8 +6,8 @@ import processing.core.PApplet;
 public class Ground extends Building{
 
 	
-	public Ground(int x, int y, int mode, PApplet disp){
-		super(x, y, mode, disp);
+	public Ground(int x, int y, int mode, int playerID, PApplet disp){
+		super(x, y, mode, playerID, disp);
 		// TODO Auto-generated constructor stub
 	}
 
