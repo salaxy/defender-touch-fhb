@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 
-import de.fhb.defenderTouch.start.DefenderPApplet;
+import de.fhb.defenderTouch.display.DefenderPApplet;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 /**
