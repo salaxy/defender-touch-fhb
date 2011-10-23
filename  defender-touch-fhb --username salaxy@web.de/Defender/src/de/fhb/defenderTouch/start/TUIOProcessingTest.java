@@ -10,12 +10,14 @@ import TUIO.TuioObject;
 import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
+import de.fhb.defenderTouch.gamelogic.Spieler;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Navi;
 import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 import de.fhb.defenderTouch.units.movable.Fighter;
+import de.fhb.defenderTouch.units.movable.Shoot;
 
 public class TUIOProcessingTest extends PApplet {
 
@@ -34,6 +36,9 @@ public class TUIOProcessingTest extends PApplet {
 	int height = 768;
 	PFont font;
 	BaseUnit test;
+	
+	private Spieler spielerOne=new Spieler(height, width, 1f);
+	private Spieler spielerTwo=new Spieler(height, width, 1f);
 	
 	// zum testen
 	private ArrayList<BaseUnit> units=new ArrayList<BaseUnit>();
@@ -60,28 +65,29 @@ public class TUIOProcessingTest extends PApplet {
 	  
 	  
 	  //TestUnitBetas schaffen
-	  units.add(new BaseUnit(100,200,BaseUnit.MODE_ROTATE,this));
-	  units.add(new BaseUnit(200,100,BaseUnit.MODE_PULSE,this));
-	  units.add(new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,this));
-	  units.add(new BaseUnit(200,300,BaseUnit.MODE_NORMAL,this));
-	  units.add(new Fighter(300,400,BaseUnit.MODE_NORMAL,this));
-	  units.add(new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,this));
+	  units.add(test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,BaseUnit.PLAYER_ONE,this));
+	  test.commandDestination(new PVector(1000,700));
+	  units.add(new BaseUnit(200,100,BaseUnit.MODE_PULSE,BaseUnit.PLAYER_ONE,this));
+	  units.add(new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,BaseUnit.PLAYER_ONE,this));
+	  units.add(new BaseUnit(200,300,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
+	  units.add(new Fighter(300,400,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
+	  units.add(new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,BaseUnit.PLAYER_ONE,this));
 	  //BuildingTest
-	  units.add(new Ground(400,700,BaseUnit.MODE_NORMAL,this));
-	  units.add(new Navi(500,700,BaseUnit.MODE_NORMAL,this));
-	  units.add(new Support(600,700,BaseUnit.MODE_NORMAL,this));
-	  units.add(new Defence(700,700,BaseUnit.MODE_NORMAL,this));
+	  units.add(new Ground(400,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
+	  units.add(new Navi(500,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
+	  units.add(new Support(600,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
+	  units.add(new Defence(700,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
 	  
 	  //Testflugstaffel
-	  units.add(new Fighter(100,50,BaseUnit.MODE_NORMAL,this));
-	  units.add(new Fighter(200,50,BaseUnit.MODE_NORMAL,this));
-	  units.add(new Fighter(300,50,BaseUnit.MODE_NORMAL,this));
-	  units.add(new Fighter(400,50,BaseUnit.MODE_NORMAL,this));
-	  units.add(new Fighter(500,50,BaseUnit.MODE_NORMAL,this));
-	  units.add(new Fighter(600,50,BaseUnit.MODE_HALO,this));
+	  units.add(new Fighter(100,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this));
+	  units.add(new Fighter(200,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this));
+	  units.add(new Fighter(300,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this));
+	  units.add(new Fighter(400,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this));
+	  units.add(new Fighter(500,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this));
+//	  units.add(new Shoot(600,50,BaseUnit.MODE_HALO,BaseUnit.PLAYER_TWO,this));
 	  
 	  
-	  units.add(test=new BaseUnit(300,400,BaseUnit.MODE_ROTATE_AND_PULSE,this));
+//	  units.add(test=new BaseUnit(300,400,BaseUnit.MODE_ROTATE_AND_PULSE,this));
 //	  test.commandDestination(new PVector(500,500));
 	  
 	  //kantenglättung aktivieren
@@ -101,7 +107,7 @@ public class TUIOProcessingTest extends PApplet {
 	  float cur_size = cursor_size; 
 	  
 	  //alle Units zeichnen
-	  for(BaseUnit u: units){
+	  for(BaseUnit u: BaseUnit.globalUnits){
 		  u.paint();	  
 	  }
 	 
@@ -230,29 +236,67 @@ public class TUIOProcessingTest extends PApplet {
         PApplet.main(new String[] { "de.fhb.defenderTouch.start.TUIOProcessingTest" });
     }
     
+    //speziell fuer SPIELER 2
     //mausclick ueberschreiben
     public void mouseClicked(){
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
-
+//	    boolean istSchonEinesAktiv=false;
+    	boolean weitereAktivierung=false;
+	    boolean istAngriff=false;
     	
+//	    BaseUnit activeUnit;
+	    BaseUnit destinationUnit=null;
+	    
     	if(this.mouseButton==LEFT){
     		
-	    	boolean istSchonEinesAktiv=false;	
 	    	
 			for(BaseUnit u: units){
 				
 				//wenn eine unit aktiviert wird dann die anderen deaktiveren
-				if(!istSchonEinesAktiv){
-					istSchonEinesAktiv=u.isInner(clickVector);						
-				}else{
-					u.deactivate();
+				if(u.getPlayerID()==1 && u.isInner(clickVector)){	
+					u.activate();
 				}
+				
+//				else{
+//					u.deactivate();
+//				}
 			}
+			
+			
 			
 			//neues Ziel setzen wenn unit aktiv
 			for(BaseUnit u: units){
+			
 				if(u.isActive()){
-					u.commandDestination(clickVector);				
+					//wenn  klick auf eine gegnerische Unit dann angriff
+					for(BaseUnit bu: units){
+						
+						//auf gegnerische einheit geklickt??
+						if(bu.getPlayerID()==0 && bu.isInner(clickVector)){
+							istAngriff=true;
+							destinationUnit=bu;
+							System.out.println("Angriff initiiert!");
+						}
+						
+						//auf weitere eigene einheit geklickt??
+						if(bu.getPlayerID()==1 && bu.isInner(clickVector)){
+							weitereAktivierung=true;
+							bu.activate();
+							System.out.println("Weitere Einheit aktiviert!");
+						}
+
+					}					
+					
+					if(!weitereAktivierung){
+						//bewegung anweisen wenn kein angriff
+						if(!istAngriff){	
+							u.commandDestination(clickVector);
+						}else{
+							//falls angriff dann Angriff anweisen
+							u.attack(destinationUnit);
+						}
+					}
+
 				}
 			}	
     	}
@@ -260,6 +304,8 @@ public class TUIOProcessingTest extends PApplet {
 
 		
 		if(this.mouseButton==RIGHT){
+
+			
 			for(BaseUnit u: units){
 				u.deactivate();
 			}

@@ -14,6 +14,17 @@ import de.fhb.defenderTouch.interfaces.Drawable;
  */
 public class BaseUnit implements Drawable{	
 	
+	private int healthpointsMax=250;
+	private int healthpointsStat=250;
+	private int damagePerHit=50;
+	private int attackRange=100;
+	
+
+	public static final int PLAYER_ONE=0;
+	public static final int PLAYER_TWO=1;
+	public static final int PLAYER_SYSTEM=2;
+	
+	private int playerID;
 	
 	/**
 	 * beinhaltet alle Einheiten die existent sind
@@ -136,10 +147,11 @@ public class BaseUnit implements Drawable{
 	
 	
 	
-	public BaseUnit(int x, int y, int mode, PApplet disp){
+	public BaseUnit(int x, int y, int mode, int playerID, PApplet disp){
 		
 		this.display=disp;
 		this.mode=mode;
+		this.playerID=playerID;
 		this.position=new PVector(x,y);
 		this.destinationVector=new PVector(x,y);	
 		this.berechneNeueBlickrichtung();
@@ -485,12 +497,19 @@ public class BaseUnit implements Drawable{
 		
 		if(position.dist(clickVector)<this.activateRadius){
 			//Einheit für die Steureung aktivieren
-			active=true;
+//			active=true;
 			return true;
 		}else{
 			return false;
 		}
 	}
+	
+	
+	public void activate(){
+		
+		active=true;
+	}
+
 
 	/**
 	 * gibt zurück ob Einheit Aktiv
@@ -553,5 +572,34 @@ public class BaseUnit implements Drawable{
 		BaseUnit.globalUnits.remove(this);
 	}
 	
+	
+	
+	public void attack(BaseUnit destinationUnit){
+		System.out.println("UNIT "+this.id +" is attacking UNIT "+destinationUnit.id);
+		//TODO Reichweite einbauen
+		//TODO Wiederholung einbauen....nach einer Schuss rate (d.h. erinheit muss sich ziel merken)
+		//Schuss erstellen
+		new Shoot((int)this.position.x, (int)this.position.y, BaseUnit.MODE_NORMAL, BaseUnit.PLAYER_SYSTEM, display, destinationUnit);
+		
+//		//neue Blickrichtung berechnen
+//		berechneNeueBlickrichtung();
+	}
+	
+	public void getDamage(int damage){
+		this.healthpointsStat=this.healthpointsStat-damage;
+		
+		if(this.healthpointsStat<0){
+			this.delete();
+		}
+	}
+	
+
+	public int getPlayerID() {
+		return playerID;
+	}
+
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
 
 }

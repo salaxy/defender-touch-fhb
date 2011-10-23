@@ -7,8 +7,8 @@ public class Building extends BaseUnit{
 
 //	private float movementSpeed=0.5f;
 	
-	public Building(int x, int y, int mode, PApplet disp){
-		super(x, y, mode, disp);
+	public Building(int x, int y, int mode, int playerID, PApplet disp){
+		super(x, y, mode, playerID, disp);
 		this.movementSpeed=0.5f;
 		// TODO Auto-generated constructor stub
 	}

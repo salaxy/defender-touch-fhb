@@ -9,8 +9,8 @@ import processing.core.PVector;
 
 public class Defence extends Building{
 
-	public Defence(int x, int y, int mode, PApplet disp){
-		super(x, y, mode, disp);
+	public Defence(int x, int y, int mode, int playerID, PApplet disp){
+		super(x, y, mode, playerID, disp);
 		// TODO Auto-generated constructor stub
 	}
 
