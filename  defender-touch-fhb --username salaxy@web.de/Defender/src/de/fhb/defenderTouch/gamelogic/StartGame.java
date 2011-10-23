@@ -2,6 +2,7 @@ package de.fhb.defenderTouch.gamelogic;
 
 import processing.core.PApplet;
 
+
 /**
  * Klasse zum Start des Programms
  * @author Salaxy
@@ -11,6 +12,6 @@ import processing.core.PApplet;
 public class StartGame {
 
     static public void main(String args[]) {	
-        PApplet.main(new String[] { "de.fhb.defenderTouch.start.TUIOProcessingTest" });
+        PApplet.main(new String[] { "de.fhb.defenderTouch.display.DefenderPApplet" });
     }
 }
