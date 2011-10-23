@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PVector;
+import de.fhb.defenderTouch.gamelogic.DefenderTouch;
 import de.fhb.defenderTouch.interfaces.Drawable;
 /**
  *  BaseUnit Version 0.5 vom 23.10.2011
@@ -13,6 +14,9 @@ import de.fhb.defenderTouch.interfaces.Drawable;
  *
  */
 public class BaseUnit implements Drawable{	
+	
+	
+	private DefenderTouch gamelogic;
 	
 	private int healthpointsMax=250;
 	private int healthpointsStat=250;
@@ -29,7 +33,7 @@ public class BaseUnit implements Drawable{
 	/**
 	 * beinhaltet alle Einheiten die existent sind
 	 */
-	public static ArrayList<BaseUnit> globalUnits=new ArrayList<BaseUnit>();
+//	public static ArrayList<BaseUnit> globalUnits=new ArrayList<BaseUnit>();
 	
 	/**
 	 * beinhaltet alle Einheiten die existent sind
@@ -149,6 +153,8 @@ public class BaseUnit implements Drawable{
 	
 	public BaseUnit(int x, int y, int mode, int playerID, PApplet disp){
 		
+
+		
 		this.display=disp;
 		this.mode=mode;
 		this.playerID=playerID;
@@ -157,12 +163,14 @@ public class BaseUnit implements Drawable{
 		this.berechneNeueBlickrichtung();
 		this.initHaloSkala();
 		
+		gamelogic=DefenderTouch.getInstance(display);
+		
 		//Id verpassen
 		this.id=BaseUnit.idCounter;
 		//und ids weiter zählen
 		BaseUnit.idCounter++;
 		//fuegt sich selbst zur globalen Menge der Einheiten hinzu
-		BaseUnit.globalUnits.add(this);
+//		BaseUnit.globalUnits.add(this);
 	}
 	
 	/**
@@ -429,7 +437,7 @@ public class BaseUnit implements Drawable{
 	 */
 	private boolean isCollision(PVector newPosition){
 		
-		for(BaseUnit unit : BaseUnit.globalUnits){
+		for(BaseUnit unit : gamelogic.getGlobalUnits()){
 			//wenn nicht diese Unit (die ist in der menge mit drin)
 			if(this.id!=unit.id){
 				//und wenn entfernung kleiner ist als die kollisionsradien der beiden einheiten zusammen
@@ -570,7 +578,7 @@ public class BaseUnit implements Drawable{
 	 */
 	public void delete(){
 		this.deactivate();
-		BaseUnit.globalUnits.remove(this);
+		gamelogic.getGlobalUnits().remove(this);
 	}
 	
 	
