@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -83,6 +84,11 @@ public class Menu {
 	 * Aktivierungsradius eines Menupunkts
 	 */
 	protected final int DISTANCE = -40;
+
+	/**
+	 * Nummer des gebäudes
+	 */
+	protected int number = 0;
 
 	/**
 	 * Konstruktor
@@ -263,6 +269,8 @@ public class Menu {
 			// mainPoint.ellipse(0,DISTANCE-4 , 8, 8);
 			// GraphicTools.zeicheFigurNachVektoren(bBuildings,mainPoint);
 			// // builtBuildings.triangle(-5,+5, 0, -5, +5, +5);
+
+			// TODO
 		}
 
 	}
@@ -276,79 +284,53 @@ public class Menu {
 
 		if (this.isMenuOpen()) {
 
-			// builtBuildings.translate(this.position.x, this.position.y);
-
-			if (this.menue1.dist(clickVector) < this.activatediameterMenu / 2) {
-				System.out.println("Menue 1");
-				// builtBuildings.pushMatrix();
-				// builtBuildings.triangle(-5,+5, 0, -5, +5, +5);
-				// builtBuildings.pushMatrix();
-
-				builtBuildings.pushMatrix();
-				builtBuildings.translate(this.position.x, this.position.y);
-				builtBuildings.triangle(-5, 5, 0, -5, 5, 5);
-				mainPoint.resetMatrix();
-
-				System.out.println("Etwas gebaut!");
-
-				setMenuOpen(false);
-			}
-
-			if (this.menue2.dist(clickVector) < this.activatediameterMenu / 2) {
-				System.out.println("Menue 2");
-			}
-
-			if (this.menue3.dist(clickVector) < this.activatediameterMenu / 2) {
-				System.out.println("Menue 3");
-			}
-
-			if (this.menue4.dist(clickVector) < this.activatediameterMenu / 2) {
-				System.out.println("Menue 4");
-			}
-
-			if (this.menue5.dist(clickVector) < this.activatediameterMenu / 2) {
-				System.out.println("Menue 5");
-			}
-
-			if (this.menue6.dist(clickVector) < this.activatediameterMenu / 2) {
-				System.out.println("Menue 6");
-			}
-
-		}
-
-		if (position.dist(clickVector) < this.activatediameterMenu / 2) {
-			// Einheit für die Steureung aktivieren
-			// setMenuActive(true);
 			return true;
-		} else {
-			// setMenuActive(false);
-			return false;
 		}
+		return false;
+
 	}
 
-	// /**
-	// *
-	// * @param clickVector
-	// * @return
-	// */
-	// public boolean isInnerGroundUnit(PVector clickVector) {
-	// PVector helpPosition = new PVector(0, 0);
-	// helpPosition.x = position.x + 35;
-	// helpPosition.y = position.y - 35;
-	// System.out.println(position.x + " und " + position.y + " oder " +
-	// helpPosition.x + " und " + helpPosition.y + " ist "
-	// + helpPosition.dist(clickVector));
-	// if (helpPosition.dist(clickVector) < this.activateRadiusBuildings / 2) {
-	// createGroundUnit();
-	// return true;
-	// } else {
-	// return false;
-	// }
-	// }
+	public boolean isInnerMenuElement(PVector clickVector) {
 
-	public void createGroundUnit() {
-		// verweis auf andies klasse
-		// TODO
+		if (this.menue1.dist(clickVector) < this.activatediameterMenu / 2) {
+			System.out.println("Menue 1");
+			number = 0;
+			setMenuOpen(false);
+			return true;
+		}
+
+		if (this.menue2.dist(clickVector) < this.activatediameterMenu / 2) {
+			System.out.println("Menue 2");
+			number = 1;
+			setMenuOpen(false);
+			return true;
+		}
+
+		if (this.menue3.dist(clickVector) < this.activatediameterMenu / 2) {
+			System.out.println("Menue 3");
+			number = 2;
+			setMenuOpen(false);
+			return true;
+		}
+
+		if (this.menue4.dist(clickVector) < this.activatediameterMenu / 2) {
+			System.out.println("Menue 4");
+		}
+
+		if (this.menue5.dist(clickVector) < this.activatediameterMenu / 2) {
+			System.out.println("Menue 5");
+		}
+
+		if (this.menue6.dist(clickVector) < this.activatediameterMenu / 2) {
+			System.out.println("Menue 6");
+		}
+
+		return false;
+
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 	public void setMenuOpen(boolean menuOpen) {
@@ -357,6 +339,18 @@ public class Menu {
 
 	public boolean isMenuOpen() {
 		return menuOpen;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public float getPositionX() {
+		return position.x;
+	}
+
+	public float getPositionY() {
+		return position.y;
 	}
 
 }
