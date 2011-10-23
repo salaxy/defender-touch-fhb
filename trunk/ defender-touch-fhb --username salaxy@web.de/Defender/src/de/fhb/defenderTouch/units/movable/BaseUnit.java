@@ -590,7 +590,7 @@ public class BaseUnit implements Drawable{
 		//TODO Wiederholung einbauen....nach einer Schuss rate (d.h. erinheit muss sich ziel merken)
 		//Schuss erstellen
 
-		new Shoot((int)this.position.x, (int)this.position.y, BaseUnit.MODE_NORMAL, BaseUnit.PLAYER_SYSTEM, display, destinationUnit);
+		new Shoot((int)this.position.x, (int)this.position.y, BaseUnit.MODE_NORMAL, BaseUnit.PLAYER_SYSTEM, display, destinationUnit, this.damagePerHit);
 
 //		//neue Blickrichtung berechnen
 //		berechneNeueBlickrichtung();
