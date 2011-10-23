@@ -19,12 +19,15 @@ public class Shoot extends BaseUnit {
 	
 	//	private float movementSpeed=5f;
 	private  BaseUnit destinationUnit;
+	private int damage;
 	
-	public Shoot(int x, int y, int mode, int playerID, PApplet disp, BaseUnit destinationUnit){
+	public Shoot(int x, int y, int mode, int playerID, PApplet disp, BaseUnit destinationUnit, int damage){
 		super(x, y, mode, playerID, disp);
 		
 		//Einheit ist sehr schnell
 		this.movementSpeed=5f;
+		
+		this.damage=damage;
 		this.destinationUnit=destinationUnit;
 		this.commandDestination(destinationUnit.position);
 		
@@ -81,9 +84,8 @@ public class Shoot extends BaseUnit {
 	
 	
 	private void hasReachedDestination(){
+		this.destinationUnit.getDamage(damage);
 		this.delete();
-		
-		
 	}
 	
 
