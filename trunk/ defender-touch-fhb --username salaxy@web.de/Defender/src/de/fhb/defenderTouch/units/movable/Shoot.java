@@ -81,7 +81,7 @@ public class Shoot extends BaseUnit {
 	
 	
 	private void hasReachedDestination(){
-		
+		this.delete();
 		
 		
 	}
