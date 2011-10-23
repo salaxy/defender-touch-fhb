@@ -10,6 +10,7 @@ import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.gamelogic.DefenderTouch;
+import de.fhb.defenderTouch.gamelogic.GlobalUnits;
 import de.fhb.defenderTouch.gamelogic.Spieler;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
@@ -40,7 +41,7 @@ public class DefenderPApplet extends PApplet {
 	private Spieler spielerTwo=new Spieler(height, width, 1f);
 	
 	// zum testen
-//	private ArrayList<BaseUnit> gamelogic.getGlobalUnits()=new ArrayList<BaseUnit>();
+//	public ArrayList<BaseUnit> units=new ArrayList<BaseUnit>();
 	private DefenderTouch gamelogic = DefenderTouch.getInstance(this);
 	
 	public void setup()
@@ -65,29 +66,29 @@ public class DefenderPApplet extends PApplet {
 	  
 	  
 	  //TestUnitBetas schaffen
-	  gamelogic.getGlobalUnits().add(test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,BaseUnit.PLAYER_ONE,this));
+	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,BaseUnit.PLAYER_ONE,this);
 	  test.commandDestination(new PVector(1000,700));
-	  gamelogic.getGlobalUnits().add(new BaseUnit(200,100,BaseUnit.MODE_PULSE,BaseUnit.PLAYER_ONE,this));
-	  gamelogic.getGlobalUnits().add(new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,BaseUnit.PLAYER_ONE,this));
-	  gamelogic.getGlobalUnits().add(new BaseUnit(200,300,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
-	  gamelogic.getGlobalUnits().add(new Fighter(300,400,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
-	  gamelogic.getGlobalUnits().add(new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,BaseUnit.PLAYER_ONE,this));
+	  new BaseUnit(200,100,BaseUnit.MODE_PULSE,BaseUnit.PLAYER_ONE,this);
+	  new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,BaseUnit.PLAYER_ONE,this);
+	  new BaseUnit(200,300,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
+	  new Fighter(300,400,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
+	  new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,BaseUnit.PLAYER_ONE,this);
 	  //BuildingTest
-	  gamelogic.getGlobalUnits().add(new Ground(400,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
-	  gamelogic.getGlobalUnits().add(new Navi(500,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
-	  gamelogic.getGlobalUnits().add(new Support(600,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
-	  gamelogic.getGlobalUnits().add(new Defence(700,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this));
+	  new Ground(400,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
+	  new Navi(500,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
+	  new Support(600,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
+	  new Defence(700,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
 	  
 	  //Testflugstaffel
-	  gamelogic.getGlobalUnits().add(new Fighter(100,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this));
-	  gamelogic.getGlobalUnits().add(new Fighter(200,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this));
-	  gamelogic.getGlobalUnits().add(new Fighter(300,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this));
-	  gamelogic.getGlobalUnits().add(new Fighter(400,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this));
-	  gamelogic.getGlobalUnits().add(new Fighter(500,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this));
-//	  gamelogic.getGlobalUnits().add(new Shoot(600,50,BaseUnit.MODE_HALO,BaseUnit.PLAYER_TWO,this));
+	  new Fighter(100,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this);
+	  new Fighter(200,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this);
+	  new Fighter(300,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this);
+	  new Fighter(400,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this);
+	  new Fighter(500,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this);
+//	  new Shoot(600,50,BaseUnit.MODE_HALO,BaseUnit.PLAYER_TWO,this));
 	  
 	  
-//	  gamelogic.getGlobalUnits().add(test=new BaseUnit(300,400,BaseUnit.MODE_ROTATE_AND_PULSE,this));
+//	  test=new BaseUnit(300,400,BaseUnit.MODE_ROTATE_AND_PULSE,this));
 //	  test.commandDestination(new PVector(500,500));
 	  
 	  //kantenglättung aktivieren
@@ -107,9 +108,13 @@ public class DefenderPApplet extends PApplet {
 	  float cur_size = cursor_size; 
 	  
 	  //alle gamelogic.getGlobalUnits() zeichnen
-	  for(BaseUnit u: gamelogic.getGlobalUnits()){
-		  u.paint();	  
-	  }
+	  try{
+		  for(BaseUnit u: gamelogic.getGlobalUnits()){
+			  u.paint();	  
+		  }
+	  }catch ( java.util.ConcurrentModificationException ex) { 
+		  ex.printStackTrace(); 
+	} 
 	 
 //	  if (mousePressed) {
 //		    fill(0);
@@ -240,76 +245,72 @@ public class DefenderPApplet extends PApplet {
     //mausclick ueberschreiben
     public void mouseClicked(){
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
-//	    boolean istSchonEinesAktiv=false;
     	boolean weitereAktivierung=false;
 	    boolean istAngriff=false;
     	
-//	    BaseUnit activeUnit;
 	    BaseUnit destinationUnit=null;
-	    
-    	if(this.mouseButton==LEFT){
-    		
-	    	
-			for(BaseUnit u: gamelogic.getGlobalUnits()){
-				
-				//wenn eine unit aktiviert wird dann die anderen deaktiveren
-				if(u.getPlayerID()==1 && u.isInner(clickVector)){	
-					u.activate();
-				}
-				
-//				else{
-//					u.deactivate();
-//				}
-			}
-			
-			
-			
-			//neues Ziel setzen wenn unit aktiv
-			for(BaseUnit u: gamelogic.getGlobalUnits()){
-			
-				if(u.isActive()){
-					//wenn  klick auf eine gegnerische Unit dann angriff
-					for(BaseUnit bu: gamelogic.getGlobalUnits()){
-						
-						//auf gegnerische einheit geklickt??
-						if(bu.getPlayerID()==0 && bu.isInner(clickVector)){
-							istAngriff=true;
-							destinationUnit=bu;
-							System.out.println("Angriff initiiert!");
-						}
-						
-						//auf weitere eigene einheit geklickt??
-						if(bu.getPlayerID()==1 && bu.isInner(clickVector)){
-							weitereAktivierung=true;
-							bu.activate();
-							System.out.println("Weitere Einheit aktiviert!");
-						}
-
-					}					
+	    try{
+	    	if(this.mouseButton==LEFT){    	
+				for(BaseUnit u: gamelogic.getGlobalUnits()){
 					
-					if(!weitereAktivierung){
-						//bewegung anweisen wenn kein angriff
-						if(!istAngriff){	
-							u.commandDestination(clickVector);
-						}else{
-							//falls angriff dann Angriff anweisen
-							u.attack(destinationUnit);
-						}
+					//wenn eine unit aktiviert wird dann die anderen deaktiveren
+					if(u.getPlayerID()==1 && u.isInner(clickVector)){	
+						u.activate();
 					}
-
 				}
-			}	
-    	}
-    	
-
-		
-		if(this.mouseButton==RIGHT){
-
+	
+				//neues Ziel setzen wenn unit aktiv
+				for(BaseUnit u: gamelogic.getGlobalUnits()){
+				
+					if(u.isActive()){
+						//wenn  klick auf eine gegnerische Unit dann angriff
+						for(BaseUnit bu: gamelogic.getGlobalUnits()){
+							
+							//auf gegnerische einheit geklickt??
+							if(bu.getPlayerID()==0 && bu.isInner(clickVector)){
+								istAngriff=true;
+								destinationUnit=bu;
+								System.out.println("Angriff initiiert!");
+							}
+							
+							//auf weitere eigene einheit geklickt??
+							if(bu.getPlayerID()==1 && bu.isInner(clickVector)){
+								weitereAktivierung=true;
+								bu.activate();
+								System.out.println("Weitere Einheit aktiviert!");
+							}
+	
+						}					
+						
+						if(!weitereAktivierung){
+							//bewegung anweisen wenn kein angriff
+							if(!istAngriff){	
+								u.commandDestination(clickVector);
+							}else{
+								//falls angriff dann Angriff anweisen
+								u.attack(destinationUnit);
+							}
+						}
+	
+					}
+				}	
+	    	}
+		     
+	    	
+	
 			
-			for(BaseUnit u: gamelogic.getGlobalUnits()){
-				u.deactivate();
+			if(this.mouseButton==RIGHT){
+	
+				
+				for(BaseUnit u: gamelogic.getGlobalUnits()){
+					u.deactivate();
+				}
 			}
-		}
+			
+        
+        }catch ( java.util.ConcurrentModificationException ex) { 
+          ex.printStackTrace(); 
+        } 
 		
 
     }
