@@ -20,7 +20,7 @@ public class Support extends Building{
 		//farbewechsel bei Aktivierung
 		this.entscheideLineFarbe();
 		//Skalieren
-		display.scale(4);
+		display.scale(1);
 		//Nach norden ausrichten
 		display.rotate((float)Math.PI);
 		
