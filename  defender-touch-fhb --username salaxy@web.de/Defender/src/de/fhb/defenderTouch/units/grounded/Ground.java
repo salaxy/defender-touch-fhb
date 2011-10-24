@@ -19,7 +19,7 @@ public class Ground extends Building{
 		display.noFill();
 		display.rotate((float)Math.PI);
 		this.entscheideLineFarbe();
-		display.scale(4);
+		display.scale(1);
 		display.triangle(-5,+5, 0, -5, +5, +5);
 		
 		display.resetMatrix();
