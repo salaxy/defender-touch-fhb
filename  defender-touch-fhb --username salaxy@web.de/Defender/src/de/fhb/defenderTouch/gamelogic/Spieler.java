@@ -121,7 +121,7 @@ public class Spieler implements Drawable{
 			karte.paint(splitScreen, sichtPosition, zoomFaktor);
 			display.image(splitScreen, (screenSide) ? 0 : display.getWidth() / 2 , 0);
 		} catch (Exception ex) {
-			//if (ex != null) System.out.println(ex.getMessage());
+			if (ex != null) System.out.println(ex.getMessage());
 			System.out.println("splitScreen: " + splitScreen.toString());
 			System.out.println("sichtPosition: " + sichtPosition.toString());
 			System.out.println("zoomFaktor: " + zoomFaktor);
