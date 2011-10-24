@@ -3,6 +3,7 @@ package de.fhb.defenderTouch.map;
 import java.awt.Color;
 import java.util.LinkedList;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
+import processing.core.PGraphics;
 import processing.core.PVector;
 
 public class MapComponent {
@@ -69,20 +70,20 @@ public class MapComponent {
 	/**
 	 * Zeichnet sich selbst.
 	 */
-	public void paint() {
-		Map.display.translate(position.x, position.y);
+	public void paint(PGraphics display) {
+		display.translate(position.x, position.y);
 		
-		Map.display.fill(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue());
+		display.fill(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue());
 		
 		if (isHighlighted)
-			Map.display.stroke(borderColorHighlightened.getRed(), borderColorHighlightened.getGreen(), borderColorHighlightened.getBlue());
+			display.stroke(borderColorHighlightened.getRed(), borderColorHighlightened.getGreen(), borderColorHighlightened.getBlue());
 		else
-			Map.display.stroke(borderColor.getRed(), borderColor.getGreen(), borderColor.getBlue());
+			display.stroke(borderColor.getRed(), borderColor.getGreen(), borderColor.getBlue());
 			
-		Map.display.rect(0, 0, 31, 31);
-		Map.display.rect(0, 0, 19, 19);
+		display.rect(0, 0, 31, 31);
+		display.rect(0, 0, 19, 19);
 
-		Map.display.resetMatrix();
+		display.resetMatrix();
 	}
 	
 	/**
@@ -140,7 +141,7 @@ public class MapComponent {
 	}
 
 	/**
-	 * Legt fest, ob dieses MapComponent von Bordeneinheiten passierbar ist.
+	 * Legt fest, ob dieses MapComponent von Bodeneinheiten passierbar ist.
 	 * @param isWalkable
 	 */
 	public void setWalkable(boolean isWalkable) {

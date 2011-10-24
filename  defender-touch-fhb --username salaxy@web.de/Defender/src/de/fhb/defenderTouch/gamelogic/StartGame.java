@@ -12,6 +12,7 @@ import processing.core.PApplet;
 public class StartGame {
 
     static public void main(String args[]) {	
+        System.out.println("Spiel startet");
         PApplet.main(new String[] { "de.fhb.defenderTouch.display.DefenderPApplet" });
     }
 }

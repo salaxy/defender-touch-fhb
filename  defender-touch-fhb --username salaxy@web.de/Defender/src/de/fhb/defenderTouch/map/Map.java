@@ -1,15 +1,10 @@
 package de.fhb.defenderTouch.map;
 
 import java.util.ArrayList;
-import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PVector;
-import de.fhb.defenderTouch.interfaces.Drawable;
 
-public class Map implements  Drawable{
-	/**
-	 *  Das Applet, auf dem diese Karte anzeigt werden soll.
-	 */
-	protected static PApplet display;
+public class Map {
 	
 	/**
 	 * Blickrichtung
@@ -42,8 +37,7 @@ public class Map implements  Drawable{
 	 * @param width Breite (32 für 1024x768)
 	 * @param height Höhe (24 für 1024x768)
 	 */
-	public Map(PApplet display, int width, int height) {
-		Map.display = display;
+	public Map(int width, int height) {		
 		if (karte.isEmpty())
 			for (int x = 0; x < width; x++)
 				for (int y = 0; y < height; y++)
@@ -53,17 +47,15 @@ public class Map implements  Drawable{
 	/**
 	 * Karte mit allen Components zeichnen.
 	 */
-	public void paint() {
-		for (MapComponent element : karte) {
-			element.paint();
-		}
+	public void paint(PGraphics display, PVector position, float zoom) {
+		display.beginDraw();
+		display.translate(position.x, position.y);
 		
-		paintView(PLAYERONE);
-		paintView(PLAYERTWO);
+		for (MapComponent element : karte)
+			element.paint(display);
+		
+		display.scale(zoom);
+		display.endDraw();
 	}
-	
-	private void paintView(boolean whichOne) {
-		// passendes Spielerobjekt abfragen, um seinen Sichtbereich und Zoommodus zu erfahren
-		// dann zeichnen
-	}
+
 }
