@@ -17,7 +17,7 @@ import de.fhb.defenderTouch.units.grounded.Navi;
 import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
-public class MenueTest extends PApplet {
+public class MenuTest extends PApplet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -120,7 +120,7 @@ public class MenueTest extends PApplet {
 
 	/** Start PApplet as a Java program (can also be run as an applet). */
 	static public void main(String args[]) {
-		PApplet.main(new String[] { "de.fhb.defenderTouch.menu.MenueTest" });
+		PApplet.main(new String[] { "de.fhb.defenderTouch.menu.MenuTest" });
 	}
 
 	// override mouseclick
