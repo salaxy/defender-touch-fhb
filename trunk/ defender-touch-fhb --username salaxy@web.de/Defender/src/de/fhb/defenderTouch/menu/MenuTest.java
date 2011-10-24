@@ -79,8 +79,7 @@ public class MenuTest extends PApplet {
 
 	// called when an object is added to the scene
 	public void addTuioObject(TuioObject tobj) {
-		println("add object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " " + tobj.getY() + " "
-				+ tobj.getAngle());
+		println("add object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " " + tobj.getY() + " " + tobj.getAngle());
 
 	}
 
@@ -91,9 +90,8 @@ public class MenuTest extends PApplet {
 
 	// called when an object is moved
 	public void updateTuioObject(TuioObject tobj) {
-		println("update object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " " + tobj.getY() + " "
-				+ tobj.getAngle() + " " + tobj.getMotionSpeed() + " " + tobj.getRotationSpeed() + " " + tobj.getMotionAccel() + " "
-				+ tobj.getRotationAccel());
+		println("update object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " " + tobj.getY() + " " + tobj.getAngle() + " " + tobj.getMotionSpeed()
+				+ " " + tobj.getRotationSpeed() + " " + tobj.getMotionAccel() + " " + tobj.getRotationAccel());
 	}
 
 	// called when a cursor is added to the scene
@@ -103,8 +101,8 @@ public class MenuTest extends PApplet {
 
 	// called when a cursor is moved
 	public void updateTuioCursor(TuioCursor tcur) {
-		println("update cursor " + tcur.getCursorID() + " (" + tcur.getSessionID() + ") " + tcur.getX() + " " + tcur.getY() + " "
-				+ tcur.getMotionSpeed() + " " + tcur.getMotionAccel());
+		println("update cursor " + tcur.getCursorID() + " (" + tcur.getSessionID() + ") " + tcur.getX() + " " + tcur.getY() + " " + tcur.getMotionSpeed() + " "
+				+ tcur.getMotionAccel());
 	}
 
 	// called when a cursor is removed from the scene
@@ -155,11 +153,19 @@ public class MenuTest extends PApplet {
 						System.out.println();
 					}
 				}
-			}else{
-				// if menu is not already open, just open it
-				// if its open, don't do anything
-				menu.showMenuPoint(clickVector);
-				System.out.println("menu offen");
+			} else {
+
+				if (isTaken(clickVector)) {
+					// if menu is not already open
+					// look if a building was clicked
+
+				} else {
+					// if menu is not already open, just open it
+					// if its open, don't do anything
+					menu.showMenuPoint(clickVector);
+					System.out.println("menu open");
+				}
+
 			}
 		}
 
@@ -168,10 +174,26 @@ public class MenuTest extends PApplet {
 			// if menu is open und click in menu point -> close it
 			if (menu.isMenuOpen() && menu.isInnerMainElement(clickVector)) {
 				menu.setMenuOpen(false);
-				System.out.println("menu geschlossen");
+				System.out.println("menu closed");
 			}
 
 		}
 
+	}
+
+	/**
+	 * 
+	 * @param clickVector
+	 * @return
+	 */
+	public boolean isTaken(PVector clickVector) {
+		for (BaseUnit building : buildings) {
+			if (building.getPosition().dist(clickVector) < (building.getCollisionRadius())) {
+				System.out.println("building clicked");
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

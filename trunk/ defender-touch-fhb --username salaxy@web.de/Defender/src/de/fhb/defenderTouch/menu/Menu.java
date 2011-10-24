@@ -1,14 +1,9 @@
 package de.fhb.defenderTouch.menu;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import de.fhb.defenderTouch.graphics.GraphicTools;
-import de.fhb.defenderTouch.units.movable.BaseUnit;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PMatrix;
 import processing.core.PVector;
 
 public class Menu {
@@ -19,7 +14,7 @@ public class Menu {
 	protected PApplet mainPoint;
 
 	/**
-	 * recent position of the building
+	 * recent position of the click
 	 */
 	protected PVector position;
 
@@ -39,9 +34,14 @@ public class Menu {
 	protected boolean menuOpen = false;
 
 	/**
+	 * Radius of the circle Is always half its diameter
+	 */
+	protected final int RADIUSCIRCLEMENU = 19;
+
+	/**
 	 * Aktivierungsradius eines Menupunkts
 	 */
-	protected final int ACTIVATECIRCLEMENU = 19;
+	protected final int DIAMETERCIRCLEMENU = 38;
 
 	/**
 	 * Aktivierungsradius eines Menupunkts
@@ -113,8 +113,10 @@ public class Menu {
 			menu[0] = new PVector(0, DISTANCE);
 			menu[0].rotate(0);
 			menu[0].add(position);
-			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			mainPoint.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
+			// mainPoint.ellipse(0, DISTANCE +(DISTANCE/2), RADIUSCIRCLEMENU,
+			// RADIUSCIRCLEMENU);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
 
@@ -123,7 +125,7 @@ public class Menu {
 			menu[1] = new PVector(0, DISTANCE);
 			menu[1].rotate(PApplet.TWO_PI / 6);
 			menu[1].add(position);
-			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 			vektoren1.add(new PVector(-4, DISTANCE - 4));
 			vektoren1.add(new PVector(4, DISTANCE - 4));
@@ -142,7 +144,7 @@ public class Menu {
 			menu[2] = new PVector(0, DISTANCE);
 			menu[2].rotate(PApplet.TWO_PI / 6 * 2);
 			menu[2].add(position);
-			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 			vektoren2.add(new PVector(0, DISTANCE - 8));
 			vektoren2.add(new PVector(0, DISTANCE + 8));
@@ -158,7 +160,7 @@ public class Menu {
 			menu[3] = new PVector(0, DISTANCE);
 			menu[3].rotate(PApplet.TWO_PI / 6 * 3);
 			menu[3].add(position);
-			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
 
@@ -167,7 +169,7 @@ public class Menu {
 			menu[4] = new PVector(0, DISTANCE);
 			menu[4].rotate(PApplet.TWO_PI / 6 * 4);
 			menu[4].add(position);
-			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
 
@@ -176,7 +178,7 @@ public class Menu {
 			menu[5] = new PVector(0, DISTANCE);
 			menu[5].rotate(PApplet.TWO_PI / 6 * 5);
 			menu[5].add(position);
-			mainPoint.ellipse(0, DISTANCE, 38, 38);
+			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
 
@@ -229,12 +231,12 @@ public class Menu {
 	/**
 	 * 
 	 * @param clickVector
-	 * @return false - if click is not inner circle true - if click is inner
+	 * @return false - if click is not inner circle : true - if click is inner
 	 *         circle
 	 */
 	public boolean isInnerMainElement(PVector clickVector) {
 
-		if (this.position.dist(clickVector) < this.ACTIVATECIRCLEMENU) {
+		if (this.position.dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menu close choosed");
 			numberBuilding = 0;
 			setMenuOpen(false);
@@ -251,36 +253,36 @@ public class Menu {
 	 */
 	public boolean isInnerMenuElement(PVector clickVector) {
 
-		if (this.menu[0].dist(clickVector) < this.ACTIVATECIRCLEMENU) {
+		if (this.menu[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 1");
 			setNumberBuilding(0);
 			setMenuOpen(false);
 			return true;
 		}
 
-		if (this.menu[1].dist(clickVector) < this.ACTIVATECIRCLEMENU) {
+		if (this.menu[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 2");
 			setNumberBuilding(1);
 			setMenuOpen(false);
 			return true;
 		}
 
-		if (this.menu[2].dist(clickVector) < this.ACTIVATECIRCLEMENU) {
+		if (this.menu[2].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 3");
 			setNumberBuilding(2);
 			setMenuOpen(false);
 			return true;
 		}
 
-		if (this.menu[3].dist(clickVector) < this.ACTIVATECIRCLEMENU) {
+		if (this.menu[3].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 4");
 		}
 
-		if (this.menu[4].dist(clickVector) < this.ACTIVATECIRCLEMENU) {
+		if (this.menu[4].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 5");
 		}
 
-		if (this.menu[5].dist(clickVector) < this.ACTIVATECIRCLEMENU) {
+		if (this.menu[5].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 6");
 		}
 
@@ -310,6 +312,10 @@ public class Menu {
 
 	public float getPositionY() {
 		return position.y;
+	}
+	
+	public PVector getPosition() {
+		return position;
 	}
 
 }
