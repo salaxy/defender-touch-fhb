@@ -1,5 +1,6 @@
 package de.fhb.defenderTouch.menu;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -130,6 +131,7 @@ public class MenuTest extends PApplet {
 
 			// watching if menu is open and click is into a building element
 			if (menu.isMenuOpen()) {
+				menu.setBuildingOpen(false);
 				// Choosing which Building should be placed
 				if (menu.isInnerMenuElement(clickVector)) {
 
@@ -138,17 +140,14 @@ public class MenuTest extends PApplet {
 						buildings.add(new Ground((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
 						menu.setMenuOpen(false);
 						break;
-
 					case 1:
 						buildings.add(new Defence((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
 						menu.setMenuOpen(false);
 						break;
-
 					case 2:
 						buildings.add(new Support((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
 						menu.setMenuOpen(false);
 						break;
-					// TODO
 					default:
 						System.out.println();
 					}
@@ -158,6 +157,7 @@ public class MenuTest extends PApplet {
 				if (isTaken(clickVector)) {
 					// if menu is not already open
 					// look if a building was clicked
+					menu.setBuildingOpen(true);
 
 				} else {
 					// if menu is not already open, just open it
@@ -176,7 +176,11 @@ public class MenuTest extends PApplet {
 				menu.setMenuOpen(false);
 				System.out.println("menu closed");
 			}
+			// closes the menu of a specific building
+			if (isTaken(clickVector)) {
 
+				menu.setBuildingOpen(false);
+			}
 		}
 
 	}
@@ -184,16 +188,19 @@ public class MenuTest extends PApplet {
 	/**
 	 * 
 	 * @param clickVector
-	 * @return
+	 * @return if place for the new building is free
 	 */
 	public boolean isTaken(PVector clickVector) {
 		for (BaseUnit building : buildings) {
+			// if a building is clicked
 			if (building.getPosition().dist(clickVector) < (building.getCollisionRadius())) {
-				System.out.println("building clicked");
+				menu.setPositionBuilding(building.getPosition());
+				// System.out.println(clickVector.x + " "+ clickVector.y);
+				// System.out.println(building.getPosition().x + " "+
+				// building.getPosition().y);
 				return true;
 			}
 		}
-
 		return false;
 	}
 }
