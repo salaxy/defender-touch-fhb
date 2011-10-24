@@ -20,7 +20,7 @@ public class Defence extends Building{
 		
 
 		this.entscheideLineFarbe();
-		display.scale(4);
+		display.scale(1);
 		display.rotate((float)Math.PI);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
 		vektoren.add(new PVector(-4, -4));
