@@ -10,8 +10,8 @@ import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.gamelogic.DefenderTouch;
-import de.fhb.defenderTouch.gamelogic.GlobalUnits;
 import de.fhb.defenderTouch.gamelogic.Spieler;
+import de.fhb.defenderTouch.map.Map;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Navi;
@@ -37,8 +37,10 @@ public class DefenderPApplet extends PApplet {
 	PFont font;
 	BaseUnit test;
 	
-	private Spieler spielerOne=new Spieler(height, width, 1f);
-	private Spieler spielerTwo=new Spieler(height, width, 1f);
+	private Spieler spielerOne;
+	private Spieler spielerTwo;
+	
+	private Map karte;
 	
 	// zum testen
 //	public ArrayList<BaseUnit> units=new ArrayList<BaseUnit>();
@@ -63,7 +65,10 @@ public class DefenderPApplet extends PApplet {
 	  // an implementation of the TUIO callback methods (see below)
 	  tuioClient  = new TuioProcessing(this); //listens to port 3333
 	  
-	  
+	  // Spieler & Karte initialisieren
+	  karte = new Map(getWidth() / 32, getHeight() / 32); // Vorläufig wird das so initialisiert, später wird hier einfach nur eine vorhandene Karte geladen.
+	  spielerOne = new Spieler(this, karte, 1f, Spieler.LEFTSIDE);
+	  spielerTwo = new Spieler(this, karte, 1f, Spieler.RIGHTSIDE);
 	  
 	  //TestUnitBetas schaffen
 	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,BaseUnit.PLAYER_ONE,this);
@@ -105,7 +110,10 @@ public class DefenderPApplet extends PApplet {
 	  background(255);
 	  textFont(font,18);
 	  float obj_size = object_size; 
-	  float cur_size = cursor_size; 
+	  float cur_size = cursor_size;
+	  
+	  spielerOne.paint();
+	  spielerTwo.paint();
 	  
 	  //alle gamelogic.getGlobalUnits() zeichnen
 	  try{
@@ -296,9 +304,7 @@ public class DefenderPApplet extends PApplet {
 				}	
 	    	}
 		     
-	    	
-	
-			
+	    				
 			if(this.mouseButton==RIGHT){
 	
 				

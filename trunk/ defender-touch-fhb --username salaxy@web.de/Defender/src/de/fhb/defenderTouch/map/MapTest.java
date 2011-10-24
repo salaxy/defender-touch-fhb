@@ -20,7 +20,7 @@ public class MapTest extends PApplet {
 	int height = 768;
 	PFont font;
 	
-	private Map karte = new Map(this, 32, 24);
+	//private Map karte = new Map(this, 32, 24);
 	
 	public void setup()
 	{
@@ -52,7 +52,7 @@ public class MapTest extends PApplet {
 	  background(128);
 	  textFont(font,18);
 	  
-	  karte.paint();
+	  //karte.paint();
 	}
 
 	// these callback methods are called whenever a TUIO event occurs
