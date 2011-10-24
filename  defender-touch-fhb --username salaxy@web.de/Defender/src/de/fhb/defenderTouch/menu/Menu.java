@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PFont;
 import processing.core.PVector;
 
 public class Menu {
@@ -17,6 +18,11 @@ public class Menu {
 	 * recent position of the click
 	 */
 	protected PVector position;
+	
+	/**
+	 * recent position of the building
+	 */
+	protected PVector positionBuilding;
 
 	/**
 	 * menu points, actual 6 points, 3 in use
@@ -32,6 +38,11 @@ public class Menu {
 	 * saves if the menu is open
 	 */
 	protected boolean menuOpen = false;
+
+	/**
+	 * saves if the building options is open
+	 */
+	protected boolean buildingOpen = false;
 
 	/**
 	 * Radius of the circle Is always half its diameter
@@ -59,6 +70,8 @@ public class Menu {
 	public Menu(PApplet display) {
 		this.position = new PVector(0, 0);
 		this.mainPoint = display;
+		// PFont font;
+		// font = createFont("Arial", 18);
 
 		menu[0] = new PVector(-100, -100);
 		menu[1] = new PVector(-100, -100);
@@ -83,7 +96,6 @@ public class Menu {
 	public void drawMenu() {
 
 		mainPoint.ellipseMode(PConstants.CENTER);
-		// mainPoint.translate(this.position.x, this.position.y);
 
 		if (menuOpen) {
 
@@ -181,49 +193,33 @@ public class Menu {
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
+		}
 
-			// mainPoint.rotate((float) Math.PI);
-			//
-			// // Menupoint
-			// mainPoint.ellipse(0, 0, 20, 20);
-			// // Groundunit Point
-			// mainPoint.translate(-35, -15);
-			// mainPoint.triangle(-5,+5, 0, -5, +5, +5);
-			// mainPoint.ellipse(0, 0, 30, 30);
-			//
-			//
-			// //mainPoints.triangle(-20, -10, -15, -20, -10, -10);
-			// // Supportunit Point
-			// mainPoint.translate(35, -20);
-			// //Punkte hinzufuegen
-			// ArrayList<PVector> vektoren=new ArrayList<PVector>();
-			// vektoren.add(new PVector(0, -8));
-			// vektoren.add(new PVector(0, 8));
-			// vektoren.add(new PVector(0, 0));
-			// vektoren.add(new PVector(8,0));
-			// vektoren.add(new PVector(-8, 0));
-			//
-			// //zeichnen
-			// //GraphicTools.zeicheFigurNachVektoren(vektoren,display);
-			// mainPoint.ellipse(0, 0, 30, 30);
-			// // Defenceunit Point
-			// mainPoint.translate(35, 20);
-			// mainPoint.ellipse(0, 0, 30, 30);
-
-			// mainPoint.translate(-35, -15);
-
-			// System.out.println(this.position.x + " und " + this.position.y);
-		} else {
-			// bBuildings.translate(this.position.x, this.position.y);
-			// mainPoint.translate(this.position.x, this.position.y);
-			// builtBuildings.show();
-
-			// bBuildings.add(new PVector(-4,4));
-			// mainPoint.ellipse(0,DISTANCE-4 , 8, 8);
-			// GraphicTools.zeicheFigurNachVektoren(bBuildings,mainPoint);
-			// // builtBuildings.triangle(-5,+5, 0, -5, +5, +5);
-
-			// TODO
+		if (buildingOpen) {
+			mainPoint.noFill();
+			mainPoint.stroke(100);
+			float drehung = 0f;
+			float drehungProUntermenue = PApplet.TWO_PI / 6;
+			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
+			mainPoint.rotate(0);
+			menu[0] = new PVector(0, DISTANCE);
+			menu[0].rotate(0);
+			menu[0].add(position);
+			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			// mainPoint.createFont(font, arg1);
+			drehung = drehung + drehungProUntermenue;
+			mainPoint.resetMatrix();
+			
+			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
+			mainPoint.rotate(PApplet.TWO_PI / 6);
+			menu[1] = new PVector(0, DISTANCE);
+			menu[1].rotate(PApplet.TWO_PI / 6);
+			menu[1].add(position);
+			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			mainPoint.ellipse(0, DISTANCE , 8, 8);
+			drehung = drehung + drehungProUntermenue;
+			mainPoint.resetMatrix();
+			System.out.println(this.positionBuilding.x+" "+this.positionBuilding.y+" : "+this.position.x + " "+this.position.y);
 		}
 
 	}
@@ -257,6 +253,7 @@ public class Menu {
 			System.out.println("Menue 1");
 			setNumberBuilding(0);
 			setMenuOpen(false);
+			setBuildingOpen(false);
 			return true;
 		}
 
@@ -264,6 +261,7 @@ public class Menu {
 			System.out.println("Menue 2");
 			setNumberBuilding(1);
 			setMenuOpen(false);
+			setBuildingOpen(false);
 			return true;
 		}
 
@@ -271,6 +269,7 @@ public class Menu {
 			System.out.println("Menue 3");
 			setNumberBuilding(2);
 			setMenuOpen(false);
+			setBuildingOpen(false);
 			return true;
 		}
 
@@ -313,9 +312,21 @@ public class Menu {
 	public float getPositionY() {
 		return position.y;
 	}
-	
+
 	public PVector getPosition() {
 		return position;
+	}
+
+	public void setPosition(PVector position) {
+		this.position = position;
+	}
+
+	public void setBuildingOpen(boolean buildingOpen) {
+		this.buildingOpen = buildingOpen;
+	}
+
+	public void setPositionBuilding(PVector positionBuilding) {
+		this.positionBuilding = positionBuilding;
 	}
 
 }
