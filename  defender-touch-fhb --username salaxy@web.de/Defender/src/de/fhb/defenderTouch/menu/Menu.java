@@ -10,7 +10,12 @@ import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.grounded.Building;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
-public class Menu {
+public class Menu extends PApplet{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3397305783234975553L;
 
 	/**
 	 * applet where the buildings are placed
@@ -88,10 +93,11 @@ public class Menu {
 	protected ArrayList<BaseUnit> buildings;
 
 	/**
-	 * a
+	 * actual address with the building, used for deleting it
 	 */
-	protected PFont font = MenuTest.font;
-	
+	protected PFont font;
+
+
 	/**
 	 * Constructor of Menu
 	 */
@@ -99,7 +105,9 @@ public class Menu {
 		this.position = new PVector(0, 0);
 		this.mainPoint = display;
 		this.buildings = buildings;
-
+		
+		font = createFont("Arial", 18);
+		
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
 		}
@@ -129,8 +137,9 @@ public class Menu {
 
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
-//			font.text("Dein aktuelles Gold: " , 3, 65);
-//			font.
+			textFont(font, 15);
+			text("Dein aktuelles Gold: ", 3, 65);
+			// font.
 			mainPoint.translate(this.position.x, this.position.y);
 			mainPoint.rotate(drehung);
 			menu[0] = new PVector(0, DISTANCE);
