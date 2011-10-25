@@ -66,7 +66,12 @@ public class Menu {
 	/**
 	 * Nummer des gebäudes
 	 */
-	protected int numberBuilding = 0;
+	protected int actualNumber = 0;
+
+	/**
+	 * Nummer des gebäudes
+	 */
+	protected int creditsPlayer = 200;
 
 	/**
 	 * Konstruktor
@@ -90,6 +95,7 @@ public class Menu {
 	 */
 	public void showMenuPoint(PVector position) {
 		this.position = position;
+		this.menuOpen = true;
 	}
 
 	/**
@@ -254,7 +260,7 @@ public class Menu {
 
 		if (this.position.dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menu close choosed");
-			numberBuilding = 0;
+			actualNumber = 0;
 			setMenuOpen(false);
 			return true;
 		}
@@ -272,24 +278,31 @@ public class Menu {
 		// look if a menu point was clicked
 		if (this.menu[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 1");
-			setNumberBuilding(0);
-			setMenuOpen(false);
-			setBuildingOpen(false);
-			return true;
+			// TODO: so is kacke, die 50 müssen iwie aus der Klasse kommen...
+			if (isEnoughCredits(50)) {
+				creditsPlayer -= 50;
+				setActualNumber(0);
+				setMenuOpen(false);
+				return true;
+			}
 		}
 		if (this.menu[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 2");
-			setNumberBuilding(1);
-			setMenuOpen(false);
-			setBuildingOpen(false);
-			return true;
+			if (isEnoughCredits(40)) {
+				creditsPlayer -= 40;
+				setActualNumber(1);
+				setMenuOpen(false);
+				return true;
+			}
 		}
 		if (this.menu[2].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 3");
-			setNumberBuilding(2);
-			setMenuOpen(false);
-			setBuildingOpen(false);
-			return true;
+			if (isEnoughCredits(30)) {
+				creditsPlayer -= 30;
+				setActualNumber(2);
+				setMenuOpen(false);
+				return true;
+			}
 		}
 		if (this.menu[3].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 4");
@@ -308,38 +321,34 @@ public class Menu {
 	public boolean isInnerBuildingElement(PVector clickVector) {
 		// look if a specific building menu point was clicked
 		if (this.menuBuildings[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			System.out.println("Building upgrade");
+			setBuildingOpen(false);
+			setActualNumber(0);
+			return true;
 		}
 		if (this.menuBuildings[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			System.out.println("Building destroyed");
+			setBuildingOpen(false);
+			setActualNumber(1);
+			return true;
 		}
 
 		return false;
 	}
 
-	// public void paintBuildingLevel(PVector clickVector, int level) {
-	// // TODO
-	// mainPoint.noFill();
-	// mainPoint.stroke(100);
-	// System.out.println(clickVector.x + " :: " + clickVector.y);
-	// mainPoint.translate(this.position.x, this.position.y);
-	// mainPoint.rotate(0);
-	// menu[0] = new PVector(0, DISTANCE);
-	// menu[0].rotate(0);
-	// menu[0].add(position);
-	// mainPoint.ellipse(0, -DISTANCE / 2, DIAMETERCIRCLEMENU / 2,
-	// DIAMETERCIRCLEMENU / 2);
-	// // mainPoint.createFont(font, arg1);
-	// mainPoint.resetMatrix();
-	//
-	// }
+	public boolean isEnoughCredits(int credits) {
+
+		if (creditsPlayer - credits >= 0) {
+			return true;
+		}
+
+		return false;
+	}
 
 	public boolean isBuildingOpen() {
 		return buildingOpen;
 	}
 
-	public void setNumberBuilding(int numberBuilding) {
-		this.numberBuilding = numberBuilding;
+	public void setActualNumber(int actualNumber) {
+		this.actualNumber = actualNumber;
 	}
 
 	public void setMenuOpen(boolean menuOpen) {
@@ -350,8 +359,8 @@ public class Menu {
 		return menuOpen;
 	}
 
-	public int getNumberBuilding() {
-		return numberBuilding;
+	public int getActualNumber() {
+		return actualNumber;
 	}
 
 	public float getPositionX() {

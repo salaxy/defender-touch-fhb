@@ -56,10 +56,10 @@ public class MenuTest extends PApplet {
 	 */
 	public void draw() {
 		background(200);
-
+		fill(100);
 		textFont(font, 15);
 		textAlign(CENTER);
-		text("Dein aktuelles Gold: 200", width / 2, 15);
+		text("Dein aktuelles Gold: " + menu.creditsPlayer, width / 2, 15);
 
 		// create menue for building options
 		menu.drawMenu();
@@ -122,35 +122,37 @@ public class MenuTest extends PApplet {
 	public void mouseClicked() {
 		// create Point where mouse was clicked in
 		PVector clickVector = new PVector(this.mouseX, this.mouseY);
+		System.out.println(this.mouseX + "," + this.mouseY);
+		System.out.println(menu.isMenuOpen() + " menu");
+		System.out.println(menu.isBuildingOpen() + " building");
 
 		if (this.mouseButton == LEFT) {
-
+			// watching if both menus are closed
 			if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
 
 				if (isTaken(clickVector)) {
-					// if menu is not already open
 					// look if a building was clicked
+					System.out.println("show building options");
 					menu.setBuildingOpen(true);
 
 				} else {
 					// if menu is not already open, just open it
 					// if its open, don't do anything
+					System.out.println("show menu open");
 					menu.showMenuPoint(clickVector);
-					menu.setMenuOpen(true);
-					System.out.println("menu open");
 				}
 
 			}
 
-			if (menu.isBuildingOpen()) {
+			else if (menu.isBuildingOpen() && !menu.isMenuOpen()) {
 				// Choosing which Building menu point was clicked
 				if (menu.isInnerBuildingElement(clickVector)) {
-					switch (menu.getNumberBuilding()) {
-					case 0: //TODO : hier muss level up rein
-						menu.setBuildingOpen(true);
+					switch (menu.getActualNumber()) {
+					case 0: // TODO : hier muss level up rein
+						System.out.println("do Building upgrade");
 						break;
-					case 1: //TODO : hier muss gebäude zerstören rein
-						menu.setBuildingOpen(true);
+					case 1: // TODO : hier muss gebäude zerstören rein
+						System.out.println("do Building destroyed");
 						break;
 					default:
 					}
@@ -158,24 +160,23 @@ public class MenuTest extends PApplet {
 			}
 
 			// watching if menu is open and click is into a building element
-			if (menu.isMenuOpen()) {
-				menu.setBuildingOpen(false);
+			else if (menu.isMenuOpen() && !menu.isBuildingOpen()) {
+				// menu.setBuildingOpen(false);
 
 				// Choosing which Building should be placed
 				if (menu.isInnerMenuElement(clickVector)) {
-
-					switch (menu.getNumberBuilding()) {
+					switch (menu.getActualNumber()) {
 					case 0:
+						System.out.println("building a Ground unit");
 						buildings.add(new Ground((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
-						menu.setMenuOpen(false);
 						break;
 					case 1:
+						System.out.println("building a Defence unit");
 						buildings.add(new Defence((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
-						menu.setMenuOpen(false);
 						break;
 					case 2:
+						System.out.println("building a Support unit");
 						buildings.add(new Support((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
-						menu.setMenuOpen(false);
 						break;
 					default:
 						System.out.println();
@@ -189,11 +190,11 @@ public class MenuTest extends PApplet {
 			// if menu is open und click in menu point -> close it
 			if (menu.isMenuOpen() && menu.isInnerMainElement(clickVector)) {
 				menu.setMenuOpen(false);
-				System.out.println("menu closed");
+				System.out.println("close building menu");
 			}
 			// closes the menu of a specific building
 			if (isTaken(clickVector)) {
-
+				System.out.println("close specific building menu");
 				menu.setBuildingOpen(false);
 			}
 		}
@@ -210,9 +211,6 @@ public class MenuTest extends PApplet {
 			// if a building is clicked
 			if (building.getPosition().dist(clickVector) < (building.getCollisionRadius())) {
 				menu.setPositionBuilding(building.getPosition());
-				// System.out.println(clickVector.x + " "+ clickVector.y);
-				// System.out.println(building.getPosition().x + " "+
-				// building.getPosition().y);
 				return true;
 			}
 		}
