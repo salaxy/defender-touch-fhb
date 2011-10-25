@@ -2,10 +2,9 @@ package de.fhb.defenderTouch.units.grounded;
 
 import java.util.ArrayList;
 
-import de.fhb.defenderTouch.graphics.GraphicTools;
-
 import processing.core.PApplet;
 import processing.core.PVector;
+import de.fhb.defenderTouch.graphics.GraphicTools;
 
 public class Defence extends Building{
 
@@ -19,6 +18,17 @@ public class Defence extends Building{
 	
 	public void drawFigure(){
 		
+		switch(this.level){
+			case LEVEL_ONE:	//zeichne sooo;
+				;
+			break;
+			case LEVEL_TWO: //dann zeichne soo;
+				;
+			break;
+			case LEVEL_THREE://oder soooo;
+				;
+			break;
+		}
 
 		this.entscheideLineFarbe();
 		display.scale(1);
