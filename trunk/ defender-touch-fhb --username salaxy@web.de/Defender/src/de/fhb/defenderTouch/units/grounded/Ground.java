@@ -8,6 +8,7 @@ public class Ground extends Building{
 	
 	public Ground(int x, int y, int mode, int playerID, PApplet disp){
 		super(x, y, mode, playerID, disp);
+		this.price= 50;
 		// TODO Auto-generated constructor stub
 	}
 
