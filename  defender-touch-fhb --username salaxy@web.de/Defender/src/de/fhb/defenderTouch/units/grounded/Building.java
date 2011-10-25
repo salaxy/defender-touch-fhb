@@ -26,7 +26,8 @@ public class Building extends BaseUnit{
 
 	public void upgrade() {
 		if(this.level<LEVEL_THREE){
-			this.level++;			
+			this.level++;		
+			//TODO weitere eigenschaften rauf setzen
 		}
 	}
 
