@@ -152,14 +152,15 @@ public class MenuTest extends PApplet {
 						case 0: // TODO : hier muss level up rein
 							System.out.println("do Building upgrade");
 							//hier upgrade
-							menu.getAktualBuilding().upgrade();
+							menu.getActualBuilding().upgrade();
+							System.out.println("actual level: "+ menu.getActualBuilding().getLevel());
 							break;
 						case 1: // TODO : hier muss gebäude zerstören rein
 							System.out.println("do Building destroyed");
 							//TODO später delete methode von base unit nutzen!!!! Wenn alles zusamm gefügt ist
 //							menu.getAktualBuilding().delete();//das für später, wie es sein sollte...
 							//notlösung für den moment
-							buildings.remove(menu.getAktualBuilding());
+							buildings.remove(menu.getActualBuilding());
 							break;
 						default:
 					}

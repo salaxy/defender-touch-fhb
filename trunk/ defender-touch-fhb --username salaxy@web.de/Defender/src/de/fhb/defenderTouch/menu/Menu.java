@@ -32,7 +32,7 @@ public class Menu {
 	protected PVector menu[] = new PVector[6];
 
 	/**
-	 * menu points, actual 6 points, 3 in use
+	 * buildings menu point, 4 points, 2 in use
 	 */
 	protected PVector menuBuildings[] = new PVector[2];
 
@@ -72,22 +72,27 @@ public class Menu {
 	protected int actualNumber = 0;
 
 	/**
-	 * Nummer des gebäudes
+	 * Startcredit of every palyer
 	 */
-	protected int creditsPlayer = 200;
+	protected int creditsPlayer = 2000;
 
 	/**
-	 * Konstruktor
+	 * actual address with the building, used for deleting it
 	 */
-	
-	private Building aktualBuilding=null;
-	
-	private ArrayList<BaseUnit> buildings;
-	
+	protected Building actualBuilding = null;
+
+	/**
+	 * array list with all its buildings
+	 */
+	protected ArrayList<BaseUnit> buildings;
+
+	/**
+	 * Constructor of Menu
+	 */
 	public Menu(PApplet display, ArrayList<BaseUnit> buildings) {
 		this.position = new PVector(0, 0);
 		this.mainPoint = display;
-		this.buildings=buildings;
+		this.buildings = buildings;
 		// PFont font;
 		// font = createFont("Arial", 18);
 
@@ -330,12 +335,11 @@ public class Menu {
 	public boolean isInnerBuildingElement(PVector clickVector) {
 		// look if a specific building menu point was clicked
 		if (this.menuBuildings[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			setBuildingOpen(false,null);
-			setActualNumber(0);
+			setBuildingOpen(false, null);
 			return true;
 		}
 		if (this.menuBuildings[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			setBuildingOpen(false,null);
+			setBuildingOpen(false, null);
 			setActualNumber(1);
 			return true;
 		}
@@ -387,25 +391,25 @@ public class Menu {
 	}
 
 	public void setBuildingOpen(boolean buildingOpen, PVector click) {
-		
-		if(click!=null){
-			
-			//suche gebäude auf dem geklickt wurde
-			for(BaseUnit bu :buildings){
-				
-				if(bu.isInner(click)){
-					if(bu instanceof Building){
-						aktualBuilding=(Building)bu;
+
+		if (click != null) {
+
+			// suche gebäude auf dem geklickt wurde
+			for (BaseUnit bu : buildings) {
+
+				if (bu.isInner(click)) {
+					if (bu instanceof Building) {
+						actualBuilding = (Building) bu;
 					}
-				}	
-			}		
+				}
+			}
 		}
-		
+
 		this.buildingOpen = buildingOpen;
 	}
 
-	public Building getAktualBuilding() {
-		return aktualBuilding;
+	public Building getActualBuilding() {
+		return actualBuilding;
 	}
 
 	public void setPositionBuilding(PVector positionBuilding) {
