@@ -143,12 +143,17 @@ public class BaseUnit implements Drawable {
 	/**
 	 * Kollisionssradius um das Zentrum der Einheit
 	 */
-	protected float collisionRadius = 10;
+	protected float collisionRadius = 15;
 
 	/**
 	 * jede einheit hat eine eindeutige ID zur identifizierung
 	 */
 	protected int id;
+	
+	/**
+	 * jedes Gebäude hat ein Level
+	 */
+	protected int level = 1;
 
 	public BaseUnit(int x, int y, int mode, int playerID, PApplet disp) {
 
@@ -621,4 +626,13 @@ public class BaseUnit implements Drawable {
 	public float getCollisionRadius() {
 		return collisionRadius;
 	}
+	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 }
