@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PFont;
 import processing.core.PVector;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.grounded.Building;
@@ -87,14 +88,17 @@ public class Menu {
 	protected ArrayList<BaseUnit> buildings;
 
 	/**
+	 * a
+	 */
+	protected PFont font = MenuTest.font;
+	
+	/**
 	 * Constructor of Menu
 	 */
 	public Menu(PApplet display, ArrayList<BaseUnit> buildings) {
 		this.position = new PVector(0, 0);
 		this.mainPoint = display;
 		this.buildings = buildings;
-		// PFont font;
-		// font = createFont("Arial", 18);
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
@@ -125,7 +129,8 @@ public class Menu {
 
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
-
+//			font.text("Dein aktuelles Gold: " , 3, 65);
+//			font.
 			mainPoint.translate(this.position.x, this.position.y);
 			mainPoint.rotate(drehung);
 			menu[0] = new PVector(0, DISTANCE);
