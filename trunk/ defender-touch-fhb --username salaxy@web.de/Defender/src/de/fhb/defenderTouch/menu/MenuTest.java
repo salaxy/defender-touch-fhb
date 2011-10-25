@@ -56,7 +56,7 @@ public class MenuTest extends PApplet {
 	 */
 	public void draw() {
 		background(200);
-		
+
 		textFont(font, 15);
 		textAlign(CENTER);
 		text("Dein aktuelles Gold: 200", width / 2, 15);
@@ -67,8 +67,8 @@ public class MenuTest extends PApplet {
 		// shows all buildings of the players
 		for (BaseUnit u : buildings) {
 			u.paint();
-			System.out.println(u.getPosition());
-			menu.paintBuildingLevel(u.getPosition(), u.getLevel());
+			// System.out.println(u.getPosition());
+			// menu.paintBuildingLevel(u.getPosition(), u.getLevel());
 		}
 
 	}
@@ -125,9 +125,42 @@ public class MenuTest extends PApplet {
 
 		if (this.mouseButton == LEFT) {
 
+			if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
+
+				if (isTaken(clickVector)) {
+					// if menu is not already open
+					// look if a building was clicked
+					menu.setBuildingOpen(true);
+
+				} else {
+					// if menu is not already open, just open it
+					// if its open, don't do anything
+					menu.showMenuPoint(clickVector);
+					menu.setMenuOpen(true);
+					System.out.println("menu open");
+				}
+
+			}
+
+			if (menu.isBuildingOpen()) {
+				// Choosing which Building menu point was clicked
+				if (menu.isInnerBuildingElement(clickVector)) {
+					switch (menu.getNumberBuilding()) {
+					case 0: //TODO : hier muss level up rein
+						menu.setBuildingOpen(true);
+						break;
+					case 1: //TODO : hier muss gebäude zerstören rein
+						menu.setBuildingOpen(true);
+						break;
+					default:
+					}
+				}
+			}
+
 			// watching if menu is open and click is into a building element
 			if (menu.isMenuOpen()) {
 				menu.setBuildingOpen(false);
+
 				// Choosing which Building should be placed
 				if (menu.isInnerMenuElement(clickVector)) {
 
@@ -148,20 +181,6 @@ public class MenuTest extends PApplet {
 						System.out.println();
 					}
 				}
-			} else {
-
-				if (isTaken(clickVector)) {
-					// if menu is not already open
-					// look if a building was clicked
-					menu.setBuildingOpen(true);
-
-				} else {
-					// if menu is not already open, just open it
-					// if its open, don't do anything
-					menu.showMenuPoint(clickVector);
-					System.out.println("menu open");
-				}
-
 			}
 		}
 
