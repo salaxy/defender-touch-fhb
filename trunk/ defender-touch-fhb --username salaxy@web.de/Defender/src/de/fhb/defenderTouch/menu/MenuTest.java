@@ -1,6 +1,7 @@
 package de.fhb.defenderTouch.menu;
 
 import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PVector;
@@ -8,6 +9,7 @@ import TUIO.TuioCursor;
 import TUIO.TuioObject;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
+import de.fhb.defenderTouch.units.grounded.Building;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Support;
@@ -41,7 +43,7 @@ public class MenuTest extends PApplet {
 		// listens to port 3333
 		tuioClient = new TuioProcessing(this);
 
-		menu = new Menu(this);
+		menu = new Menu(this, buildings);
 
 		// activate anti aliaising
 		this.smooth();
@@ -131,7 +133,7 @@ public class MenuTest extends PApplet {
 				if (isTaken(clickVector)) {
 					// look if a building was clicked
 					System.out.println("show building options");
-					menu.setBuildingOpen(true);
+					menu.setBuildingOpen(true,clickVector);
 
 				} else {
 					// if menu is not already open, just open it
@@ -144,16 +146,22 @@ public class MenuTest extends PApplet {
 
 			else if (menu.isBuildingOpen()) {
 				// Choosing which Building menu point was clicked
-				if (menu.isInnerBuildingElement(clickVector)) {
+				if (menu.isInnerBuildingElement(clickVector)) {						
+					
 					switch (menu.getActualNumber()) {
-					case 0: // TODO : hier muss level up rein
-						System.out.println("do Building upgrade");
-						break;
-					case 1: // TODO : hier muss gebäude zerstören rein
-						System.out.println("do Building destroyed");
-						buildings.remove(buildings.get(0));
-						break;
-					default:
+						case 0: // TODO : hier muss level up rein
+							System.out.println("do Building upgrade");
+							//hier upgrade
+							menu.getAktualBuilding().upgrade();
+							break;
+						case 1: // TODO : hier muss gebäude zerstören rein
+							System.out.println("do Building destroyed");
+							//TODO später delete methode von base unit nutzen!!!! Wenn alles zusamm gefügt ist
+//							menu.getAktualBuilding().delete();//das für später, wie es sein sollte...
+							//notlösung für den moment
+							buildings.remove(menu.getAktualBuilding());
+							break;
+						default:
 					}
 				}
 			}
@@ -194,7 +202,7 @@ public class MenuTest extends PApplet {
 			// closes the menu of a specific building
 			if (isTaken(clickVector)) {
 				System.out.println("close specific building menu");
-				menu.setBuildingOpen(false);
+				menu.setBuildingOpen(false,null);
 			}
 		}
 
