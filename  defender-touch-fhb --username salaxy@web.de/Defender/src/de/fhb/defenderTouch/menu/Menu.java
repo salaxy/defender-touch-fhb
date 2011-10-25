@@ -1,10 +1,13 @@
 package de.fhb.defenderTouch.menu;
 
 import java.util.ArrayList;
-import de.fhb.defenderTouch.graphics.GraphicTools;
+
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PVector;
+import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.units.grounded.Building;
+import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 public class Menu {
 
@@ -76,9 +79,15 @@ public class Menu {
 	/**
 	 * Konstruktor
 	 */
-	public Menu(PApplet display) {
+	
+	private Building aktualBuilding=null;
+	
+	private ArrayList<BaseUnit> buildings;
+	
+	public Menu(PApplet display, ArrayList<BaseUnit> buildings) {
 		this.position = new PVector(0, 0);
 		this.mainPoint = display;
+		this.buildings=buildings;
 		// PFont font;
 		// font = createFont("Arial", 18);
 
@@ -321,12 +330,12 @@ public class Menu {
 	public boolean isInnerBuildingElement(PVector clickVector) {
 		// look if a specific building menu point was clicked
 		if (this.menuBuildings[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			setBuildingOpen(false);
+			setBuildingOpen(false,null);
 			setActualNumber(0);
 			return true;
 		}
 		if (this.menuBuildings[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			setBuildingOpen(false);
+			setBuildingOpen(false,null);
 			setActualNumber(1);
 			return true;
 		}
@@ -377,8 +386,26 @@ public class Menu {
 		this.position = position;
 	}
 
-	public void setBuildingOpen(boolean buildingOpen) {
+	public void setBuildingOpen(boolean buildingOpen, PVector click) {
+		
+		if(click!=null){
+			
+			//suche gebäude auf dem geklickt wurde
+			for(BaseUnit bu :buildings){
+				
+				if(bu.isInner(click)){
+					if(bu instanceof Building){
+						aktualBuilding=(Building)bu;
+					}
+				}	
+			}		
+		}
+		
 		this.buildingOpen = buildingOpen;
+	}
+
+	public Building getAktualBuilding() {
+		return aktualBuilding;
 	}
 
 	public void setPositionBuilding(PVector positionBuilding) {
