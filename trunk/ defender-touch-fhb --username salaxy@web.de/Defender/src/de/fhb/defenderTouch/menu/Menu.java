@@ -335,11 +335,9 @@ public class Menu {
 	}
 
 	public boolean isEnoughCredits(int credits) {
-
 		if (creditsPlayer - credits >= 0) {
 			return true;
 		}
-
 		return false;
 	}
 

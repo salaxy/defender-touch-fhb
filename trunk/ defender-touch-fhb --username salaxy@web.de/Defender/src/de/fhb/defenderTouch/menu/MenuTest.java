@@ -32,7 +32,7 @@ public class MenuTest extends PApplet {
 		noStroke(); // draw no borders
 
 		loop(); // loop the draw-methode
-		frameRate(25);
+		frameRate(20);
 
 		// render fonts faster
 		hint(ENABLE_NATIVE_FONTS);
@@ -67,8 +67,6 @@ public class MenuTest extends PApplet {
 		// shows all buildings of the players
 		for (BaseUnit u : buildings) {
 			u.paint();
-			// System.out.println(u.getPosition());
-			// menu.paintBuildingLevel(u.getPosition(), u.getLevel());
 		}
 
 	}
@@ -122,9 +120,9 @@ public class MenuTest extends PApplet {
 	public void mouseClicked() {
 		// create Point where mouse was clicked in
 		PVector clickVector = new PVector(this.mouseX, this.mouseY);
-//		System.out.println(this.mouseX + "," + this.mouseY);
-//		System.out.println(menu.isMenuOpen() + " menu");
-//		System.out.println(menu.isBuildingOpen() + " building");
+		System.out.print(this.mouseX + "," + this.mouseY +" ... ");
+		System.out.print(menu.isMenuOpen() + " menu...");
+		System.out.println(menu.isBuildingOpen() + " building...");
 
 		if (this.mouseButton == LEFT) {
 			// watching if both menus are closed
@@ -153,6 +151,7 @@ public class MenuTest extends PApplet {
 						break;
 					case 1: // TODO : hier muss gebäude zerstören rein
 						System.out.println("do Building destroyed");
+						buildings.remove(buildings.get(0));
 						break;
 					default:
 					}
