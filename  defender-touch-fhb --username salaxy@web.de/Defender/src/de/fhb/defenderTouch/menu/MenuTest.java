@@ -122,9 +122,9 @@ public class MenuTest extends PApplet {
 	public void mouseClicked() {
 		// create Point where mouse was clicked in
 		PVector clickVector = new PVector(this.mouseX, this.mouseY);
-		System.out.println(this.mouseX + "," + this.mouseY);
-		System.out.println(menu.isMenuOpen() + " menu");
-		System.out.println(menu.isBuildingOpen() + " building");
+//		System.out.println(this.mouseX + "," + this.mouseY);
+//		System.out.println(menu.isMenuOpen() + " menu");
+//		System.out.println(menu.isBuildingOpen() + " building");
 
 		if (this.mouseButton == LEFT) {
 			// watching if both menus are closed
@@ -144,7 +144,7 @@ public class MenuTest extends PApplet {
 
 			}
 
-			else if (menu.isBuildingOpen() && !menu.isMenuOpen()) {
+			else if (menu.isBuildingOpen()) {
 				// Choosing which Building menu point was clicked
 				if (menu.isInnerBuildingElement(clickVector)) {
 					switch (menu.getActualNumber()) {
@@ -160,7 +160,7 @@ public class MenuTest extends PApplet {
 			}
 
 			// watching if menu is open and click is into a building element
-			else if (menu.isMenuOpen() && !menu.isBuildingOpen()) {
+			else if (menu.isMenuOpen() ) {
 				// menu.setBuildingOpen(false);
 
 				// Choosing which Building should be placed
