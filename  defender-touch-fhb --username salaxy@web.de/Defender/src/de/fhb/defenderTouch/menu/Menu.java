@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PFont;
 import processing.core.PVector;
 
 public class Menu {
@@ -18,7 +17,7 @@ public class Menu {
 	 * recent position of the click
 	 */
 	protected PVector position;
-	
+
 	/**
 	 * recent position of the building
 	 */
@@ -73,13 +72,9 @@ public class Menu {
 		// PFont font;
 		// font = createFont("Arial", 18);
 
-		menu[0] = new PVector(-100, -100);
-		menu[1] = new PVector(-100, -100);
-		menu[2] = new PVector(-100, -100);
-		menu[3] = new PVector(-100, -100);
-		menu[4] = new PVector(-100, -100);
-		menu[5] = new PVector(-100, -100);
-
+		for (int i = 0; i < menu.length; i++) {
+			menu[i] = new PVector(-100, -100);
+		}
 	}
 
 	/**
@@ -100,35 +95,22 @@ public class Menu {
 		if (menuOpen) {
 
 			mainPoint.noFill();
-			mainPoint.stroke(100);
+			mainPoint.stroke(255);
 
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
-
-			// for(;drehung<PApplet.TWO_PI;){
-			// mainPoint.translate(this.position.x, this.position.y);
-			// System.out.println(drehung+"");
-			// mainPoint.rotate(drehung);
-			// PVector v=new PVector(0,-40);
-			// v.rotate(drehung);
-			// v.add(position);
-			//
-			// System.out.println(v+"");
-			// mainPoint.ellipse(0, -40, 38, 38);
-			// drehung=drehung+drehungProUntermenue;
-			// mainPoint.resetMatrix();
-			//
-			// }
 
 			mainPoint.translate(this.position.x, this.position.y);
 			mainPoint.rotate(0);
 			menu[0] = new PVector(0, DISTANCE);
 			menu[0].rotate(0);
 			menu[0].add(position);
+			mainPoint.fill(20, 50, 20);
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			mainPoint.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
 			// mainPoint.ellipse(0, DISTANCE +(DISTANCE/2), RADIUSCIRCLEMENU,
 			// RADIUSCIRCLEMENU);
+			// mainPoint.createFont(font, arg1);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
 
@@ -137,6 +119,7 @@ public class Menu {
 			menu[1] = new PVector(0, DISTANCE);
 			menu[1].rotate(PApplet.TWO_PI / 6);
 			menu[1].add(position);
+			mainPoint.fill(20, 20, 50);
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 			vektoren1.add(new PVector(-4, DISTANCE - 4));
@@ -156,6 +139,7 @@ public class Menu {
 			menu[2] = new PVector(0, DISTANCE);
 			menu[2].rotate(PApplet.TWO_PI / 6 * 2);
 			menu[2].add(position);
+			mainPoint.fill(50, 20, 20);
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 			vektoren2.add(new PVector(0, DISTANCE - 8));
@@ -172,6 +156,8 @@ public class Menu {
 			menu[3] = new PVector(0, DISTANCE);
 			menu[3].rotate(PApplet.TWO_PI / 6 * 3);
 			menu[3].add(position);
+			mainPoint.noFill();
+			mainPoint.stroke(150);
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
@@ -195,7 +181,7 @@ public class Menu {
 			mainPoint.resetMatrix();
 		}
 
-		if (buildingOpen) {
+		if (buildingOpen && !menuOpen) {
 			mainPoint.noFill();
 			mainPoint.stroke(100);
 			float drehung = 0f;
@@ -209,17 +195,19 @@ public class Menu {
 			// mainPoint.createFont(font, arg1);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
-			
+
 			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
 			mainPoint.rotate(PApplet.TWO_PI / 6);
 			menu[1] = new PVector(0, DISTANCE);
 			menu[1].rotate(PApplet.TWO_PI / 6);
 			menu[1].add(position);
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
-			mainPoint.ellipse(0, DISTANCE , 8, 8);
+			mainPoint.ellipse(0, DISTANCE, 8, 8);
 			drehung = drehung + drehungProUntermenue;
 			mainPoint.resetMatrix();
-			System.out.println(this.positionBuilding.x+" "+this.positionBuilding.y+" : "+this.position.x + " "+this.position.y);
+			// System.out.println(this.positionBuilding.x + " " +
+			// this.positionBuilding.y + " : " + this.position.x + " " +
+			// this.position.y);
 		}
 
 	}
@@ -286,6 +274,22 @@ public class Menu {
 		}
 
 		return false;
+
+	}
+
+	public void paintBuildingLevel(PVector clickVector, int level) {
+		// TODO
+		mainPoint.noFill();
+		mainPoint.stroke(100);
+		System.out.println(clickVector.x + " :: " + clickVector.y);
+		mainPoint.translate(this.position.x, this.position.y);
+		mainPoint.rotate(0);
+		menu[0] = new PVector(0, DISTANCE);
+		menu[0].rotate(0);
+		menu[0].add(position);
+		mainPoint.ellipse(0, -DISTANCE / 2, DIAMETERCIRCLEMENU / 2, DIAMETERCIRCLEMENU / 2);
+		// mainPoint.createFont(font, arg1);
+		mainPoint.resetMatrix();
 
 	}
 

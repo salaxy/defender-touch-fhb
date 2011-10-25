@@ -1,20 +1,15 @@
 package de.fhb.defenderTouch.menu;
 
-import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Vector;
-
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PVector;
 import TUIO.TuioCursor;
 import TUIO.TuioObject;
-import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
-import de.fhb.defenderTouch.units.grounded.Navi;
 import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
@@ -61,8 +56,8 @@ public class MenuTest extends PApplet {
 	 */
 	public void draw() {
 		background(200);
+		
 		textFont(font, 15);
-
 		textAlign(CENTER);
 		text("Dein aktuelles Gold: 200", width / 2, 15);
 
@@ -72,6 +67,8 @@ public class MenuTest extends PApplet {
 		// shows all buildings of the players
 		for (BaseUnit u : buildings) {
 			u.paint();
+			System.out.println(u.getPosition());
+			menu.paintBuildingLevel(u.getPosition(), u.getLevel());
 		}
 
 	}
@@ -81,7 +78,6 @@ public class MenuTest extends PApplet {
 	// called when an object is added to the scene
 	public void addTuioObject(TuioObject tobj) {
 		println("add object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " " + tobj.getY() + " " + tobj.getAngle());
-
 	}
 
 	// called when an object is removed from the scene
