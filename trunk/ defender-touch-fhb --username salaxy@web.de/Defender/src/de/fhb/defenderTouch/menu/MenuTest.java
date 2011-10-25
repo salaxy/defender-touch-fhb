@@ -1,5 +1,6 @@
 package de.fhb.defenderTouch.menu;
 
+import java.awt.Font;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -23,19 +24,19 @@ public class MenuTest extends PApplet {
 
 	int width = 1024;
 	int height = 600;
-	PFont font;
+	public static PFont font;
 	Menu menu;
 
 	// list with all elements of one player
 	private ArrayList<BaseUnit> buildings = new ArrayList<BaseUnit>();
-
+	
 	public void setup() {
 		size(width, height); // size of window
 		noStroke(); // draw no borders
 
 		loop(); // loop the draw-methode
 		frameRate(20);
-
+		
 		// render fonts faster
 		hint(ENABLE_NATIVE_FONTS);
 		font = createFont("Arial", 18);
@@ -208,6 +209,8 @@ public class MenuTest extends PApplet {
 		}
 
 	}
+
+	
 
 	/**
 	 * 
