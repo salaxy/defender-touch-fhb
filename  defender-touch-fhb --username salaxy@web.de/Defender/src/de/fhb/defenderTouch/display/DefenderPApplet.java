@@ -9,7 +9,7 @@ import TUIO.TuioObject;
 import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
-import de.fhb.defenderTouch.gamelogic.DefenderTouch;
+import de.fhb.defenderTouch.gamelogic.DefenderTouchControl;
 import de.fhb.defenderTouch.gamelogic.Spieler;
 import de.fhb.defenderTouch.map.Map;
 import de.fhb.defenderTouch.units.grounded.Defence;
@@ -42,9 +42,8 @@ public class DefenderPApplet extends PApplet {
 	
 	private Map karte;
 	
-	// zum testen
-//	public ArrayList<BaseUnit> units=new ArrayList<BaseUnit>();
-	private DefenderTouch gamelogic = DefenderTouch.getInstance(this);
+	//Spielelogik (Control)
+	private DefenderTouchControl gamelogic;
 	
 	public void setup()
 	{
@@ -56,6 +55,10 @@ public class DefenderPApplet extends PApplet {
 	  loop(); //loop the draw-methode
 	  frameRate(25);
 	  //noLoop();
+	  
+	  //gamelogic initialisieren  
+	  gamelogic= DefenderTouchControl.getInstance(this);
+
 	  
 	  hint(ENABLE_NATIVE_FONTS); //render fonts faster
 	  font = createFont("Arial", 18);
@@ -112,10 +115,19 @@ public class DefenderPApplet extends PApplet {
 	  float obj_size = object_size; 
 	  float cur_size = cursor_size;
 	  
-	  spielerOne.paint();
-	  spielerTwo.paint();
+//	  spielerOne.paint();
+//	  spielerTwo.paint();
 	  
 	  //alle gamelogic.getGlobalUnits() zeichnen
+//	  try{
+//		  for(BaseUnit u: gamelogic.getGlobalUnits()){
+//			  u.paint();	  
+//		  }
+//	  }catch ( java.util.ConcurrentModificationException ex) { 
+//		  ex.printStackTrace(); 
+//	} 
+	  
+	  
 	  try{
 		  for(BaseUnit u: gamelogic.getGlobalUnits()){
 			  u.paint();	  
@@ -244,10 +256,10 @@ public class DefenderPApplet extends PApplet {
 	  redraw();
 	}
 	
-//    /** Start PApplet as a Java program (can also be run as an applet). */
-//    static public void main(String args[]) {
-//        PApplet.main(new String[] { "de.fhb.defenderTouch.start.TUIOProcessingTest" });
-//    }
+    /** Start PApplet as a Java program (can also be run as an applet). */
+    static public void main(String args[]) {
+        PApplet.main(new String[] { "de.fhb.defenderTouch.display.DefenderPApplet" });
+    }
     
     //speziell fuer SPIELER 2
     //mausclick ueberschreiben
