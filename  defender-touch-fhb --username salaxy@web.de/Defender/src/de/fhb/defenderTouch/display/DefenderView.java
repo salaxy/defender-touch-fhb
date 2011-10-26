@@ -9,7 +9,7 @@ import TUIO.TuioObject;
 import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
-import de.fhb.defenderTouch.gamelogic.DefenderTouchControl;
+import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Spieler;
 import de.fhb.defenderTouch.map.Map;
 import de.fhb.defenderTouch.units.grounded.Defence;
@@ -19,7 +19,7 @@ import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 import de.fhb.defenderTouch.units.movable.Fighter;
 
-public class DefenderPApplet extends PApplet {
+public class DefenderView extends PApplet {
 
 	/**
 	 * 
@@ -43,7 +43,7 @@ public class DefenderPApplet extends PApplet {
 	private Map karte;
 	
 	//Spielelogik (Control)
-	private DefenderTouchControl gamelogic;
+	private DefenderControl gamelogic;
 	
 	public void setup()
 	{
@@ -57,7 +57,7 @@ public class DefenderPApplet extends PApplet {
 	  //noLoop();
 	  
 	  //gamelogic initialisieren  
-	  gamelogic= DefenderTouchControl.getInstance(this);
+	  gamelogic= DefenderControl.getInstance(this);
 
 	  
 	  hint(ENABLE_NATIVE_FONTS); //render fonts faster
@@ -258,7 +258,7 @@ public class DefenderPApplet extends PApplet {
 	
     /** Start PApplet as a Java program (can also be run as an applet). */
     static public void main(String args[]) {
-        PApplet.main(new String[] { "de.fhb.defenderTouch.display.DefenderPApplet" });
+        PApplet.main(new String[] { "de.fhb.defenderTouch.display.DefenderView" });
     }
     
     //speziell fuer SPIELER 2

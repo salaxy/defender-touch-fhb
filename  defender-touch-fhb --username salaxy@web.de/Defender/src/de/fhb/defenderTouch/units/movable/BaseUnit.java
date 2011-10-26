@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import de.fhb.defenderTouch.gamelogic.DefenderTouchControl;
+import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.interfaces.Drawable;
 
 /**
@@ -15,7 +15,7 @@ import de.fhb.defenderTouch.interfaces.Drawable;
  */
 public class BaseUnit implements Drawable {
 
-	private DefenderTouchControl gamelogic;
+	private DefenderControl gamelogic;
 
 	private int healthpointsMax = 250;
 	private int healthpointsStat = 250;
@@ -164,7 +164,7 @@ public class BaseUnit implements Drawable {
 		this.berechneNeueBlickrichtung();
 		this.initHaloSkala();
 
-		gamelogic = DefenderTouchControl.getInstance(display);
+		gamelogic = DefenderControl.getInstance(display);
 
 		// Id verpassen
 		this.id = BaseUnit.idCounter;
