@@ -8,9 +8,10 @@ import de.fhb.defenderTouch.graphics.GraphicTools;
 
 public class Defence extends Building{
 
+	public static final int PRICE = 40;
+	
 	public Defence(int x, int y, int mode, int playerID, PApplet disp){
 		super(x, y, mode, playerID, disp);
-		this.price= 50;
 		// TODO Auto-generated constructor stub
 	}
 
