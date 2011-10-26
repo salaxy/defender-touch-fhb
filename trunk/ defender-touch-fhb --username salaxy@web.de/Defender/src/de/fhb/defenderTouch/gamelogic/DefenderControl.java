@@ -1,9 +1,8 @@
 package de.fhb.defenderTouch.gamelogic;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import processing.core.PApplet;
-import de.fhb.defenderTouch.display.DefenderPApplet;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 /**
@@ -13,34 +12,34 @@ import de.fhb.defenderTouch.units.movable.BaseUnit;
 // * @deprecated Funktioniert Alles nicht, kannste vergessen ...scheiﬂ Animationthread beiﬂt sich alles,
 // * da dann mehere sachen aufs selbe zugreifen gleichzeitig verdammt!!
  */
-public class DefenderTouch {
+public class DefenderControl {
 	
-	// zum testen
-	private GlobalUnits globalUnits;
+	
+	private CopyOnWriteArrayList <BaseUnit> globalUnits;
 	
 	private PApplet display;
 	
-	private static DefenderTouch instance=null;
+	private static DefenderControl instance=null;
 	
 	
-	private DefenderTouch(PApplet display){
+	private DefenderControl(PApplet display){
 		this.display=display;
-		globalUnits=new GlobalUnits();
+		globalUnits=new CopyOnWriteArrayList <BaseUnit>();
 	}
 	
-	public static DefenderTouch getInstance(PApplet display){
+	public static DefenderControl getInstance(PApplet display){
 		
-		if(DefenderTouch.instance==null){
-			DefenderTouch.instance=new DefenderTouch(display);
+		if(DefenderControl.instance==null){
+			DefenderControl.instance=new DefenderControl(display);
 		}
 		
 		return instance;
 	}
 	
 
-	public ArrayList<BaseUnit> getGlobalUnits() {
+	public CopyOnWriteArrayList <BaseUnit> getGlobalUnits() {
 
-		return globalUnits.getGlobalUnits();
+		return globalUnits;
 	     
 	}
 
