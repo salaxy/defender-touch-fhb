@@ -150,9 +150,8 @@ public class MenuTest extends PApplet {
 				if (menu.isInnerBuildingElement(clickVector)) {						
 					
 					switch (menu.getActualNumber()) {
-						case 0: // TODO : hier muss level up rein
+						case 0: 
 							System.out.println("do Building upgrade");
-							//hier upgrade
 							menu.getActualBuilding().upgrade();
 							System.out.println("actual level: "+ menu.getActualBuilding().getLevel());
 							break;
