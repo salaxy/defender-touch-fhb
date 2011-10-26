@@ -9,9 +9,10 @@ import processing.core.PVector;
 
 public class Support extends Building{
 
+	public static final int PRICE = 30;
+	
 	public Support(int x, int y, int mode, int playerID, PApplet disp){
 		super(x, y, mode, playerID, disp);
-		this.price= 50;
 		// TODO Auto-generated constructor stub
 	}
 
