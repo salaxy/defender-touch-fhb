@@ -47,7 +47,7 @@ public class Map {
 	/**
 	 * Karte mit allen Components zeichnen.
 	 */
-	public void paint(PGraphics display, PVector position, float zoom) {
+	public static void paint(PGraphics display, PVector position, float zoom) {
 		display.beginDraw();
 		display.translate(position.x, position.y);
 		
