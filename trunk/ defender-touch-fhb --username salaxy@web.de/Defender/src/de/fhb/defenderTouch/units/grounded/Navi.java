@@ -7,6 +7,8 @@ import processing.core.PVector;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 
 public class Navi extends Building{
+	
+	public static final int PRICE = 30;
 
 	public Navi(int x, int y, int mode, int playerID, PApplet disp){
 		super(x, y, mode, playerID, disp);
