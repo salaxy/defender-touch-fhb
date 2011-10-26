@@ -10,6 +10,7 @@ import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.grounded.Building;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
+import de.fhb.defenderTouch.units.grounded.Navi;
 import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
@@ -448,9 +449,29 @@ public class Menu {
 			for (BaseUnit bu : buildings) {
 
 				if (bu.isInner(click)) {
+					
 					if (bu instanceof Building) {
-						return actualBuilding.;
+				
+						
+						if (bu instanceof Defence) {
+							return Defence.PRICE;
+						}
+					
+						if (bu instanceof Ground) {
+							return Ground.PRICE;
+						}
+						
+						
+						if (bu instanceof Navi) {
+							return Navi.PRICE;
+						}
+						
+						if (bu instanceof Support) {
+							return Support.PRICE;
+						}
 					}
+					
+
 				}
 			}
 		}
