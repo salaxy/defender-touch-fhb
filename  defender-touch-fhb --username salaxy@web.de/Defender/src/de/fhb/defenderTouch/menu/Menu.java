@@ -8,14 +8,12 @@ import processing.core.PFont;
 import processing.core.PVector;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.grounded.Building;
+import de.fhb.defenderTouch.units.grounded.Defence;
+import de.fhb.defenderTouch.units.grounded.Ground;
+import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
-public class Menu extends PApplet {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3397305783234975553L;
+public class Menu {
 
 	/**
 	 * applet where the buildings are placed
@@ -100,12 +98,12 @@ public class Menu extends PApplet {
 	/**
 	 * Constructor of Menu
 	 */
-	public Menu(PApplet display, ArrayList<BaseUnit> buildings) {
+	public Menu(PApplet mainPoint, ArrayList<BaseUnit> buildings) {
 		this.position = new PVector(0, 0);
-		this.mainPoint = display;
+		this.mainPoint = mainPoint;
 		this.buildings = buildings;
 
-		mainPoint.textFont(createFont("Arial", 18));
+		// mainPoint.textFont(createFont("Arial", 18));
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
@@ -127,13 +125,12 @@ public class Menu extends PApplet {
 	 * is always been done
 	 */
 	public void drawMenu() {
-
+		mainPoint.text("Dein aktuelles Gold: " + creditsPlayer, 100, 15);
 		mainPoint.ellipseMode(PConstants.CENTER);
 
 		if (menuOpen) {
 
 			mainPoint.stroke(255);
-
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
 
@@ -145,10 +142,11 @@ public class Menu extends PApplet {
 			mainPoint.fill(20, 50, 20);
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			mainPoint.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
-			drehung = drehung + drehungProUntermenue;
+			drehung += drehungProUntermenue;
 			// circle for the price of the building
 			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			this.mainPoint.text("50", 0, DISTANCE);
+			mainPoint.fill(255);
+			mainPoint.text(Ground.PRICE, 0, DISTANCE - 15);
 			mainPoint.resetMatrix();
 
 			mainPoint.translate(this.position.x, this.position.y);
@@ -168,7 +166,11 @@ public class Menu extends PApplet {
 			vektoren1.add(new PVector(-4, DISTANCE + 4));
 			mainPoint.ellipse(0, DISTANCE - 4, 8, 8);
 			GraphicTools.zeicheFigurNachVektoren(vektoren1, mainPoint);
-			drehung = drehung + drehungProUntermenue;
+			drehung += drehungProUntermenue;
+			// circle for the price of the building
+			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			mainPoint.fill(255);
+			mainPoint.text(Defence.PRICE, 0, DISTANCE - 15);
 			mainPoint.resetMatrix();
 
 			mainPoint.translate(this.position.x, this.position.y);
@@ -185,7 +187,11 @@ public class Menu extends PApplet {
 			vektoren2.add(new PVector(8, DISTANCE));
 			vektoren2.add(new PVector(-8, DISTANCE));
 			GraphicTools.zeicheFigurNachVektoren(vektoren2, mainPoint);
-			drehung = drehung + drehungProUntermenue;
+			drehung += drehungProUntermenue;
+			// circle for the price of the building
+			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			mainPoint.fill(255);
+			mainPoint.text(Support.PRICE, 0, DISTANCE - 15);
 			mainPoint.resetMatrix();
 
 			mainPoint.translate(this.position.x, this.position.y);
@@ -196,7 +202,7 @@ public class Menu extends PApplet {
 			mainPoint.noFill();
 			mainPoint.stroke(150);
 			mainPoint.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			drehung = drehung + drehungProUntermenue;
+			drehung += drehungProUntermenue;
 			mainPoint.resetMatrix();
 
 			mainPoint.translate(this.position.x, this.position.y);
@@ -205,7 +211,7 @@ public class Menu extends PApplet {
 			menu[4].rotate(drehung);
 			menu[4].add(position);
 			mainPoint.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			drehung = drehung + drehungProUntermenue;
+			drehung += drehungProUntermenue;
 			mainPoint.resetMatrix();
 
 			mainPoint.translate(this.position.x, this.position.y);
@@ -214,14 +220,14 @@ public class Menu extends PApplet {
 			menu[5].rotate(drehung);
 			menu[5].add(position);
 			mainPoint.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			drehung = drehung + drehungProUntermenue;
+			drehung += drehungProUntermenue;
 			mainPoint.resetMatrix();
 		}
 
 		// here is the complete menu for a specific building
-		if (buildingOpen && !menuOpen) {
+		if (buildingOpen) {
 			mainPoint.noFill();
-			mainPoint.stroke(100);
+			mainPoint.stroke(255);
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 4;
 
@@ -230,13 +236,14 @@ public class Menu extends PApplet {
 			menuBuildings[0] = new PVector(0, DISTANCE);
 			menuBuildings[0].rotate(drehung);
 			menuBuildings[0].add(position);
+			mainPoint.fill(20, 50, 20);
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			mainPoint.triangle(-5, DISTANCE, 0, DISTANCE - 10, +5, DISTANCE);
 			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 			vektoren1.add(new PVector(0, DISTANCE));
 			vektoren1.add(new PVector(0, DISTANCE + 8));
 			GraphicTools.zeicheFigurNachVektoren(vektoren1, mainPoint);
-			drehung = drehung + drehungProUntermenue;
+			drehung += drehungProUntermenue;
 			mainPoint.resetMatrix();
 
 			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
@@ -244,6 +251,7 @@ public class Menu extends PApplet {
 			menuBuildings[1] = new PVector(0, DISTANCE);
 			menuBuildings[1].rotate(drehung);
 			menuBuildings[1].add(position);
+			mainPoint.fill(50, 20, 20);
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 			vektoren2.add(new PVector(5, DISTANCE - 5));
@@ -252,27 +260,17 @@ public class Menu extends PApplet {
 			vektoren2.add(new PVector(5, DISTANCE + 5));
 			vektoren2.add(new PVector(-5, DISTANCE - 5));
 			GraphicTools.zeicheFigurNachVektoren(vektoren2, mainPoint);
-			drehung = drehung + drehungProUntermenue;
+			drehung += drehungProUntermenue;
 			mainPoint.resetMatrix();
 
 			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
 			mainPoint.rotate(drehung);
+			mainPoint.noFill();
 			mainPoint.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			// mainPoint.createFont(font, arg1);
-			drehung = drehung + drehungProUntermenue;
-			mainPoint.resetMatrix();
-			// System.out.println(this.positionBuilding.x + " " +
-			// this.positionBuilding.y + " : " + this.position.x + " " +
-			// this.position.y);
-
-			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
-			mainPoint.rotate(drehung);
-			mainPoint.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			// mainPoint.createFont(font, arg1);
-			drehung = drehung + drehungProUntermenue;
+			mainPoint.fill(255);
+			mainPoint.text("3", 0, 45);
 			mainPoint.resetMatrix();
 		}
-
 	}
 
 	/**
@@ -305,7 +303,7 @@ public class Menu extends PApplet {
 			System.out.println("Menue 1");
 			// TODO: so is kacke, die 50 müssen iwie aus der Klasse kommen...
 			if (isEnoughCredits(50)) {
-				creditsPlayer -= 50;
+				creditsPlayer -= Ground.PRICE;
 				setActualNumber(0);
 				setMenuOpen(false);
 				return true;
@@ -314,7 +312,7 @@ public class Menu extends PApplet {
 		if (this.menu[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 2");
 			if (isEnoughCredits(40)) {
-				creditsPlayer -= 40;
+				creditsPlayer -= Defence.PRICE;
 				setActualNumber(1);
 				setMenuOpen(false);
 				return true;
@@ -323,7 +321,7 @@ public class Menu extends PApplet {
 		if (this.menu[2].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 3");
 			if (isEnoughCredits(30)) {
-				creditsPlayer -= 30;
+				creditsPlayer -= Support.PRICE;
 				setActualNumber(2);
 				setMenuOpen(false);
 				return true;
