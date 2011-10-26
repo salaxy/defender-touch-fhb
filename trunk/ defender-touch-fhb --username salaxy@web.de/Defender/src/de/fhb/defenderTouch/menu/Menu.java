@@ -244,6 +244,11 @@ public class Menu {
 			vektoren1.add(new PVector(0, DISTANCE + 8));
 			GraphicTools.zeicheFigurNachVektoren(vektoren1, mainPoint);
 			drehung += drehungProUntermenue;
+			// TODO Abfrage welches Gebäude hier steht
+			// mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU,
+			// RADIUSCIRCLEMENU);
+			// mainPoint.fill(255);
+			// mainPoint.text(...., 0, DISTANCE - 15);
 			mainPoint.resetMatrix();
 
 			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
@@ -265,8 +270,11 @@ public class Menu {
 
 			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
 			mainPoint.rotate(drehung);
-			mainPoint.noFill();
+			mainPoint.fill(150);
 			mainPoint.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			// TODO ist unschön! aber mir fällt grad nix bessres ein, 3 steht
+			// sonst falsch rum...
+			mainPoint.rotate(drehung);
 			mainPoint.fill(255);
 			mainPoint.text("3", 0, 45);
 			mainPoint.resetMatrix();
