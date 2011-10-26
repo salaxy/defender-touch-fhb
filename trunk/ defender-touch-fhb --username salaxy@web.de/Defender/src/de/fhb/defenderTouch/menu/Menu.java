@@ -276,7 +276,7 @@ public class Menu {
 			// sonst falsch rum...
 			mainPoint.rotate(drehung);
 			mainPoint.fill(255);
-			mainPoint.text("3", 0, 45);
+			mainPoint.text(getActualBuildingLevel(position), 0, 45);
 			mainPoint.resetMatrix();
 		}
 	}
@@ -309,8 +309,7 @@ public class Menu {
 		// look if a menu point was clicked
 		if (this.menu[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 1");
-			// TODO: so is kacke, die 50 müssen iwie aus der Klasse kommen...
-			if (isEnoughCredits(50)) {
+			if (isEnoughCredits(Ground.PRICE)) {
 				creditsPlayer -= Ground.PRICE;
 				setActualNumber(0);
 				setMenuOpen(false);
@@ -319,7 +318,7 @@ public class Menu {
 		}
 		if (this.menu[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 2");
-			if (isEnoughCredits(40)) {
+			if (isEnoughCredits(Defence.PRICE)) {
 				creditsPlayer -= Defence.PRICE;
 				setActualNumber(1);
 				setMenuOpen(false);
@@ -328,7 +327,7 @@ public class Menu {
 		}
 		if (this.menu[2].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 3");
-			if (isEnoughCredits(30)) {
+			if (isEnoughCredits(Support.PRICE)) {
 				creditsPlayer -= Support.PRICE;
 				setActualNumber(2);
 				setMenuOpen(false);
@@ -423,6 +422,40 @@ public class Menu {
 		}
 
 		this.buildingOpen = buildingOpen;
+	}
+
+	public int getActualBuildingLevel(PVector click) {
+		if (click != null) {
+
+			// suche gebäude auf dem geklickt wurde
+			for (BaseUnit bu : buildings) {
+
+				if (bu.isInner(click)) {
+					if (bu instanceof Building) {
+						return actualBuilding.getLevel();
+					}
+				}
+			}
+		}
+
+		return 0;
+	}
+	
+	public int getActualBuildingPrice(PVector click) {
+		if (click != null) {
+
+			// suche gebäude auf dem geklickt wurde
+			for (BaseUnit bu : buildings) {
+
+				if (bu.isInner(click)) {
+					if (bu instanceof Building) {
+						return actualBuilding.;
+					}
+				}
+			}
+		}
+
+		return 0;
 	}
 
 	public Building getActualBuilding() {
