@@ -246,10 +246,9 @@ public class Menu {
 			GraphicTools.zeicheFigurNachVektoren(vektoren1, mainPoint);
 			drehung += drehungProUntermenue;
 			// TODO Abfrage welches Gebäude hier steht
-			// mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU,
-			// RADIUSCIRCLEMENU);
-			// mainPoint.fill(255);
-			// mainPoint.text(...., 0, DISTANCE - 15);
+			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			mainPoint.fill(255);
+			mainPoint.text(getActualBuildingPrice(position), 0, DISTANCE - 15);
 			mainPoint.resetMatrix();
 
 			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
@@ -441,7 +440,7 @@ public class Menu {
 
 		return 0;
 	}
-	
+
 	public int getActualBuildingPrice(PVector click) {
 		if (click != null) {
 
@@ -449,28 +448,26 @@ public class Menu {
 			for (BaseUnit bu : buildings) {
 
 				if (bu.isInner(click)) {
-					
+
 					if (bu instanceof Building) {
-				
-						
+
 						if (bu instanceof Defence) {
 							return Defence.PRICE;
 						}
-					
+
 						if (bu instanceof Ground) {
 							return Ground.PRICE;
 						}
-						
-						
-						if (bu instanceof Navi) {
-							return Navi.PRICE;
-						}
-						
+
+						// TODO später wenn navi kommt
+						// if (bu instanceof Navi) {
+						// return Navi.PRICE;
+						// }
+
 						if (bu instanceof Support) {
 							return Support.PRICE;
 						}
 					}
-					
 
 				}
 			}
