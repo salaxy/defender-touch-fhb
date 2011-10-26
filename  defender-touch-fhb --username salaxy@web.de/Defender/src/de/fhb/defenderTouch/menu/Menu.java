@@ -10,7 +10,7 @@ import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.grounded.Building;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
-public class Menu extends PApplet{
+public class Menu extends PApplet {
 
 	/**
 	 * 
@@ -97,7 +97,6 @@ public class Menu extends PApplet{
 	 */
 	protected PFont font;
 
-
 	/**
 	 * Constructor of Menu
 	 */
@@ -105,9 +104,9 @@ public class Menu extends PApplet{
 		this.position = new PVector(0, 0);
 		this.mainPoint = display;
 		this.buildings = buildings;
-		
-		font = createFont("Arial", 18);
-		
+
+		mainPoint.textFont(createFont("Arial", 18));
+
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
 		}
@@ -137,9 +136,7 @@ public class Menu extends PApplet{
 
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
-			textFont(font, 15);
-			text("Dein aktuelles Gold: ", 3, 65);
-			// font.
+
 			mainPoint.translate(this.position.x, this.position.y);
 			mainPoint.rotate(drehung);
 			menu[0] = new PVector(0, DISTANCE);
@@ -148,10 +145,10 @@ public class Menu extends PApplet{
 			mainPoint.fill(20, 50, 20);
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			mainPoint.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
-			// mainPoint.ellipse(0, DISTANCE +(DISTANCE/2), RADIUSCIRCLEMENU,
-			// RADIUSCIRCLEMENU);
-			// mainPoint.createFont(font, arg1);
 			drehung = drehung + drehungProUntermenue;
+			// circle for the price of the building
+			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			this.mainPoint.text("50", 0, DISTANCE);
 			mainPoint.resetMatrix();
 
 			mainPoint.translate(this.position.x, this.position.y);
