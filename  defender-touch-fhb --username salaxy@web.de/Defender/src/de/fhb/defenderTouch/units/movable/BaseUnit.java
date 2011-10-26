@@ -154,11 +154,6 @@ public class BaseUnit implements Drawable {
 	 * jedes Gebäude hat ein Level
 	 */
 	protected int level = 1;
-	
-	/**
-	 * jedes Gebäude hat ein Level
-	 */
-	protected int price = 0;
 
 	public BaseUnit(int x, int y, int mode, int playerID, PApplet disp) {
 
