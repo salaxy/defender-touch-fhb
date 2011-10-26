@@ -62,7 +62,7 @@ public class MenuTest extends PApplet {
 		fill(100);
 		textFont(font, 15);
 		textAlign(CENTER);
-		text("Dein aktuelles Gold: " + menu.creditsPlayer, width / 2, 15);
+		
 
 		// create menue for building options
 		menu.drawMenu();
