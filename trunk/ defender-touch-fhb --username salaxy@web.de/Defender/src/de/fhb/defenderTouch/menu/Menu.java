@@ -245,7 +245,6 @@ public class Menu {
 			vektoren1.add(new PVector(0, DISTANCE + 8));
 			GraphicTools.zeicheFigurNachVektoren(vektoren1, mainPoint);
 			drehung += drehungProUntermenue;
-			// TODO Abfrage welches Gebäude hier steht
 			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 			mainPoint.fill(255);
 			mainPoint.text(getActualBuildingPrice(position), 0, DISTANCE - 15);
