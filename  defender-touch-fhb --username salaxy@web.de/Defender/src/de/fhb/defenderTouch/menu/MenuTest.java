@@ -1,6 +1,5 @@
 package de.fhb.defenderTouch.menu;
 
-import java.awt.Font;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -10,10 +9,7 @@ import TUIO.TuioCursor;
 import TUIO.TuioObject;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
-import de.fhb.defenderTouch.units.grounded.Building;
-import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
-import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 public class MenuTest extends PApplet {
@@ -29,14 +25,14 @@ public class MenuTest extends PApplet {
 
 	// list with all elements of one player
 	private ArrayList<BaseUnit> buildings = new ArrayList<BaseUnit>();
-	
+
 	public void setup() {
 		size(width, height); // size of window
 		noStroke(); // draw no borders
 
 		loop(); // loop the draw-methode
 		frameRate(20);
-		
+
 		// render fonts faster
 		hint(ENABLE_NATIVE_FONTS);
 		font = createFont("Arial", 18);
@@ -62,7 +58,6 @@ public class MenuTest extends PApplet {
 		fill(100);
 		textFont(font, 15);
 		textAlign(CENTER);
-		
 
 		// create menue for building options
 		menu.drawMenu();
@@ -119,11 +114,11 @@ public class MenuTest extends PApplet {
 		PApplet.main(new String[] { "de.fhb.defenderTouch.menu.MenuTest" });
 	}
 
-	// override mouseclick
+	/** override mouseclick */
 	public void mouseClicked() {
 		// create Point where mouse was clicked in
 		PVector clickVector = new PVector(this.mouseX, this.mouseY);
-		System.out.print(this.mouseX + "," + this.mouseY +" ... ");
+		System.out.print(this.mouseX + "," + this.mouseY + " ... ");
 		System.out.print(menu.isMenuOpen() + " menu...");
 		System.out.println(menu.isBuildingOpen() + " building...");
 
@@ -134,7 +129,7 @@ public class MenuTest extends PApplet {
 				if (isTaken(clickVector)) {
 					// look if a building was clicked
 					System.out.println("show building options");
-					menu.setBuildingOpen(true,clickVector);
+					menu.setBuildingOpen(true, clickVector);
 
 				} else {
 					// if menu is not already open, just open it
@@ -147,28 +142,30 @@ public class MenuTest extends PApplet {
 
 			else if (menu.isBuildingOpen()) {
 				// Choosing which Building menu point was clicked
-				if (menu.isInnerBuildingElement(clickVector)) {						
-					
+				if (menu.isInnerBuildingElement(clickVector)) {
+
 					switch (menu.getActualNumber()) {
-						case 0: 
-							System.out.println("do Building upgrade");
-							menu.getActualBuilding().upgrade();
-							System.out.println("actual level: "+ menu.getActualBuilding().getLevel());
-							break;
-						case 1: // TODO : hier muss gebäude zerstören rein
-							System.out.println("do Building destroyed");
-							//TODO später delete methode von base unit nutzen!!!! Wenn alles zusamm gefügt ist
-//							menu.getAktualBuilding().delete();//das für später, wie es sein sollte...
-							//notlösung für den moment
-							buildings.remove(menu.getActualBuilding());
-							break;
-						default:
+					case 0:
+						System.out.println("do Building upgrade");
+						menu.getActualBuilding().upgrade();
+						System.out.println("actual level: " + menu.getActualBuilding().getLevel());
+						break;
+					case 1: // TODO : hier muss gebäude zerstören rein
+						System.out.println("do Building destroyed");
+						// TODO später delete methode von base unit nutzen!!!!
+						// Wenn alles zusamm gefügt ist
+						// menu.getAktualBuilding().delete();//das für später,
+						// wie es sein sollte...
+						// notlösung für den moment
+						buildings.remove(menu.getActualBuilding());
+						break;
+					default:
 					}
 				}
 			}
 
 			// watching if menu is open and click is into a building element
-			else if (menu.isMenuOpen() ) {
+			else if (menu.isMenuOpen()) {
 				// menu.setBuildingOpen(false);
 
 				// Choosing which Building should be placed
@@ -180,11 +177,15 @@ public class MenuTest extends PApplet {
 						break;
 					case 1:
 						System.out.println("building a Defence unit");
-//						buildings.add(new Defence((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						// buildings.add(new Defence((int) menu.getPositionX(),
+						// (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0,
+						// this));
 						break;
 					case 2:
 						System.out.println("building a Support unit");
-//						buildings.add(new Support((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						// buildings.add(new Support((int) menu.getPositionX(),
+						// (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0,
+						// this));
 						break;
 					default:
 						System.out.println();
@@ -203,13 +204,11 @@ public class MenuTest extends PApplet {
 			// closes the menu of a specific building
 			if (isTaken(clickVector)) {
 				System.out.println("close specific building menu");
-				menu.setBuildingOpen(false,null);
+				menu.setBuildingOpen(false, null);
 			}
 		}
 
 	}
-
-	
 
 	/**
 	 * 

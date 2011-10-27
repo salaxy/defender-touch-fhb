@@ -92,19 +92,12 @@ public class Menu {
 	protected ArrayList<BaseUnit> buildings;
 
 	/**
-	 * actual address with the building, used for deleting it
-	 */
-	protected PFont font;
-
-	/**
 	 * Constructor of Menu
 	 */
 	public Menu(PApplet mainPoint, ArrayList<BaseUnit> buildings) {
 		this.position = new PVector(0, 0);
 		this.mainPoint = mainPoint;
 		this.buildings = buildings;
-
-		// mainPoint.textFont(createFont("Arial", 18));
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
@@ -115,7 +108,7 @@ public class Menu {
 	}
 
 	/**
-	 * Menupunkt anzeigen
+	 * method after every left click
 	 */
 	public void showMenuPoint(PVector position) {
 		this.position = position;
@@ -130,7 +123,9 @@ public class Menu {
 		mainPoint.ellipseMode(PConstants.CENTER);
 
 		if (menuOpen) {
-
+			/**
+			 * here is the complete normal menu
+			 */
 			mainPoint.stroke(255);
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
@@ -225,7 +220,10 @@ public class Menu {
 			mainPoint.resetMatrix();
 		}
 
-		// here is the complete menu for a specific building
+		/**
+		 * here is the complete menu for a specific building
+		 */
+
 		if (buildingOpen) {
 			mainPoint.noFill();
 			mainPoint.stroke(255);
@@ -283,8 +281,8 @@ public class Menu {
 	/**
 	 * 
 	 * @param clickVector
-	 * @return false - if click is not inner circle : true - if click is inner
-	 *         circle
+	 *            (actual position of mouse click)
+	 * @return true (if click was in middle circle of menu)
 	 */
 	public boolean isInnerMainElement(PVector clickVector) {
 
@@ -301,11 +299,13 @@ public class Menu {
 	/**
 	 * 
 	 * @param clickVector
-	 * @return false - if
+	 *            (actual position of mouse click)
+	 * @return true (if click was in a menu option circle of menu)
+	 * 
+	 *         looking if a menu point was clicked
 	 */
 	public boolean isInnerMenuElement(PVector clickVector) {
 
-		// look if a menu point was clicked
 		if (this.menu[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			System.out.println("Menue 1");
 			if (isEnoughCredits(Ground.PRICE)) {
@@ -347,8 +347,16 @@ public class Menu {
 
 	}
 
+	/**
+	 * 
+	 * @param clickVector
+	 *            (actual position of mouse click)
+	 * @return true (if click was in a specific circle of menu)
+	 * 
+	 *         looking if a specific building menu point was clicked
+	 */
 	public boolean isInnerBuildingElement(PVector clickVector) {
-		// look if a specific building menu point was clicked
+
 		if (this.menuBuildings[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			setBuildingOpen(false, null);
 			return true;
@@ -362,11 +370,95 @@ public class Menu {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @param credits
+	 *            (credits of a player)
+	 * @return true (if enough credits is there)
+	 * 
+	 *         looking if enough credits are there
+	 */
 	public boolean isEnoughCredits(int credits) {
 		if (creditsPlayer - credits >= 0) {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 
+	 * @param buildingOpen
+	 *            (status of the building menu)
+	 * @param clickVector
+	 *            (actual position of mouse click)
+	 * 
+	 *            changes the actual building, so that we know which building is
+	 *            active
+	 */
+	public void setBuildingOpen(boolean buildingOpen, PVector clickVector) {
+
+		if (clickVector != null) {
+			for (BaseUnit bu : buildings) {
+				if (bu.isInner(clickVector)) {
+					if (bu instanceof Building) {
+						actualBuilding = (Building) bu;
+					}
+				}
+			}
+		}
+
+		this.buildingOpen = buildingOpen;
+	}
+
+	/**
+	 * 
+	 * @param clickVector
+	 *            (actual position of mouse click)
+	 * @return level (level of the specific building)
+	 * 
+	 *         searching for the actual building level
+	 */
+	public int getActualBuildingLevel(PVector clickVector) {
+		if (clickVector != null) {
+			for (BaseUnit bu : buildings) {
+				if (bu.isInner(clickVector)) {
+					if (bu instanceof Building) {
+						return actualBuilding.getLevel();
+					}
+				}
+			}
+		}
+		return 0;
+	}
+
+	/**
+	 * 
+	 * @param clickVector
+	 *            (actual position of mouse click)
+	 * @return PRICE (price of the specific building)
+	 * 
+	 *         searching for the actual price of a building
+	 */
+	public int getActualBuildingPrice(PVector clickVector) {
+		if (clickVector != null) {
+			for (BaseUnit bu : buildings) {
+				if (bu.isInner(clickVector)) {
+					if (bu instanceof Building) {
+						if (bu instanceof Defence) {
+							return Defence.PRICE;
+						}
+						if (bu instanceof Ground) {
+							return Ground.PRICE;
+						}
+						if (bu instanceof Support) {
+							return Support.PRICE;
+						}
+					}
+				}
+			}
+		}
+
+		return 0;
 	}
 
 	public boolean isBuildingOpen() {
@@ -403,76 +495,6 @@ public class Menu {
 
 	public void setPosition(PVector position) {
 		this.position = position;
-	}
-
-	public void setBuildingOpen(boolean buildingOpen, PVector click) {
-
-		if (click != null) {
-
-			// suche gebäude auf dem geklickt wurde
-			for (BaseUnit bu : buildings) {
-
-				if (bu.isInner(click)) {
-					if (bu instanceof Building) {
-						actualBuilding = (Building) bu;
-					}
-				}
-			}
-		}
-
-		this.buildingOpen = buildingOpen;
-	}
-
-	public int getActualBuildingLevel(PVector click) {
-		if (click != null) {
-
-			// suche gebäude auf dem geklickt wurde
-			for (BaseUnit bu : buildings) {
-
-				if (bu.isInner(click)) {
-					if (bu instanceof Building) {
-						return actualBuilding.getLevel();
-					}
-				}
-			}
-		}
-
-		return 0;
-	}
-
-	public int getActualBuildingPrice(PVector click) {
-		if (click != null) {
-
-			// suche gebäude auf dem geklickt wurde
-			for (BaseUnit bu : buildings) {
-
-				if (bu.isInner(click)) {
-
-					if (bu instanceof Building) {
-
-						if (bu instanceof Defence) {
-							return Defence.PRICE;
-						}
-
-						if (bu instanceof Ground) {
-							return Ground.PRICE;
-						}
-
-						// TODO später wenn navi kommt
-						// if (bu instanceof Navi) {
-						// return Navi.PRICE;
-						// }
-
-						if (bu instanceof Support) {
-							return Support.PRICE;
-						}
-					}
-
-				}
-			}
-		}
-
-		return 0;
 	}
 
 	public Building getActualBuilding() {
