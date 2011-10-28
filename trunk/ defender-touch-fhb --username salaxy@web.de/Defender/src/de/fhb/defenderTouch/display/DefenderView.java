@@ -11,6 +11,7 @@ import TUIO.TuioProcessing;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Spieler;
+import de.fhb.defenderTouch.graphics.SplitScreen;
 import de.fhb.defenderTouch.map.Map;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
@@ -70,29 +71,29 @@ public class DefenderView extends PApplet {
 	  
 	  // Spieler & Karte initialisieren
 	  karte = new Map(getWidth() / 32, getHeight() / 32); // Vorläufig wird das so initialisiert, später wird hier einfach nur eine vorhandene Karte geladen.
-	  spielerOne = new Spieler(this, karte, 1f, Spieler.LEFTSIDE);
-	  spielerTwo = new Spieler(this, karte, 1f, Spieler.RIGHTSIDE);
+//	  spielerOne = new Spieler(this, karte, 1f, SplitScreen.LEFTSIDE);
+//	  spielerTwo = new Spieler(this, karte, 1f, SplitScreen.RIGHTSIDE);
 	  
 	  //TestUnitBetas schaffen
-	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,BaseUnit.PLAYER_ONE,this);
+	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,this);
 	  test.commandDestination(new PVector(1000,700));
-	  new BaseUnit(200,100,BaseUnit.MODE_PULSE,BaseUnit.PLAYER_ONE,this);
-	  new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,BaseUnit.PLAYER_ONE,this);
-	  new BaseUnit(200,300,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
-	  new Fighter(300,400,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
-	  new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,BaseUnit.PLAYER_ONE,this);
+	  new BaseUnit(200,100,BaseUnit.MODE_PULSE,DefenderControl.PLAYER_ONE,this);
+	  new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,DefenderControl.PLAYER_ONE,this);
+	  new BaseUnit(200,300,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+	  new Fighter(300,400,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+	  new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,DefenderControl.PLAYER_ONE,this);
 	  //BuildingTest
-	  new Ground(400,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
-	  new Navi(500,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
-	  new Support(600,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
-	  new Defence(700,700,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_ONE,this);
+	  new Ground(400,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+	  new Navi(500,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+	  new Support(600,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+	  new Defence(700,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
 	  
 	  //Testflugstaffel
-	  new Fighter(100,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this);
-	  new Fighter(200,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this);
-	  new Fighter(300,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this);
-	  new Fighter(400,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this);
-	  new Fighter(500,50,BaseUnit.MODE_NORMAL,BaseUnit.PLAYER_TWO,this);
+	  new Fighter(100,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
+	  new Fighter(200,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
+	  new Fighter(300,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
+	  new Fighter(400,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
+	  new Fighter(500,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
 //	  new Shoot(600,50,BaseUnit.MODE_HALO,BaseUnit.PLAYER_TWO,this));
 	  
 	  
