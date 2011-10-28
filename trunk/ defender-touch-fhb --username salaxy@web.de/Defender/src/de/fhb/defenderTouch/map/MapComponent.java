@@ -7,11 +7,7 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 
 public class MapComponent {
-	
-	
-	/* Attribute */
-	
-	
+		
 	/**
 	 * Wo sich das MapComponent in der Welt befindet.
 	 */
@@ -52,26 +48,24 @@ public class MapComponent {
 	 */
 	protected Color backgroundColor = new Color(64, 128, 64);
 	
+	public static int number = 0;
 	
-	
-	
-	/* Methoden */
-	
-	
-	
+	protected int nummer;
 	
 	/**
 	 * Konstruktor für ein MapComponent (Kartenbestandteil)
 	 */
 	public MapComponent(PVector position) {
 		this.position = position;
+		nummer = ++number;
 	}
 	
 	/**
 	 * Zeichnet sich selbst.
 	 */
-	public void paint(PGraphics display) {
-		display.translate(position.x, position.y);
+	public void paint(PGraphics display, PVector position, float zoom) {
+		display.translate( (position.x - this.position.x) * zoom, (position.y - this.position.y) * zoom);
+		display.scale(zoom);
 		
 		display.fill(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue());
 		
@@ -81,8 +75,12 @@ public class MapComponent {
 			display.stroke(borderColor.getRed(), borderColor.getGreen(), borderColor.getBlue());
 			
 		display.rect(0, 0, 31, 31);
-		display.rect(0, 0, 19, 19);
-
+		
+		display.fill(0);
+		display.text(nummer, 1, 13);
+		//display.text(zoom, 1, 13);
+		//display.text(position.x, 1, 24);
+		//display.rect(0, 0, 19, 19);
 		display.resetMatrix();
 	}
 	
@@ -100,12 +98,6 @@ public class MapComponent {
 		
 		return rueckgabe;
 	}
-	
-	
-
-	/* Setter & Getter */
-	
-	
 	
 	/**
 	 * Gibt eine Liste der Einheiten zurück, die sich auf diesem MapComponent befinden.
@@ -179,6 +171,4 @@ public class MapComponent {
 	public void setPosition(PVector position) {
 		this.position = position;
 	}
-	
-	
 }

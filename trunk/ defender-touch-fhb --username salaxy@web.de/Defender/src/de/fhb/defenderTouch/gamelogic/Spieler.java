@@ -1,68 +1,24 @@
 package de.fhb.defenderTouch.gamelogic;
 
+import de.fhb.defenderTouch.graphics.SplitScreen;
 import de.fhb.defenderTouch.interfaces.Drawable;
-import de.fhb.defenderTouch.map.Map;
 import processing.core.PApplet;
-import processing.core.PGraphics;
 import processing.core.PVector;
 
 public class Spieler implements Drawable{
 	
-	/**
-	 * Linker Splitscreen (Spieler 1)
-	 */
-	public static boolean LEFTSIDE = false;
-	
-	/**
-	 * Rechter Splitscreen (Spieler 2)
-	 */
-	public static boolean RIGHTSIDE = true;
-	
-	/**
-	 * Karte auf der die Spieler spielen.
-	 */
-	public static Map karte;
-	
-	/**
-	 * Welche Seite auf dem Bildschirm dem Spieler zugeordnet ist.
-	 * LEFTSIDE oder RIGHTSIDE
-	 */
-	private boolean screenSide;
-	
-	/**
-	 * Wie weit der Spieler in die Karte reingezoomt hat.
-	 */
-	private float zoomFaktor;
-	
-	/**
-	 * Auf welchen Teil der Karte der Spieler schaut. (Mittelpunkt des Bildschirms)
-	 */
-	private PVector sichtPosition;
-	
-	/**
-	 * Das Applet, auf das zu zeichnen ist.
-	 */
-	private PApplet display;
-	
-	/**
-	 * Halber Bildschirm, auf dem das Spielfeld des Spielers dargestellt wird.
-	 */
-	private PGraphics splitScreen;
+	private SplitScreen splitScreen;
 	
 	/**
 	 * Konstruktor
 	 * 
 	 * @param display
-	 * @param zoomFaktor - initialer Zoomfaktor
-	 * @param screenSide - Welche Bildschirmseite dem Spieler zugeordnet ist (LEFTSIDE oder RIGHTSIDE)
+	 * @param sichtPosition
+	 * @param zoomFaktor
+	 * @param screenSide
 	 */
-	public Spieler(PApplet display, Map karte, float zoomFaktor, boolean screenSide){
-		this.zoomFaktor=zoomFaktor;
-		this.sichtPosition=new PVector(display.getWidth() / 2, display.getHeight() / 2);
-		this.display = display;
-		splitScreen = this.display.createGraphics(display.getWidth() / 2, display.getHeight(), PApplet.JAVA2D);
-		this.screenSide = screenSide;
-		if (Spieler.karte != null) Spieler.karte = karte;
+	public Spieler(PApplet display, PVector sichtPosition, float zoomFaktor, boolean screenSide){
+		splitScreen = new SplitScreen(display, sichtPosition, zoomFaktor, screenSide);				
 	}
 
 	/**
@@ -70,7 +26,7 @@ public class Spieler implements Drawable{
 	 * @return
 	 */
 	public float getZoomFaktor() {
-		return zoomFaktor;
+		return splitScreen.getZoomFaktor();
 	}
 
 	/**
@@ -78,7 +34,7 @@ public class Spieler implements Drawable{
 	 * @param zoomFaktor
 	 */
 	public void setZoomFaktor(float zoomFaktor) {
-		this.zoomFaktor = zoomFaktor;
+		splitScreen.setZoomFaktor(zoomFaktor);
 	}
 
 	/**
@@ -86,7 +42,7 @@ public class Spieler implements Drawable{
 	 * @return
 	 */
 	public PVector getSichtPosition() {
-		return sichtPosition;
+		return splitScreen.getSichtPosition();
 	}
 
 	/**
@@ -94,7 +50,7 @@ public class Spieler implements Drawable{
 	 * @return
 	 */
 	public void setSichtPosition(PVector sichtPosition) {
-		this.sichtPosition = sichtPosition;
+		splitScreen.setSichtPosition(sichtPosition);
 	}
 	
 	/**
@@ -102,7 +58,7 @@ public class Spieler implements Drawable{
 	 * @return
 	 */
 	public boolean isScreenSide() {
-		return screenSide;
+		return splitScreen.getScreenSide();
 	}
 
 	/**
@@ -110,21 +66,13 @@ public class Spieler implements Drawable{
 	 * @param screenSide
 	 */
 	public void setScreenSide(boolean screenSide) {
-		this.screenSide = screenSide;
+		splitScreen.setScreenSide(screenSide);
 	}
 
 	/**
 	 * Kartenansicht des Spieler zeichnen.
 	 */
 	public void paint() {
-		//try {
-			karte.paint(splitScreen, sichtPosition, zoomFaktor);
-			display.image(splitScreen, (screenSide) ? 0 : display.getWidth() / 2 , 0);
-		//} catch (Exception ex) {
-		//	if (ex != null) System.out.println(ex.getMessage());
-		//	System.out.println("splitScreen: " + splitScreen.toString());
-		//	System.out.println("sichtPosition: " + sichtPosition.toString());
-		//	System.out.println("zoomFaktor: " + zoomFaktor);
-		//}
+		splitScreen.paint();		
 	}
 }

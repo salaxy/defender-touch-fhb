@@ -22,10 +22,6 @@ public class BaseUnit implements Drawable {
 	private int damagePerHit = 50;
 	private int attackRange = 100;
 
-	public static final int PLAYER_ONE = 0;
-	public static final int PLAYER_TWO = 1;
-	public static final int PLAYER_SYSTEM = 2;
-
 	private int playerID;
 
 	/**
@@ -596,7 +592,7 @@ public class BaseUnit implements Drawable {
 		// muss sich ziel merken)
 		// Schuss erstellen
 
-		new Shoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, BaseUnit.PLAYER_SYSTEM, display, destinationUnit, this.damagePerHit);
+		new Shoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, DefenderControl.PLAYER_SYSTEM, display, destinationUnit, this.damagePerHit);
 
 		// //neue Blickrichtung berechnen
 		// berechneNeueBlickrichtung();

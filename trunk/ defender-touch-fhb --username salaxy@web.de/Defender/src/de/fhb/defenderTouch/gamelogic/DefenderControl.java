@@ -14,6 +14,9 @@ import de.fhb.defenderTouch.units.movable.BaseUnit;
  */
 public class DefenderControl {
 	
+	public static final int PLAYER_ONE = 0;
+	public static final int PLAYER_TWO = 1;
+	public static final int PLAYER_SYSTEM = 2;
 	
 	private CopyOnWriteArrayList <BaseUnit> globalUnits;
 	
@@ -22,23 +25,19 @@ public class DefenderControl {
 	private static DefenderControl instance=null;
 	
 	
-	private DefenderControl(PApplet display){
-		this.display=display;
-		globalUnits=new CopyOnWriteArrayList <BaseUnit>();
+	private DefenderControl(PApplet display) {
+		this.display = display;
+		globalUnits = new CopyOnWriteArrayList <BaseUnit>();
 	}
 	
-	public static DefenderControl getInstance(PApplet display){
-		
-		if(DefenderControl.instance==null){
-			DefenderControl.instance=new DefenderControl(display);
-		}
+	public static DefenderControl getInstance(PApplet display) {
+		if(DefenderControl.instance == null) DefenderControl.instance = new DefenderControl(display);
 		
 		return instance;
 	}
 	
 
 	public CopyOnWriteArrayList <BaseUnit> getGlobalUnits() {
-
 		return globalUnits;
 	     
 	}
