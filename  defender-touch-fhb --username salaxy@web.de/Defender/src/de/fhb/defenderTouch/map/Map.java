@@ -12,11 +12,6 @@ public class Map {
 	protected static float angle = 0;
 	
 	/**
-	 * Position der linken oberen Kartenecke.
-	 */
-	protected static PVector position = new PVector(16, 16);
-
-	/**
 	 * Array mit allen Components (Kartenbestandteile)
 	 */
 	protected static ArrayList<MapComponent> karte = new ArrayList<MapComponent>();
@@ -41,7 +36,7 @@ public class Map {
 		if (karte.isEmpty())
 			for (int x = 0; x < width; x++)
 				for (int y = 0; y < height; y++)
-					karte.add(new MapComponent(new PVector(x * 32 + 16, y * 32 + 16)));
+					karte.add(new MapComponent(new PVector(x * 32, y * 32)));
 	}
 	
 	/**
@@ -49,13 +44,16 @@ public class Map {
 	 */
 	public static void paint(PGraphics display, PVector position, float zoom) {
 		display.beginDraw();
-		display.translate(position.x, position.y);
+		display.background(0f);
 		
 		for (MapComponent element : karte)
-			element.paint(display);
-		
-		display.scale(zoom);
+			element.paint(display, position, zoom);
+
 		display.endDraw();
 	}
 
+	public static void saveMap() {
+		
+		
+	}
 }
