@@ -390,7 +390,7 @@ public class Menu {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 * @param credits
@@ -400,8 +400,8 @@ public class Menu {
 	 *         looking if enough credits are there
 	 */
 	public void upgradeBuilding() {
-		if (creditsPlayer - getActualBuildingPrice(positionBuilding) >= 0 && actualBuilding.getLevel() !=3) {
-			creditsPlayer -=getActualBuildingPrice(positionBuilding);
+		if (creditsPlayer - getActualBuildingPrice(positionBuilding) >= 0 && actualBuilding.getLevel() != 3) {
+			creditsPlayer -= getActualBuildingPrice(positionBuilding);
 		}
 	}
 
@@ -508,7 +508,7 @@ public class Menu {
 		} else
 			actualBuildingName = "Nichts gewählt";
 	}
-	
+
 	/**
 	 * 
 	 * @param clickVector
@@ -524,13 +524,13 @@ public class Menu {
 					if (bu instanceof Building) {
 						if (bu instanceof Defence) {
 							System.out.println("dawd");
-							creditsPlayer += (Defence.PRICE*bu.getLevel())/2 ;
+							creditsPlayer += (Defence.PRICE * bu.getLevel()) / 2;
 						}
 						if (bu instanceof Ground) {
-							creditsPlayer += Ground.PRICE/2;
+							creditsPlayer += (Ground.PRICE * bu.getLevel()) / 2;
 						}
 						if (bu instanceof Support) {
-							creditsPlayer += Support.PRICE/2;
+							creditsPlayer += (Support.PRICE * bu.getLevel()) / 2;
 						}
 					}
 				}
