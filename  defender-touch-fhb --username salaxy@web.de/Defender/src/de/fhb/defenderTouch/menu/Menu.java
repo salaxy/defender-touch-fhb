@@ -74,7 +74,7 @@ public class Menu {
 	/**
 	 * Nummer des gebäudes
 	 */
-	protected int actualNumber = 0;
+	protected int actualStatus = -1;
 
 	/**
 	 * Startcredit of every palyer
@@ -90,6 +90,11 @@ public class Menu {
 	 * array list with all its buildings
 	 */
 	protected ArrayList<BaseUnit> buildings;
+
+	/**
+	 * array list with all its buildings
+	 */
+	protected String actualBuildingName = "None";
 
 	/**
 	 * Constructor of Menu
@@ -120,6 +125,7 @@ public class Menu {
 	 */
 	public void drawMenu() {
 		mainPoint.text("Dein aktuelles Gold: " + creditsPlayer, 100, 15);
+		mainPoint.text("Dein aktuelles Gebäude: " + actualBuildingName, 300, 15);
 		mainPoint.ellipseMode(PConstants.CENTER);
 
 		if (menuOpen) {
@@ -139,7 +145,6 @@ public class Menu {
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			mainPoint.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
 			drehung += drehungProUntermenue;
-			// circle for the price of the building
 			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 			mainPoint.fill(255);
 			mainPoint.text(Ground.PRICE, 0, DISTANCE - 15);
@@ -163,7 +168,6 @@ public class Menu {
 			mainPoint.ellipse(0, DISTANCE - 4, 8, 8);
 			GraphicTools.zeicheFigurNachVektoren(vektoren1, mainPoint);
 			drehung += drehungProUntermenue;
-			// circle for the price of the building
 			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 			mainPoint.fill(255);
 			mainPoint.text(Defence.PRICE, 0, DISTANCE - 15);
@@ -184,7 +188,6 @@ public class Menu {
 			vektoren2.add(new PVector(-8, DISTANCE));
 			GraphicTools.zeicheFigurNachVektoren(vektoren2, mainPoint);
 			drehung += drehungProUntermenue;
-			// circle for the price of the building
 			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 			mainPoint.fill(255);
 			mainPoint.text(Support.PRICE, 0, DISTANCE - 15);
@@ -237,7 +240,9 @@ public class Menu {
 			menuBuildings[0].add(position);
 			mainPoint.fill(20, 50, 20);
 			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			mainPoint.fill(255);
 			mainPoint.triangle(-5, DISTANCE, 0, DISTANCE - 10, +5, DISTANCE);
+			mainPoint.fill(20, 50, 20);
 			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 			vektoren1.add(new PVector(0, DISTANCE));
 			vektoren1.add(new PVector(0, DISTANCE + 8));
@@ -287,8 +292,8 @@ public class Menu {
 	public boolean isInnerMainElement(PVector clickVector) {
 
 		if (this.position.dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			System.out.println("Menu close choosed");
-			actualNumber = 0;
+			// System.out.println("Menu close choosed");
+			 setActualStatus(-1);
 			setMenuOpen(false);
 			return true;
 		}
@@ -307,40 +312,40 @@ public class Menu {
 	public boolean isInnerMenuElement(PVector clickVector) {
 
 		if (this.menu[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			System.out.println("Menue 1");
+			// System.out.println("Menue 1");
 			if (isEnoughCredits(Ground.PRICE)) {
 				creditsPlayer -= Ground.PRICE;
-				setActualNumber(0);
+				setActualStatus(0);
 				setMenuOpen(false);
 				return true;
 			}
 		}
 		if (this.menu[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			System.out.println("Menue 2");
+			// System.out.println("Menue 2");
 			if (isEnoughCredits(Defence.PRICE)) {
 				creditsPlayer -= Defence.PRICE;
-				setActualNumber(1);
+				setActualStatus(1);
 				setMenuOpen(false);
 				return true;
 			}
 		}
 		if (this.menu[2].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			System.out.println("Menue 3");
+			// System.out.println("Menue 3");
 			if (isEnoughCredits(Support.PRICE)) {
 				creditsPlayer -= Support.PRICE;
-				setActualNumber(2);
+				setActualStatus(2);
 				setMenuOpen(false);
 				return true;
 			}
 		}
 		if (this.menu[3].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			System.out.println("Menue 4");
+			// System.out.println("Menue 4");
 		}
 		if (this.menu[4].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			System.out.println("Menue 5");
+			// System.out.println("Menue 5");
 		}
 		if (this.menu[5].dist(clickVector) < this.RADIUSCIRCLEMENU) {
-			System.out.println("Menue 6");
+			// System.out.println("Menue 6");
 		}
 
 		return false;
@@ -359,11 +364,12 @@ public class Menu {
 
 		if (this.menuBuildings[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			setBuildingOpen(false, null);
+			setActualStatus(0);
 			return true;
 		}
 		if (this.menuBuildings[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			setBuildingOpen(false, null);
-			setActualNumber(1);
+			setActualStatus(1);
 			return true;
 		}
 
@@ -445,28 +451,53 @@ public class Menu {
 				if (bu.isInner(clickVector)) {
 					if (bu instanceof Building) {
 						if (bu instanceof Defence) {
+							actualBuildingName = "Defence";
 							return Defence.PRICE;
 						}
 						if (bu instanceof Ground) {
+							actualBuildingName = "Ground";
 							return Ground.PRICE;
 						}
 						if (bu instanceof Support) {
+							actualBuildingName = "Support";
 							return Support.PRICE;
 						}
 					}
 				}
 			}
 		}
-
+		actualBuildingName = "None";
 		return 0;
 	}
+
+	//
+	// /**
+	// *
+	// * @param clickVector
+	// * (actual position of mouse click)
+	// * @return level (level of the specific building)
+	// *
+	// * TESTE METHODE!!!
+	// */
+	// public int getActualBuildingID(PVector clickVector) {
+	// if (clickVector != null) {
+	// for (BaseUnit bu : buildings) {
+	// if (bu.isInner(clickVector)) {
+	// if (bu instanceof Building) {
+	// return actualBuilding.getId();
+	// }
+	// }
+	// }
+	// }
+	// return 0;
+	// }
 
 	public boolean isBuildingOpen() {
 		return buildingOpen;
 	}
 
-	public void setActualNumber(int actualNumber) {
-		this.actualNumber = actualNumber;
+	public void setActualStatus(int actualStatus) {
+		this.actualStatus = actualStatus;
 	}
 
 	public void setMenuOpen(boolean menuOpen) {
@@ -477,8 +508,8 @@ public class Menu {
 		return menuOpen;
 	}
 
-	public int getActualNumber() {
-		return actualNumber;
+	public int getActualStatus() {
+		return actualStatus;
 	}
 
 	public float getPositionX() {
