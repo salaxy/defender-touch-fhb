@@ -19,7 +19,6 @@ public class MenuTest extends PApplet {
 	private static final long serialVersionUID = 1L;
 
 	TuioProcessing tuioClient;
-
 	int width = 1024;
 	int height = 600;
 	PFont font;
@@ -119,23 +118,26 @@ public class MenuTest extends PApplet {
 	/** override mouseclick */
 	public void mouseClicked() {
 		PVector clickVector = new PVector(this.mouseX, this.mouseY);
+		
 		if (this.mouseButton == LEFT) {
 			if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
-				if (isTaken(clickVector)) {
+				if (menu.isTaken(clickVector)) {
 					// IF A BUILDING IS CLICKED
 					System.out.println("open building menu");
+					menu.showMenuPoint(clickVector);
 					menu.setBuildingOpen(true, clickVector);
 				} else {
 					// OPENS MAIN MENU
 					System.out.println("open menu");
 					menu.showMenuPoint(clickVector);
+					menu.setMenuOpen(true);
 				}
 			}
 
 			else if (menu.isBuildingOpen()) {
 				// WHEN UPGRADE OR DESTROY WAS CLICKED
 				if (menu.isInnerBuildingElement(clickVector)) {
-					System.out.println("TEST " + menu.getActualStatus());
+					
 					switch (menu.getActualStatus()) {
 					case 0:
 						System.out.println("do Building upgrade");
@@ -155,7 +157,6 @@ public class MenuTest extends PApplet {
 				}
 			}
 
-			// watching if menu is open and click is into a building element
 			else if (menu.isMenuOpen()) {
 				// CHOOSING A BUILDING
 				if (menu.isInnerMenuElement(clickVector)) {
@@ -187,27 +188,12 @@ public class MenuTest extends PApplet {
 				System.out.println("close menu");
 			}
 			// CLOSES BUILDING MENU
-			if (menu.isBuildingOpen() && isTaken(clickVector)) {
+			if (menu.isBuildingOpen() && menu.isTaken(clickVector)) {
 				System.out.println("close building menu");
 				menu.setBuildingOpen(false, null);
 			}
 		}
-
 	}
 
-	/**
-	 * 
-	 * @param clickVector
-	 * @return if place for the new building is free
-	 */
-	public boolean isTaken(PVector clickVector) {
-		for (BaseUnit building : buildings) {
-			// if a building is clicked
-			if (building.getPosition().dist(clickVector) < (building.getCollisionRadius())) {
-				menu.setPositionBuilding(building.getPosition());
-				return true;
-			}
-		}
-		return false;
-	}
+
 }

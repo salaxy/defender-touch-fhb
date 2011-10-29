@@ -117,7 +117,6 @@ public class Menu {
 	 */
 	public void showMenuPoint(PVector position) {
 		this.position = position;
-		this.menuOpen = true;
 	}
 
 	/**
@@ -470,27 +469,21 @@ public class Menu {
 		return 0;
 	}
 
-	//
-	// /**
-	// *
-	// * @param clickVector
-	// * (actual position of mouse click)
-	// * @return level (level of the specific building)
-	// *
-	// * TESTE METHODE!!!
-	// */
-	// public int getActualBuildingID(PVector clickVector) {
-	// if (clickVector != null) {
-	// for (BaseUnit bu : buildings) {
-	// if (bu.isInner(clickVector)) {
-	// if (bu instanceof Building) {
-	// return actualBuilding.getId();
-	// }
-	// }
-	// }
-	// }
-	// return 0;
-	// }
+	/**
+	 * 
+	 * @param clickVector
+	 * @return if place for the new building is free
+	 */
+	public boolean isTaken(PVector clickVector) {
+		for (BaseUnit building : buildings) {
+			// if a building is clicked
+			if (building.getPosition().dist(clickVector) < (building.getCollisionRadius())) {
+				setPositionBuilding(building.getPosition());
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean isBuildingOpen() {
 		return buildingOpen;
