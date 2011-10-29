@@ -124,12 +124,13 @@ public class MenuTest extends PApplet {
 				if (menu.isTaken(clickVector)) {
 					// IF A BUILDING IS CLICKED
 					System.out.println("open building menu");
-					menu.showMenuPoint(clickVector);
+					menu.setPosition(clickVector);
 					menu.setBuildingOpen(true, clickVector);
+					menu.setActualBuildingName() ;
 				} else {
 					// OPENS MAIN MENU
 					System.out.println("open menu");
-					menu.showMenuPoint(clickVector);
+					menu.setPosition(clickVector);
 					menu.setMenuOpen(true);
 				}
 			}
