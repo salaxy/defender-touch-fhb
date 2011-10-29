@@ -79,7 +79,7 @@ public class Menu {
 	/**
 	 * Startcredit of every palyer
 	 */
-	protected int creditsPlayer = 2000;
+	protected int creditsPlayer = 200;
 
 	/**
 	 * actual address with the building, used for deleting it
@@ -95,6 +95,11 @@ public class Menu {
 	 * array list with all its buildings
 	 */
 	protected String actualBuildingName = "None";
+
+	/**
+	 * array list with all its buildings
+	 */
+	protected int actualBuildingCount = 0;
 
 	/**
 	 * Constructor of Menu
@@ -113,18 +118,12 @@ public class Menu {
 	}
 
 	/**
-	 * method after every left click
-	 */
-	public void showMenuPoint(PVector position) {
-		this.position = position;
-	}
-
-	/**
 	 * is always been done
 	 */
 	public void drawMenu() {
-		mainPoint.text("Dein aktuelles Gold: " + creditsPlayer, 100, 15);
-		mainPoint.text("Dein aktuelles Gebäude: " + actualBuildingName, 300, 15);
+		mainPoint.text("Aktuelle Credits: " + creditsPlayer, 100, 15);
+		mainPoint.text("Aktuelles Gebäude: " + actualBuildingName, 300, 15);
+		mainPoint.text("Aktuelle Gebäudeanzahl: " + getActualBuildingCount(), 500, 15);
 		mainPoint.ellipseMode(PConstants.CENTER);
 
 		if (menuOpen) {
@@ -292,7 +291,7 @@ public class Menu {
 
 		if (this.position.dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			// System.out.println("Menu close choosed");
-			 setActualStatus(-1);
+			setActualStatus(-1);
 			setMenuOpen(false);
 			return true;
 		}
@@ -363,11 +362,13 @@ public class Menu {
 
 		if (this.menuBuildings[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			setBuildingOpen(false, null);
+			upgradeBuilding();
 			setActualStatus(0);
 			return true;
 		}
 		if (this.menuBuildings[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			setBuildingOpen(false, null);
+			setActualBuildingDestroyPrice();
 			setActualStatus(1);
 			return true;
 		}
@@ -388,6 +389,20 @@ public class Menu {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * 
+	 * @param credits
+	 *            (credits of a player)
+	 * @return true (if enough credits is there)
+	 * 
+	 *         looking if enough credits are there
+	 */
+	public void upgradeBuilding() {
+		if (creditsPlayer - getActualBuildingPrice(positionBuilding) >= 0 && actualBuilding.getLevel() !=3) {
+			creditsPlayer -=getActualBuildingPrice(positionBuilding);
+		}
 	}
 
 	/**
@@ -450,23 +465,77 @@ public class Menu {
 				if (bu.isInner(clickVector)) {
 					if (bu instanceof Building) {
 						if (bu instanceof Defence) {
-							actualBuildingName = "Defence";
 							return Defence.PRICE;
 						}
 						if (bu instanceof Ground) {
-							actualBuildingName = "Ground";
 							return Ground.PRICE;
 						}
 						if (bu instanceof Support) {
-							actualBuildingName = "Support";
 							return Support.PRICE;
 						}
 					}
 				}
 			}
 		}
-		actualBuildingName = "None";
 		return 0;
+	}
+
+	/**
+	 * 
+	 * @param clickVector
+	 *            (actual position of mouse click)
+	 * @return PRICE (price of the specific building)
+	 * 
+	 *         searching for the actual price of a building
+	 */
+	public void setActualBuildingName() {
+		if (position != null) {
+			for (BaseUnit bu : buildings) {
+				if (bu.isInner(position)) {
+					if (bu instanceof Building) {
+						if (bu instanceof Defence) {
+							actualBuildingName = "Defence";
+						}
+						if (bu instanceof Ground) {
+							actualBuildingName = "Ground";
+						}
+						if (bu instanceof Support) {
+							actualBuildingName = "Support";
+						}
+					}
+				}
+			}
+		} else
+			actualBuildingName = "Nichts gewählt";
+	}
+	
+	/**
+	 * 
+	 * @param clickVector
+	 *            (actual position of mouse click)
+	 * @return PRICE (price of the specific building)
+	 * 
+	 *         calculate the credits u get from destroying a building
+	 */
+	public void setActualBuildingDestroyPrice() {
+		if (position != null) {
+			for (BaseUnit bu : buildings) {
+				if (bu.isInner(position)) {
+					if (bu instanceof Building) {
+						if (bu instanceof Defence) {
+							System.out.println("dawd");
+							creditsPlayer += (Defence.PRICE*bu.getLevel())/2 ;
+						}
+						if (bu instanceof Ground) {
+							creditsPlayer += Ground.PRICE/2;
+						}
+						if (bu instanceof Support) {
+							creditsPlayer += Support.PRICE/2;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -476,13 +545,26 @@ public class Menu {
 	 */
 	public boolean isTaken(PVector clickVector) {
 		for (BaseUnit building : buildings) {
-			// if a building is clicked
+			// BUILDING IS CLICKED
 			if (building.getPosition().dist(clickVector) < (building.getCollisionRadius())) {
 				setPositionBuilding(building.getPosition());
 				return true;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 
+	 * @return Number of buildings on map
+	 */
+	public int getActualBuildingCount() {
+		actualBuildingCount = 0;
+		for (BaseUnit building : buildings) {
+			// if a building is clicked
+			actualBuildingCount++;
+		}
+		return actualBuildingCount;
 	}
 
 	public boolean isBuildingOpen() {
