@@ -94,7 +94,7 @@ public class Menu {
 	/**
 	 * array list with all its buildings
 	 */
-	protected String actualBuildingName = "None";
+	protected String actualBuildingName = "Nichts gewählt";
 
 	/**
 	 * array list with all its buildings
@@ -291,7 +291,6 @@ public class Menu {
 
 		if (this.position.dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			// System.out.println("Menu close choosed");
-			setActualStatus(-1);
 			setMenuOpen(false);
 			return true;
 		}
@@ -464,11 +463,11 @@ public class Menu {
 			for (BaseUnit bu : buildings) {
 				if (bu.isInner(clickVector)) {
 					if (bu instanceof Building) {
-						if (bu instanceof Defence) {
-							return Defence.PRICE;
-						}
 						if (bu instanceof Ground) {
 							return Ground.PRICE;
+						}
+						if (bu instanceof Defence) {
+							return Defence.PRICE;
 						}
 						if (bu instanceof Support) {
 							return Support.PRICE;
@@ -488,10 +487,10 @@ public class Menu {
 	 * 
 	 *         searching for the actual price of a building
 	 */
-	public void setActualBuildingName() {
-		if (position != null) {
+	public void setActualBuildingName(PVector clickVector) {
+		if (isTaken(clickVector)) {
 			for (BaseUnit bu : buildings) {
-				if (bu.isInner(position)) {
+				if (bu.isInner(positionBuilding)) {
 					if (bu instanceof Building) {
 						if (bu instanceof Defence) {
 							actualBuildingName = "Defence";
@@ -505,8 +504,9 @@ public class Menu {
 					}
 				}
 			}
-		} else
+		} else {
 			actualBuildingName = "Nichts gewählt";
+		}
 	}
 
 	/**
@@ -518,12 +518,11 @@ public class Menu {
 	 *         calculate the credits u get from destroying a building
 	 */
 	public void setActualBuildingDestroyPrice() {
-		if (position != null) {
+		if (position == null) {
 			for (BaseUnit bu : buildings) {
 				if (bu.isInner(position)) {
 					if (bu instanceof Building) {
 						if (bu instanceof Defence) {
-							System.out.println("dawd");
 							creditsPlayer += (Defence.PRICE * bu.getLevel()) / 2;
 						}
 						if (bu instanceof Ground) {

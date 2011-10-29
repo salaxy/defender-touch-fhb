@@ -118,27 +118,26 @@ public class MenuTest extends PApplet {
 	/** override mouseclick */
 	public void mouseClicked() {
 		PVector clickVector = new PVector(this.mouseX, this.mouseY);
-		
+
 		if (this.mouseButton == LEFT) {
 			if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
+				menu.setPosition(clickVector);
 				if (menu.isTaken(clickVector)) {
 					// IF A BUILDING IS CLICKED
 					System.out.println("open building menu");
-					menu.setPosition(clickVector);
 					menu.setBuildingOpen(true, clickVector);
-					menu.setActualBuildingName() ;
 				} else {
 					// OPENS MAIN MENU
 					System.out.println("open menu");
-					menu.setPosition(clickVector);
 					menu.setMenuOpen(true);
 				}
+				menu.setActualBuildingName(clickVector);
 			}
 
 			else if (menu.isBuildingOpen()) {
 				// WHEN UPGRADE OR DESTROY WAS CLICKED
 				if (menu.isInnerBuildingElement(clickVector)) {
-					
+
 					switch (menu.getActualStatus()) {
 					case 0:
 						System.out.println("do Building upgrade");
@@ -195,6 +194,5 @@ public class MenuTest extends PApplet {
 			}
 		}
 	}
-
 
 }
