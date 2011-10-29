@@ -9,7 +9,9 @@ import TUIO.TuioCursor;
 import TUIO.TuioObject;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
+import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
+import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 public class MenuTest extends PApplet {
@@ -20,7 +22,7 @@ public class MenuTest extends PApplet {
 
 	int width = 1024;
 	int height = 600;
-	public static PFont font;
+	PFont font;
 	Menu menu;
 
 	// list with all elements of one player
@@ -56,7 +58,7 @@ public class MenuTest extends PApplet {
 	public void draw() {
 		background(200);
 		fill(100);
-		textFont(font, 15);
+		textFont(font, 14);
 		textAlign(CENTER);
 
 		// create menue for building options
@@ -116,39 +118,28 @@ public class MenuTest extends PApplet {
 
 	/** override mouseclick */
 	public void mouseClicked() {
-		// create Point where mouse was clicked in
 		PVector clickVector = new PVector(this.mouseX, this.mouseY);
-		System.out.print(this.mouseX + "," + this.mouseY + " ... ");
-		System.out.print(menu.isMenuOpen() + " menu...");
-		System.out.println(menu.isBuildingOpen() + " building...");
-
 		if (this.mouseButton == LEFT) {
-			// watching if both menus are closed
 			if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
-
 				if (isTaken(clickVector)) {
-					// look if a building was clicked
-					System.out.println("show building options");
+					// IF A BUILDING IS CLICKED
+					System.out.println("open building menu");
 					menu.setBuildingOpen(true, clickVector);
-
 				} else {
-					// if menu is not already open, just open it
-					// if its open, don't do anything
-					System.out.println("show menu open");
+					// OPENS MAIN MENU
+					System.out.println("open menu");
 					menu.showMenuPoint(clickVector);
 				}
-
 			}
 
 			else if (menu.isBuildingOpen()) {
-				// Choosing which Building menu point was clicked
+				// WHEN UPGRADE OR DESTROY WAS CLICKED
 				if (menu.isInnerBuildingElement(clickVector)) {
-
-					switch (menu.getActualNumber()) {
+					System.out.println("TEST " + menu.getActualStatus());
+					switch (menu.getActualStatus()) {
 					case 0:
 						System.out.println("do Building upgrade");
 						menu.getActualBuilding().upgrade();
-						System.out.println("actual level: " + menu.getActualBuilding().getLevel());
 						break;
 					case 1: // TODO : hier muss gebäude zerstören rein
 						System.out.println("do Building destroyed");
@@ -166,26 +157,20 @@ public class MenuTest extends PApplet {
 
 			// watching if menu is open and click is into a building element
 			else if (menu.isMenuOpen()) {
-				// menu.setBuildingOpen(false);
-
-				// Choosing which Building should be placed
+				// CHOOSING A BUILDING
 				if (menu.isInnerMenuElement(clickVector)) {
-					switch (menu.getActualNumber()) {
+					switch (menu.getActualStatus()) {
 					case 0:
 						System.out.println("building a Ground unit");
-//						buildings.add(new Ground((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						buildings.add(new Ground((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
 						break;
 					case 1:
 						System.out.println("building a Defence unit");
-						// buildings.add(new Defence((int) menu.getPositionX(),
-						// (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0,
-						// this));
+						buildings.add(new Defence((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
 						break;
 					case 2:
 						System.out.println("building a Support unit");
-						// buildings.add(new Support((int) menu.getPositionX(),
-						// (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0,
-						// this));
+						buildings.add(new Support((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
 						break;
 					default:
 						System.out.println();
@@ -196,14 +181,14 @@ public class MenuTest extends PApplet {
 
 		if (this.mouseButton == RIGHT) {
 
-			// if menu is open und click in menu point -> close it
+			// CLOSES MENU
 			if (menu.isMenuOpen() && menu.isInnerMainElement(clickVector)) {
 				menu.setMenuOpen(false);
-				System.out.println("close building menu");
+				System.out.println("close menu");
 			}
-			// closes the menu of a specific building
-			if (isTaken(clickVector)) {
-				System.out.println("close specific building menu");
+			// CLOSES BUILDING MENU
+			if (menu.isBuildingOpen() && isTaken(clickVector)) {
+				System.out.println("close building menu");
 				menu.setBuildingOpen(false, null);
 			}
 		}
