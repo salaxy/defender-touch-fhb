@@ -1,16 +1,13 @@
 package de.fhb.defenderTouch.menu;
 
 import java.util.ArrayList;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PFont;
 import processing.core.PVector;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.grounded.Building;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
-import de.fhb.defenderTouch.units.grounded.Navi;
 import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 import gifAnimation.*;
@@ -141,11 +138,12 @@ public class Menu {
 		mainPoint.ellipseMode(PConstants.CENTER);
 
 		if (isShowLoopingGif() && positionBuilding != null) {
-			mainPoint.image(nonLoopingGif, positionBuilding.x, positionBuilding.y);
+			mainPoint.image(nonLoopingGif, positionBuilding.x - 11, positionBuilding.y - 15);
 			nonLoopingGif.loop();
-			if(nonLoopingGif.currentFrame() == 15){
+			if (nonLoopingGif.currentFrame() == 15) {
 				nonLoopingGif.noLoop();
 				setShowLoopingGif(false);
+				nonLoopingGif.stop();
 			}
 			System.out.println(nonLoopingGif.currentFrame());
 		}
