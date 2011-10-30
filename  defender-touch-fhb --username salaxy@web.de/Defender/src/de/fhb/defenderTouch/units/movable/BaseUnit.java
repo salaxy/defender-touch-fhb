@@ -220,8 +220,8 @@ public class BaseUnit implements Drawable {
 
 		// zurücksetzen der Umgebung, Seiteneffekte vermeiden
 		// TODO hier eigentlich unnötig
-		display.rotate(0);
-		display.scale(1);
+//		display.rotate(0);
+//		display.scale(1);
 		display.resetMatrix();
 	}
 

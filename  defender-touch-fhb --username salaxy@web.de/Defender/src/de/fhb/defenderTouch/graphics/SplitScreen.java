@@ -1,10 +1,13 @@
 package de.fhb.defenderTouch.graphics;
 
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.interfaces.Drawable;
 import de.fhb.defenderTouch.map.Map;
+import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 public class SplitScreen implements Drawable {
 
@@ -49,8 +52,11 @@ public class SplitScreen implements Drawable {
 	 */
 	private PGraphics splitScreen;
 	
+	private CopyOnWriteArrayList<BaseUnit> globalUnits;
 	
-	public SplitScreen(PApplet display, PVector sichtPosition, float zoomFaktor, boolean screenSide) {
+	
+	public SplitScreen(PApplet display, PVector sichtPosition, float zoomFaktor, boolean screenSide, CopyOnWriteArrayList<BaseUnit> globalUnits) {
+		this.globalUnits=globalUnits;
 		splitScreen = display.createGraphics(display.getWidth() / 2, display.getHeight(), PApplet.JAVA2D);
 		this.zoomFaktor = zoomFaktor;
 		this.screenSide = screenSide;
@@ -61,7 +67,7 @@ public class SplitScreen implements Drawable {
 	}
 	
 	public void paint() {
-		Map.paint(splitScreen, sichtPosition, zoomFaktor);
+		Map.paint(splitScreen, sichtPosition, zoomFaktor, globalUnits);
 		display.image(splitScreen, (!screenSide) ? 0 : display.getWidth() / 2 , 0);
 	}
 

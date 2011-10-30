@@ -9,6 +9,11 @@ public class Spieler implements Drawable{
 	
 	private SplitScreen splitScreen;
 	
+	private DefenderControl gamelogic;
+	
+	private float zoomMin=0.8f;
+	private float zoomMax=3.0f;
+	
 	/**
 	 * Konstruktor
 	 * 
@@ -16,9 +21,11 @@ public class Spieler implements Drawable{
 	 * @param sichtPosition
 	 * @param zoomFaktor
 	 * @param screenSide
+	 * @param gamelogic 
 	 */
-	public Spieler(PApplet display, PVector sichtPosition, float zoomFaktor, boolean screenSide){
-		splitScreen = new SplitScreen(display, sichtPosition, zoomFaktor, screenSide);				
+	public Spieler(PApplet display, PVector sichtPosition, float zoomFaktor, boolean screenSide, DefenderControl gamelogic){
+		this.gamelogic=gamelogic;
+		splitScreen = new SplitScreen(display, sichtPosition, zoomFaktor, screenSide,gamelogic.getGlobalUnits());				
 	}
 
 	/**
@@ -34,7 +41,11 @@ public class Spieler implements Drawable{
 	 * @param zoomFaktor
 	 */
 	public void setZoomFaktor(float zoomFaktor) {
-		splitScreen.setZoomFaktor(zoomFaktor);
+		//wenn minimum oder maximum nicht überschritten
+		if(!(zoomFaktor>zoomMax||zoomFaktor<zoomMin)){
+			splitScreen.setZoomFaktor(zoomFaktor);			
+		}
+
 	}
 
 	/**

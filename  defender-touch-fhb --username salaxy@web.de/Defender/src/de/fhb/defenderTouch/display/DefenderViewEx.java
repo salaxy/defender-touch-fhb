@@ -74,8 +74,8 @@ public class DefenderViewEx extends PApplet {
 	  
 	  // Spieler & Karte initialisieren
 	  karte = new Map(getWidth() / 32, getHeight() / 32); // Vorläufig wird das so initialisiert, später wird hier einfach nur eine vorhandene Karte geladen.
-	  spielerOne = new Spieler(this, new PVector(992f, 734f), 1f, SplitScreen.LEFTSIDE);
-	  spielerTwo = new Spieler(this, new PVector(480f, 734f), 1f, SplitScreen.RIGHTSIDE);
+	  spielerOne = new Spieler(this, new PVector(992f, 734f), 1f, SplitScreen.LEFTSIDE,gamelogic);
+	  spielerTwo = new Spieler(this, new PVector(480f, 734f), 1f, SplitScreen.RIGHTSIDE,gamelogic);
 	  
 	  //TestUnitBetas schaffen
 	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,this);
@@ -211,36 +211,36 @@ public class DefenderViewEx extends PApplet {
 	// called when a cursor is added to the scene
 	public void addTuioCursor(TuioCursor tcur) {
 	  println("add cursor "+tcur.getCursorID()+" ("+tcur.getSessionID()+ ") " +tcur.getX()+" "+tcur.getY());
-	  
-	  	PVector vector=new PVector(tcur.getScreenX(width),tcur.getScreenY(height));
-	  	boolean wurdeEbendAktiviert=false;	
-	  	boolean warSchonAktiv=false;
-	
-		for(BaseUnit u: gamelogic.getGlobalUnits()){
-			
-			
-			//wenn eine unit aktiviert wird dann die anderen deaktiveren
-			if(!wurdeEbendAktiviert){
-				
-				//wenn bereits aktiv dann deaktivieren
-				warSchonAktiv=u.isActive();
-				wurdeEbendAktiviert=u.isInner(vector);	
-				
-				if(wurdeEbendAktiviert&&warSchonAktiv){
-					u.deactivate();
-				}
-				
-			}else{
-				u.deactivate();
-			}
-		}
-		
-		//neues Ziel setzen wenn unit aktiv
-		for(BaseUnit u: gamelogic.getGlobalUnits()){
-			if(u.isActive()){
-				u.commandDestination(vector);				
-			}
-		}
+//	  
+//	  	PVector vector=new PVector(tcur.getScreenX(width),tcur.getScreenY(height));
+//	  	boolean wurdeEbendAktiviert=false;	
+//	  	boolean warSchonAktiv=false;
+//	
+//		for(BaseUnit u: gamelogic.getGlobalUnits()){
+//			
+//			
+//			//wenn eine unit aktiviert wird dann die anderen deaktiveren
+//			if(!wurdeEbendAktiviert){
+//				
+//				//wenn bereits aktiv dann deaktivieren
+//				warSchonAktiv=u.isActive();
+//				wurdeEbendAktiviert=u.isInner(vector);	
+//				
+//				if(wurdeEbendAktiviert&&warSchonAktiv){
+//					u.deactivate();
+//				}
+//				
+//			}else{
+//				u.deactivate();
+//			}
+//		}
+//		
+//		//neues Ziel setzen wenn unit aktiv
+//		for(BaseUnit u: gamelogic.getGlobalUnits()){
+//			if(u.isActive()){
+//				u.commandDestination(vector);				
+//			}
+//		}
 	}
 
 	// called when a cursor is moved
@@ -268,71 +268,71 @@ public class DefenderViewEx extends PApplet {
     //speziell fuer SPIELER 2
     //mausclick ueberschreiben
     public void mouseClicked(){
-    	PVector clickVector=new PVector(this.mouseX,this.mouseY);
-    	boolean weitereAktivierung=false;
-	    boolean istAngriff=false;
-    	
-	    BaseUnit destinationUnit=null;
-	    try{
-	    	if(this.mouseButton==LEFT){    	
-				for(BaseUnit u: gamelogic.getGlobalUnits()){
-					
-					//wenn eine unit aktiviert wird dann die anderen deaktiveren
-					if(u.getPlayerID()==1 && u.isInner(clickVector)){	
-						u.activate();
-					}
-				}
-	
-				//neues Ziel setzen wenn unit aktiv
-				for(BaseUnit u: gamelogic.getGlobalUnits()){
-				
-					if(u.isActive()){
-						//wenn  klick auf eine gegnerische Unit dann angriff
-						for(BaseUnit bu: gamelogic.getGlobalUnits()){
-							
-							//auf gegnerische einheit geklickt??
-							if(bu.getPlayerID()==0 && bu.isInner(clickVector)){
-								istAngriff=true;
-								destinationUnit=bu;
-								System.out.println("Angriff initiiert!");
-							}
-							
-							//auf weitere eigene einheit geklickt??
-							if(bu.getPlayerID()==1 && bu.isInner(clickVector)){
-								weitereAktivierung=true;
-								bu.activate();
-								System.out.println("Weitere Einheit aktiviert!");
-							}
-	
-						}					
-						
-						if(!weitereAktivierung){
-							//bewegung anweisen wenn kein angriff
-							if(!istAngriff){	
-								u.commandDestination(clickVector);
-							}else{
-								//falls angriff dann Angriff anweisen
-								u.attack(destinationUnit);
-							}
-						}
-	
-					}
-				}	
-	    	}
-		     
-	    				
-			if(this.mouseButton==RIGHT){
-	
-				
-				for(BaseUnit u: gamelogic.getGlobalUnits()){
-					u.deactivate();
-				}
-			}
-			
-        
-        }catch ( java.util.ConcurrentModificationException ex) { 
-          ex.printStackTrace(); 
-        } 
+//    	PVector clickVector=new PVector(this.mouseX,this.mouseY);
+//    	boolean weitereAktivierung=false;
+//	    boolean istAngriff=false;
+//    	
+//	    BaseUnit destinationUnit=null;
+//	    try{
+//	    	if(this.mouseButton==LEFT){    	
+//				for(BaseUnit u: gamelogic.getGlobalUnits()){
+//					
+//					//wenn eine unit aktiviert wird dann die anderen deaktiveren
+//					if(u.getPlayerID()==1 && u.isInner(clickVector)){	
+//						u.activate();
+//					}
+//				}
+//	
+//				//neues Ziel setzen wenn unit aktiv
+//				for(BaseUnit u: gamelogic.getGlobalUnits()){
+//				
+//					if(u.isActive()){
+//						//wenn  klick auf eine gegnerische Unit dann angriff
+//						for(BaseUnit bu: gamelogic.getGlobalUnits()){
+//							
+//							//auf gegnerische einheit geklickt??
+//							if(bu.getPlayerID()==0 && bu.isInner(clickVector)){
+//								istAngriff=true;
+//								destinationUnit=bu;
+//								System.out.println("Angriff initiiert!");
+//							}
+//							
+//							//auf weitere eigene einheit geklickt??
+//							if(bu.getPlayerID()==1 && bu.isInner(clickVector)){
+//								weitereAktivierung=true;
+//								bu.activate();
+//								System.out.println("Weitere Einheit aktiviert!");
+//							}
+//	
+//						}					
+//						
+//						if(!weitereAktivierung){
+//							//bewegung anweisen wenn kein angriff
+//							if(!istAngriff){	
+//								u.commandDestination(clickVector);
+//							}else{
+//								//falls angriff dann Angriff anweisen
+//								u.attack(destinationUnit);
+//							}
+//						}
+//	
+//					}
+//				}	
+//	    	}
+//		     
+//	    				
+//			if(this.mouseButton==RIGHT){
+//	
+//				
+//				for(BaseUnit u: gamelogic.getGlobalUnits()){
+//					u.deactivate();
+//				}
+//			}
+//			
+//        
+//        }catch ( java.util.ConcurrentModificationException ex) { 
+//          ex.printStackTrace(); 
+//        } 
     }
     
     public void mouseDragged() {
@@ -350,9 +350,9 @@ public class DefenderViewEx extends PApplet {
     	
     	if (mouseButton == RIGHT) {
     		if (mouseX < 512) {
-    			spielerOne.setZoomFaktor(spielerOne.getZoomFaktor() + (mouseY - pmouseY) * 0.01f);    			
+    			spielerOne.setZoomFaktor(spielerOne.getZoomFaktor() + (mouseY - pmouseY) * 0.001f);    			
     		} else {
-    			spielerTwo.setZoomFaktor(spielerTwo.getZoomFaktor() + (mouseY - pmouseY) * 0.01f);    			
+    			spielerTwo.setZoomFaktor(spielerTwo.getZoomFaktor() + (mouseY - pmouseY) * 0.001f);    			
     		}
     	}
     }
