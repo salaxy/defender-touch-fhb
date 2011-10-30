@@ -150,6 +150,9 @@ public class BaseUnit implements Drawable {
 	 * jedes Gebäude hat ein Level
 	 */
 	protected int level = 1;
+	
+	
+	protected boolean bewegtSichGerade=false;
 
 	public BaseUnit(int x, int y, int mode, int playerID, PApplet disp) {
 
@@ -168,11 +171,7 @@ public class BaseUnit implements Drawable {
 		// und ids weiter zählen
 		BaseUnit.idCounter++;
 		// fuegt sich selbst zur globalen Menge der Einheiten hinzu
-		// synchronized( BaseUnit.class )
-		// {
 		this.gamelogic.getGlobalUnits().add(this);
-		// }
-
 	}
 
 	/**
@@ -192,33 +191,39 @@ public class BaseUnit implements Drawable {
 	 */
 	public void paint(Player player) {
 
-		// neue position berechnen
-		this.calcNewPosition();
+
 
 		// entscheide ueber erscheinungsbild
 		switch (mode) {
 		case MODE_ROTATE:
-//			this.drawRotateAppearance();
+			this.drawRotateAppearance(player);
 			break;
 		case MODE_PULSE:
-//			this.drawPulseAppearance();
+			this.drawPulseAppearance(player);
 			break;
 		case MODE_ROTATE_AND_PULSE:
-//			this.drawRotateAndPulseAppearance();
-//			this.drawHalo();
+			this.drawRotateAndPulseAppearance(player);
+			this.drawHalo(player);
 			break;
 		case MODE_HALO:
-//			this.drawHalo();
-//			this.drawNormalAppearance(player);
+			this.drawHalo(player);
+			this.drawNormalAppearance(player);
 			break;
 		case MODE_NORMAL:
 			this.drawNormalAppearance(player);
 			break;
 		case MODE_PULSE_IF_ACTIVE:
-//			this.drawPulseIfActive();
+			this.drawPulseIfActive(player);
 			break;
 		}
 
+		
+		// zeichne Schweif wenn in bewegung
+		if(this.bewegtSichGerade){
+			drawTail(player);			
+		}
+
+		
 		// zurücksetzen der Umgebung, Seiteneffekte vermeiden
 		// TODO hier eigentlich unnötig
 		display.resetMatrix();
@@ -230,39 +235,45 @@ public class BaseUnit implements Drawable {
 	 */
 	protected void drawNormalAppearance(Player player) {
 		
-		PVector
-		
-		display.translate(position.x, position.y);
-		display.fill(0);
+		//Umrechnung auf Spielersicht
+		PVector drawPosition=calcDrawPosition(player);
+		//Transformationen
+		display.translate(drawPosition.x, drawPosition.y);		
 		display.rotate(actualAngle+player.getGeneralAngle());
-		display.scale(0+player.getGeneralScale());
+		display.scale(0+player.getGeneralScale());		
+		
+		display.fill(0);
 		this.entscheideFarbe();
 		this.drawFigure();
 	}
 
 	/**
 	 * zeichne Figur im Normalen Zustand, wenn Aktiv dann pulsierend
+	 * @param player 
 	 */
-	protected void drawPulseIfActive() {
+	protected void drawPulseIfActive(Player player) {
 		// Wenn aktiv dann normal
 		if (!active) {
 			// normal zeichnen
-			this.drawNormalAppearance();
+			this.drawNormalAppearance(player);
 		} else {
 			// pulsierend zeichnen
-			this.drawPulseAppearance();
+			this.drawPulseAppearance(player);
 		}
 	}
 
 	/**
 	 * zeichne Figur im pulsierend
+	 * @param player 
 	 */
-	protected void drawPulseAppearance() {
+	protected void drawPulseAppearance(Player player) {
 
-		// zur aktuellen position zeichnen
-		display.translate(position.x, position.y);
-
-		display.rotate(actualAngle);
+		//Umrechnung auf Spielersicht
+		PVector drawPosition=calcDrawPosition(player);
+		//Transformationen
+		display.translate(drawPosition.x, drawPosition.y);		
+		display.rotate(actualAngle+player.getGeneralAngle());
+		display.scale(0+player.getGeneralScale());	
 
 		// solange die skala noch nicht durchlaufen ist
 		if (pulseStat < pulseSkala.length - 1) {
@@ -283,10 +294,16 @@ public class BaseUnit implements Drawable {
 
 	/**
 	 * zeichne Halo
+	 * @param player 
 	 */
-	protected void drawHalo() {
+	protected void drawHalo(Player player) {
 
-		display.translate(position.x, position.y);
+		//Umrechnung auf Spielersicht
+		PVector drawPosition=calcDrawPosition(player);
+		//Transformationen
+		display.translate(drawPosition.x, drawPosition.y);		
+		display.rotate(actualAngle+player.getGeneralAngle());
+		display.scale(0+player.getGeneralScale());	
 
 		// solange die skala noch nicht durchlaufen ist
 		if (haloStat < haloSkala.length - 1) {
@@ -308,11 +325,16 @@ public class BaseUnit implements Drawable {
 
 	/**
 	 * zeichne Figur im rotierend
+	 * @param player 
 	 */
-	protected void drawRotateAppearance() {
+	protected void drawRotateAppearance(Player player) {
 
-		// zur aktuellen position zeichnen
-		display.translate(position.x, position.y);
+		//Umrechnung auf Spielersicht
+		PVector drawPosition=calcDrawPosition(player);
+		//Transformationen
+		display.translate(drawPosition.x, drawPosition.y);		
+		display.rotate(actualAngle+player.getGeneralAngle());
+		display.scale(0+player.getGeneralScale());	
 
 		// solange die skala noch nicht durchlaufen ist
 		if (rotatingAngle < PApplet.TWO_PI) {
@@ -334,11 +356,16 @@ public class BaseUnit implements Drawable {
 
 	/**
 	 * zeichne Figur im rotierend und pulsierend
+	 * @param player 
 	 */
-	protected void drawRotateAndPulseAppearance() {
+	protected void drawRotateAndPulseAppearance(Player player) {
 
-		// zur aktuellen position zeichnen
-		display.translate(position.x, position.y);
+		//Umrechnung auf Spielersicht
+		PVector drawPosition=calcDrawPosition(player);
+		//Transformationen
+		display.translate(drawPosition.x, drawPosition.y);		
+		display.rotate(actualAngle+player.getGeneralAngle());
+		display.scale(0+player.getGeneralScale());	
 
 		// solange die skala noch nicht durchlaufen ist
 		if (rotatingAngle < PApplet.TWO_PI) {
@@ -413,7 +440,7 @@ public class BaseUnit implements Drawable {
 	/**
 	 * Berechnen des neuen Position, wenn in Bewegung
 	 */
-	protected void calcNewPosition() {
+	public void calcNewPosition() {
 
 		PVector newPosition;
 
@@ -429,10 +456,15 @@ public class BaseUnit implements Drawable {
 
 				// neue Position setzen
 				this.position = newPosition;
-				// zeichne Schweif
-				drawTail();
+				
+				bewegtSichGerade=true;
+
+			}else{
+				bewegtSichGerade=false;
 			}
 
+		}else{
+			bewegtSichGerade=false;
 		}
 	}
 
@@ -473,14 +505,21 @@ public class BaseUnit implements Drawable {
 	/**
 	 * Zeichne Schweif
 	 */
-	protected void drawTail() {
+	protected void drawTail(Player player) {
+			
 
 		// Zielpunkt hinter der Einheit berechnen
 		PVector ende = direction.get();
+		//end Vektor fuer jeweiligen Spieler berechnen
+		ende.rotate(player.getGeneralAngle());
+		ende.normalize();
 		ende.mult(schweiflaenge * -1);
 
-		// zur aktuellen position zeichnen
-		display.translate(position.x, position.y);
+		//Umrechnung auf Spielersicht
+		PVector drawPosition=calcDrawPosition(player);
+		//Transformationen
+		display.translate(drawPosition.x, drawPosition.y);		
+		display.scale(0+player.getGeneralScale());	
 
 		// linien in schwarz zeichnen
 		display.stroke(0);
@@ -632,6 +671,21 @@ public class BaseUnit implements Drawable {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	
+	/**
+	 * berechnet die neue zeichnen Position
+	 * @return
+	 */
+	private PVector calcDrawPosition(Player player){
+		//Umrechnung auf Spielersicht
+		//***********************
+		PVector drawPosition=this.position.get();
+		drawPosition.rotate(player.getGeneralAngle());
+		drawPosition.add(player.getOriginPosition());
+		//***********************
+		
+		return drawPosition;
 	}
 
 }

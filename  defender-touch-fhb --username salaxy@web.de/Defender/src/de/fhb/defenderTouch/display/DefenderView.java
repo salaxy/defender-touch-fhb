@@ -38,8 +38,8 @@ public class DefenderView extends PApplet {
 	PFont font;
 	BaseUnit test;
 	
-	private Spieler spielerOne;
-	private Spieler spielerTwo;
+//	private Spieler spielerOne;
+//	private Spieler spielerTwo;
 	
 	private Map karte;
 	
@@ -116,6 +116,9 @@ public class DefenderView extends PApplet {
 	  float obj_size = object_size; 
 	  float cur_size = cursor_size;
 	  
+	  this.gamelogic.drawAll();
+	  
+	  
 //	  spielerOne.paint();
 //	  spielerTwo.paint();
 	  
@@ -129,14 +132,14 @@ public class DefenderView extends PApplet {
 //	} 
 	  
 	  
-	  try{
-		  for(BaseUnit u: gamelogic.getGlobalUnits()){
-			  u.paint();	  
-		  }
-	  }catch ( java.util.ConcurrentModificationException ex) { 
-		  ex.printStackTrace(); 
-	} 
-	 
+//	  try{
+//		  for(BaseUnit u: gamelogic.getGlobalUnits()){
+//			  u.paint();	  
+//		  }
+//	  }catch ( java.util.ConcurrentModificationException ex) { 
+//		  ex.printStackTrace(); 
+//	} 
+//	 
 //	  if (mousePressed) {
 //		    fill(0);
 //		  } else {

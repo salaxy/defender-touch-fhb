@@ -3,6 +3,7 @@ package de.fhb.defenderTouch.gamelogic;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 /**
@@ -22,9 +23,13 @@ public class DefenderControl {
 	private PApplet display;
 	private static DefenderControl instance=null;
 	
+	private Player playerOne;
+	private Player playerTwo;
 	
 	
 	private DefenderControl(PApplet display) {
+		playerOne=new Player(this,PApplet.HALF_PI,0.5f,new PVector(512f,0f));
+		playerTwo=new Player(this,3*PApplet.HALF_PI,0.5f,new PVector(512f,768f));
 		this.display = display;
 		globalUnits = new CopyOnWriteArrayList <BaseUnit>();
 	}
@@ -39,6 +44,27 @@ public class DefenderControl {
 	public CopyOnWriteArrayList <BaseUnit> getGlobalUnits() {
 		return globalUnits;
 	     
+	}
+	
+	public void drawAll(){
+		
+		// neue positionen berechnen
+		  for(BaseUnit unit: globalUnits){
+			  unit.calcNewPosition();	  
+		  }
+		
+		  for(BaseUnit unit: globalUnits){
+			  unit.paint(this.playerOne);	  
+		  }
+		
+		  display.line(511f, 0f, 511f, 768f);
+		  display.line(512f, 0f, 512f, 768f);
+		  display.line(513f, 0f, 513f, 768f);
+		  
+		  for(BaseUnit unit: globalUnits){
+			  unit.paint(this.playerTwo);	  
+		  }
+		  
 	}
 
 
