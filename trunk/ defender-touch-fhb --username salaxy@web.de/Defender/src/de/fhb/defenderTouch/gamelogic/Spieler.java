@@ -5,7 +5,7 @@ import de.fhb.defenderTouch.interfaces.Drawable;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class Spieler implements Drawable{
+public class Spieler{
 	
 	private SplitScreen splitScreen;
 	
