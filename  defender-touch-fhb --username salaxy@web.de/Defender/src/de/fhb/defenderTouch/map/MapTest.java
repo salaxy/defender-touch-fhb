@@ -1,4 +1,4 @@
-package de.fhb.defenderTouch.display;
+package de.fhb.defenderTouch.map;
 import java.util.Vector;
 
 import processing.core.PApplet;
@@ -12,7 +12,6 @@ import TUIO.TuioTime;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Spieler;
 import de.fhb.defenderTouch.graphics.SplitScreen;
-import de.fhb.defenderTouch.map.Map;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Navi;
