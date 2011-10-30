@@ -25,13 +25,13 @@ public class MenuTest extends PApplet {
 	int width = 1024;
 	int height = 600;
 	PFont font;
-	PImage img;
+	//PImage img;
 	Menu menu;
 
-	PImage[] animation;
-	Gif loopingGif;
-	Gif nonLoopingGif;
-	boolean pause = false;
+	//PImage[] animation;
+	//Gif loopingGif;
+	Gif nonLoopingGifDestroy;
+	//boolean pause = false;
 
 	// list with all elements of one player
 	private ArrayList<BaseUnit> buildings = new ArrayList<BaseUnit>();
@@ -50,12 +50,12 @@ public class MenuTest extends PApplet {
 		// create the GifAnimation object for playback
 		// loopingGif = new Gif(this, "expl.gif");
 		// loopingGif.loop();
-		nonLoopingGif = new Gif(this, "expl_kl.gif");
+		nonLoopingGifDestroy = new Gif(this, "expl_kl.gif");
 
 		// listens to port 3333
 		tuioClient = new TuioProcessing(this);
 
-		menu = new Menu(this, buildings, nonLoopingGif);
+		menu = new Menu(this, buildings, nonLoopingGifDestroy);
 
 		// activate anti aliaising
 		this.smooth();

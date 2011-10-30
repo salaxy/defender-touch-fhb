@@ -107,7 +107,7 @@ public class Menu {
 	/**
 	 * array list with all its buildings
 	 */
-	protected boolean showLoopingGif = false;
+	protected boolean showLoopingGifDestroy = false;
 
 	/**
 	 * Constructor of Menu
@@ -133,25 +133,28 @@ public class Menu {
 	 */
 	public void drawMenu() {
 		mainPoint.text("Aktuelle Credits: " + creditsPlayer, 100, 15);
-		mainPoint.text("Aktuelles Gebäude: " + actualBuildingName, 300, 15);
-		mainPoint.text("Aktuelle Gebäudeanzahl: " + getActualBuildingCount(), 500, 15);
+		mainPoint.text("Aktuelles Gebäude: " + actualBuildingName, 350, 15);
+		mainPoint.text("Aktuelle Gebäudeanzahl: " + getActualBuildingCount(), 600, 15);
 		mainPoint.ellipseMode(PConstants.CENTER);
-
-		if (isShowLoopingGif() && positionBuilding != null) {
+		
+		/**
+		 * here is the animation of destroying a building
+		 */
+		if (isShowLoopingGifDestroy() && positionBuilding != null) {
+			
 			mainPoint.image(nonLoopingGif, positionBuilding.x - 11, positionBuilding.y - 15);
 			nonLoopingGif.loop();
 			if (nonLoopingGif.currentFrame() == 15) {
 				nonLoopingGif.noLoop();
-				setShowLoopingGif(false);
+				setShowLoopingGifDestroy(false);
 				nonLoopingGif.stop();
 			}
-			System.out.println(nonLoopingGif.currentFrame());
 		}
-
+		
+		/**
+		 * here is the complete normal menu
+		 */
 		if (menuOpen) {
-			/**
-			 * here is the complete normal menu
-			 */
 			mainPoint.stroke(255);
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
@@ -246,7 +249,6 @@ public class Menu {
 		/**
 		 * here is the complete menu for a specific building
 		 */
-
 		if (buildingOpen) {
 			mainPoint.noFill();
 			mainPoint.stroke(255);
@@ -544,7 +546,7 @@ public class Menu {
 			for (BaseUnit bu : buildings) {
 				if (bu.isInner(positionBuilding)) {
 					if (bu instanceof Building) {
-						setShowLoopingGif(true);
+						setShowLoopingGifDestroy(true);
 						if (bu instanceof Defence) {
 							creditsPlayer += (Defence.PRICE * bu.getLevel()) / 2;
 						}
@@ -633,12 +635,12 @@ public class Menu {
 		this.positionBuilding = positionBuilding;
 	}
 
-	public boolean isShowLoopingGif() {
-		return showLoopingGif;
+	public boolean isShowLoopingGifDestroy() {
+		return showLoopingGifDestroy;
 	}
 
-	public void setShowLoopingGif(boolean showLoopingGif) {
-		this.showLoopingGif = showLoopingGif;
+	public void setShowLoopingGifDestroy(boolean showLoopingGifDestroy) {
+		this.showLoopingGifDestroy = showLoopingGifDestroy;
 	}
 
 }
