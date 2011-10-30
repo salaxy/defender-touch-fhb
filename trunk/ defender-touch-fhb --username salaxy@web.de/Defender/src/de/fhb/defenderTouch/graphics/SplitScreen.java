@@ -9,7 +9,7 @@ import de.fhb.defenderTouch.interfaces.Drawable;
 import de.fhb.defenderTouch.map.Map;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
-public class SplitScreen implements Drawable {
+public class SplitScreen {
 
 	/**
 	 * Linker Splitscreen (Spieler 1)
