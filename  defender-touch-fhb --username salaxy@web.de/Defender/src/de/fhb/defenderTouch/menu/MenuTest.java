@@ -46,20 +46,11 @@ public class MenuTest extends PApplet {
 		// render fonts faster
 		hint(ENABLE_NATIVE_FONTS);
 		font = createFont("Arial", 18);
-		// img = loadImage("expl.gif");
-		// String url =
-		// "http://www.subtilius.de/images/explosion_animated_gif.gif";
-		// img = loadImage("expl.gif");
-		// img = loadImage(url,"gif");
 
 		// create the GifAnimation object for playback
 		// loopingGif = new Gif(this, "expl.gif");
 		// loopingGif.loop();
-		//nonLoopingGif = new Gif(this, "expl.gif");
-		nonLoopingGif = new Gif(this, "expl_gr.gif");
-
-		// create the PImage array for the interactive display
-		// animation = Gif.getPImages(this, "expl.gif");
+		nonLoopingGif = new Gif(this, "expl_kl.gif");
 
 		// listens to port 3333
 		tuioClient = new TuioProcessing(this);
@@ -82,9 +73,6 @@ public class MenuTest extends PApplet {
 		fill(100);
 		textFont(font, 14);
 		textAlign(CENTER);
-		// image(img, 0, 0);
-		// image(nonLoopingGif, width / 2 - nonLoopingGif.width / 2, height / 2
-		// - nonLoopingGif.height / 2);
 
 		// create menue for building options
 		menu.drawMenu();
