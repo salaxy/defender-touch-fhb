@@ -38,9 +38,6 @@ public class DefenderView extends PApplet {
 	PFont font;
 	BaseUnit test;
 	
-//	private Spieler spielerOne;
-//	private Spieler spielerTwo;
-	
 	private Map karte;
 	
 	//Spielelogik (Control)
@@ -71,8 +68,6 @@ public class DefenderView extends PApplet {
 	  
 	  // Spieler & Karte initialisieren
 	  karte = new Map(getWidth() / 32, getHeight() / 32); // Vorläufig wird das so initialisiert, später wird hier einfach nur eine vorhandene Karte geladen.
-//	  spielerOne = new Spieler(this, karte, 1f, SplitScreen.LEFTSIDE);
-//	  spielerTwo = new Spieler(this, karte, 1f, SplitScreen.RIGHTSIDE);
 	  
 	  //TestUnitBetas schaffen
 	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,this);
@@ -118,28 +113,8 @@ public class DefenderView extends PApplet {
 	  
 	  this.gamelogic.drawAll();
 	  
-	  
-//	  spielerOne.paint();
-//	  spielerTwo.paint();
-	  
-	  //alle gamelogic.getGlobalUnits() zeichnen
-//	  try{
-//		  for(BaseUnit u: gamelogic.getGlobalUnits()){
-//			  u.paint();	  
-//		  }
-//	  }catch ( java.util.ConcurrentModificationException ex) { 
-//		  ex.printStackTrace(); 
-//	} 
-	  
-	  
-//	  try{
-//		  for(BaseUnit u: gamelogic.getGlobalUnits()){
-//			  u.paint();	  
-//		  }
-//	  }catch ( java.util.ConcurrentModificationException ex) { 
-//		  ex.printStackTrace(); 
-//	} 
-//	 
+
+
 //	  if (mousePressed) {
 //		    fill(0);
 //		  } else {
@@ -269,10 +244,26 @@ public class DefenderView extends PApplet {
     //mausclick ueberschreiben
     public void mouseClicked(){
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
+
+    	
+    	
+    	if(clickVector.x>512){
+    		this.clickRightSide(clickVector);
+    	}else{
+     		this.clickLeftSide(clickVector);   		
+    	}
+    }
+    
+    
+    
+    public void clickRightSide(PVector clickVector){
     	boolean weitereAktivierung=false;
 	    boolean istAngriff=false;
-    	
 	    BaseUnit destinationUnit=null;
+	    
+	    
+	    
+	    
 	    try{
 	    	if(this.mouseButton==LEFT){    	
 				for(BaseUnit u: gamelogic.getGlobalUnits()){
@@ -333,11 +324,87 @@ public class DefenderView extends PApplet {
         }catch ( java.util.ConcurrentModificationException ex) { 
           ex.printStackTrace(); 
         } 
-		
-
+    	
     }
     
-    
+    //PlayerOne
+    public void clickLeftSide(PVector clickVector){
+    	
+    	boolean weitereAktivierung=false;
+	    boolean istAngriff=false;
+	    BaseUnit destinationUnit=null;
+	    
+	    //Klickvektor zurück rechnen auf spielkoordinaten
+		//***********************
+		PVector realClickKoordinates=clickVector.get();		
+		realClickKoordinates.sub(gamelogic.getPlayerOne().getOriginPosition());
+		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerOne().getGeneralAngle());
+		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
+		
+		//***********************
+	    
+	    
+	    try{
+	    	if(this.mouseButton==LEFT){    	
+				for(BaseUnit u: gamelogic.getGlobalUnits()){
+					
+					//wenn eine unit aktiviert wird dann die anderen deaktiveren
+					if(u.getPlayerID()==1 && u.isInner(realClickKoordinates)){	
+						u.activate();
+					}
+				}
+	
+				//neues Ziel setzen wenn unit aktiv
+				for(BaseUnit u: gamelogic.getGlobalUnits()){
+				
+					if(u.isActive()){
+						//wenn  klick auf eine gegnerische Unit dann angriff
+						for(BaseUnit bu: gamelogic.getGlobalUnits()){
+							
+							//auf gegnerische einheit geklickt??
+							if(bu.getPlayerID()==0 && bu.isInner(realClickKoordinates)){
+								istAngriff=true;
+								destinationUnit=bu;
+								System.out.println("Angriff initiiert!");
+							}
+							
+							//auf weitere eigene einheit geklickt??
+							if(bu.getPlayerID()==1 && bu.isInner(realClickKoordinates)){
+								weitereAktivierung=true;
+								bu.activate();
+								System.out.println("Weitere Einheit aktiviert!");
+							}
+	
+						}					
+						
+						if(!weitereAktivierung){
+							//bewegung anweisen wenn kein angriff
+							if(!istAngriff){	
+								u.commandDestination(realClickKoordinates);
+							}else{
+								//falls angriff dann Angriff anweisen
+								u.attack(destinationUnit);
+							}
+						}
+	
+					}
+				}	
+	    	}
+		     
+	    				
+			if(this.mouseButton==RIGHT){
+	
+				
+				for(BaseUnit u: gamelogic.getGlobalUnits()){
+					u.deactivate();
+				}
+			}
+			
+        
+        }catch ( java.util.ConcurrentModificationException ex) { 
+          ex.printStackTrace(); 
+        } 
+    }
 
     
     

@@ -54,7 +54,7 @@ public class Shoot extends BaseUnit {
 	/**
 	 * Berechnen des neuen Position, wenn in Bewegung
 	 */
-	protected void calcNewPosition(){
+	public void calcNewPosition(){
 		
 		this.commandDestination(destinationUnit.position);
 
@@ -72,8 +72,8 @@ public class Shoot extends BaseUnit {
 //
 				//neue Position setzen
 				this.position=newPosition;
-				//zeichne Schweif
-				drawTail();				
+				
+				this.bewegtSichGerade=true;
 //			}
 
 		}else{

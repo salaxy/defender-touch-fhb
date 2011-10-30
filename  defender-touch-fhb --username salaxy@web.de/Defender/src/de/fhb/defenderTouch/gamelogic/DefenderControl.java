@@ -17,6 +17,14 @@ public class DefenderControl {
 	
 	public static final int PLAYER_ONE = 0;
 	public static final int PLAYER_TWO = 1;
+	public Player getPlayerOne() {
+		return playerOne;
+	}
+
+	public Player getPlayerTwo() {
+		return playerTwo;
+	}
+
 	public static final int PLAYER_SYSTEM = 2;
 	
 	private CopyOnWriteArrayList <BaseUnit> globalUnits;
