@@ -518,10 +518,11 @@ public class Menu {
 	 *         calculate the credits u get from destroying a building
 	 */
 	public void setActualBuildingDestroyPrice() {
-		if (position == null) {
+		if (positionBuilding != null) {System.out.println(2);
 			for (BaseUnit bu : buildings) {
-				if (bu.isInner(position)) {
+				if (bu.isInner(positionBuilding)) {
 					if (bu instanceof Building) {
+						
 						if (bu instanceof Defence) {
 							creditsPlayer += (Defence.PRICE * bu.getLevel()) / 2;
 						}
