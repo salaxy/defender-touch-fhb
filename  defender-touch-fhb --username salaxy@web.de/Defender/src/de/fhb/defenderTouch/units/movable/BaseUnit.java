@@ -5,6 +5,7 @@ import java.awt.Color;
 import processing.core.PApplet;
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.interfaces.Drawable;
 
 /**
@@ -189,7 +190,7 @@ public class BaseUnit implements Drawable {
 	/**
 	 * zeichnet die Einheit, wird je Frame 1 mal aufgerufen!
 	 */
-	public void paint() {
+	public void paint(Player player) {
 
 		// neue position berechnen
 		this.calcNewPosition();
@@ -197,41 +198,44 @@ public class BaseUnit implements Drawable {
 		// entscheide ueber erscheinungsbild
 		switch (mode) {
 		case MODE_ROTATE:
-			this.drawRotateAppearance();
+//			this.drawRotateAppearance();
 			break;
 		case MODE_PULSE:
-			this.drawPulseAppearance();
+//			this.drawPulseAppearance();
 			break;
 		case MODE_ROTATE_AND_PULSE:
-			this.drawRotateAndPulseAppearance();
-			this.drawHalo();
+//			this.drawRotateAndPulseAppearance();
+//			this.drawHalo();
 			break;
 		case MODE_HALO:
-			this.drawHalo();
-			this.drawNormalAppearance();
+//			this.drawHalo();
+//			this.drawNormalAppearance(player);
 			break;
 		case MODE_NORMAL:
-			this.drawNormalAppearance();
+			this.drawNormalAppearance(player);
 			break;
 		case MODE_PULSE_IF_ACTIVE:
-			this.drawPulseIfActive();
+//			this.drawPulseIfActive();
 			break;
 		}
 
 		// zurücksetzen der Umgebung, Seiteneffekte vermeiden
 		// TODO hier eigentlich unnötig
-//		display.rotate(0);
-//		display.scale(1);
 		display.resetMatrix();
 	}
 
 	/**
 	 * zeichne Figur im Normalen Zustand
+	 * @param player 
 	 */
-	protected void drawNormalAppearance() {
+	protected void drawNormalAppearance(Player player) {
+		
+		PVector
+		
 		display.translate(position.x, position.y);
 		display.fill(0);
-		display.rotate(actualAngle);
+		display.rotate(actualAngle+player.getGeneralAngle());
+		display.scale(0+player.getGeneralScale());
 		this.entscheideFarbe();
 		this.drawFigure();
 	}
