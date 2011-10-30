@@ -39,7 +39,7 @@ public class MapTest extends PApplet {
 	int width = 1024;
 	int height = 768;
 	PFont font;
-	BaseUnit test;
+//	BaseUnit test;
 	
 	private Spieler spielerOne;
 	private Spieler spielerTwo;
@@ -78,18 +78,18 @@ public class MapTest extends PApplet {
 	  spielerTwo = new Spieler(this, new PVector(480f, 734f), 1f, SplitScreen.RIGHTSIDE,gamelogic);
 	  
 	  //TestUnitBetas schaffen
-	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,this);
-	  test.commandDestination(new PVector(1000,700));
+//	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,this);
+//	  test.commandDestination(new PVector(1000,700));
 	  new BaseUnit(200,100,BaseUnit.MODE_PULSE,DefenderControl.PLAYER_ONE,this);
 	  new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,DefenderControl.PLAYER_ONE,this);
 	  new BaseUnit(200,300,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-	  new Fighter(300,400,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-	  new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,DefenderControl.PLAYER_ONE,this);
-	  //BuildingTest
-	  new Ground(400,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-	  new Navi(500,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-	  new Support(600,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-	  new Defence(700,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+//	  new Fighter(300,400,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+//	  new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,DefenderControl.PLAYER_ONE,this);
+//	  //BuildingTest
+//	  new Ground(400,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+//	  new Navi(500,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+//	  new Support(600,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+//	  new Defence(700,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
 	  
 	  //Testflugstaffel
 	  new Fighter(100,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
@@ -119,33 +119,9 @@ public class MapTest extends PApplet {
 	  float obj_size = object_size; 
 	  float cur_size = cursor_size;
 	  
+	  //zeichnen der spielerperspektiven, Zeichen findet statt in Spieler->SplitScreen->Map->eigentliches Zeichnen (echt zu komplex!!!!>>muss simpler gehen)
 	  spielerOne.paint();
 	  spielerTwo.paint();
-	  
-	  //alle gamelogic.getGlobalUnits() zeichnen
-//	  try{
-//		  for(BaseUnit u: gamelogic.getGlobalUnits()){
-//			  u.paint();	  
-//		  }
-//	  }catch ( java.util.ConcurrentModificationException ex) { 
-//		  ex.printStackTrace(); 
-//	} 
-	  
-//	  
-//	  try{
-//		  for(BaseUnit u: gamelogic.getGlobalUnits()){
-//			  u.paint();	  
-//		  }
-//	  }catch ( java.util.ConcurrentModificationException ex) { 
-//		  ex.printStackTrace(); 
-//	} 
-//	 
-//	  if (mousePressed) {
-//		    fill(0);
-//		  } else {
-//		    fill(255);
-//		  }
-//	  ellipse(mouseX, mouseY, 80, 80);
 	  
 	   
 	  Vector tuioObjectList = tuioClient.getTuioObjects(); //gets all objects which are currently on the screen
@@ -262,7 +238,7 @@ public class MapTest extends PApplet {
 	
     /** Start PApplet as a Java program (can also be run as an applet). */
     static public void main(String args[]) {
-        PApplet.main(new String[] { "de.fhb.defenderTouch.display.Maptest" });
+        PApplet.main(new String[] { "de.fhb.defenderTouch.display.MapTest" });
     }
     
     //speziell fuer SPIELER 2
