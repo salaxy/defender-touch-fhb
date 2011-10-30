@@ -78,9 +78,9 @@ public class MenuTest extends PApplet {
 		menu.drawMenu();
 
 		// shows all buildings of the players
-		for (BaseUnit u : buildings) {
-			u.paint();
-		}
+//		for (BaseUnit u : buildings) {
+//			u.paint();
+//		}
 
 	}
 
