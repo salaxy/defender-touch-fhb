@@ -10,10 +10,12 @@ import TUIO.TuioCursor;
 import TUIO.TuioObject;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
+
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
+import gifAnimation.*;
 
 public class MenuTest extends PApplet {
 
@@ -23,8 +25,13 @@ public class MenuTest extends PApplet {
 	int width = 1024;
 	int height = 600;
 	PFont font;
-	PImage img; 
+	PImage img;
 	Menu menu;
+
+	PImage[] animation;
+	Gif loopingGif;
+	Gif nonLoopingGif;
+	boolean pause = false;
 
 	// list with all elements of one player
 	private ArrayList<BaseUnit> buildings = new ArrayList<BaseUnit>();
@@ -39,14 +46,25 @@ public class MenuTest extends PApplet {
 		// render fonts faster
 		hint(ENABLE_NATIVE_FONTS);
 		font = createFont("Arial", 18);
-		//img = loadImage("expl.gif");
-		String url = "http://www.subtilius.de/images/explosion_animated_gif.gif";
-		img = loadImage(url, "png");
+		// img = loadImage("expl.gif");
+		// String url =
+		// "http://www.subtilius.de/images/explosion_animated_gif.gif";
+		// img = loadImage("expl.gif");
+		// img = loadImage(url,"gif");
+
+		// create the GifAnimation object for playback
+		// loopingGif = new Gif(this, "expl.gif");
+		// loopingGif.loop();
+		//nonLoopingGif = new Gif(this, "expl.gif");
+		nonLoopingGif = new Gif(this, "expl_gr.gif");
+
+		// create the PImage array for the interactive display
+		// animation = Gif.getPImages(this, "expl.gif");
 
 		// listens to port 3333
 		tuioClient = new TuioProcessing(this);
 
-		menu = new Menu(this, buildings);
+		menu = new Menu(this, buildings, nonLoopingGif);
 
 		// activate anti aliaising
 		this.smooth();
@@ -64,7 +82,9 @@ public class MenuTest extends PApplet {
 		fill(100);
 		textFont(font, 14);
 		textAlign(CENTER);
-		image(img,0,0);
+		// image(img, 0, 0);
+		// image(nonLoopingGif, width / 2 - nonLoopingGif.width / 2, height / 2
+		// - nonLoopingGif.height / 2);
 
 		// create menue for building options
 		menu.drawMenu();
@@ -138,9 +158,7 @@ public class MenuTest extends PApplet {
 					menu.setMenuOpen(true);
 				}
 				menu.setActualBuildingName(clickVector);
-			}
-
-			else if (menu.isBuildingOpen()) {
+			} else if (menu.isBuildingOpen()) {
 				// WHEN UPGRADE OR DESTROY WAS CLICKED
 				if (menu.isInnerBuildingElement(clickVector)) {
 
@@ -161,9 +179,7 @@ public class MenuTest extends PApplet {
 					default:
 					}
 				}
-			}
-
-			else if (menu.isMenuOpen()) {
+			} else if (menu.isMenuOpen()) {
 				// CHOOSING A BUILDING
 				if (menu.isInnerMenuElement(clickVector)) {
 					switch (menu.getActualStatus()) {

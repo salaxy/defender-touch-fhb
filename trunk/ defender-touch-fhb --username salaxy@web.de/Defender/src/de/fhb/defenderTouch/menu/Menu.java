@@ -13,6 +13,7 @@ import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Navi;
 import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
+import gifAnimation.*;
 
 public class Menu {
 
@@ -102,12 +103,25 @@ public class Menu {
 	protected int actualBuildingCount = 0;
 
 	/**
-	 * Constructor of Menu
+	 * array list with all its buildings
 	 */
-	public Menu(PApplet mainPoint, ArrayList<BaseUnit> buildings) {
+	protected Gif nonLoopingGif;
+
+	/**
+	 * array list with all its buildings
+	 */
+	protected boolean showLoopingGif = false;
+
+	/**
+	 * Constructor of Menu
+	 * 
+	 * @param nonLoopingGif
+	 */
+	public Menu(PApplet mainPoint, ArrayList<BaseUnit> buildings, Gif nonLoopingGif) {
 		this.position = new PVector(0, 0);
 		this.mainPoint = mainPoint;
 		this.buildings = buildings;
+		this.nonLoopingGif = nonLoopingGif;
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
@@ -125,8 +139,16 @@ public class Menu {
 		mainPoint.text("Aktuelles Gebäude: " + actualBuildingName, 300, 15);
 		mainPoint.text("Aktuelle Gebäudeanzahl: " + getActualBuildingCount(), 500, 15);
 		mainPoint.ellipseMode(PConstants.CENTER);
-		
-		mainPoint.imageUpdate(img, infoflags, x, y, w, h);
+
+		if (isShowLoopingGif() && positionBuilding != null) {
+			mainPoint.image(nonLoopingGif, positionBuilding.x, positionBuilding.y);
+			nonLoopingGif.loop();
+			if(nonLoopingGif.currentFrame() == 15){
+				nonLoopingGif.noLoop();
+				setShowLoopingGif(false);
+			}
+			System.out.println(nonLoopingGif.currentFrame());
+		}
 
 		if (menuOpen) {
 			/**
@@ -524,6 +546,7 @@ public class Menu {
 			for (BaseUnit bu : buildings) {
 				if (bu.isInner(positionBuilding)) {
 					if (bu instanceof Building) {
+						setShowLoopingGif(true);
 						if (bu instanceof Defence) {
 							creditsPlayer += (Defence.PRICE * bu.getLevel()) / 2;
 						}
@@ -610,6 +633,14 @@ public class Menu {
 
 	public void setPositionBuilding(PVector positionBuilding) {
 		this.positionBuilding = positionBuilding;
+	}
+
+	public boolean isShowLoopingGif() {
+		return showLoopingGif;
+	}
+
+	public void setShowLoopingGif(boolean showLoopingGif) {
+		this.showLoopingGif = showLoopingGif;
 	}
 
 }
