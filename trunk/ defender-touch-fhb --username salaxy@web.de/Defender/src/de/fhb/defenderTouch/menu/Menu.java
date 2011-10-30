@@ -100,12 +100,12 @@ public class Menu {
 	protected int actualBuildingCount = 0;
 
 	/**
-	 * array list with all its buildings
+	 * Gif animation of destroying a building
 	 */
-	protected Gif nonLoopingGif;
+	protected Gif nonLoopingGifDestroy;
 
 	/**
-	 * array list with all its buildings
+	 * if destroying a building should be shown
 	 */
 	protected boolean showLoopingGifDestroy = false;
 
@@ -114,11 +114,11 @@ public class Menu {
 	 * 
 	 * @param nonLoopingGif
 	 */
-	public Menu(PApplet mainPoint, ArrayList<BaseUnit> buildings, Gif nonLoopingGif) {
+	public Menu(PApplet mainPoint, ArrayList<BaseUnit> buildings, Gif nonLoopingGifDestroy) {
 		this.position = new PVector(0, 0);
 		this.mainPoint = mainPoint;
 		this.buildings = buildings;
-		this.nonLoopingGif = nonLoopingGif;
+		this.nonLoopingGifDestroy = nonLoopingGifDestroy;
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
@@ -141,13 +141,11 @@ public class Menu {
 		 * here is the animation of destroying a building
 		 */
 		if (isShowLoopingGifDestroy() && positionBuilding != null) {
-			
-			mainPoint.image(nonLoopingGif, positionBuilding.x - 11, positionBuilding.y - 15);
-			nonLoopingGif.loop();
-			if (nonLoopingGif.currentFrame() == 15) {
-				nonLoopingGif.noLoop();
+			mainPoint.image(nonLoopingGifDestroy, positionBuilding.x - 11, positionBuilding.y - 15);
+			nonLoopingGifDestroy.loop();
+			if (nonLoopingGifDestroy.currentFrame() == 15) {
 				setShowLoopingGifDestroy(false);
-				nonLoopingGif.stop();
+				nonLoopingGifDestroy.stop();
 			}
 		}
 		
