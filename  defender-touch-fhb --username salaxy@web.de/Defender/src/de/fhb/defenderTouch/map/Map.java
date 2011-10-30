@@ -55,7 +55,7 @@ public class Map {
 		}
 		
 //		for(BaseUnit bu : globalUnits){
-//			bu.paint();
+//			bu.paint(display,position, zoom);
 //		}
 
 		display.endDraw();
