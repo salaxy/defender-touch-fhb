@@ -19,10 +19,9 @@ public class DefenderControl {
 	public static final int PLAYER_SYSTEM = 2;
 	
 	private CopyOnWriteArrayList <BaseUnit> globalUnits;
-	
 	private PApplet display;
-	
 	private static DefenderControl instance=null;
+	
 	
 	
 	private DefenderControl(PApplet display) {

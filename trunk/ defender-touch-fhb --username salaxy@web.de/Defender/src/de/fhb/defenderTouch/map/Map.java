@@ -1,6 +1,9 @@
 package de.fhb.defenderTouch.map;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import de.fhb.defenderTouch.units.movable.BaseUnit;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
@@ -41,13 +44,19 @@ public class Map {
 	
 	/**
 	 * Karte mit allen Components zeichnen.
+	 * @param globalUnits 
 	 */
-	public static void paint(PGraphics display, PVector position, float zoom) {
+	public static void paint(PGraphics display, PVector position, float zoom, CopyOnWriteArrayList<BaseUnit> globalUnits) {
 		display.beginDraw();
 		display.background(0f);
 		
-		for (MapComponent element : karte)
+		for (MapComponent element : karte){
 			element.paint(display, position, zoom);
+		}
+		
+//		for(BaseUnit bu : globalUnits){
+//			bu.paint();
+//		}
 
 		display.endDraw();
 	}
