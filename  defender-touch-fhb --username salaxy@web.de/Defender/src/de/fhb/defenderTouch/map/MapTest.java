@@ -237,7 +237,7 @@ public class MapTest extends PApplet {
 	
     /** Start PApplet as a Java program (can also be run as an applet). */
     static public void main(String args[]) {
-        PApplet.main(new String[] { "de.fhb.defenderTouch.display.MapTest" });
+        PApplet.main(new String[] { "de.fhb.defenderTouch.map.MapTest" });
     }
     
     //speziell fuer SPIELER 2
