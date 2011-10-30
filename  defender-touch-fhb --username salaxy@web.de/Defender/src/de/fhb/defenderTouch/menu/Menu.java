@@ -125,6 +125,8 @@ public class Menu {
 		mainPoint.text("Aktuelles Gebäude: " + actualBuildingName, 300, 15);
 		mainPoint.text("Aktuelle Gebäudeanzahl: " + getActualBuildingCount(), 500, 15);
 		mainPoint.ellipseMode(PConstants.CENTER);
+		
+		mainPoint.imageUpdate(img, infoflags, x, y, w, h);
 
 		if (menuOpen) {
 			/**
@@ -518,11 +520,10 @@ public class Menu {
 	 *         calculate the credits u get from destroying a building
 	 */
 	public void setActualBuildingDestroyPrice() {
-		if (positionBuilding != null) {System.out.println(2);
+		if (positionBuilding != null) {
 			for (BaseUnit bu : buildings) {
 				if (bu.isInner(positionBuilding)) {
 					if (bu instanceof Building) {
-						
 						if (bu instanceof Defence) {
 							creditsPlayer += (Defence.PRICE * bu.getLevel()) / 2;
 						}

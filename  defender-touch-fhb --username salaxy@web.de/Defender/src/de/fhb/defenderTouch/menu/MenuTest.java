@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.core.PImage;
 import processing.core.PVector;
 import TUIO.TuioCursor;
 import TUIO.TuioObject;
@@ -22,6 +23,7 @@ public class MenuTest extends PApplet {
 	int width = 1024;
 	int height = 600;
 	PFont font;
+	PImage img; 
 	Menu menu;
 
 	// list with all elements of one player
@@ -37,6 +39,9 @@ public class MenuTest extends PApplet {
 		// render fonts faster
 		hint(ENABLE_NATIVE_FONTS);
 		font = createFont("Arial", 18);
+		//img = loadImage("expl.gif");
+		String url = "http://www.subtilius.de/images/explosion_animated_gif.gif";
+		img = loadImage(url, "png");
 
 		// listens to port 3333
 		tuioClient = new TuioProcessing(this);
@@ -59,6 +64,7 @@ public class MenuTest extends PApplet {
 		fill(100);
 		textFont(font, 14);
 		textAlign(CENTER);
+		image(img,0,0);
 
 		// create menue for building options
 		menu.drawMenu();
