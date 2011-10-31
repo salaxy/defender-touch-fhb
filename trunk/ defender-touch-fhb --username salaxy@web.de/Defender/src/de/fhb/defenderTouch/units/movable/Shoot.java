@@ -73,7 +73,7 @@ public class Shoot extends BaseUnit {
 				//neue Position setzen
 				this.position=newPosition;
 				
-				this.bewegtSichGerade=true;
+				this.isMoving=true;
 //			}
 
 		}else{
