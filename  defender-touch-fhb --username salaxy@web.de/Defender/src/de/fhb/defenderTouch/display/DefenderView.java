@@ -96,7 +96,7 @@ public class DefenderView extends PApplet {
 //	  test.commandDestination(new PVector(500,500));
 	  
 	  //kantenglättung aktivieren
-//	  this.smooth();
+	  this.smooth();
 	  this.rectMode(CENTER);
 	}
 
