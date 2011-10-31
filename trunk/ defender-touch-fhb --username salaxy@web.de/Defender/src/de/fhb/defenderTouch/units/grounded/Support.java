@@ -24,7 +24,7 @@ public class Support extends Building{
 		//Skalieren
 		display.scale(1.5f);
 		//Nach norden ausrichten
-//		display.rotate((float)Math.PI);
+		display.rotate((float)Math.PI);
 		
 		//Punkte hinzufuegen
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
