@@ -11,6 +11,10 @@ public class Player {
 	private PVector originPosition;
 	
 	
+	private PVector viewPosition= new PVector(0,0);
+	
+	private float actualZoom=1.0f;
+	
 	
 	public float getGeneralAngle() {
 		return generalAngle;
