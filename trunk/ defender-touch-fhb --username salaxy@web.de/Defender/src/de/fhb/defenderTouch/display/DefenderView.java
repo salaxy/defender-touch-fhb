@@ -264,8 +264,10 @@ public class DefenderView extends PApplet {
 	    //Klickvektor zurück rechnen auf spielkoordinaten
 		//***********************
 		PVector realClickKoordinates=clickVector.get();		
-		realClickKoordinates.sub(gamelogic.getPlayerTwo().getOriginPosition());
+		realClickKoordinates.sub(gamelogic.getPlayerTwo().getOriginPosition());//minus...View Postion
 		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerTwo().getGeneralAngle());
+		realClickKoordinates.sub(gamelogic.getPlayerTwo().getViewPosition());
+		realClickKoordinates.mult(1/gamelogic.getPlayerTwo().getActualZoom());
 		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
 		//***********************
 	    
@@ -343,8 +345,10 @@ public class DefenderView extends PApplet {
 	    //Klickvektor zurück rechnen auf spielkoordinaten
 		//***********************
 		PVector realClickKoordinates=clickVector.get();		
-		realClickKoordinates.sub(gamelogic.getPlayerOne().getOriginPosition());
+		realClickKoordinates.sub(gamelogic.getPlayerOne().getOriginPosition());//minus...View Postion
 		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerOne().getGeneralAngle());
+		realClickKoordinates.sub(gamelogic.getPlayerOne().getViewPosition());
+		realClickKoordinates.mult(1/gamelogic.getPlayerOne().getActualZoom());
 		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
 		//***********************
 	    
