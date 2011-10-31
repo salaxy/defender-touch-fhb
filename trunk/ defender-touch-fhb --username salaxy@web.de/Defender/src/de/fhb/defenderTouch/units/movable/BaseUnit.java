@@ -245,6 +245,7 @@ public class BaseUnit implements Drawable {
 		display.fill(0);
 		this.entscheideFarbe();
 		this.drawFigure();
+		display.resetMatrix();
 	}
 
 	/**
