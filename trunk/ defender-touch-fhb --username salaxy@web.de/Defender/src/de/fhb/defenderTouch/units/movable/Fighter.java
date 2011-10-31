@@ -2,30 +2,31 @@ package de.fhb.defenderTouch.units.movable;
 
 import java.util.ArrayList;
 
+import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PVector;
 
 public class Fighter extends BaseUnit {
 
 //	private float movementSpeed=5f;
 	
-	public Fighter(int x, int y, int mode, int playerID, PApplet disp){
-		super(x, y, mode, playerID, disp);
+	public Fighter(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
+		super(x, y, mode, playerID, disp, gamelogic);
 		this.movementSpeed=5f;
-		// TODO Auto-generated constructor stub
 	}
 
 	
-	public void drawFigure(){
+	public void drawFigure(PGraphics graphics){
 		
-//		display.stroke(0);
-//		display.strokeWeight(10);
-//		display.fill(0);
-		this.entscheideLineFarbe();
-		display.scale(2);
-//		display.triangle(-20,+20, 0, -20, +20, +20);
+//		graphics.stroke(0);
+//		graphics.strokeWeight(10);
+//		graphics.fill(0);
+		this.entscheideLineFarbe(graphics);
+		graphics.scale(2);
+//		graphics.triangle(-20,+20, 0, -20, +20, +20);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
 		vektoren.add(new PVector(0, -8));
 		vektoren.add(new PVector(-8, 8));
@@ -37,14 +38,14 @@ public class Fighter extends BaseUnit {
 		vektoren.add(new PVector(0,8));
 		
 
-		GraphicTools.zeicheFigurNachVektoren(vektoren,display);
+		GraphicTools.zeicheFigurNachVektoren(vektoren,graphics);
 		
-		display.resetMatrix();
-		display.stroke(0);
+		graphics.resetMatrix();
+		graphics.stroke(0);
 		
 	}
 	
-//	public void calcNewPosition(PApplet display){
+//	public void calcNewPosition(PApplet graphics){
 //		//wenn aktuelle position nicht nahe herankommt an ziel, dann weiter bewegen
 //		if(position.dist(destinationVector)>3){
 //			//Richtugnsvector berechnen
