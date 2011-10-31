@@ -62,8 +62,8 @@ public class DefenderControl {
 	public void drawAll() {		
 		
 		//init der beiden images fuer links und rechts
-		PGraphics screenLeft = display.createGraphics(display.getWidth() / 2, display.getHeight(), PApplet.JAVA2D);
-		PGraphics screenRight = display.createGraphics(display.getWidth() / 2,display.getHeight(), PApplet.JAVA2D);
+//		PGraphics screenLeft = display.createGraphics(display.getWidth() / 2, display.getHeight(), PApplet.JAVA2D);
+//		PGraphics screenRight = display.createGraphics(display.getWidth() / 2,display.getHeight(), PApplet.JAVA2D);
 
 		// neue positionen berechnen
 		for (BaseUnit unit : globalUnits) {
@@ -71,32 +71,34 @@ public class DefenderControl {
 		}
 
 		// Linke Seite zeichnen
-		screenLeft.beginDraw();
-		screenLeft.background(150f);
+//		screenLeft.beginDraw();
+//		screenLeft.rectMode(PGraphics.CENTER);
+//		screenLeft.background(150f);
 		
 		for (BaseUnit unit : globalUnits) {
-			unit.paint(this.playerOne, screenLeft);
+			unit.paint(this.playerOne, null);
 		}
 		
-		screenLeft.endDraw();
+//		screenLeft.endDraw();
 
 		//Trennlinie
 		display.line(511f, 0f, 511f, 768f);
 		display.line(512f, 0f, 512f, 768f);
 		display.line(513f, 0f, 513f, 768f);
 
-		// Rechte Seite Zeichnen
-		screenRight.beginDraw();
-		screenRight.background(150f);
+//		// Rechte Seite Zeichnen
+//		screenRight.beginDraw();
+//		screenRight.rectMode(PGraphics.CENTER);
+////		screenRight.background(150f);
 		
 		for (BaseUnit unit : globalUnits) {
-			unit.paint(this.playerTwo, screenRight);
+			unit.paint(this.playerTwo, null);
 		}
 		
-		screenRight.endDraw();
-
-		display.image(screenLeft, 0, 0);
-		display.image(screenRight, 512, 0);
+////		screenRight.endDraw();
+//
+//		display.image(screenLeft, 0, 0);
+//		display.image(screenRight, 512, 0);
 	}
 
 }
