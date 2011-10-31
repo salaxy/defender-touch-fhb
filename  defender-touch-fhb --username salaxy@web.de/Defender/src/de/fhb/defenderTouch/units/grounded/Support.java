@@ -2,29 +2,30 @@ package de.fhb.defenderTouch.units.grounded;
 
 import java.util.ArrayList;
 
+import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PVector;
 
 public class Support extends Building{
 
 	public static final int PRICE = 30;
 	
-	public Support(int x, int y, int mode, int playerID, PApplet disp){
-		super(x, y, mode, playerID, disp);
-		// TODO Auto-generated constructor stub
+	public Support(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
+		super(x, y, mode, playerID, disp, gamelogic);
 	}
 
 	
-	public void drawFigure(){
+	public void drawFigure(PGraphics graphics){
 		
 		//farbewechsel bei Aktivierung
-		this.entscheideLineFarbe();
+		this.entscheideLineFarbe( graphics);
 		//Skalieren
-		display.scale(1.5f);
+		graphics.scale(1.5f);
 		//Nach norden ausrichten
-		display.rotate((float)Math.PI);
+		graphics.rotate((float)Math.PI);
 		
 		//Punkte hinzufuegen
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
@@ -35,11 +36,11 @@ public class Support extends Building{
 		vektoren.add(new PVector(-8, 0));
 
 		//zeichnen
-		GraphicTools.zeicheFigurNachVektoren(vektoren,display);
+		GraphicTools.zeicheFigurNachVektoren(vektoren,graphics);
 		
 		//zurücksetzen der Umgebungseinstellungen
-		display.resetMatrix();
-		display.stroke(0);
+		graphics.resetMatrix();
+		graphics.stroke(0);
 		
 	}
 }
