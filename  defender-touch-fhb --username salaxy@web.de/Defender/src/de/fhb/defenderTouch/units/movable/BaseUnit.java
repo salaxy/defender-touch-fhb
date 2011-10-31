@@ -192,8 +192,24 @@ public class BaseUnit implements Drawable {
 	 */
 	public void paint(Player player, PGraphics graphics) {
 
-
-
+		//Umrechnung auf Spielersicht
+//		PVector drawPosition=
+				calcDrawPosition(player);
+//		//Transformationen
+//		drawPosition.sub(new PVector((player.getViewPosition().x)*player.getActualZoom(), (player.getViewPosition().y)*player.getActualZoom()));		
+//		drawPosition.rotate(actualAngle+player.getGeneralAngle());
+//		drawPosition.mult(player.getGeneralScale());	
+		
+		
+		//Transformationen
+//		drawPosition.sub(new PVector((player.getViewPosition().x)*player.getActualZoom(), (player.getViewPosition().y)*player.getActualZoom()));		
+//		drawPosition.rotate(actualAngle+player.getGeneralAngle());
+//		drawPosition.mult(player.getActualZoom());	
+		
+//		if (darfGezeichnetWerden( drawPosition, player)){
+			
+	
+		
 		// entscheide ueber erscheinungsbild
 		switch (mode) {
 		case MODE_ROTATE:
@@ -228,6 +244,7 @@ public class BaseUnit implements Drawable {
 		// zurücksetzen der Umgebung, Seiteneffekte vermeiden
 		// TODO hier eigentlich unnötig
 		display.resetMatrix();
+//		}
 	}
 
 	/**
@@ -236,13 +253,21 @@ public class BaseUnit implements Drawable {
 	 * @param graphics 
 	 */
 	protected void drawNormalAppearance(Player player, PGraphics graphics) {
-		
+			
 		//Umrechnung auf Spielersicht
-		PVector drawPosition=calcDrawPosition(player);
+//		PVector drawPosition=
+//				calcDrawPosition(player);
+//		//Transformationen
+//		display.translate((-player.getViewPosition().x+drawPosition.x)*player.getActualZoom(), (-player.getViewPosition().y+drawPosition.y)*player.getActualZoom());		
+//		display.rotate(actualAngle+player.getGeneralAngle());
+//		display.scale(player.getActualZoom());	
+		
 		//Transformationen
-		display.translate(drawPosition.x, drawPosition.y);		
-		display.rotate(actualAngle+player.getGeneralAngle());
-		display.scale(0+player.getGeneralScale());		
+//		display.translate((-player.getViewPosition().x+drawPosition.x)*player.getActualZoom(), (-player.getViewPosition().y+drawPosition.y)*player.getActualZoom());	
+//		display.translate(drawPosition.x, drawPosition.y);	
+//		display.rotate(actualAngle+player.getGeneralAngle());
+//		display.scale(player.getActualZoom());	
+			
 		
 		display.fill(0);
 		this.entscheideFarbe();
@@ -274,11 +299,12 @@ public class BaseUnit implements Drawable {
 	protected void drawPulseAppearance(Player player, PGraphics graphics) {
 
 		//Umrechnung auf Spielersicht
-		PVector drawPosition=calcDrawPosition(player);
+//		PVector drawPosition=
+//				calcDrawPosition(player);
 		//Transformationen
-		display.translate(drawPosition.x, drawPosition.y);		
-		display.rotate(actualAngle+player.getGeneralAngle());
-		display.scale(0+player.getGeneralScale());	
+//		display.translate(drawPosition.x, drawPosition.y);		
+//		display.rotate(actualAngle+player.getGeneralAngle());
+//		display.scale(player.getActualZoom());	
 
 		// solange die skala noch nicht durchlaufen ist
 		if (pulseStat < pulseSkala.length - 1) {
@@ -305,11 +331,12 @@ public class BaseUnit implements Drawable {
 	protected void drawHalo(Player player, PGraphics graphics) {
 
 		//Umrechnung auf Spielersicht
-		PVector drawPosition=calcDrawPosition(player);
+//		PVector drawPosition=
+//				calcDrawPosition(player);
 		//Transformationen
-		display.translate(drawPosition.x, drawPosition.y);		
-		display.rotate(actualAngle+player.getGeneralAngle());
-		display.scale(0+player.getGeneralScale());	
+//		display.translate(drawPosition.x, drawPosition.y);		
+//		display.rotate(actualAngle+player.getGeneralAngle());
+//		display.scale(player.getActualZoom());	
 
 		// solange die skala noch nicht durchlaufen ist
 		if (haloStat < haloSkala.length - 1) {
@@ -337,11 +364,12 @@ public class BaseUnit implements Drawable {
 	protected void drawRotateAppearance(Player player, PGraphics graphics) {
 
 		//Umrechnung auf Spielersicht
-		PVector drawPosition=calcDrawPosition(player);
+//		PVector drawPosition=
+//				calcDrawPosition(player);
 		//Transformationen
-		display.translate(drawPosition.x, drawPosition.y);		
-		display.rotate(actualAngle+player.getGeneralAngle());
-		display.scale(0+player.getGeneralScale());	
+//		display.translate(drawPosition.x, drawPosition.y);		
+//		display.rotate(actualAngle+player.getGeneralAngle());
+//		display.scale(player.getActualZoom());	
 
 		// solange die skala noch nicht durchlaufen ist
 		if (rotatingAngle < PApplet.TWO_PI) {
@@ -369,11 +397,12 @@ public class BaseUnit implements Drawable {
 	protected void drawRotateAndPulseAppearance(Player player, PGraphics graphics) {
 
 		//Umrechnung auf Spielersicht
-		PVector drawPosition=calcDrawPosition(player);
+//		PVector drawPosition=
+//				calcDrawPosition(player);
 		//Transformationen
-		display.translate(drawPosition.x, drawPosition.y);		
-		display.rotate(actualAngle+player.getGeneralAngle());
-		display.scale(0+player.getGeneralScale());	
+//		display.translate(drawPosition.x, drawPosition.y);		
+//		display.rotate(actualAngle+player.getGeneralAngle());
+//		display.scale(player.getActualZoom());	
 
 		// solange die skala noch nicht durchlaufen ist
 		if (rotatingAngle < PApplet.TWO_PI) {
@@ -524,10 +553,11 @@ public class BaseUnit implements Drawable {
 		ende.mult(schweiflaenge * -1);
 
 		//Umrechnung auf Spielersicht
-		PVector drawPosition=calcDrawPosition(player);
+//		PVector drawPosition=
+				calcDrawPosition(player);
 		//Transformationen
-		display.translate(drawPosition.x, drawPosition.y);		
-		display.scale(0+player.getGeneralScale());	
+//		display.translate(drawPosition.x, drawPosition.y);		
+//		display.scale(player.getActualZoom());	
 
 		// linien in schwarz zeichnen
 		display.stroke(0);
@@ -685,15 +715,79 @@ public class BaseUnit implements Drawable {
 	 * berechnet die neue zeichnen Position
 	 * @return
 	 */
-	private PVector calcDrawPosition(Player player){
+	private void calcDrawPosition(Player player){
 		//Umrechnung auf Spielersicht
 		//***********************
-		PVector drawPosition=this.position.get();
+//		PVector drawPosition=new PVector(this.position.x,this.position.y);
+//////		drawPosition.rotate(player.getGeneralAngle());		
+////		drawPosition.add(player.getOriginPosition());
+//////		drawPosition.scaleTo(player.getActualZoom());
+////		PVector drawPosition=new PVector(0,0);
+//		drawPosition.rotate(player.getGeneralAngle());
+//		drawPosition.add(player.getOriginPosition());
+//		//***********************
+//		
+//		
+//		display.translate(drawPosition.x, drawPosition.y);	
+//		display.scale(player.getActualZoom());
+//		display.rotate(actualAngle+player.getGeneralAngle());
+////		display.rotate(actualAngle+player.getGeneralAngle());
+
+		
+		//Feldumrandung zeichnen
+		//*******************************************
+//		PVector drawPosition=new PVector(this.position.x,this.position.y);
+//		drawPosition.rotate(player.getGeneralAngle());
+//		drawPosition.add(player.getOriginPosition());
+		
+		//Transformationen		
+//		display.translate(drawPosition.x, +drawPosition.y);	
+//		display.translate(this.position.x,this.position.y);			
+//		display.scale(player.getActualZoom());	
+//		display.rotate(player.getGeneralAngle());
+		
+		
+		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
 		drawPosition.rotate(player.getGeneralAngle());
 		drawPosition.add(player.getOriginPosition());
-		//***********************
 		
-		return drawPosition;
+		//Transformationen		
+		display.translate(drawPosition.x, +drawPosition.y);		
+		display.scale(player.getActualZoom());	
+		display.rotate(player.getGeneralAngle());
+		display.translate(position.x, +position.y);	
+		
+//		return drawPosition;
 	}
+	
+	
+	public boolean isInRight(PVector drawPosition){
+		if( drawPosition.x>512){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean isInLeft(PVector drawPosition){
+		if( drawPosition.x<512){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean darfGezeichnetWerden(PVector drawPosition, Player player){
+
+		if(player.isLeft()){
+			return isInLeft( drawPosition);
+//			return true;
+		}else{
+			return isInRight( drawPosition);
+		}
+		
+		
+	}
+	
 
 }

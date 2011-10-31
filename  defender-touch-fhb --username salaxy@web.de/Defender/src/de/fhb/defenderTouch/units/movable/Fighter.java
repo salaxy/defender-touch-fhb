@@ -24,7 +24,7 @@ public class Fighter extends BaseUnit {
 //		display.strokeWeight(10);
 //		display.fill(0);
 		this.entscheideLineFarbe();
-		display.scale(2);
+//		display.scale(2);
 //		display.triangle(-20,+20, 0, -20, +20, +20);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
 		vektoren.add(new PVector(0, -8));
