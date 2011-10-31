@@ -3,6 +3,7 @@ package de.fhb.defenderTouch.units.movable;
 import java.awt.Color;
 
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
@@ -189,31 +190,31 @@ public class BaseUnit implements Drawable {
 	/**
 	 * zeichnet die Einheit, wird je Frame 1 mal aufgerufen!
 	 */
-	public void paint(Player player) {
+	public void paint(Player player, PGraphics graphics) {
 
 
 
 		// entscheide ueber erscheinungsbild
 		switch (mode) {
 		case MODE_ROTATE:
-			this.drawRotateAppearance(player);
+			this.drawRotateAppearance(player, graphics);
 			break;
 		case MODE_PULSE:
-			this.drawPulseAppearance(player);
+			this.drawPulseAppearance(player, graphics);
 			break;
 		case MODE_ROTATE_AND_PULSE:
-			this.drawRotateAndPulseAppearance(player);
-			this.drawHalo(player);
+			this.drawRotateAndPulseAppearance(player, graphics);
+			this.drawHalo(player, graphics);
 			break;
 		case MODE_HALO:
-			this.drawHalo(player);
-			this.drawNormalAppearance(player);
+			this.drawHalo(player, graphics);
+			this.drawNormalAppearance(player, graphics);
 			break;
 		case MODE_NORMAL:
-			this.drawNormalAppearance(player);
+			this.drawNormalAppearance(player, graphics);
 			break;
 		case MODE_PULSE_IF_ACTIVE:
-			this.drawPulseIfActive(player);
+			this.drawPulseIfActive(player, graphics);
 			break;
 		}
 
@@ -232,8 +233,9 @@ public class BaseUnit implements Drawable {
 	/**
 	 * zeichne Figur im Normalen Zustand
 	 * @param player 
+	 * @param graphics 
 	 */
-	protected void drawNormalAppearance(Player player) {
+	protected void drawNormalAppearance(Player player, PGraphics graphics) {
 		
 		//Umrechnung auf Spielersicht
 		PVector drawPosition=calcDrawPosition(player);
@@ -251,23 +253,25 @@ public class BaseUnit implements Drawable {
 	/**
 	 * zeichne Figur im Normalen Zustand, wenn Aktiv dann pulsierend
 	 * @param player 
+	 * @param graphics 
 	 */
-	protected void drawPulseIfActive(Player player) {
+	protected void drawPulseIfActive(Player player, PGraphics graphics) {
 		// Wenn aktiv dann normal
 		if (!active) {
 			// normal zeichnen
-			this.drawNormalAppearance(player);
+			this.drawNormalAppearance(player, graphics);
 		} else {
 			// pulsierend zeichnen
-			this.drawPulseAppearance(player);
+			this.drawPulseAppearance(player, graphics);
 		}
 	}
 
 	/**
 	 * zeichne Figur im pulsierend
 	 * @param player 
+	 * @param graphics 
 	 */
-	protected void drawPulseAppearance(Player player) {
+	protected void drawPulseAppearance(Player player, PGraphics graphics) {
 
 		//Umrechnung auf Spielersicht
 		PVector drawPosition=calcDrawPosition(player);
@@ -296,8 +300,9 @@ public class BaseUnit implements Drawable {
 	/**
 	 * zeichne Halo
 	 * @param player 
+	 * @param graphics 
 	 */
-	protected void drawHalo(Player player) {
+	protected void drawHalo(Player player, PGraphics graphics) {
 
 		//Umrechnung auf Spielersicht
 		PVector drawPosition=calcDrawPosition(player);
@@ -327,8 +332,9 @@ public class BaseUnit implements Drawable {
 	/**
 	 * zeichne Figur im rotierend
 	 * @param player 
+	 * @param graphics 
 	 */
-	protected void drawRotateAppearance(Player player) {
+	protected void drawRotateAppearance(Player player, PGraphics graphics) {
 
 		//Umrechnung auf Spielersicht
 		PVector drawPosition=calcDrawPosition(player);
@@ -358,8 +364,9 @@ public class BaseUnit implements Drawable {
 	/**
 	 * zeichne Figur im rotierend und pulsierend
 	 * @param player 
+	 * @param graphics 
 	 */
-	protected void drawRotateAndPulseAppearance(Player player) {
+	protected void drawRotateAndPulseAppearance(Player player, PGraphics graphics) {
 
 		//Umrechnung auf Spielersicht
 		PVector drawPosition=calcDrawPosition(player);
