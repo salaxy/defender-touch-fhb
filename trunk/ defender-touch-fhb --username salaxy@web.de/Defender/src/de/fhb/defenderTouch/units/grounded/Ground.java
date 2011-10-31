@@ -1,29 +1,30 @@
 package de.fhb.defenderTouch.units.grounded;
 
+import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 
 public class Ground extends Building {
 
 	public static final int PRICE = 50;
 
-	public Ground(int x, int y, int mode, int playerID, PApplet disp) {
-		super(x, y, mode, playerID, disp);
-		// TODO Auto-generated constructor stub
+	public Ground(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
+		super(x, y, mode, playerID, disp, gamelogic);
 	}
 
-	public void drawFigure() {
+	public void drawFigure(PGraphics graphics) {
 
-		// display.stroke(0);
-		// display.strokeWeight(10);
-		// display.fill(0);
-		display.noFill();
-		display.scale(2);
-		display.rotate((float) Math.PI);
-		this.entscheideLineFarbe();
-		display.triangle(-5, +5, 0, -5, +5, +5);
+		// graphics.stroke(0);
+		// graphics.strokeWeight(10);
+		// graphics.fill(0);
+		graphics.noFill();
+		graphics.scale(2);
+		graphics.rotate((float) Math.PI);
+		this.entscheideLineFarbe(graphics);
+		graphics.triangle(-5, +5, 0, -5, +5, +5);
 
-		display.resetMatrix();
-		display.stroke(0);
+		graphics.resetMatrix();
+		graphics.stroke(0);
 
 	}
 

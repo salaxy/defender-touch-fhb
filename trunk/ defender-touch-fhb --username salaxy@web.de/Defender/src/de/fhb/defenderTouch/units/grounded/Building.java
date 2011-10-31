@@ -1,6 +1,7 @@
 package de.fhb.defenderTouch.units.grounded;
 
 import processing.core.PApplet;
+import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 public class Building extends BaseUnit {
@@ -31,10 +32,9 @@ public class Building extends BaseUnit {
 		}
 	}
 
-	public Building(int x, int y, int mode, int playerID, PApplet disp) {
-		super(x, y, mode, playerID, disp);
+	public Building(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
+		super(x, y, mode, playerID, disp, gamelogic);
 		this.movementSpeed = 0.5f;
-		// TODO Auto-generated constructor stub
 	}
 
 	// public void calcNewPosition(){
