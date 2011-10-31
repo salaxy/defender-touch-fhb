@@ -96,7 +96,7 @@ public class DefenderView extends PApplet {
 //	  test.commandDestination(new PVector(500,500));
 	  
 	  //kantenglättung aktivieren
-	  this.smooth();
+//	  this.smooth();
 	  this.rectMode(CENTER);
 	}
 
@@ -411,6 +411,28 @@ public class DefenderView extends PApplet {
 //        } 
     }
 
+    
+    public void mouseDragged() {
+    	if (mouseButton == LEFT) {
+    		if (mouseX < 512) {
+    			PVector tempVec = gamelogic.getPlayerOne().getViewPosition();
+    			tempVec.x += mouseX - pmouseX;
+    			tempVec.y += mouseY - pmouseY;
+    		} else {
+    			PVector tempVec = gamelogic.getPlayerTwo().getViewPosition();
+    			tempVec.x += mouseX - pmouseX;
+    			tempVec.y += mouseY - pmouseY;
+    		}
+    	}
+    	
+    	if (mouseButton == RIGHT) {
+    		if (mouseX < 512) {
+    			gamelogic.getPlayerOne().setActualZoom(gamelogic.getPlayerOne().getActualZoom() + (mouseY - pmouseY) * 0.001f);    			
+    		} else {
+    			gamelogic.getPlayerTwo().setActualZoom(gamelogic.getPlayerTwo().getActualZoom()  + (mouseY - pmouseY) * 0.001f);    			
+    		}
+    	}
+    }
     
     
 }
