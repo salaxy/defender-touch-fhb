@@ -69,6 +69,7 @@ public class SplitScreen {
 	public void paint() {
 		Map.paint(splitScreen, sichtPosition, zoomFaktor, globalUnits);
 		display.image(splitScreen, (!screenSide) ? 0 : display.getWidth() / 2 , 0);
+//		display.image(splitScreen, 512, 0);
 	}
 
 	public boolean getScreenSide() {
