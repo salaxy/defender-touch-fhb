@@ -144,7 +144,7 @@ public class DefenderControl {
 		display.scale(player.getActualZoom());	
 		display.rotate(player.getGeneralAngle());
 		
-		display.fill(0, 0, 255,55);
+		display.fill(255, 255, 0,55);
 		display.rect(512f, 384f, 1024, 768);
 		
 		display.resetMatrix();
