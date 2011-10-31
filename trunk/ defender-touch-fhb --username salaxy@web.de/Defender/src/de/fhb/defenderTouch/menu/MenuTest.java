@@ -159,10 +159,10 @@ public class MenuTest extends PApplet {
 						System.out.println("do Building destroyed");
 						// TODO später delete methode von base unit nutzen!!!!
 						// Wenn alles zusamm gefügt ist
-						// menu.getAktualBuilding().delete();//das für später,
+						menu.getActualBuilding().delete();//das für später,
 						// wie es sein sollte...
 						// notlösung für den moment
-						buildings.remove(menu.getActualBuilding());
+//						buildings.remove(menu.getActualBuilding());
 						break;
 					default:
 					}
