@@ -36,8 +36,8 @@ public class DefenderControl {
 	
 	
 	private DefenderControl(PApplet display) {
-		playerOne=new Player(this,PApplet.HALF_PI,0.5f,new PVector(512f,0f));
-		playerTwo=new Player(this,3*PApplet.HALF_PI,0.5f,new PVector(512f,768f));
+		playerOne=new Player(this,PApplet.HALF_PI,3f,new PVector(512f,0f));
+		playerTwo=new Player(this,3*PApplet.HALF_PI,0.5f,new PVector(513f,768f));
 		this.display = display;
 		globalUnits = new CopyOnWriteArrayList <BaseUnit>();
 	}

@@ -38,7 +38,7 @@ public class DefenderView extends PApplet {
 	PFont font;
 	BaseUnit test;
 	
-	private Map karte;
+//	private Map karte;
 	
 	//Spielelogik (Control)
 	private DefenderControl gamelogic;
@@ -67,7 +67,7 @@ public class DefenderView extends PApplet {
 	  tuioClient  = new TuioProcessing(this); //listens to port 3333
 	  
 	  // Spieler & Karte initialisieren
-	  karte = new Map(getWidth() / 32, getHeight() / 32); // Vorläufig wird das so initialisiert, später wird hier einfach nur eine vorhandene Karte geladen.
+//	  karte = new Map(getWidth() / 32, getHeight() / 32); // Vorläufig wird das so initialisiert, später wird hier einfach nur eine vorhandene Karte geladen.
 	  
 	  //TestUnitBetas schaffen
 	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,this);
@@ -255,13 +255,19 @@ public class DefenderView extends PApplet {
     }
     
     
-    
+    //PlayerTwo
     public void clickRightSide(PVector clickVector){
     	boolean weitereAktivierung=false;
 	    boolean istAngriff=false;
 	    BaseUnit destinationUnit=null;
 	    
-	    
+	    //Klickvektor zurück rechnen auf spielkoordinaten
+		//***********************
+		PVector realClickKoordinates=clickVector.get();		
+		realClickKoordinates.sub(gamelogic.getPlayerTwo().getOriginPosition());
+		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerTwo().getGeneralAngle());
+		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
+		//***********************
 	    
 	    
 	    try{
@@ -269,7 +275,7 @@ public class DefenderView extends PApplet {
 				for(BaseUnit u: gamelogic.getGlobalUnits()){
 					
 					//wenn eine unit aktiviert wird dann die anderen deaktiveren
-					if(u.getPlayerID()==1 && u.isInner(clickVector)){	
+					if(u.getPlayerID()==DefenderControl.PLAYER_TWO && u.isInner(realClickKoordinates)){	
 						u.activate();
 					}
 				}
@@ -282,14 +288,14 @@ public class DefenderView extends PApplet {
 						for(BaseUnit bu: gamelogic.getGlobalUnits()){
 							
 							//auf gegnerische einheit geklickt??
-							if(bu.getPlayerID()==0 && bu.isInner(clickVector)){
+							if(bu.getPlayerID()==DefenderControl.PLAYER_ONE && bu.isInner(realClickKoordinates)){
 								istAngriff=true;
 								destinationUnit=bu;
 								System.out.println("Angriff initiiert!");
 							}
 							
 							//auf weitere eigene einheit geklickt??
-							if(bu.getPlayerID()==1 && bu.isInner(clickVector)){
+							if(bu.getPlayerID()==DefenderControl.PLAYER_TWO && bu.isInner(realClickKoordinates)){
 								weitereAktivierung=true;
 								bu.activate();
 								System.out.println("Weitere Einheit aktiviert!");
@@ -300,7 +306,7 @@ public class DefenderView extends PApplet {
 						if(!weitereAktivierung){
 							//bewegung anweisen wenn kein angriff
 							if(!istAngriff){	
-								u.commandDestination(clickVector);
+								u.commandDestination(realClickKoordinates);
 							}else{
 								//falls angriff dann Angriff anweisen
 								u.attack(destinationUnit);
@@ -340,16 +346,15 @@ public class DefenderView extends PApplet {
 		realClickKoordinates.sub(gamelogic.getPlayerOne().getOriginPosition());
 		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerOne().getGeneralAngle());
 		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-		
 		//***********************
 	    
 	    
-	    try{
+//	    try{
 	    	if(this.mouseButton==LEFT){    	
 				for(BaseUnit u: gamelogic.getGlobalUnits()){
 					
 					//wenn eine unit aktiviert wird dann die anderen deaktiveren
-					if(u.getPlayerID()==1 && u.isInner(realClickKoordinates)){	
+					if(u.getPlayerID()==DefenderControl.PLAYER_ONE && u.isInner(realClickKoordinates)){	
 						u.activate();
 					}
 				}
@@ -362,14 +367,14 @@ public class DefenderView extends PApplet {
 						for(BaseUnit bu: gamelogic.getGlobalUnits()){
 							
 							//auf gegnerische einheit geklickt??
-							if(bu.getPlayerID()==0 && bu.isInner(realClickKoordinates)){
+							if(bu.getPlayerID()==DefenderControl.PLAYER_TWO && bu.isInner(realClickKoordinates)){
 								istAngriff=true;
 								destinationUnit=bu;
 								System.out.println("Angriff initiiert!");
 							}
 							
 							//auf weitere eigene einheit geklickt??
-							if(bu.getPlayerID()==1 && bu.isInner(realClickKoordinates)){
+							if(bu.getPlayerID()==DefenderControl.PLAYER_ONE && bu.isInner(realClickKoordinates)){
 								weitereAktivierung=true;
 								bu.activate();
 								System.out.println("Weitere Einheit aktiviert!");
@@ -401,9 +406,9 @@ public class DefenderView extends PApplet {
 			}
 			
         
-        }catch ( java.util.ConcurrentModificationException ex) { 
-          ex.printStackTrace(); 
-        } 
+//        }catch ( java.util.ConcurrentModificationException ex) { 
+//          ex.printStackTrace(); 
+//        } 
     }
 
     
