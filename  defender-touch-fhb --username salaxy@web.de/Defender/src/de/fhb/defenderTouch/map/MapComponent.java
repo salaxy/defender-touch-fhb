@@ -64,7 +64,7 @@ public class MapComponent {
 	 * Zeichnet sich selbst.
 	 */
 	public void paint(PGraphics display, PVector position, float zoom) {
-		display.translate( (position.x - this.position.x) * zoom, (position.y - this.position.y) * zoom);
+		display.translate( (-position.x + this.position.x) * zoom, (-position.y + this.position.y) * zoom);
 		display.scale(zoom);
 		
 		display.fill(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue());
