@@ -416,12 +416,12 @@ public class DefenderView extends PApplet {
     	if (mouseButton == LEFT) {
     		if (mouseX < 512) {
     			PVector tempVec = gamelogic.getPlayerOne().getViewPosition();
-    			tempVec.y += mouseX - pmouseX;
-    			tempVec.x += mouseY - pmouseY;
+    			tempVec.y = tempVec.y + pmouseX - mouseX;
+    			tempVec.x = tempVec.x + mouseY - pmouseY;
     		} else {
     			PVector tempVec = gamelogic.getPlayerTwo().getViewPosition();
-    			tempVec.y += mouseX - pmouseX;
-    			tempVec.x += mouseY - pmouseY;
+    			tempVec.y = tempVec.y + mouseX  - pmouseX;
+    			tempVec.x = tempVec.x + pmouseY - mouseY ;
     		}
     	}
     	
