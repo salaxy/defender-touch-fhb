@@ -60,7 +60,7 @@ public class MapTest extends PApplet {
 	  //noLoop();
 	  
 	  //gamelogic initialisieren  
-	  gamelogic= DefenderControl.getInstance(this);
+//	  gamelogic= DefenderControl.getInstance(this);
 
 	  
 	  hint(ENABLE_NATIVE_FONTS); //render fonts faster
@@ -79,23 +79,23 @@ public class MapTest extends PApplet {
 	  //TestUnitBetas schaffen
 //	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,this);
 //	  test.commandDestination(new PVector(1000,700));
-	  new BaseUnit(200,100,BaseUnit.MODE_PULSE,DefenderControl.PLAYER_ONE,this);
-	  new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,DefenderControl.PLAYER_ONE,this);
-	  new BaseUnit(200,300,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-//	  new Fighter(300,400,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-//	  new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,DefenderControl.PLAYER_ONE,this);
-//	  //BuildingTest
-//	  new Ground(400,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-//	  new Navi(500,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-//	  new Support(600,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-//	  new Defence(700,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-	  
-	  //Testflugstaffel
-	  new Fighter(100,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
-	  new Fighter(200,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
-	  new Fighter(300,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
-	  new Fighter(400,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
-	  new Fighter(500,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
+//	  new BaseUnit(200,100,BaseUnit.MODE_PULSE,DefenderControl.PLAYER_ONE,this);
+//	  new BaseUnit(300,200,BaseUnit.MODE_ROTATE_AND_PULSE,DefenderControl.PLAYER_ONE,this);
+//	  new BaseUnit(200,300,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+////	  new Fighter(300,400,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+////	  new Fighter(500,400,BaseUnit.MODE_PULSE_IF_ACTIVE,DefenderControl.PLAYER_ONE,this);
+////	  //BuildingTest
+////	  new Ground(400,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+////	  new Navi(500,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+////	  new Support(600,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+////	  new Defence(700,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+//	  
+//	  //Testflugstaffel
+//	  new Fighter(100,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
+//	  new Fighter(200,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
+//	  new Fighter(300,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
+//	  new Fighter(400,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
+//	  new Fighter(500,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this);
 //	  new Shoot(600,50,BaseUnit.MODE_HALO,BaseUnit.PLAYER_TWO,this));
 	  
 	  
