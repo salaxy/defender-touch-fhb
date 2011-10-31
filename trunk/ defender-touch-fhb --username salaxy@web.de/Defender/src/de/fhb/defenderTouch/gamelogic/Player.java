@@ -6,8 +6,6 @@ public class Player {
 	
 	private float generalAngle;
 	
-//	private float generalScale;
-	
 	private PVector originPosition;
 	
 	private float zoomMin=0.3f;
@@ -22,7 +20,38 @@ public class Player {
 	public static final int RIGHT=0;
 	public static final int LEFT=1;
 	
+//	private DefenderControl gamelogic;
+
+	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPosition,int side,PVector viewPosition){
+		this.generalAngle=generalAngle;
+		this.actualZoom=actualZoom;
+		this.originPosition=originPosition;
+//		this.gamelogic=gamelogic;			
+		this.side=side;
+		this.viewPosition=viewPosition;
+	}
+
+	public boolean isRight() {
+		if(this.side==Player.RIGHT){
+			return true;
+		}else{
+			return false;	
+		}
+	}
+
+	public boolean isLeft() {
+		if(this.side==Player.LEFT){
+			return true;
+		}else{
+			return false;	
+		}
+	}
 	
+	
+	
+	public PVector getOriginPosition() {
+		return originPosition;
+	}
 	
 	public PVector getViewPosition() {
 		return viewPosition;
@@ -49,40 +78,5 @@ public class Player {
 		return generalAngle;
 	}
 
-//	public float getGeneralScale() {
-//		return generalScale;
-//	}
-
-	public PVector getOriginPosition() {
-		return originPosition;
-	}
-
-	private DefenderControl gamelogic;
-
-	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPosition,int side,PVector viewPosition){
-		this.generalAngle=generalAngle;
-//		this.generalScale=generalScale;
-		this.actualZoom=actualZoom;
-		this.originPosition=originPosition;
-		this.gamelogic=gamelogic;			
-		this.side=side;
-		this.viewPosition=viewPosition;
-	}
-
-	public boolean isRight() {
-		if(this.side==Player.RIGHT){
-			return true;
-		}else{
-			return false;	
-		}
-	}
-
-	public boolean isLeft() {
-		if(this.side==Player.LEFT){
-			return true;
-		}else{
-			return false;	
-		}
-	}
 
 }
