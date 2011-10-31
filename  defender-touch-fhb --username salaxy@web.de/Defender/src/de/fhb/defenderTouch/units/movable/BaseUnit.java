@@ -39,7 +39,7 @@ public class BaseUnit implements Drawable {
 	/**
 	 * Ist das Applet auf dem die einheiten zugeordnet sind
 	 */
-	protected PApplet display;
+//	protected PApplet graphics;
 
 	public static final int MODE_NORMAL = 0;
 	public static final int MODE_ROTATE = 1;
@@ -157,9 +157,9 @@ public class BaseUnit implements Drawable {
 	 */
 	protected boolean isMoving=false;
 
-	public BaseUnit(int x, int y, int mode, int playerID, PApplet disp) {
+	public BaseUnit(int x, int y, int mode, int playerID, PApplet disp, DefenderControl gamelogic) {
 
-		this.display = disp;
+//		this.graphics = disp;
 		this.mode = mode;
 		this.playerID = playerID;
 		this.position = new PVector(x, y);
@@ -167,7 +167,8 @@ public class BaseUnit implements Drawable {
 		this.berechneNeueBlickrichtung();
 		this.initHaloSkala();
 
-		gamelogic = DefenderControl.getInstance(display);
+//		gamelogic = DefenderControl.getInstance(graphics);
+		this.gamelogic=gamelogic;
 
 		// Id verpassen
 		this.id = BaseUnit.idCounter;
@@ -196,7 +197,7 @@ public class BaseUnit implements Drawable {
 
 		//Umrechnung auf Spielersicht	
 		//Transformationen
-		calcDrawPosition(player);
+		calcDrawPosition(player, graphics);
 
 
 		
@@ -231,13 +232,13 @@ public class BaseUnit implements Drawable {
 		
 		// zeichne Schweif wenn in bewegung
 		if(this.isMoving){
-			drawTail(player);			
+			drawTail(player, graphics);			
 		}
 
 		
 		// zurücksetzen der Umgebung, Seiteneffekte vermeiden
 		// TODO hier eigentlich unnötig
-		display.resetMatrix();
+		graphics.resetMatrix();
 //		}
 	}
 
@@ -252,10 +253,10 @@ public class BaseUnit implements Drawable {
 		//Umrechnung/Transformation nun bereits in this.paint() drin
 		
 		//zeichne
-		display.fill(0);
-		this.entscheideFarbe();
-		this.drawFigure();
-		display.resetMatrix();
+		graphics.fill(0);
+		this.entscheideFarbe( graphics);
+		this.drawFigure(graphics);
+		graphics.resetMatrix();
 	}
 
 	/**
@@ -293,12 +294,12 @@ public class BaseUnit implements Drawable {
 		}
 
 		// skalieren
-		display.scale(pulseSkala[pulseStat]);
+		graphics.scale(pulseSkala[pulseStat]);
 
-		this.entscheideFarbe();
-		this.drawFigure();
+		this.entscheideFarbe(graphics);
+		this.drawFigure(graphics);
 
-		display.resetMatrix();
+		graphics.resetMatrix();
 	}
 
 	/**
@@ -309,7 +310,7 @@ public class BaseUnit implements Drawable {
 	protected void drawHalo(Player player, PGraphics graphics) {
 
 		//Umrechnung auf Spielersicht
-		this.calcDrawPosition(player);
+		this.calcDrawPosition(player, graphics);
 
 		// solange die skala noch nicht durchlaufen ist
 		if (haloStat < haloSkala.length - 1) {
@@ -320,14 +321,14 @@ public class BaseUnit implements Drawable {
 		}
 
 		// skalieren
-		display.scale(haloSkala[haloStat]);
+		graphics.scale(haloSkala[haloStat]);
 
 		//zeichnen
-		display.noFill();
-		display.stroke(0);
-		display.ellipse(0, 0, 20, 20);
+		graphics.noFill();
+		graphics.stroke(0);
+		graphics.ellipse(0, 0, 20, 20);
 
-		display.resetMatrix();
+		graphics.resetMatrix();
 	}
 
 	/**
@@ -349,12 +350,12 @@ public class BaseUnit implements Drawable {
 		}
 
 		// skalieren
-		display.rotate(rotatingAngle);
+		graphics.rotate(rotatingAngle);
 
-		this.entscheideFarbe();
-		this.drawFigure();
+		this.entscheideFarbe(graphics);
+		this.drawFigure(graphics);
 
-		display.resetMatrix();
+		graphics.resetMatrix();
 
 	}
 
@@ -377,7 +378,7 @@ public class BaseUnit implements Drawable {
 		}
 
 		// skalieren
-		display.rotate(rotatingAngle);
+		graphics.rotate(rotatingAngle);
 
 		// solange die skala noch nicht durchlaufen ist
 		if (pulseStat < pulseSkala.length - 1) {
@@ -388,23 +389,23 @@ public class BaseUnit implements Drawable {
 		}
 
 		// skalieren
-		display.scale(pulseSkala[pulseStat]);
+		graphics.scale(pulseSkala[pulseStat]);
 
 		// gefuelllt zeichnen
-		this.entscheideFarbe();
-		this.drawFigure();
+		this.entscheideFarbe( graphics);
+		this.drawFigure(graphics);
 
 		// Umgebung zurücksetzen
-		display.resetMatrix();
+		graphics.resetMatrix();
 
 	}
 
 	/**
 	 * zeichnen des normalen Erscheinungs bildes ohne Effekte
 	 */
-	protected void drawFigure() {
+	protected void drawFigure(PGraphics graphics) {
 
-		display.rect(0, 0, 0 + 20, 0 + 20);
+		graphics.rect(0, 0, 0 + 20, 0 + 20);
 		// pa.triangle(-20,+20, 0, -20, +20, +20);
 
 	}
@@ -506,7 +507,7 @@ public class BaseUnit implements Drawable {
 	/**
 	 * Zeichne Schweif
 	 */
-	protected void drawTail(Player player) {
+	protected void drawTail(Player player,PGraphics graphics) {
 			
 
 		// Zielpunkt hinter der Einheit berechnen
@@ -518,26 +519,26 @@ public class BaseUnit implements Drawable {
 		ende.mult(schweiflaenge * -2);
 		
 		//Berechne Zeichnenposition und setzte Abblidungsmatrix(Transformationsmatix)
-		calcDrawPosition(player); 
+		calcDrawPosition(player, graphics); 
 	
 
 		//Eigendrehung ausgleichen (wird in calcDrawPostion gesetzt)
-		display.rotate(PApplet.TWO_PI-this.actualAngle);
+		graphics.rotate(PApplet.TWO_PI-this.actualAngle);
 		
 
 
 		// linien in schwarz zeichnen
-		display.stroke(0);
+		graphics.stroke(0);
 
-		display.line(0, 0, ende.x / 2, ende.y / 2);
-		display.line(1, 1, ende.x / 2, ende.y / 2);
-		display.line(-1, -1, ende.x / 2, ende.y / 2);
+		graphics.line(0, 0, ende.x / 2, ende.y / 2);
+		graphics.line(1, 1, ende.x / 2, ende.y / 2);
+		graphics.line(-1, -1, ende.x / 2, ende.y / 2);
 
-		display.line(ende.x / 2, ende.y / 2, ende.x, ende.y);
-		display.line(ende.x * 1.1f, ende.y * 1.1f, ende.x * 1.2f, ende.y * 1.2f);
-		display.line(ende.x * 1.3f, ende.y * 1.3f, ende.x * 1.4f, ende.y * 1.4f);
+		graphics.line(ende.x / 2, ende.y / 2, ende.x, ende.y);
+		graphics.line(ende.x * 1.1f, ende.y * 1.1f, ende.x * 1.2f, ende.y * 1.2f);
+		graphics.line(ende.x * 1.3f, ende.y * 1.3f, ende.x * 1.4f, ende.y * 1.4f);
 
-		display.resetMatrix();
+		graphics.resetMatrix();
 	}
 
 	/**
@@ -591,22 +592,22 @@ public class BaseUnit implements Drawable {
 	/**
 	 * setzt Füll-Farbe zum Zeichen nach Status der einheit
 	 */
-	protected void entscheideFarbe() {
+	protected void entscheideFarbe(PGraphics graphics) {
 		if (this.active) {
-			display.fill(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+			graphics.fill(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
 		} else {
-			display.fill(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
+			graphics.fill(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
 		}
 	}
 
 	/**
 	 * setzt Linien-Farbe zum Zeichen nach Status der einheit
 	 */
-	protected void entscheideLineFarbe() {
+	protected void entscheideLineFarbe(PGraphics graphics) {
 		if (this.active) {
-			display.stroke(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+			graphics.stroke(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
 		} else {
-			display.stroke(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
+			graphics.stroke(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
 		}
 	}
 
@@ -640,7 +641,7 @@ public class BaseUnit implements Drawable {
 		// muss sich ziel merken)
 		// Schuss erstellen
 
-		new Shoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, DefenderControl.PLAYER_SYSTEM, display, destinationUnit, this.damagePerHit);
+		new Shoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, DefenderControl.PLAYER_SYSTEM, null, destinationUnit, this.damagePerHit,gamelogic);
 
 		// //neue Blickrichtung berechnen
 		// berechneNeueBlickrichtung();
@@ -682,7 +683,7 @@ public class BaseUnit implements Drawable {
 	 * Berechnet Zeichnenposition und setzt Abblidungsmatrix(Transformationsmatix)
 	 * @return
 	 */
-	private void calcDrawPosition(Player player){
+	private void calcDrawPosition(Player player,PGraphics graphics){
 
 		//Berechnung des neuen Koordinaten Ursprungs Vektors
 		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
@@ -690,15 +691,15 @@ public class BaseUnit implements Drawable {
 		drawPosition.add(player.getOriginPosition());
 		
 		//Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
-		display.translate(drawPosition.x, +drawPosition.y);		
-		display.scale(player.getActualZoom());	
-		display.rotate(player.getGeneralAngle());//nötig???
+		graphics.translate(drawPosition.x, +drawPosition.y);		
+		graphics.scale(player.getActualZoom());	
+		graphics.rotate(player.getGeneralAngle());//nötig???
 		
 		//zeichne an Position im Verhältnis zu gesamt Transformation
-		display.translate(position.x, +position.y);	
+		graphics.translate(position.x, +position.y);	
 		
 		//eigendrehung hinzu
-		display.rotate(this.actualAngle);
+		graphics.rotate(this.actualAngle);
 	}
 	
 	
