@@ -51,7 +51,7 @@ public class DefenderView extends PApplet {
 	  fill(0); //fill shapes (e.g. rectangles, ellipses) with black
 	  
 	  loop(); //loop the draw-methode
-	  frameRate(25);
+	  frameRate(20);
 	  //noLoop();
 	  
 	  //gamelogic initialisieren  
