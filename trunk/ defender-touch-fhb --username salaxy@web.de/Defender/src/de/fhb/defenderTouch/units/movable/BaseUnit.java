@@ -746,16 +746,21 @@ public class BaseUnit implements Drawable {
 //		display.scale(player.getActualZoom());	
 //		display.rotate(player.getGeneralAngle());
 		
-		
+		//Berechnung des neuen Koordinaten Ursprungs Vektors
 		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
 		drawPosition.rotate(player.getGeneralAngle());
 		drawPosition.add(player.getOriginPosition());
 		
-		//Transformationen		
+		//Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
 		display.translate(drawPosition.x, +drawPosition.y);		
 		display.scale(player.getActualZoom());	
-		display.rotate(player.getGeneralAngle());
+		display.rotate(player.getGeneralAngle());//nötig???
+		
+		//zeichne an Position im Verhältnis zu gesamt Transformation
 		display.translate(position.x, +position.y);	
+		
+		//eigendrehung
+		display.rotate(this.actualAngle);
 		
 //		return drawPosition;
 	}
