@@ -173,15 +173,16 @@ public class MenuTest extends PApplet {
 					switch (menu.getActualStatus()) {
 					case 0:
 						System.out.println("building a Ground unit");
-						buildings.add(new Ground((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						//TODO wieder konform machen zu restl Programm
+//						buildings.add(new Ground((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
 						break;
 					case 1:
 						System.out.println("building a Defence unit");
-						buildings.add(new Defence((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+//						buildings.add(new Defence((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
 						break;
 					case 2:
 						System.out.println("building a Support unit");
-						buildings.add(new Support((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+//						buildings.add(new Support((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
 						break;
 					default:
 						System.out.println();
