@@ -6,18 +6,18 @@ public class Player {
 	
 	private float generalAngle;
 	
-	private float generalScale;
+//	private float generalScale;
 	
 	private PVector originPosition;
 	
-	private float zoomMin=0.1f;
-	private float zoomMax=2.0f;
+	private float zoomMin=0.3f;
+	private float zoomMax=3.0f;
 	
 	private int side;
 	
 	private PVector viewPosition= new PVector(0,0);
 	
-	private float actualZoom=1.0f;
+	private float actualZoom=0.5f;
 	
 	public static final int RIGHT=0;
 	public static final int LEFT=1;
@@ -49,9 +49,9 @@ public class Player {
 		return generalAngle;
 	}
 
-	public float getGeneralScale() {
-		return generalScale;
-	}
+//	public float getGeneralScale() {
+//		return generalScale;
+//	}
 
 	public PVector getOriginPosition() {
 		return originPosition;
@@ -59,9 +59,10 @@ public class Player {
 
 	private DefenderControl gamelogic;
 
-	public Player(DefenderControl gamelogic, float generalAngle, float generalScale, PVector originPosition,int side,PVector viewPosition){
+	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPosition,int side,PVector viewPosition){
 		this.generalAngle=generalAngle;
-		this.generalScale=generalScale;
+//		this.generalScale=generalScale;
+		this.actualZoom=actualZoom;
 		this.originPosition=originPosition;
 		this.gamelogic=gamelogic;			
 		this.side=side;
