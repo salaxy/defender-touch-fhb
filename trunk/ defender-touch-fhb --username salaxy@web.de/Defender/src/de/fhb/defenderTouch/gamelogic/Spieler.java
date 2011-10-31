@@ -25,7 +25,7 @@ public class Spieler{
 	 */
 	public Spieler(PApplet display, PVector sichtPosition, float zoomFaktor, boolean screenSide, DefenderControl gamelogic){
 		this.gamelogic=gamelogic;
-		splitScreen = new SplitScreen(display, sichtPosition, zoomFaktor, screenSide,gamelogic.getGlobalUnits());				
+		splitScreen = new SplitScreen(display, sichtPosition, zoomFaktor, screenSide,null );				
 	}
 
 	/**
