@@ -1,23 +1,28 @@
 package de.fhb.defenderTouch.menu;
 
+import gifAnimation.Gif;
+
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PGraphics;
 import processing.core.PVector;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.grounded.Building;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
-import gifAnimation.*;
 
 public class Menu {
 
 	/**
 	 * applet where the buildings are placed
 	 */
-	protected PApplet mainPoint;
+//	protected PGraphics graphics;
 
 	/**
 	 * recent position of the click
@@ -42,7 +47,7 @@ public class Menu {
 	/**
 	 * Vector with all saved building that palyed has built
 	 */
-	protected ArrayList<PVector> bBuildings = new ArrayList<PVector>();
+//	protected CopyOnWriteArrayList<PVector> bBuildings = new CopyOnWriteArrayList<PVector>();
 
 	/**
 	 * saves if the menu is open
@@ -87,7 +92,7 @@ public class Menu {
 	/**
 	 * array list with all its buildings
 	 */
-	protected ArrayList<BaseUnit> buildings;
+	protected CopyOnWriteArrayList<BaseUnit> buildings;
 
 	/**
 	 * array list with all its buildings
@@ -108,17 +113,20 @@ public class Menu {
 	 * if destroying a building should be shown
 	 */
 	protected boolean showLoopingGifDestroy = false;
+	
+	
 
 	/**
 	 * Constructor of Menu
 	 * 
 	 * @param nonLoopingGif
 	 */
-	public Menu(PApplet mainPoint, ArrayList<BaseUnit> buildings, Gif nonLoopingGifDestroy) {
+	public Menu( CopyOnWriteArrayList<BaseUnit> buildings, Gif nonLoopingGifDestroy) {
 		this.position = new PVector(0, 0);
-		this.mainPoint = mainPoint;
+//		this.graphics = graphics;
 		this.buildings = buildings;
-		this.nonLoopingGifDestroy = nonLoopingGifDestroy;
+//		this.nonLoopingGifDestroy =  new Gif(graphics, "expl_kl.gif");
+		//TODO hier Gif erstellen
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
@@ -131,53 +139,61 @@ public class Menu {
 	/**
 	 * is always been done
 	 */
-	public void drawMenu() {
-		mainPoint.text("Aktuelle Credits: " + creditsPlayer, 100, 15);
-		mainPoint.text("Aktuelles Gebäude: " + actualBuildingName, 350, 15);
-		mainPoint.text("Aktuelle Gebäudeanzahl: " + getActualBuildingCount(), 600, 15);
-		mainPoint.ellipseMode(PConstants.CENTER);
+	public void drawMenu(PGraphics graphics, Player player) {
 		
-		/**
-		 * here is the animation of destroying a building
-		 */
-		if (isShowLoopingGifDestroy() && positionBuilding != null) {
-			mainPoint.image(nonLoopingGifDestroy, positionBuilding.x - 11, positionBuilding.y - 15);
-			nonLoopingGifDestroy.loop();
-			if (nonLoopingGifDestroy.currentFrame() == 15) {
-				setShowLoopingGifDestroy(false);
-				nonLoopingGifDestroy.stop();
-			}
-		}
+		
+		
+//		graphics.text("Aktuelle Credits: " + creditsPlayer, 100, 15);
+//		graphics.text("Aktuelles Gebäude: " + actualBuildingName, 350, 15);
+//		graphics.text("Aktuelle Gebäudeanzahl: " + getActualBuildingCount(), 600, 15);
+		
+		calcDrawPosition(player , graphics );
+		
+		
+		graphics.ellipseMode(PConstants.CENTER);
+		
+		//TODO wieder einbauen...muss aber über Pgraphics zeichenabr sein
+//		/**
+//		 * here is the animation of destroying a building
+//		 */
+//		if (isShowLoopingGifDestroy() && positionBuilding != null) {
+//			graphics.image(nonLoopingGifDestroy, positionBuilding.x - 11, positionBuilding.y - 15);
+//			nonLoopingGifDestroy.loop();
+//			if (nonLoopingGifDestroy.currentFrame() == 15) {
+//				setShowLoopingGifDestroy(false);
+//				nonLoopingGifDestroy.stop();
+//			}
+//		}
 		
 		/**
 		 * here is the complete normal menu
 		 */
 		if (menuOpen) {
-			mainPoint.stroke(255);
+			graphics.stroke(255);
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
 
-			mainPoint.translate(this.position.x, this.position.y);
-			mainPoint.rotate(drehung);
+			graphics.translate(this.position.x, this.position.y);
+			graphics.rotate(drehung);
 			menu[0] = new PVector(0, DISTANCE);
 			menu[0].rotate(drehung);
 			menu[0].add(position);
-			mainPoint.fill(20, 50, 20);
-			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
-			mainPoint.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
+			graphics.fill(20, 50, 20);
+			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			graphics.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
 			drehung += drehungProUntermenue;
-			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			mainPoint.fill(255);
-			mainPoint.text(Ground.PRICE, 0, DISTANCE - 15);
-			mainPoint.resetMatrix();
+			graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			graphics.fill(255);
+			graphics.text(Ground.PRICE, 0, DISTANCE - 15);
+			graphics.resetMatrix();
 
-			mainPoint.translate(this.position.x, this.position.y);
-			mainPoint.rotate(drehung);
+			graphics.translate(this.position.x, this.position.y);
+			graphics.rotate(drehung);
 			menu[1] = new PVector(0, DISTANCE);
 			menu[1].rotate(drehung);
 			menu[1].add(position);
-			mainPoint.fill(20, 20, 50);
-			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			graphics.fill(20, 20, 50);
+			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 			vektoren1.add(new PVector(-4, DISTANCE - 4));
 			vektoren1.add(new PVector(4, DISTANCE - 4));
@@ -186,120 +202,120 @@ public class Menu {
 			vektoren1.add(new PVector(0, DISTANCE + 4));
 			vektoren1.add(new PVector(4, DISTANCE + 4));
 			vektoren1.add(new PVector(-4, DISTANCE + 4));
-			mainPoint.ellipse(0, DISTANCE - 4, 8, 8);
-			GraphicTools.zeicheFigurNachVektoren(vektoren1, mainPoint);
+			graphics.ellipse(0, DISTANCE - 4, 8, 8);
+			GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
 			drehung += drehungProUntermenue;
-			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			mainPoint.fill(255);
-			mainPoint.text(Defence.PRICE, 0, DISTANCE - 15);
-			mainPoint.resetMatrix();
+			graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			graphics.fill(255);
+			graphics.text(Defence.PRICE, 0, DISTANCE - 15);
+			graphics.resetMatrix();
 
-			mainPoint.translate(this.position.x, this.position.y);
-			mainPoint.rotate(drehung);
+			graphics.translate(this.position.x, this.position.y);
+			graphics.rotate(drehung);
 			menu[2] = new PVector(0, DISTANCE);
 			menu[2].rotate(drehung);
 			menu[2].add(position);
-			mainPoint.fill(50, 20, 20);
-			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			graphics.fill(50, 20, 20);
+			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 			vektoren2.add(new PVector(0, DISTANCE - 8));
 			vektoren2.add(new PVector(0, DISTANCE + 8));
 			vektoren2.add(new PVector(0, DISTANCE));
 			vektoren2.add(new PVector(8, DISTANCE));
 			vektoren2.add(new PVector(-8, DISTANCE));
-			GraphicTools.zeicheFigurNachVektoren(vektoren2, mainPoint);
+			GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
 			drehung += drehungProUntermenue;
-			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			mainPoint.fill(255);
-			mainPoint.text(Support.PRICE, 0, DISTANCE - 15);
-			mainPoint.resetMatrix();
+			graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			graphics.fill(255);
+			graphics.text(Support.PRICE, 0, DISTANCE - 15);
+			graphics.resetMatrix();
 
-			mainPoint.translate(this.position.x, this.position.y);
-			mainPoint.rotate(drehung);
+			graphics.translate(this.position.x, this.position.y);
+			graphics.rotate(drehung);
 			menu[3] = new PVector(0, DISTANCE);
 			menu[3].rotate(drehung);
 			menu[3].add(position);
-			mainPoint.noFill();
-			mainPoint.stroke(150);
-			mainPoint.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			graphics.noFill();
+			graphics.stroke(150);
+			graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 			drehung += drehungProUntermenue;
-			mainPoint.resetMatrix();
+			graphics.resetMatrix();
 
-			mainPoint.translate(this.position.x, this.position.y);
-			mainPoint.rotate(drehung);
+			graphics.translate(this.position.x, this.position.y);
+			graphics.rotate(drehung);
 			menu[4] = new PVector(0, DISTANCE);
 			menu[4].rotate(drehung);
 			menu[4].add(position);
-			mainPoint.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 			drehung += drehungProUntermenue;
-			mainPoint.resetMatrix();
+			graphics.resetMatrix();
 
-			mainPoint.translate(this.position.x, this.position.y);
-			mainPoint.rotate(drehung);
+			graphics.translate(this.position.x, this.position.y);
+			graphics.rotate(drehung);
 			menu[5] = new PVector(0, DISTANCE);
 			menu[5].rotate(drehung);
 			menu[5].add(position);
-			mainPoint.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 			drehung += drehungProUntermenue;
-			mainPoint.resetMatrix();
+			graphics.resetMatrix();
 		}
 
 		/**
 		 * here is the complete menu for a specific building
 		 */
 		if (buildingOpen) {
-			mainPoint.noFill();
-			mainPoint.stroke(255);
+			graphics.noFill();
+			graphics.stroke(255);
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 4;
 
-			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
-			mainPoint.rotate(drehung);
+			graphics.translate(this.positionBuilding.x, this.positionBuilding.y);
+			graphics.rotate(drehung);
 			menuBuildings[0] = new PVector(0, DISTANCE);
 			menuBuildings[0].rotate(drehung);
 			menuBuildings[0].add(position);
-			mainPoint.fill(20, 50, 20);
-			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
-			mainPoint.fill(255);
-			mainPoint.triangle(-5, DISTANCE, 0, DISTANCE - 10, +5, DISTANCE);
-			mainPoint.fill(20, 50, 20);
+			graphics.fill(20, 50, 20);
+			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			graphics.fill(255);
+			graphics.triangle(-5, DISTANCE, 0, DISTANCE - 10, +5, DISTANCE);
+			graphics.fill(20, 50, 20);
 			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 			vektoren1.add(new PVector(0, DISTANCE));
 			vektoren1.add(new PVector(0, DISTANCE + 8));
-			GraphicTools.zeicheFigurNachVektoren(vektoren1, mainPoint);
+			GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
 			drehung += drehungProUntermenue;
-			mainPoint.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			mainPoint.fill(255);
-			mainPoint.text(getActualBuildingPrice(position), 0, DISTANCE - 15);
-			mainPoint.resetMatrix();
+			graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			graphics.fill(255);
+			graphics.text(getActualBuildingPrice(position), 0, DISTANCE - 15);
+			graphics.resetMatrix();
 
-			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
-			mainPoint.rotate(drehung);
+			graphics.translate(this.positionBuilding.x, this.positionBuilding.y);
+			graphics.rotate(drehung);
 			menuBuildings[1] = new PVector(0, DISTANCE);
 			menuBuildings[1].rotate(drehung);
 			menuBuildings[1].add(position);
-			mainPoint.fill(50, 20, 20);
-			mainPoint.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			graphics.fill(50, 20, 20);
+			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 			vektoren2.add(new PVector(5, DISTANCE - 5));
 			vektoren2.add(new PVector(-5, DISTANCE + 5));
 			vektoren2.add(new PVector(0, DISTANCE));
 			vektoren2.add(new PVector(5, DISTANCE + 5));
 			vektoren2.add(new PVector(-5, DISTANCE - 5));
-			GraphicTools.zeicheFigurNachVektoren(vektoren2, mainPoint);
+			GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
 			drehung += drehungProUntermenue;
-			mainPoint.resetMatrix();
+			graphics.resetMatrix();
 
-			mainPoint.translate(this.positionBuilding.x, this.positionBuilding.y);
-			mainPoint.rotate(drehung);
-			mainPoint.fill(150);
-			mainPoint.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			graphics.translate(this.positionBuilding.x, this.positionBuilding.y);
+			graphics.rotate(drehung);
+			graphics.fill(150);
+			graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 			// TODO ist unschön! aber mir fällt grad nix bessres ein, 3 steht
 			// sonst falsch rum...
-			mainPoint.rotate(drehung);
-			mainPoint.fill(255);
-			mainPoint.text(getActualBuildingLevel(position), 0, 45);
-			mainPoint.resetMatrix();
+			graphics.rotate(drehung);
+			graphics.fill(255);
+			graphics.text(getActualBuildingLevel(position), 0, 45);
+			graphics.resetMatrix();
 		}
 	}
 
@@ -622,7 +638,7 @@ public class Menu {
 	}
 
 	public void setPosition(PVector position) {
-		this.position = position;
+		this.position = position.get();
 	}
 
 	public Building getActualBuilding() {
@@ -639,6 +655,31 @@ public class Menu {
 
 	public void setShowLoopingGifDestroy(boolean showLoopingGifDestroy) {
 		this.showLoopingGifDestroy = showLoopingGifDestroy;
+	}
+	
+	
+	
+	/**
+	 * Berechnet Zeichnenposition und setzt Abblidungsmatrix(Transformationsmatix)
+	 * @return
+	 */
+	private void calcDrawPosition(Player player,PGraphics graphics){
+
+		//Berechnung des neuen Koordinaten Ursprungs Vektors
+		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
+		drawPosition.rotate(player.getGeneralAngle());
+		drawPosition.add(player.getOriginPosition());
+		
+		//Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
+		graphics.translate(drawPosition.x, +drawPosition.y);		
+		graphics.scale(player.getActualZoom());	
+		graphics.rotate(player.getGeneralAngle());//nötig???
+		
+		//zeichne an Position im Verhältnis zu gesamt Transformation
+		graphics.translate(position.x, +position.y);	
+		
+//		//eigendrehung hinzu
+//		graphics.rotate(this.actualAngle);
 	}
 
 }
