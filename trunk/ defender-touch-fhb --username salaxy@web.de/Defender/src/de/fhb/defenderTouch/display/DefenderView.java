@@ -1,4 +1,6 @@
 package de.fhb.defenderTouch.display;
+import gifAnimation.Gif;
+
 import java.util.Vector;
 
 import processing.core.PApplet;
@@ -11,6 +13,7 @@ import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.menu.Menu;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Navi;
@@ -35,6 +38,7 @@ public class DefenderView extends PApplet {
 	int height = 768;
 	PFont font;
 	BaseUnit test;
+
 	
 	PGraphics screenLeft, screenRight;
 	
@@ -43,6 +47,9 @@ public class DefenderView extends PApplet {
 	
 	public void setup()
 	{
+
+		
+		
 	//Screens links und rechts initialisieren
 	screenLeft = createGraphics(510, 768, JAVA2D);
 	screenRight = createGraphics(510, 768, JAVA2D);	
@@ -91,6 +98,13 @@ public class DefenderView extends PApplet {
 	  new Fighter(400,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this,gamelogic);
 	  new Fighter(500,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,this,gamelogic);
 
+	  
+	  
+
+	  
+	  
+	  
+	  
 	  //kantenglättung aktivieren
 	  this.smooth();
 	  this.rectMode(CENTER);
@@ -236,10 +250,39 @@ public class DefenderView extends PApplet {
         PApplet.main(new String[] { "de.fhb.defenderTouch.display.DefenderView" });
     }
     
-    //speziell fuer SPIELER 2
-    //mausclick ueberschreiben
+    
     public void mouseClicked(){
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
+
+//	    //Klickvektor zurück rechnen auf spielkoordinaten
+//		//***********************
+//		PVector realClickKoordinates=clickVector.get();
+////		System.out.println(" Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
+//		realClickKoordinates.sub(gamelogic.getPlayerTwo().getOriginPosition());
+//		realClickKoordinates.sub(new PVector(515f, 0f));//(ist dort wo das PGRaphics gezeichnet)//Korektur!!!Platzhalter
+//		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerTwo().getGeneralAngle());
+//		realClickKoordinates.sub(gamelogic.getPlayerTwo().getViewPosition());
+//		realClickKoordinates.mult(1/gamelogic.getPlayerTwo().getActualZoom());		
+//		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
+//		//***************************
+    	
+    	
+    	
+    	
+//    	this.unitControl(clickVector);
+		
+		this.menueControl(clickVector);
+    	
+    }
+    
+    
+    
+    
+    
+    //speziell fuer SPIELER 2
+    //mausclick ueberschreiben
+    public void unitControl(PVector clickVector){
+//    	PVector clickVector=new PVector(this.mouseX,this.mouseY);
 
     	
     	
@@ -431,5 +474,97 @@ public class DefenderView extends PApplet {
     	}
     }
     
+    
+    
+	/** override mouseclick */
+	public void menueControl(PVector clickVector) {
+//		PVector clickVector = new PVector(this.mouseX, this.mouseY);
+		Menu menu=this.gamelogic.getMenu();
+		
+	    //Klickvektor zurück rechnen auf spielkoordinaten
+		//***********************
+		PVector realClickKoordinates=clickVector.get();
+//		System.out.println(" Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
+		realClickKoordinates.sub(gamelogic.getPlayerOne().getOriginPosition());
+		realClickKoordinates.sub(new PVector(0f, 0f));//(ist dort wo das PGRaphics gezeichnet)//Korektur!!!Platzhalter
+		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerOne().getGeneralAngle());
+		realClickKoordinates.sub(gamelogic.getPlayerOne().getViewPosition());
+		realClickKoordinates.mult(1/gamelogic.getPlayerOne().getActualZoom());		
+		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
+		//***************************
+
+		if (this.mouseButton == LEFT) {
+			if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
+				menu.setPosition(clickVector);
+				if (menu.isTaken(clickVector)) {
+					// IF A BUILDING IS CLICKED
+					System.out.println("open building menu");
+					menu.setBuildingOpen(true, clickVector);
+				} else {
+					// OPENS MAIN MENU
+					System.out.println("open menu");
+					menu.setMenuOpen(true);
+				}
+				menu.setActualBuildingName(clickVector);
+			} else if (menu.isBuildingOpen()) {
+				// WHEN UPGRADE OR DESTROY WAS CLICKED
+				if (menu.isInnerBuildingElement(clickVector)) {
+
+					switch (menu.getActualStatus()) {
+					case 0:
+						System.out.println("do Building upgrade");
+						menu.getActualBuilding().upgrade();
+						break;
+					case 1: // TODO : hier muss gebäude zerstören rein
+						System.out.println("do Building destroyed");
+						// TODO später delete methode von base unit nutzen!!!!
+						// Wenn alles zusamm gefügt ist
+						menu.getActualBuilding().delete();//das für später,
+						// wie es sein sollte...
+						// notlösung für den moment
+//						buildings.remove(menu.getActualBuilding());
+						break;
+					default:
+					}
+				}
+			} else if (menu.isMenuOpen()) {
+				// CHOOSING A BUILDING
+				if (menu.isInnerMenuElement(clickVector)) {
+					switch (menu.getActualStatus()) {
+					case 0:
+						System.out.println("building a Ground unit");
+						//TODO wieder konform machen zu restl Programm
+//						buildings.add(new Ground((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						break;
+					case 1:
+						System.out.println("building a Defence unit");
+//						buildings.add(new Defence((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						break;
+					case 2:
+						System.out.println("building a Support unit");
+//						buildings.add(new Support((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						break;
+					default:
+						System.out.println();
+					}
+				}
+			}
+		}
+
+		if (this.mouseButton == RIGHT) {
+
+			// CLOSES MENU
+			if (menu.isMenuOpen() && menu.isInnerMainElement(clickVector)) {
+				menu.setMenuOpen(false);
+				System.out.println("close menu");
+			}
+			// CLOSES BUILDING MENU
+			if (menu.isBuildingOpen() && menu.isTaken(clickVector)) {
+				System.out.println("close building menu");
+				menu.setBuildingOpen(false, null);
+			}
+		}
+	}
+	
     
 }
