@@ -1,5 +1,7 @@
 package de.fhb.defenderTouch.gamelogic;
 
+import gifAnimation.Gif;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import processing.core.PApplet;
@@ -7,6 +9,7 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
+import de.fhb.defenderTouch.menu.Menu;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 /**
@@ -32,6 +35,10 @@ public class DefenderControl {
 	private Player playerOne;
 	private Player playerTwo;
 	private PGraphics screenLeft, screenRight;
+	
+	
+	private Menu menu;
+	private Gif nonLoopingGifDestroy;
 
 	private DefenderControl(PApplet display,PGraphics screenLeft,PGraphics screenRight) {
 		
@@ -45,6 +52,11 @@ public class DefenderControl {
 		//init der beiden images fuer links und rechts
 		this.screenLeft = screenLeft;
 		this.screenRight = screenRight;
+		
+		
+		//Menue init//TODO vorerst wird nur links gezeichnet
+		menu = new Menu(this.globalUnits, nonLoopingGifDestroy);
+		
 		
 		this.playBackgroundSound();
 
@@ -64,7 +76,12 @@ public class DefenderControl {
 
 	public void drawAll() {		
 		
-
+		
+		//menue zeichen fuer player one
+		
+		this.menu.drawMenu(this.screenLeft, this.playerOne);
+		
+		
 		// neue positionen berechnen
 		for (BaseUnit unit : globalUnits) {
 			unit.calcNewPosition();
@@ -121,6 +138,10 @@ public class DefenderControl {
 
 
 	
+	public Menu getMenu() {
+		return menu;
+	}
+
 	public void zeichneRahmen(PGraphics display, Player player){
 		
 		//Feldumrandung zeichnen
