@@ -3,6 +3,8 @@ package de.fhb.defenderTouch.units.movable;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import de.fhb.defenderTouch.audio.FormatProblemException;
+import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 
 /**
@@ -83,9 +85,20 @@ public class Shoot extends BaseUnit {
 	
 	
 	private void hasReachedDestination(){
+		
+		this.playDestroySound();
 		this.destinationUnit.getDamage(damage);
 		this.delete();
 	}
 	
+	
+	private void playDestroySound(){
+		try {
+			new SampleThread("/sounds/boom_kurz.mp3",10.0f,true).start();
+		} catch (FormatProblemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

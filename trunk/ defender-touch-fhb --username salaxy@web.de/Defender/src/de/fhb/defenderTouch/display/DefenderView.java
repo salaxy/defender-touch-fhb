@@ -371,6 +371,7 @@ public class DefenderView extends PApplet {
 							istAngriff=true;
 							destinationUnit=bu;
 							System.out.println("Angriff initiiert!");
+							//TODO Sound
 						}
 						
 						//auf weitere eigene einheit geklickt??
