@@ -5,6 +5,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import de.fhb.defenderTouch.audio.FormatProblemException;
+import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 /**
@@ -43,6 +45,8 @@ public class DefenderControl {
 		//init der beiden images fuer links und rechts
 		this.screenLeft = screenLeft;
 		this.screenRight = screenRight;
+		
+		this.playBackgroundSound();
 
 	}
 
@@ -144,5 +148,14 @@ public class DefenderControl {
 
 	public Player getPlayerTwo() {
 		return playerTwo;
+	}
+	
+	private void playBackgroundSound(){
+		try {
+			new SampleThread("/sounds/background.mp3",10.0f,true).start();
+		} catch (FormatProblemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

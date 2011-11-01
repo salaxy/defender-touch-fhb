@@ -5,6 +5,8 @@ import java.awt.Color;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import de.fhb.defenderTouch.audio.FormatProblemException;
+import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.interfaces.Drawable;
@@ -571,6 +573,13 @@ public class BaseUnit implements Drawable {
 	public void activate() {
 
 		active = true;
+		
+		try {
+			new SampleThread("/sounds/fehler.mp3",10.0f,true).start();
+		} catch (FormatProblemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
