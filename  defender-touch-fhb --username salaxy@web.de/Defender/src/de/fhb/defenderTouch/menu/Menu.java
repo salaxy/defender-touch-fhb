@@ -9,8 +9,8 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PVector;
-import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.oldMapConcept.Player;
 import de.fhb.defenderTouch.units.grounded.Building;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
@@ -172,8 +172,9 @@ public class Menu {
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
 
-			calcDrawPosition(player , graphics );
-//			graphics.translate(this.position.x, this.position.y);
+			//wende Abbildung an um an der richtiegn stelle zu zeichen
+			GraphicTools.calcDrawTransformation(player , graphics , this.position);
+			//eigentliche Zeichnung
 			graphics.rotate(drehung);
 			menu[0] = new PVector(0, DISTANCE);
 			menu[0].rotate(drehung);
@@ -187,8 +188,9 @@ public class Menu {
 			graphics.text(Ground.PRICE, 0, DISTANCE - 15);
 			graphics.resetMatrix();
 
-			calcDrawPosition(player , graphics );
-//			graphics.translate(this.position.x, this.position.y);
+			//wende Abbildung an um an der richtiegn stelle zu zeichen
+			GraphicTools.calcDrawTransformation(player , graphics , this.position);
+			//eigentliche Zeichnung
 			graphics.rotate(drehung);
 			menu[1] = new PVector(0, DISTANCE);
 			menu[1].rotate(drehung);
@@ -211,8 +213,9 @@ public class Menu {
 			graphics.text(Defence.PRICE, 0, DISTANCE - 15);
 			graphics.resetMatrix();
 
-			calcDrawPosition(player , graphics );
-//			graphics.translate(this.position.x, this.position.y);
+			//wende Abbildung an um an der richtiegn stelle zu zeichen
+			GraphicTools.calcDrawTransformation(player , graphics , this.position);
+			//eigentliche Zeichnung
 			graphics.rotate(drehung);
 			menu[2] = new PVector(0, DISTANCE);
 			menu[2].rotate(drehung);
@@ -232,8 +235,9 @@ public class Menu {
 			graphics.text(Support.PRICE, 0, DISTANCE - 15);
 			graphics.resetMatrix();
 
-			calcDrawPosition(player , graphics );
-//			graphics.translate(this.position.x, this.position.y);
+			//wende Abbildung an um an der richtiegn stelle zu zeichen
+			GraphicTools.calcDrawTransformation(player , graphics , this.position);
+			//eigentliche Zeichnung
 			graphics.rotate(drehung);
 			menu[3] = new PVector(0, DISTANCE);
 			menu[3].rotate(drehung);
@@ -244,8 +248,9 @@ public class Menu {
 			drehung += drehungProUntermenue;
 			graphics.resetMatrix();
 
-			calcDrawPosition(player , graphics );
-//			graphics.translate(this.position.x, this.position.y);
+			//wende Abbildung an um an der richtiegn stelle zu zeichen
+			GraphicTools.calcDrawTransformation(player , graphics , this.position);
+			//eigentliche Zeichnung
 			graphics.rotate(drehung);
 			menu[4] = new PVector(0, DISTANCE);
 			menu[4].rotate(drehung);
@@ -254,8 +259,9 @@ public class Menu {
 			drehung += drehungProUntermenue;
 			graphics.resetMatrix();
 
-			calcDrawPosition(player , graphics );
-//			graphics.translate(this.position.x, this.position.y);
+			//wende Abbildung an um an der richtiegn stelle zu zeichen
+			GraphicTools.calcDrawTransformation(player , graphics , this.position);
+			//eigentliche Zeichnung
 			graphics.rotate(drehung);
 			menu[5] = new PVector(0, DISTANCE);
 			menu[5].rotate(drehung);
@@ -274,7 +280,9 @@ public class Menu {
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 4;
 
-			graphics.translate(this.positionBuilding.x, this.positionBuilding.y);
+			//wende Abbildung an um an der richtiegn stelle zu zeichen
+			GraphicTools.calcDrawTransformation(player , graphics , this.position);
+			//eigentliche Zeichnung
 			graphics.rotate(drehung);
 			menuBuildings[0] = new PVector(0, DISTANCE);
 			menuBuildings[0].rotate(drehung);
@@ -294,7 +302,9 @@ public class Menu {
 			graphics.text(getActualBuildingPrice(position), 0, DISTANCE - 15);
 			graphics.resetMatrix();
 
-			graphics.translate(this.positionBuilding.x, this.positionBuilding.y);
+			//wende Abbildung an um an der richtiegn stelle zu zeichen
+			GraphicTools.calcDrawTransformation(player , graphics , this.position);
+			//eigentliche Zeichnung
 			graphics.rotate(drehung);
 			menuBuildings[1] = new PVector(0, DISTANCE);
 			menuBuildings[1].rotate(drehung);
@@ -311,7 +321,9 @@ public class Menu {
 			drehung += drehungProUntermenue;
 			graphics.resetMatrix();
 
-			graphics.translate(this.positionBuilding.x, this.positionBuilding.y);
+			//wende Abbildung an um an der richtiegn stelle zu zeichen
+			GraphicTools.calcDrawTransformation(player , graphics , this.position);
+			//eigentliche Zeichnung
 			graphics.rotate(drehung);
 			graphics.fill(150);
 			graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
@@ -461,17 +473,25 @@ public class Menu {
 	 */
 	public void setBuildingOpen(boolean buildingOpen, PVector clickVector) {
 
-		if (clickVector != null) {
-			for (BaseUnit bu : buildings) {
-				if (bu.isInner(clickVector)) {
-					if (bu instanceof Building) {
-						actualBuilding = (Building) bu;
+
+		
+		//damit menue acuh geschlossen werden kann
+		if(!buildingOpen){
+			this.buildingOpen = false;
+		}else{
+			//es soll das baumenu aktiviert werden
+			if (clickVector != null) {
+				for (BaseUnit bu : buildings) {
+					if (bu.isInner(clickVector)) {
+						if (bu instanceof Building) {
+							actualBuilding = (Building) bu;
+							//nur baumenue oeffnen wenn auch Gebauede angeclickt
+							this.buildingOpen = buildingOpen;
+						}
 					}
 				}
 			}
 		}
-
-		this.buildingOpen = buildingOpen;
 	}
 
 	/**
@@ -666,27 +686,27 @@ public class Menu {
 	
 	
 	
-	/**
-	 * Berechnet Zeichnenposition und setzt Abblidungsmatrix(Transformationsmatix)
-	 * @return
-	 */
-	private void calcDrawPosition(Player player,PGraphics graphics){
-
-		//Berechnung des neuen Koordinaten Ursprungs Vektors
-		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
-		drawPosition.rotate(player.getGeneralAngle());
-		drawPosition.add(player.getOriginPosition());
-		
-		//Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
-		graphics.translate(drawPosition.x, +drawPosition.y);		
-		graphics.scale(player.getActualZoom());	
-		graphics.rotate(player.getGeneralAngle());//nötig???
-		
-		//zeichne an Position im Verhältnis zu gesamt Transformation
-		graphics.translate(position.x, +position.y);	
-		
-//		//eigendrehung hinzu
-//		graphics.rotate(this.actualAngle);
-	}
+//	/**
+//	 * Berechnet Zeichnenposition und setzt Abblidungsmatrix(Transformationsmatix)
+//	 * @return
+//	 */
+//	private void calcDrawPosition(Player player,PGraphics graphics){
+//
+//		//Berechnung des neuen Koordinaten Ursprungs Vektors
+//		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
+//		drawPosition.rotate(player.getGeneralAngle());
+//		drawPosition.add(player.getOriginPosition());
+//		
+//		//Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
+//		graphics.translate(drawPosition.x, +drawPosition.y);		
+//		graphics.scale(player.getActualZoom());	
+//		graphics.rotate(player.getGeneralAngle());//nötig???
+//		
+//		//zeichne an Position im Verhältnis zu gesamt Transformation
+//		graphics.translate(position.x, +position.y);	
+//		
+////		//eigendrehung hinzu
+////		graphics.rotate(this.actualAngle);
+//	}
 
 }

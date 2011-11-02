@@ -10,6 +10,7 @@ import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.menu.Menu;
+import de.fhb.defenderTouch.oldMapConcept.Player;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 /**
@@ -28,6 +29,17 @@ public class DefenderControl {
 
 
 	public static final int PLAYER_SYSTEM = 2;
+	
+	/**
+	 * gibt an wo auf dem PApplet der screenLeft gezeichnet werden soll
+	 */
+	public static PVector SCREENLEFT_POSITION= new PVector(0, 0);
+	
+	/**
+	 * gibt an wo auf dem PApplet der screenLeft gezeichnet werden soll
+	 */
+	public static PVector SCREENRIGHT_POSITION= new PVector(515, 0);
+	
 
 	private CopyOnWriteArrayList<BaseUnit> globalUnits;
 	private PApplet display;
@@ -43,8 +55,8 @@ public class DefenderControl {
 	private DefenderControl(PApplet display,PGraphics screenLeft,PGraphics screenRight) {
 		
 		//die beiden Spieler initialisieren
-		playerOne = new Player(this,PApplet.HALF_PI, 0.5f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f));
-		playerTwo = new Player(this,3*PApplet.HALF_PI,0.5f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f));
+		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f));
+		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f));
 		
 		this.display = display;
 		globalUnits = new CopyOnWriteArrayList<BaseUnit>();
@@ -58,7 +70,7 @@ public class DefenderControl {
 		menu = new Menu(this.globalUnits, nonLoopingGifDestroy);
 		
 		
-		this.playBackgroundSound();
+//		this.playBackgroundSound();
 
 	}
 
@@ -74,6 +86,9 @@ public class DefenderControl {
 
 	}
 
+	/**
+	 * Zeichnet beide Spielfelder und Inhalte
+	 */
 	public void drawAll() {		
 		
 		
@@ -127,8 +142,8 @@ public class DefenderControl {
 		screenRight.endDraw();
 
 		//die beiden Seiten auf dem PApplet zeichnen
-		display.image(screenLeft, 0, 0);
-		display.image(screenRight, 515, 0);
+		display.image(screenLeft, SCREENLEFT_POSITION.x, SCREENLEFT_POSITION.y);
+		display.image(screenRight, SCREENRIGHT_POSITION.x, SCREENRIGHT_POSITION.y);
 		
 		
 		

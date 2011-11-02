@@ -1,7 +1,7 @@
 package de.fhb.defenderTouch.interfaces;
 
 import processing.core.PGraphics;
-import de.fhb.defenderTouch.gamelogic.Player;
+import de.fhb.defenderTouch.oldMapConcept.Player;
 
 public interface Drawable {
 
