@@ -1,7 +1,7 @@
-package de.fhb.defenderTouch.gamelogic;
+package de.fhb.defenderTouch.oldMapConcept;
 
+import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.interfaces.Drawable;
-import de.fhb.defenderTouch.oldMapConcept.SplitScreen;
 import processing.core.PApplet;
 import processing.core.PVector;
 

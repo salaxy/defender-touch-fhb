@@ -10,7 +10,6 @@ import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
-import de.fhb.defenderTouch.gamelogic.Spieler;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Navi;

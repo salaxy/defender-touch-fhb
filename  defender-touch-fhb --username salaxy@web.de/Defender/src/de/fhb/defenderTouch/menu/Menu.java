@@ -9,8 +9,8 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
-import de.fhb.defenderTouch.oldMapConcept.Player;
 import de.fhb.defenderTouch.units.grounded.Building;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
@@ -503,6 +503,7 @@ public class Menu {
 	 *         searching for the actual building level
 	 */
 	public int getActualBuildingLevel(PVector clickVector) {
+		//XXX geht wesentlich besser
 		if (clickVector != null) {
 			for (BaseUnit bu : buildings) {
 				if (bu.isInner(clickVector)) {
@@ -524,6 +525,7 @@ public class Menu {
 	 *         searching for the actual price of a building
 	 */
 	public int getActualBuildingPrice(PVector clickVector) {
+		//XXX geht wesentlich besser, genau daselbe
 		if (clickVector != null) {
 			for (BaseUnit bu : buildings) {
 				if (bu.isInner(clickVector)) {
@@ -553,6 +555,7 @@ public class Menu {
 	 *         searching for the actual price of a building
 	 */
 	public void setActualBuildingName(PVector clickVector) {
+		//XXX geht wesentlich besser, genau daselbe
 		if (isTaken(clickVector)) {
 			for (BaseUnit bu : buildings) {
 				if (bu.isInner(positionBuilding)) {
@@ -583,6 +586,7 @@ public class Menu {
 	 *         calculate the credits u get from destroying a building
 	 */
 	public void setActualBuildingDestroyPrice() {
+		//XXX geht wesentlich besser, genau daselbe
 		if (positionBuilding != null) {
 			for (BaseUnit bu : buildings) {
 				if (bu.isInner(positionBuilding)) {

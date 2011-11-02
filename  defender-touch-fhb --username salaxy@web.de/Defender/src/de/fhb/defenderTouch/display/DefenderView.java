@@ -481,77 +481,101 @@ public class DefenderView extends PApplet {
 		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
 		//***********************
 	    
+		
+		
 
 
 		if (this.mouseButton == LEFT) {
-			if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
-				menu.setPosition(realClickKoordinates);
-				if (menu.isTaken(realClickKoordinates)) {
-					// IF A BUILDING IS CLICKED
-					System.out.println("open building menu");
-					menu.setBuildingOpen(true, realClickKoordinates);
-				} else {
-					// OPENS MAIN MENU
-					System.out.println("open menu");
-					menu.setMenuOpen(true);
-				}
-				menu.setActualBuildingName(realClickKoordinates);
-			} else if (menu.isBuildingOpen()) {
-				// WHEN UPGRADE OR DESTROY WAS CLICKED
-				if (menu.isInnerBuildingElement(realClickKoordinates)) {
-
-					switch (menu.getActualStatus()) {
-					case 0:
-						System.out.println("do Building upgrade");
-						menu.getActualBuilding().upgrade();
-						break;
-					case 1: // TODO : hier muss gebäude zerstören rein
-						System.out.println("do Building destroyed");
-						// TODO später delete methode von base unit nutzen!!!!
-						// Wenn alles zusamm gefügt ist
-						menu.getActualBuilding().delete();//das für später,
-						// wie es sein sollte...
-						// notlösung für den moment
-//						buildings.remove(menu.getActualBuilding());
-						break;
-					default:
-					}
-				}
-			} else if (menu.isMenuOpen()) {
-				// CHOOSING A BUILDING
-				if (menu.isInnerMenuElement(clickVector)) {
-					switch (menu.getActualStatus()) {
-					case 0:
-						System.out.println("building a Ground unit");
-//						  new Ground((int)clickVector.x,(int)clickVector.y,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this,gamelogic);
-						break;
-					case 1:
-						System.out.println("building a Defence unit");
-						  new Defence((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this,gamelogic);
-						break;
-					case 2:
-						System.out.println("building a Support unit");
-						  new Support((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this,gamelogic);
-						break;
-					default:
-						System.out.println();
-					}
-				}
-			}
+			openMenue(realClickKoordinates);
 		}
 
 		if (this.mouseButton == RIGHT) {
+			closeMenue(realClickKoordinates);
+		}
+	}
+	
+	/**
+	 * Methode die aufgerufen werden soll wenn das menue(Bau/Gebauedemenue) geöffnet werden soll
+	 * 
+	 * @param realClickKoordinates - map koordinaten des Klicks
+	 */
+	private void openMenue(PVector realClickKoordinates){
+		
+		//menue aus der Hauptlogik holen
+		Menu menu=this.gamelogic.getMenu();
+		
+		if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
+			menu.setPosition(realClickKoordinates);
+			if (menu.isTaken(realClickKoordinates)) {
+				// IF A BUILDING IS CLICKED
+				System.out.println("open building menu");
+				menu.setBuildingOpen(true, realClickKoordinates);
+			} else {
+				// OPENS MAIN MENU
+				System.out.println("open menu");
+				menu.setMenuOpen(true);
+			}
+			menu.setActualBuildingName(realClickKoordinates);
+		} else if (menu.isBuildingOpen()) {
+			// WHEN UPGRADE OR DESTROY WAS CLICKED
+			if (menu.isInnerBuildingElement(realClickKoordinates)) {
 
-			// CLOSES MENU
-			if (menu.isMenuOpen() && menu.isInnerMainElement(realClickKoordinates)) {
-				menu.setMenuOpen(false);
-				System.out.println("close menu");
+				switch (menu.getActualStatus()) {
+				case 0:
+					System.out.println("do Building upgrade");
+					menu.getActualBuilding().upgrade();
+					break;
+				case 1: 
+					System.out.println("do Building destroyed");
+					menu.getActualBuilding().delete();
+					break;
+				default:
+				}
 			}
-			// CLOSES BUILDING MENU
-			if (menu.isBuildingOpen() && menu.isTaken(realClickKoordinates)) {
-				System.out.println("close building menu");
-				menu.setBuildingOpen(false, null);
+		} else if (menu.isMenuOpen()) {
+			
+			// CHOOSING A BUILDING
+			if (menu.isInnerMenuElement(realClickKoordinates)) {
+				switch (menu.getActualStatus()) {
+				case 0:
+					System.out.println("building a Ground unit");
+					new Ground((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this,gamelogic);
+					break;
+				case 1:
+					System.out.println("building a Defence unit");
+					new Defence((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this,gamelogic);
+					break;
+				case 2:
+					System.out.println("building a Support unit");
+					new Support((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this,gamelogic);
+					break;
+				default:
+					System.out.println();
+				}
 			}
+		}
+	}
+	
+	/**
+	 * Methode die aufgerufen werden soll wenn das menue(Bau/Gebauedemenue) geschlossen werden soll
+	 * 
+	 * @param realClickKoordinates - map koordinaten des Klicks
+	 */
+	private void closeMenue(PVector realClickKoordinates){
+		
+		//menue aus der Hauptlogik holen
+		Menu menu=this.gamelogic.getMenu();
+		
+		// CLOSES MENU
+		if (menu.isMenuOpen() && menu.isInnerMainElement(realClickKoordinates)) {
+			menu.setMenuOpen(false);
+			System.out.println("close menu");
+		}
+		
+		// CLOSES BUILDING MENU
+		if (menu.isBuildingOpen() && menu.isTaken(realClickKoordinates)) {
+			System.out.println("close building menu");
+			menu.setBuildingOpen(false, null);
 		}
 	}
 	

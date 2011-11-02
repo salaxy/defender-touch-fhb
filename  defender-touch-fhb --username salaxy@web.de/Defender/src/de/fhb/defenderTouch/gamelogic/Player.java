@@ -1,6 +1,5 @@
-package de.fhb.defenderTouch.oldMapConcept;
+package de.fhb.defenderTouch.gamelogic;
 
-import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import processing.core.PVector;
 
 public class Player {

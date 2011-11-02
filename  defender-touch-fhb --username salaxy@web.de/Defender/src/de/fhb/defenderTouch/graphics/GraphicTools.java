@@ -6,7 +6,7 @@ import java.util.List;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
-import de.fhb.defenderTouch.oldMapConcept.Player;
+import de.fhb.defenderTouch.gamelogic.Player;
 
 public class GraphicTools {
 

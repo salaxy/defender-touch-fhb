@@ -8,9 +8,9 @@ import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.interfaces.Drawable;
-import de.fhb.defenderTouch.oldMapConcept.Player;
 
 /**
  * BaseUnit Version 0.5 vom 23.10.2011
