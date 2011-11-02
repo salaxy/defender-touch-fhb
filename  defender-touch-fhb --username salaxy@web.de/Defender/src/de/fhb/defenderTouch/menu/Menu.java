@@ -2,11 +2,13 @@ package de.fhb.defenderTouch.menu;
 
 import gifAnimation.Gif;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.Player;
@@ -79,10 +81,10 @@ public class Menu {
 	 */
 	protected int actualStatus = -1;
 
-	/**
-	 * Startcredit of every palyer
-	 */
-	protected int creditsPlayer = 200;
+//	/**
+//	 * Startcredit of every palyer
+//	 */
+//	protected int creditsPlayer = 200;
 
 	/**
 	 * actual address with the building, used for deleting it
@@ -109,22 +111,26 @@ public class Menu {
 	 */
 	protected Gif nonLoopingGifDestroy;
 
+//	/**
+//	 * if destroying a building should be shown
+//	 */
+//	protected boolean showLoopingGifDestroy = false;
+	
 	/**
-	 * if destroying a building should be shown
+	 * Besitzer dieses Menue objekts
 	 */
-	protected boolean showLoopingGifDestroy = false;
-	
-	
+	private Player player;
 
 	/**
 	 * Constructor of Menu
 	 * 
 	 * @param nonLoopingGif
 	 */
-	public Menu( CopyOnWriteArrayList<BaseUnit> buildings, Gif nonLoopingGifDestroy) {
+	public Menu( CopyOnWriteArrayList<BaseUnit> buildings,Gif nonLoopingGifDestroy,Player player) {
 		this.position = new PVector(0, 0);
 //		this.graphics = graphics;
 		this.buildings = buildings;
+		this.player=player;
 //		this.nonLoopingGifDestroy =  new Gif(graphics, "expl_kl.gif");
 		//TODO hier Gif erstellen
 
@@ -164,10 +170,16 @@ public class Menu {
 //			}
 //		}
 		
+
+		
 		/**
 		 * here is the complete normal menu
 		 */
-		if (menuOpen) {
+		if (menuOpen) {		
+			
+			graphics.textAlign(PApplet.CENTER);
+			graphics.textSize(12);
+
 			graphics.stroke(255);
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
@@ -179,12 +191,14 @@ public class Menu {
 			menu[0] = new PVector(0, DISTANCE);
 			menu[0].rotate(drehung);
 			menu[0].add(position);
-			graphics.fill(20, 50, 20);
+//			graphics.fill(20, 50, 20);
+			graphics.fill(Color.CYAN.getRed(),Color.CYAN.getGreen(),Color.CYAN.getBlue());
 			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			graphics.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
 			drehung += drehungProUntermenue;
 			graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 			graphics.fill(255);
+
 			graphics.text(Ground.PRICE, 0, DISTANCE - 15);
 			graphics.resetMatrix();
 
@@ -195,7 +209,8 @@ public class Menu {
 			menu[1] = new PVector(0, DISTANCE);
 			menu[1].rotate(drehung);
 			menu[1].add(position);
-			graphics.fill(20, 20, 50);
+//			graphics.fill(20, 20, 50);
+			graphics.fill(Color.BLUE.getRed(),Color.BLUE.getGreen(),Color.BLUE.getBlue());
 			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 			vektoren1.add(new PVector(-4, DISTANCE - 4));
@@ -220,7 +235,8 @@ public class Menu {
 			menu[2] = new PVector(0, DISTANCE);
 			menu[2].rotate(drehung);
 			menu[2].add(position);
-			graphics.fill(50, 20, 20);
+//			graphics.fill(50, 20, 20);
+			graphics.fill(Color.MAGENTA.getRed(),Color.MAGENTA.getGreen(),Color.MAGENTA.getBlue());
 			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 			vektoren2.add(new PVector(0, DISTANCE - 8));
@@ -275,6 +291,9 @@ public class Menu {
 		 * here is the complete menu for a specific building
 		 */
 		if (buildingOpen) {
+			
+			graphics.textAlign(PApplet.CENTER);
+			graphics.textSize(12);
 			graphics.noFill();
 			graphics.stroke(255);
 			float drehung = 0f;
@@ -336,6 +355,11 @@ public class Menu {
 		}
 		
 		graphics.resetMatrix();
+		graphics.textAlign(PApplet.CORNER);
+	}
+
+	public String getActualBuildingName() {
+		return actualBuildingName;
 	}
 
 	/**
@@ -368,7 +392,7 @@ public class Menu {
 		if (this.menu[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			// System.out.println("Menue 1");
 			if (isEnoughCredits(Ground.PRICE)) {
-				creditsPlayer -= Ground.PRICE;
+				player.setCredits(player.getCredits()-Ground.PRICE);
 				setActualStatus(0);
 				setMenuOpen(false);
 				return true;
@@ -377,7 +401,7 @@ public class Menu {
 		if (this.menu[1].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			// System.out.println("Menue 2");
 			if (isEnoughCredits(Defence.PRICE)) {
-				creditsPlayer -= Defence.PRICE;
+				player.setCredits(player.getCredits()-Defence.PRICE);
 				setActualStatus(1);
 				setMenuOpen(false);
 				return true;
@@ -386,7 +410,7 @@ public class Menu {
 		if (this.menu[2].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			// System.out.println("Menue 3");
 			if (isEnoughCredits(Support.PRICE)) {
-				creditsPlayer -= Support.PRICE;
+				player.setCredits(player.getCredits()-Support.PRICE);
 				setActualStatus(2);
 				setMenuOpen(false);
 				return true;
@@ -441,7 +465,7 @@ public class Menu {
 	 *         looking if enough credits are there
 	 */
 	public boolean isEnoughCredits(int credits) {
-		if (creditsPlayer - credits >= 0) {
+		if (player.getCredits() - credits >= 0) {
 			return true;
 		}
 		return false;
@@ -456,8 +480,8 @@ public class Menu {
 	 *         looking if enough credits are there
 	 */
 	public void upgradeBuilding() {
-		if (creditsPlayer - getActualBuildingPrice(positionBuilding) >= 0 && actualBuilding.getLevel() != 3) {
-			creditsPlayer -= getActualBuildingPrice(positionBuilding);
+		if (player.getCredits() - getActualBuildingPrice(positionBuilding) >= 0 && actualBuilding.getLevel() != 3) {
+			player.setCredits(player.getCredits() - getActualBuildingPrice(positionBuilding));
 		}
 	}
 
@@ -591,15 +615,15 @@ public class Menu {
 			for (BaseUnit bu : buildings) {
 				if (bu.isInner(positionBuilding)) {
 					if (bu instanceof Building) {
-						setShowLoopingGifDestroy(true);
+//						setShowLoopingGifDestroy(true);
 						if (bu instanceof Defence) {
-							creditsPlayer += (Defence.PRICE * bu.getLevel()) / 2;
+							player.setCredits(player.getCredits() + (Defence.PRICE * bu.getLevel()) / 2);
 						}
 						if (bu instanceof Ground) {
-							creditsPlayer += (Ground.PRICE * bu.getLevel()) / 2;
+							player.setCredits(player.getCredits() + (Ground.PRICE * bu.getLevel()) / 2);
 						}
 						if (bu instanceof Support) {
-							creditsPlayer += (Support.PRICE * bu.getLevel()) / 2;
+							player.setCredits(player.getCredits() + (Support.PRICE * bu.getLevel()) / 2);
 						}
 					}
 				}
@@ -629,8 +653,10 @@ public class Menu {
 	 */
 	public int getActualBuildingCount() {
 		actualBuildingCount = 0;
+		//TODO funzt net richtig, zeigt Globale anzahl an Geböude an!
 		for (BaseUnit building : buildings) {
 			// if a building is clicked
+			if(building instanceof Building)
 			actualBuildingCount++;
 		}
 		return actualBuildingCount;
@@ -680,13 +706,13 @@ public class Menu {
 		this.positionBuilding = positionBuilding;
 	}
 
-	public boolean isShowLoopingGifDestroy() {
-		return showLoopingGifDestroy;
-	}
-
-	public void setShowLoopingGifDestroy(boolean showLoopingGifDestroy) {
-		this.showLoopingGifDestroy = showLoopingGifDestroy;
-	}
+//	public boolean isShowLoopingGifDestroy() {
+//		return showLoopingGifDestroy;
+//	}
+//
+//	public void setShowLoopingGifDestroy(boolean showLoopingGifDestroy) {
+//		this.showLoopingGifDestroy = showLoopingGifDestroy;
+//	}
 	
 	
 	

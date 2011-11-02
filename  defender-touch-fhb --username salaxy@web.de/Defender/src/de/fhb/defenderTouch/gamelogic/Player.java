@@ -27,6 +27,16 @@ public class Player {
 	
 	private Color unitColor;
 	
+	private int credits=500;
+	
+	public int getCredits() {
+		return credits;
+	}
+
+	public void setCredits(int credits) {
+		this.credits = credits;
+	}
+
 	/**
 	 * Liste der aktivierten Units
 	 */
@@ -104,6 +114,12 @@ public class Player {
 	public float getGeneralAngle() {
 		return generalAngle;
 	}
+	
+//	public void addCredits(int credits){
+//		if(this.credits>0){
+//			
+//		}
+//	}
 
 
 }

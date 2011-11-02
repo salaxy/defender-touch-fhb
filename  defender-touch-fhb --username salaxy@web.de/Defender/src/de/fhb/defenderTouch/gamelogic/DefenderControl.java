@@ -68,11 +68,11 @@ public class DefenderControl {
 		
 		
 		//Menue init//TODO gifanimation
-		menuePlayerOne = new Menu(this.globalUnits, nonLoopingGifDestroy);
-		menuePlayerTwo = new Menu(this.globalUnits, nonLoopingGifDestroy);
+		menuePlayerOne = new Menu(this.globalUnits, nonLoopingGifDestroy,playerOne);
+		menuePlayerTwo = new Menu(this.globalUnits, nonLoopingGifDestroy,playerTwo);
 		
 		
-//		this.playBackgroundSound();
+		this.playBackgroundSound();
 
 	}
 
@@ -127,6 +127,14 @@ public class DefenderControl {
 		//menue zeichen fuer player one
 		this.menuePlayerOne.drawMenu(this.screenLeft, this.playerOne);
 		
+		//creditsinfo zeichnen
+		screenLeft.textSize(20f);
+		screenLeft.fill(0);
+		screenLeft.rotate(PApplet.HALF_PI);
+		screenLeft.text("Credits: " + playerOne.getCredits(), 20, -15);
+//		screenLeft.text("Aktuelles Gebäude: " + menuePlayerOne.getActualBuildingName(), 350, -15);
+		screenLeft.text("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 300, -15);
+		
 		screenLeft.endDraw();
 
 
@@ -153,6 +161,15 @@ public class DefenderControl {
 		
 		//menue zeichen fuer playerTwo
 		this.menuePlayerTwo.drawMenu(this.screenRight, this.playerTwo);
+		
+		//creditsinfo zeichnen
+		screenRight.textSize(20f);
+		screenRight.fill(0);
+		screenRight.translate(510, 768);
+		screenRight.rotate(-PApplet.HALF_PI);
+		screenRight.text("Credits: " + playerTwo.getCredits(), 20, -15);
+//		screenRight.text("Aktuelles Gebäude: " + menuePlayerTwo.getActualBuildingName(), 350, -15);
+		screenRight.text("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 300, -15);
 		
 		
 		screenRight.endDraw();

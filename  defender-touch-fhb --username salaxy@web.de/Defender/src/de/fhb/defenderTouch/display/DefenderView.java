@@ -51,6 +51,7 @@ public class DefenderView extends PApplet {
 
 		
 		
+		
 	//Screens links und rechts initialisieren
 	screenLeft = createGraphics(510, 768, JAVA2D);
 	screenRight = createGraphics(510, 768, JAVA2D);	
@@ -103,7 +104,7 @@ public class DefenderView extends PApplet {
 	  
 
 	  
-	  
+
 	  
 	  
 	  //kantenglättung aktivieren
@@ -256,9 +257,9 @@ public class DefenderView extends PApplet {
     	//Klickvektor holen
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
     	
-    	this.unitControl(clickVector);
+//    	this.unitControl(clickVector);
 		
-//		this.menueControl(clickVector);
+		this.menueControl(clickVector);
     	
     }
     
