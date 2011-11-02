@@ -8,8 +8,9 @@ import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
-import de.fhb.defenderTouch.gamelogic.Player;
+import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.interfaces.Drawable;
+import de.fhb.defenderTouch.oldMapConcept.Player;
 
 /**
  * BaseUnit Version 0.5 vom 23.10.2011
@@ -694,20 +695,9 @@ public class BaseUnit implements Drawable {
 	 */
 	private void calcDrawPosition(Player player,PGraphics graphics){
 
-		//Berechnung des neuen Koordinaten Ursprungs Vektors
-		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
-		drawPosition.rotate(player.getGeneralAngle());
-		drawPosition.add(player.getOriginPosition());
+		GraphicTools.calcDrawTransformation( player, graphics, position);
 		
-		//Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
-		graphics.translate(drawPosition.x, +drawPosition.y);		
-		graphics.scale(player.getActualZoom());	
-		graphics.rotate(player.getGeneralAngle());//nötig???
-		
-		//zeichne an Position im Verhältnis zu gesamt Transformation
-		graphics.translate(position.x, +position.y);	
-		
-		//eigendrehung hinzu
+		//eigendrehung hinzurechnen
 		graphics.rotate(this.actualAngle);
 	}
 	
