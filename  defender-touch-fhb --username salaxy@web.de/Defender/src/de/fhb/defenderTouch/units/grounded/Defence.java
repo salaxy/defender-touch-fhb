@@ -32,7 +32,7 @@ public class Defence extends Building{
 			break;
 		}
 
-		this.entscheideLineFarbe(graphics);
+//		this.entscheideLineFarbe(graphics);
 		graphics.scale(2);
 		graphics.rotate((float)Math.PI);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
@@ -54,5 +54,6 @@ public class Defence extends Building{
 		graphics.stroke(0);
 		
 	}
+	
 
 }

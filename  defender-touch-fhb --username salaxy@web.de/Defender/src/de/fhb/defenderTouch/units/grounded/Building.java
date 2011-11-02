@@ -1,6 +1,7 @@
 package de.fhb.defenderTouch.units.grounded;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
@@ -37,19 +38,12 @@ public class Building extends BaseUnit {
 		this.movementSpeed = 0.5f;
 	}
 
-	// public void calcNewPosition(){
-	// //wenn aktuelle position nicht nahe herankommt an ziel, dann weiter
-	// bewegen
-	// if(position.dist(destinationVector)>3){
-	// //Richtugnsvector berechnen
-	// direction=position.sub( destinationVector, position);
-	// //richtungsvector normieren
-	// direction.normalize();
-	// //normierten Richtungsvector zur position hinzurechnen
-	// position.add(direction.mult(direction, movementSpeed));
-	// //zeichne Schweif
-	// drawTail(direction, pa);
-	// }
-	// }
+	 public void calcNewPosition(){
+
+	 }
+	 
+	public void commandDestination(PVector dest) {
+
+	}
 
 }

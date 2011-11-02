@@ -1,6 +1,10 @@
 package de.fhb.defenderTouch.gamelogic;
 
+import java.awt.Color;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import processing.core.PVector;
+import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 public class Player {
 	
@@ -21,9 +25,16 @@ public class Player {
 	public static final int RIGHT=0;
 	public static final int LEFT=1;
 	
+	private Color unitColor;
+	
+	/**
+	 * Liste der aktivierten Units
+	 */
+	private CopyOnWriteArrayList<BaseUnit> activeUnits;
+	
 //	private DefenderControl gamelogic;
 
-	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPositionInScreen,int side,PVector viewPosition, PVector screenPosition){
+	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPositionInScreen,int side,PVector viewPosition, PVector screenPosition,Color unitColor){
 		this.generalAngle=generalAngle;
 		this.actualZoom=actualZoom;
 		this.originPositionInScreen=originPositionInScreen;
@@ -31,6 +42,12 @@ public class Player {
 //		this.gamelogic=gamelogic;			
 		this.side=side;
 		this.viewPosition=viewPosition;
+		activeUnits= new CopyOnWriteArrayList<BaseUnit>();
+		this.unitColor=unitColor;
+	}
+
+	public Color getUnitColor() {
+		return unitColor;
 	}
 
 	public PVector getScreenPosition() {
@@ -43,6 +60,10 @@ public class Player {
 		}else{
 			return false;	
 		}
+	}
+
+	public CopyOnWriteArrayList<BaseUnit> getActiveUnits() {
+		return activeUnits;
 	}
 
 	public boolean isLeft() {

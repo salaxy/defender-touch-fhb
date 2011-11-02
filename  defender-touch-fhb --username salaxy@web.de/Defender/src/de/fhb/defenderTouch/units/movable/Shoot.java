@@ -48,7 +48,7 @@ public class Shoot extends BaseUnit {
 	//	GraphicTools.zeicheFigurNachVektoren(vektoren,graphics);
 		
 		graphics.resetMatrix();
-		graphics.stroke(0);
+//		graphics.stroke(0);
 		
 	}
 	

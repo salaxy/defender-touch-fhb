@@ -256,9 +256,9 @@ public class DefenderView extends PApplet {
     	//Klickvektor holen
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
     	
-//    	this.unitControl(clickVector);
+    	this.unitControl(clickVector);
 		
-		this.menueControl(clickVector);
+//		this.menueControl(clickVector);
     	
     }
     
@@ -298,6 +298,8 @@ public class DefenderView extends PApplet {
 				//wenn eine unit aktiviert wird dann die anderen deaktiveren
 				if(u.getPlayerID()==DefenderControl.PLAYER_TWO && u.isInner(realClickKoordinates)){	
 					u.activate();
+					//merken
+					gamelogic.getPlayerTwo().getActiveUnits().add(u);
 				}
 			}
 
@@ -326,11 +328,16 @@ public class DefenderView extends PApplet {
 					
 					if(!weitereAktivierung){
 						//bewegung anweisen wenn kein angriff
-						if(!istAngriff){	
-							u.commandDestination(realClickKoordinates);
+						if(!istAngriff){
+							for(BaseUnit activeUnit: gamelogic.getPlayerTwo().getActiveUnits()){
+								activeUnit.commandDestination(realClickKoordinates);								
+							}
+
 						}else{
 							//falls angriff dann Angriff anweisen
-							u.attack(destinationUnit);
+							for(BaseUnit activeUnit: gamelogic.getPlayerTwo().getActiveUnits()){
+								activeUnit.attack(destinationUnit);								
+							}
 						}
 					}
 
@@ -342,8 +349,9 @@ public class DefenderView extends PApplet {
 		if(this.mouseButton==RIGHT){
 
 			
-			for(BaseUnit u: gamelogic.getGlobalUnits()){
+			for(BaseUnit u: gamelogic.getPlayerTwo().getActiveUnits()){
 				u.deactivate();
+				gamelogic.getPlayerTwo().getActiveUnits().remove(u);
 			}
 		}
 			
@@ -367,6 +375,8 @@ public class DefenderView extends PApplet {
 				//wenn eine unit aktiviert wird dann die anderen deaktiveren
 				if(u.getPlayerID()==DefenderControl.PLAYER_ONE && u.isInner(realClickKoordinates)){	
 					u.activate();
+					//merken
+					gamelogic.getPlayerOne().getActiveUnits().add(u);
 				}
 			}
 
@@ -396,11 +406,16 @@ public class DefenderView extends PApplet {
 					
 					if(!weitereAktivierung){
 						//bewegung anweisen wenn kein angriff
-						if(!istAngriff){	
-							u.commandDestination(realClickKoordinates);
+						if(!istAngriff){
+							for(BaseUnit activeUnit: gamelogic.getPlayerOne().getActiveUnits()){
+								activeUnit.commandDestination(realClickKoordinates);								
+							}
+
 						}else{
 							//falls angriff dann Angriff anweisen
-							u.attack(destinationUnit);
+							for(BaseUnit activeUnit: gamelogic.getPlayerOne().getActiveUnits()){
+								activeUnit.attack(destinationUnit);								
+							}
 						}
 					}
 
@@ -412,8 +427,9 @@ public class DefenderView extends PApplet {
 		if(this.mouseButton==RIGHT){
 
 			
-			for(BaseUnit u: gamelogic.getGlobalUnits()){
+			for(BaseUnit u: gamelogic.getPlayerOne().getActiveUnits()){
 				u.deactivate();
+				gamelogic.getPlayerOne().getActiveUnits().remove(u);
 			}
 		}
 			

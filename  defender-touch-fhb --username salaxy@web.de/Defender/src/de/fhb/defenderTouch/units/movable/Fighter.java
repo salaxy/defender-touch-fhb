@@ -24,7 +24,7 @@ public class Fighter extends BaseUnit {
 //		graphics.stroke(0);
 //		graphics.strokeWeight(10);
 //		graphics.fill(0);
-		this.entscheideLineFarbe(graphics);
+//		this.entscheideLineFarbe(graphics);
 		graphics.scale(2);
 //		graphics.triangle(-20,+20, 0, -20, +20, +20);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
@@ -41,7 +41,7 @@ public class Fighter extends BaseUnit {
 		GraphicTools.zeicheFigurNachVektoren(vektoren,graphics);
 		
 		graphics.resetMatrix();
-		graphics.stroke(0);
+//		graphics.stroke(0);
 		
 	}
 	

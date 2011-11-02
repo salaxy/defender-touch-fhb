@@ -18,7 +18,7 @@ import de.fhb.defenderTouch.interfaces.Drawable;
  * @author Andy Klay <klay@fh-brandenburg.de>
  * 
  */
-public class BaseUnit implements Drawable {
+public class BaseUnit {
 
 	private DefenderControl gamelogic;
 
@@ -193,57 +193,85 @@ public class BaseUnit implements Drawable {
 		}
 	}
 
+
 	/**
 	 * zeichnet die Einheit, wird je Frame 1 mal aufgerufen!
+	 * @param player
+	 * @param graphics
+	 * @param focus - wird Unit Aktiv gezeichnet oder nicht
 	 */
-	public void paint(Player player, PGraphics graphics) {
+	public void paint(Player player, PGraphics graphics,boolean drawActive) {
 
 		//Umrechnung auf Spielersicht	
 		//Transformationen
 		calcDrawPosition(player, graphics);
 
-
-		
-//		if (darfGezeichnetWerden( drawPosition, player)){
 			
-	
-		
-		// entscheide ueber erscheinungsbild
-		switch (mode) {
-		case MODE_ROTATE:
-			this.drawRotateAppearance(player, graphics);
-			break;
-		case MODE_PULSE:
-			this.drawPulseAppearance(player, graphics);
-			break;
-		case MODE_ROTATE_AND_PULSE:
-			this.drawRotateAndPulseAppearance(player, graphics);
-			this.drawHalo(player, graphics);
-			break;
-		case MODE_HALO:
-			this.drawHalo(player, graphics);
-			this.drawNormalAppearance(player, graphics);
-			break;
-		case MODE_NORMAL:
-			this.drawNormalAppearance(player, graphics);
-			break;
-		case MODE_PULSE_IF_ACTIVE:
-			this.drawPulseIfActive(player, graphics);
-			break;
+		if(drawActive){
+			
+			drawActiveAppearance( player,  graphics);
+			
+			// zeichne Schweif wenn in bewegung
+			if(this.isMoving){
+				drawTail(player, graphics);			
+			}
+			
+		}else{
+			
+			// entscheide ueber erscheinungsbild
+			switch (mode) {
+			case MODE_ROTATE:
+				this.drawRotateAppearance(player, graphics);
+				break;
+			case MODE_PULSE:
+				this.drawPulseAppearance(player, graphics);
+				break;
+			case MODE_ROTATE_AND_PULSE:
+				this.drawRotateAndPulseAppearance(player, graphics);
+				this.drawHalo(player, graphics);
+				break;
+			case MODE_HALO:
+				this.drawHalo(player, graphics);
+				this.drawNormalAppearance(player, graphics);
+				break;
+			case MODE_NORMAL:
+				this.drawNormalAppearance(player, graphics);
+				break;
+			case MODE_PULSE_IF_ACTIVE:
+				this.drawPulseIfActive(player, graphics);
+				break;
+			}		
+			
+			// zeichne Schweif wenn in bewegung
+			if(this.isMoving){
+				drawTail(player, graphics);			
+			}			
+			
+			
 		}
-
 		
-		// zeichne Schweif wenn in bewegung
-		if(this.isMoving){
-			drawTail(player, graphics);			
-		}
-
 		
 		// zurücksetzen der Umgebung, Seiteneffekte vermeiden
-		// TODO hier eigentlich unnötig
 		graphics.resetMatrix();
-//		}
+		
 	}
+	
+	/**
+	 * Zeichne Figur im Aktiven Zustand
+	 * @param player
+	 * @param graphics
+	 */
+	public void drawActiveAppearance(Player player, PGraphics graphics) {
+	
+
+		graphics.fill(0);
+		graphics.stroke(255, 0, 0);
+		graphics.fill(255, 0, 0);
+		this.drawFigure(graphics);
+		graphics.resetMatrix();
+		
+	}
+	
 
 	/**
 	 * zeichne Figur im Normalen Zustand
@@ -253,11 +281,26 @@ public class BaseUnit implements Drawable {
 	protected void drawNormalAppearance(Player player, PGraphics graphics) {
 			
 		//Umrechnung auf Spielersicht
-		//Umrechnung/Transformation nun bereits in this.paint() drin
+		//Umrechnung/Transformation nun bereits in this.paint() drin		
 		
-		//zeichne
-		graphics.fill(0);
 		this.entscheideFarbe( graphics);
+		this.entscheideLineFarbe(graphics);	
+		
+		if(this.playerID==DefenderControl.PLAYER_ONE){
+			Player p = this.gamelogic.getPlayerOne();
+			Color unitColor=p.getUnitColor();
+			graphics.stroke(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
+			graphics.fill(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());	
+		}
+
+		if(this.playerID==DefenderControl.PLAYER_TWO){
+			Player p = this.gamelogic.getPlayerTwo();
+			Color unitColor=p.getUnitColor();
+			graphics.stroke(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
+			graphics.fill(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());	
+		}
+		
+		
 		this.drawFigure(graphics);
 		graphics.resetMatrix();
 	}
@@ -531,7 +574,7 @@ public class BaseUnit implements Drawable {
 
 
 		// linien in schwarz zeichnen
-		graphics.stroke(0);
+//		graphics.stroke(0);
 
 		graphics.line(0, 0, ende.x / 2, ende.y / 2);
 		graphics.line(1, 1, ende.x / 2, ende.y / 2);

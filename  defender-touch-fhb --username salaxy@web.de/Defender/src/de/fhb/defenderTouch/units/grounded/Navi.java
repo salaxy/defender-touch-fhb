@@ -20,7 +20,7 @@ public class Navi extends Building{
 	public void drawFigure(PGraphics graphics){
 		
 
-		this.entscheideLineFarbe( graphics);
+//		this.entscheideLineFarbe( graphics);
 		graphics.scale(2);
 		graphics.rotate((float)Math.PI);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
@@ -37,5 +37,7 @@ public class Navi extends Building{
 		graphics.stroke(0);
 		
 	}
+	
+
 
 }
