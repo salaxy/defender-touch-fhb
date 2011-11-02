@@ -10,7 +10,6 @@ import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.menu.Menu;
-import de.fhb.defenderTouch.oldMapConcept.Player;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 /**
