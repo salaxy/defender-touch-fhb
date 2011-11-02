@@ -13,6 +13,7 @@ import TUIO.TuioPoint;
 import TUIO.TuioProcessing;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.menu.Menu;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
@@ -252,9 +253,8 @@ public class DefenderView extends PApplet {
     
     
     public void mouseClicked(){
+    	//Klickvektor holen
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
-
-
     	
 //    	this.unitControl(clickVector);
 		
@@ -265,41 +265,31 @@ public class DefenderView extends PApplet {
     
     
     
-    
-    //speziell fuer SPIELER 2
-    //mausclick ueberschreiben
+    //Einheiten Kontrolle
     public void unitControl(PVector clickVector){
-//    	PVector clickVector=new PVector(this.mouseX,this.mouseY);
+    	
+		//wenn aktion im steuerbarenbereich
+		if(isInUsableInputarea(clickVector)){
+			
+			//wenn bei Spielr Zwei
+			if (clickVector.x > 512) {  		
+	     		this.unitControlRightSide(clickVector);  
+			} else{
+	     		this.unitControlLeftSide(clickVector);  
+			}
 
-    	
-    	
-    	if(clickVector.x>512){
-    		this.clickRightSide(clickVector);
-    	}else{
-     		this.clickLeftSide(clickVector);   		
-    	}
+		}
     }
     
     
-    //PlayerTwo
-    public void clickRightSide(PVector clickVector){
+    //Einheiten Kontrolle Spieler Zwei
+    public void unitControlRightSide(PVector clickVector){
     	boolean weitereAktivierung=false;
 	    boolean istAngriff=false;
 	    BaseUnit destinationUnit=null;
 	    
 	    //Klickvektor zurück rechnen auf spielkoordinaten
-		//***********************
-		PVector realClickKoordinates=clickVector.get();
-//		System.out.println(" Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-		realClickKoordinates.sub(gamelogic.getPlayerTwo().getOriginPosition());
-		realClickKoordinates.sub(new PVector(515f, 0f));//(ist dort wo das PGRaphics gezeichnet)//Korektur!!!Platzhalter
-		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerTwo().getGeneralAngle());
-		realClickKoordinates.sub(gamelogic.getPlayerTwo().getViewPosition());
-		realClickKoordinates.mult(1/gamelogic.getPlayerTwo().getActualZoom());		
-		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-		//***************************
-
-
+		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, gamelogic.getPlayerTwo());
 
 
     	if(this.mouseButton==LEFT){    	
@@ -360,24 +350,15 @@ public class DefenderView extends PApplet {
     	
     }
     
-    //PlayerOne
-    public void clickLeftSide(PVector clickVector){
+    //Einheiten Kontrolle Spieler Eins
+    public void unitControlLeftSide(PVector clickVector){
     	
     	boolean weitereAktivierung=false;
 	    boolean istAngriff=false;
 	    BaseUnit destinationUnit=null;
 	    
 	    //Klickvektor zurück rechnen auf spielkoordinaten
-		//***********************
-		PVector realClickKoordinates=clickVector.get();		
-//		System.out.println(" Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-		realClickKoordinates.sub(gamelogic.getPlayerOne().getOriginPosition());
-		realClickKoordinates.sub(new PVector(0f, 0f));//(ist dort wo das PGRaphics gezeichnet)//Korektur!!!Platzhalter
-		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerOne().getGeneralAngle());
-		realClickKoordinates.sub(gamelogic.getPlayerOne().getViewPosition());
-		realClickKoordinates.mult(1/gamelogic.getPlayerOne().getActualZoom());
-		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-		//***********************
+		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, gamelogic.getPlayerOne());
 	    
 	    
     	if(this.mouseButton==LEFT){    	
@@ -463,34 +444,43 @@ public class DefenderView extends PApplet {
     
     
     
-	/** override mouseclick */
+	/**
+	 * wertet die Menueaktionen aus
+	 * @param clickVector
+	 */
 	public void menueControl(PVector clickVector) {
-//		PVector clickVector = new PVector(this.mouseX, this.mouseY);
-		Menu menu=this.gamelogic.getMenu();
 		
+		//menue welches aufgerufen wird
+		Menu menu=null;
+		PVector realClickKoordinates= null;
 		
-	    //Klickvektor zurück rechnen auf spielkoordinaten
-		//***********************
-		PVector realClickKoordinates=clickVector.get();		
-//		System.out.println(" Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-		realClickKoordinates.sub(gamelogic.getPlayerOne().getOriginPosition());
-		realClickKoordinates.sub(new PVector(0f, 0f));//(ist dort wo das PGRaphics gezeichnet)//Korektur!!!Platzhalter
-		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerOne().getGeneralAngle());
-		realClickKoordinates.sub(gamelogic.getPlayerOne().getViewPosition());
-		realClickKoordinates.mult(1/gamelogic.getPlayerOne().getActualZoom());
-		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-		//***********************
 	    
-		
-		
+		//wenn aktion im steuerbarenbereich
+		if(isInUsableInputarea(clickVector)){
+			
+			//wenn bei Spielr Zwei
+			if (clickVector.x > 512) {  		
+				//menue aus der Hauptlogik holen
+				menu=this.gamelogic.getMenuePlayerTwo();	
+				//spielkartenvektor berechnen
+				realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.gamelogic.getPlayerTwo());
+			} else{
+				//wenn bei Spieler Eins
+				//menue aus der Hauptlogik holen
+				menu=this.gamelogic.getMenuePlayerOne();
+				//spielkartenvektor berechnen
+				realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.gamelogic.getPlayerOne());
+			}
 
-
-		if (this.mouseButton == LEFT) {
-			openMenue(realClickKoordinates);
-		}
-
-		if (this.mouseButton == RIGHT) {
-			closeMenue(realClickKoordinates);
+			if (this.mouseButton == LEFT) {
+				//menue oeffnen
+				openMenue(realClickKoordinates, menu);
+			}
+	
+			if (this.mouseButton == RIGHT) {
+				//menue schliessen
+				closeMenue(realClickKoordinates, menu);
+			}
 		}
 	}
 	
@@ -498,11 +488,9 @@ public class DefenderView extends PApplet {
 	 * Methode die aufgerufen werden soll wenn das menue(Bau/Gebauedemenue) geöffnet werden soll
 	 * 
 	 * @param realClickKoordinates - map koordinaten des Klicks
+	 * @param menu - menu welches geoeffnet werden soll
 	 */
-	private void openMenue(PVector realClickKoordinates){
-		
-		//menue aus der Hauptlogik holen
-		Menu menu=this.gamelogic.getMenu();
+	private void openMenue(PVector realClickKoordinates, Menu menu){	
 		
 		if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
 			menu.setPosition(realClickKoordinates);
@@ -560,11 +548,9 @@ public class DefenderView extends PApplet {
 	 * Methode die aufgerufen werden soll wenn das menue(Bau/Gebauedemenue) geschlossen werden soll
 	 * 
 	 * @param realClickKoordinates - map koordinaten des Klicks
+	 * @param menu - menu welches geschlossen werden soll
 	 */
-	private void closeMenue(PVector realClickKoordinates){
-		
-		//menue aus der Hauptlogik holen
-		Menu menu=this.gamelogic.getMenu();
+	private void closeMenue(PVector realClickKoordinates, Menu menu){
 		
 		// CLOSES MENU
 		if (menu.isMenuOpen() && menu.isInnerMainElement(realClickKoordinates)) {
@@ -579,5 +565,15 @@ public class DefenderView extends PApplet {
 		}
 	}
 	
+	
+	/**
+	 * Gibt true zurueck wenn Klickvektor im Steuerbaren bereich
+	 * @param clickVector
+	 * @return
+	 */
+	private boolean isInUsableInputarea(PVector clickVector){
+		
+		return clickVector.x > 522|| clickVector.x < 502;
+	}
     
 }

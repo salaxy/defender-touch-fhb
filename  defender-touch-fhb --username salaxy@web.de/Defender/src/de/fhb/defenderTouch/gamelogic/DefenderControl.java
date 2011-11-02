@@ -48,14 +48,15 @@ public class DefenderControl {
 	private PGraphics screenLeft, screenRight;
 	
 	
-	private Menu menu;
+	private Menu menuePlayerOne;
+	private Menu menuePlayerTwo;
 	private Gif nonLoopingGifDestroy;
 
 	private DefenderControl(PApplet display,PGraphics screenLeft,PGraphics screenRight) {
 		
 		//die beiden Spieler initialisieren
-		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f));
-		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f));
+		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f),SCREENLEFT_POSITION);
+		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION);
 		
 		this.display = display;
 		globalUnits = new CopyOnWriteArrayList<BaseUnit>();
@@ -65,8 +66,9 @@ public class DefenderControl {
 		this.screenRight = screenRight;
 		
 		
-		//Menue init//TODO vorerst wird nur links gezeichnet
-		menu = new Menu(this.globalUnits, nonLoopingGifDestroy);
+		//Menue init//TODO gifanimation
+		menuePlayerOne = new Menu(this.globalUnits, nonLoopingGifDestroy);
+		menuePlayerTwo = new Menu(this.globalUnits, nonLoopingGifDestroy);
 		
 		
 //		this.playBackgroundSound();
@@ -106,19 +108,17 @@ public class DefenderControl {
 		screenLeft.rectMode(PGraphics.CENTER);
 		screenLeft.background(255f);
 		
-
-		
 		//Feld zeichnen
 		this.zeichneRahmen(screenLeft, playerOne);		
 		
-		//menue zeichen fuer player one
-		this.menu.drawMenu(this.screenLeft, this.playerOne);
-		
+
+		//units playerOne zeichen
 		for (BaseUnit unit : globalUnits) {
 			unit.paint(this.playerOne, screenLeft);
 		}
 		
-
+		//menue zeichen fuer player one
+		this.menuePlayerOne.drawMenu(this.screenLeft, this.playerOne);
 		
 		screenLeft.endDraw();
 
@@ -133,10 +133,14 @@ public class DefenderControl {
 		//Feld zeichnen
 		zeichneRahmen(screenRight, playerTwo);
 		
-		
+		//units playerTwo zeichnen
 		for (BaseUnit unit : globalUnits) {
 			unit.paint(this.playerTwo, screenRight);
 		}
+		
+		//menue zeichen fuer playerTwo
+		this.menuePlayerTwo.drawMenu(this.screenRight, this.playerTwo);
+		
 		
 		screenRight.endDraw();
 
@@ -153,21 +157,13 @@ public class DefenderControl {
 		display.line(513f, 0f, 513f, 768f);
 	}
 
-	
-
-
-	
-	public Menu getMenu() {
-		return menu;
-	}
-
 	public void zeichneRahmen(PGraphics display, Player player){
 		
 		//Feldumrandung zeichnen
 		//*******************************************
 		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
 		drawPosition.rotate(player.getGeneralAngle());
-		drawPosition.add(player.getOriginPosition());
+		drawPosition.add(player.getOriginPositionInScreen());
 		
 		//Transformationen		
 		display.translate(drawPosition.x, +drawPosition.y);		
@@ -175,12 +171,21 @@ public class DefenderControl {
 		display.rotate(player.getGeneralAngle());
 		
 		display.fill(255, 255, 0,55);
+		display.stroke(0, 0, 0);
 		display.rect(512f, 384f, 1024, 768);
 		
 		display.resetMatrix();
 		
 	}
 	
+
+	public Menu getMenuePlayerOne() {
+		return menuePlayerOne;
+	}
+
+	public Menu getMenuePlayerTwo() {
+		return menuePlayerTwo;
+	}
 
 	public Player getPlayerOne() {
 		return playerOne;
