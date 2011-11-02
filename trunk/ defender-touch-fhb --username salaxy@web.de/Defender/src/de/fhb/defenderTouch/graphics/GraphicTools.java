@@ -10,43 +10,11 @@ import de.fhb.defenderTouch.gamelogic.Player;
 
 public class GraphicTools {
 
-	
-    /**
-     * hilfsmethode zum Zeichnen von Figuren nach einer collection Vektoren
-     */
-	public static void zeicheFigurNachVektoren(List<PVector>liste, PApplet pa){
-		PVector firstPoint=null;
-		PVector actualPoint=null;
-		PVector leastPoint=null;
-		int num=0;
-		
-		//alle punkte durchlaufen
-		for(Iterator<PVector> i=liste.iterator();i.hasNext();){
-			//aktuellen punkt holen
-			actualPoint=i.next();
-			
-			//wenn nicht erster punkt dann zeichen linen zwischen ersten und 
-			if(num>0){
-				pa.line(leastPoint.x, leastPoint.y, actualPoint.x, actualPoint.y);								
-			}else{
-				firstPoint=actualPoint;				
-			}
-				num++;	
-				
-				leastPoint=actualPoint;
-		}
-		
-//		if(actualPoint!=null&&firstPoint!=null){
-//			pa.line(actualPoint.x, actualPoint.y, firstPoint.x, firstPoint.y);		
-//		}
-		
-	}
-	
-	
+//	
 //    /**
 //     * hilfsmethode zum Zeichnen von Figuren nach einer collection Vektoren
 //     */
-//	public static void zeicheFigurNachVektoren(List<PVector>liste, PGraphics pa){
+//	public static void zeicheFigurNachVektoren(List<PVector>liste, PApplet pa){
 //		PVector firstPoint=null;
 //		PVector actualPoint=null;
 //		PVector leastPoint=null;
@@ -67,10 +35,6 @@ public class GraphicTools {
 //				
 //				leastPoint=actualPoint;
 //		}
-//		
-////		if(actualPoint!=null&&firstPoint!=null){
-////			pa.line(actualPoint.x, actualPoint.y, firstPoint.x, firstPoint.y);		
-////		}
 //		
 //	}
 	
@@ -100,10 +64,6 @@ public class GraphicTools {
 				leastPoint=actualPoint;
 		}
 		
-//		if(actualPoint!=null&&firstPoint!=null){
-//			pa.line(actualPoint.x, actualPoint.y, firstPoint.x, firstPoint.y);		
-//		}
-		
 	}
 	
 	
@@ -119,7 +79,7 @@ public class GraphicTools {
 		//Berechnung des neuen Koordinaten Ursprungs Vektors
 		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
 		drawPosition.rotate(player.getGeneralAngle());
-		drawPosition.add(player.getOriginPosition());
+		drawPosition.add(player.getOriginPositionInScreen());
 		
 		//Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
 		graphics.translate(drawPosition.x, +drawPosition.y);		
@@ -134,16 +94,14 @@ public class GraphicTools {
 	public static PVector calcInputVector(PVector clickVector, Player player){
 		
 	    //Klickvektor zurück rechnen auf spielkoordinaten
-		//***********************
 		PVector realClickKoordinates=clickVector.get();		
 		System.out.println("originalclick on Screen at: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-		realClickKoordinates.sub(player.getOriginPosition());
-		realClickKoordinates.sub(new PVector(0f, 0f));//(ist dort wo das PGRaphics gezeichnet)//Korektur!!!Platzhalter
+		realClickKoordinates.sub(player.getOriginPositionInScreen());
+		realClickKoordinates.sub(player.getScreenPosition());//(ist dort wo das PGRaphics gezeichnet)
 		realClickKoordinates.rotate(PApplet.TWO_PI-player.getGeneralAngle());
 		realClickKoordinates.sub(player.getViewPosition());
 		realClickKoordinates.mult(1/player.getActualZoom());
 		System.out.println("click on gamemap at: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-		//***********************
 		
 		return realClickKoordinates;
 		

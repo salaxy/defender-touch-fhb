@@ -6,7 +6,8 @@ public class Player {
 	
 	private float generalAngle;
 	
-	private PVector originPosition;
+	private PVector originPositionInScreen;
+	private PVector screenPosition;
 	
 	private float zoomMin=0.3f;
 	private float zoomMax=3.0f;
@@ -22,13 +23,18 @@ public class Player {
 	
 //	private DefenderControl gamelogic;
 
-	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPosition,int side,PVector viewPosition){
+	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPositionInScreen,int side,PVector viewPosition, PVector screenPosition){
 		this.generalAngle=generalAngle;
 		this.actualZoom=actualZoom;
-		this.originPosition=originPosition;
+		this.originPositionInScreen=originPositionInScreen;
+		this.screenPosition=screenPosition;
 //		this.gamelogic=gamelogic;			
 		this.side=side;
 		this.viewPosition=viewPosition;
+	}
+
+	public PVector getScreenPosition() {
+		return screenPosition;
 	}
 
 	public boolean isRight() {
@@ -49,8 +55,8 @@ public class Player {
 	
 	
 	
-	public PVector getOriginPosition() {
-		return originPosition;
+	public PVector getOriginPositionInScreen() {
+		return originPositionInScreen;
 	}
 	
 	public PVector getViewPosition() {
