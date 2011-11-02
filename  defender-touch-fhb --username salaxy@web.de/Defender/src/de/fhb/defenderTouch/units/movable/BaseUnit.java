@@ -10,7 +10,6 @@ import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
-import de.fhb.defenderTouch.interfaces.Drawable;
 
 /**
  * BaseUnit Version 0.5 vom 23.10.2011
@@ -122,7 +121,7 @@ public class BaseUnit {
 	 * Farbe in der Einheit gezeichnet wird, wenn Einheit Aktiv ist, also
 	 * Einheit Steuerbar ist
 	 */
-	protected Color activeColor = Color.ORANGE;
+	protected Color activeColor = Color.RED;
 
 	/**
 	 * Farbe in der Einheit gezeichnet wird, wenn Einheit NICHT Aktiv ist
@@ -264,9 +263,8 @@ public class BaseUnit {
 	public void drawActiveAppearance(Player player, PGraphics graphics) {
 	
 
-		graphics.fill(0);
-		graphics.stroke(255, 0, 0);
-		graphics.fill(255, 0, 0);
+		graphics.stroke(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+		graphics.fill(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
 		this.drawFigure(graphics);
 		graphics.resetMatrix();
 		
@@ -281,24 +279,11 @@ public class BaseUnit {
 	protected void drawNormalAppearance(Player player, PGraphics graphics) {
 			
 		//Umrechnung auf Spielersicht
-		//Umrechnung/Transformation nun bereits in this.paint() drin		
+		//Umrechnung/Transformation nun bereits in this.paint() drin	
 		
-		this.entscheideFarbe( graphics);
-		this.entscheideLineFarbe(graphics);	
-		
-		if(this.playerID==DefenderControl.PLAYER_ONE){
-			Player p = this.gamelogic.getPlayerOne();
-			Color unitColor=p.getUnitColor();
-			graphics.stroke(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
-			graphics.fill(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());	
-		}
-
-		if(this.playerID==DefenderControl.PLAYER_TWO){
-			Player p = this.gamelogic.getPlayerTwo();
-			Color unitColor=p.getUnitColor();
-			graphics.stroke(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
-			graphics.fill(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());	
-		}
+		//farben setzen
+		this.entscheideFillFarbe(graphics);
+		this.entscheideLineFarbe(graphics);
 		
 		
 		this.drawFigure(graphics);
@@ -342,7 +327,8 @@ public class BaseUnit {
 		// skalieren
 		graphics.scale(pulseSkala[pulseStat]);
 
-		this.entscheideFarbe(graphics);
+//		this.entscheideFarbe(graphics);
+		this.entscheideFillFarbe(graphics);
 		this.drawFigure(graphics);
 
 		graphics.resetMatrix();
@@ -398,7 +384,7 @@ public class BaseUnit {
 		// skalieren
 		graphics.rotate(rotatingAngle);
 
-		this.entscheideFarbe(graphics);
+		this.entscheideFillFarbe(graphics);
 		this.drawFigure(graphics);
 
 		graphics.resetMatrix();
@@ -438,7 +424,7 @@ public class BaseUnit {
 		graphics.scale(pulseSkala[pulseStat]);
 
 		// gefuelllt zeichnen
-		this.entscheideFarbe( graphics);
+		this.entscheideFillFarbe( graphics);
 		this.drawFigure(graphics);
 
 		// Umgebung zurücksetzen
@@ -645,11 +631,26 @@ public class BaseUnit {
 	/**
 	 * setzt Füll-Farbe zum Zeichen nach Status der einheit
 	 */
-	protected void entscheideFarbe(PGraphics graphics) {
-		if (this.active) {
-			graphics.fill(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
-		} else {
-			graphics.fill(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
+	protected void entscheideFillFarbe(PGraphics graphics) {
+		
+		if(this.playerID==DefenderControl.PLAYER_SYSTEM){
+			if (this.active) {
+				graphics.fill(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+			} else {
+				graphics.fill(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
+			}		
+		}
+		
+		if(this.playerID==DefenderControl.PLAYER_ONE){
+			Player p = this.gamelogic.getPlayerOne();
+			Color unitColor=p.getUnitColor();
+			graphics.fill(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
+		}
+
+		if(this.playerID==DefenderControl.PLAYER_TWO){
+			Player p = this.gamelogic.getPlayerTwo();
+			Color unitColor=p.getUnitColor();
+			graphics.fill(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
 		}
 	}
 
@@ -657,12 +658,28 @@ public class BaseUnit {
 	 * setzt Linien-Farbe zum Zeichen nach Status der einheit
 	 */
 	protected void entscheideLineFarbe(PGraphics graphics) {
-		if (this.active) {
-			graphics.stroke(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
-		} else {
-			graphics.stroke(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
+		
+		if(this.playerID==DefenderControl.PLAYER_SYSTEM){
+			if (this.active) {
+				graphics.stroke(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+			} else {
+				graphics.stroke(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
+			}		
+		}
+		
+		if(this.playerID==DefenderControl.PLAYER_ONE){
+			Player p = this.gamelogic.getPlayerOne();
+			Color unitColor=p.getUnitColor();
+			graphics.stroke(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
+		}
+
+		if(this.playerID==DefenderControl.PLAYER_TWO){
+			Player p = this.gamelogic.getPlayerTwo();
+			Color unitColor=p.getUnitColor();
+			graphics.stroke(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
 		}
 	}
+	
 
 	/**
 	 * Berechnet Blickrichtung der Einheit nach dem Bewegungsvektor
@@ -743,34 +760,6 @@ public class BaseUnit {
 		//eigendrehung hinzurechnen
 		graphics.rotate(this.actualAngle);
 	}
-	
-	
-//	public boolean isInRight(PVector drawPosition){
-//		if( drawPosition.x>512){
-//			return true;
-//		}else{
-//			return false;
-//		}
-//	}
-//	
-//	public boolean isInLeft(PVector drawPosition){
-//		if( drawPosition.x<512){
-//			return true;
-//		}else{
-//			return false;
-//		}
-//	}
-//	
-//	public boolean darfGezeichnetWerden(PVector drawPosition, Player player){
-//
-//		if(player.isLeft()){
-//			return isInLeft( drawPosition);
-//		}else{
-//			return isInRight( drawPosition);
-//		}
-//		
-//		
-//	}
 	
 
 }
