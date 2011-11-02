@@ -147,8 +147,7 @@ public class Menu {
 //		graphics.text("Aktuelles Gebäude: " + actualBuildingName, 350, 15);
 //		graphics.text("Aktuelle Gebäudeanzahl: " + getActualBuildingCount(), 600, 15);
 		
-		calcDrawPosition(player , graphics );
-		
+//		calcDrawPosition(player , graphics );
 		
 		graphics.ellipseMode(PConstants.CENTER);
 		
@@ -173,7 +172,8 @@ public class Menu {
 			float drehung = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
 
-			graphics.translate(this.position.x, this.position.y);
+			calcDrawPosition(player , graphics );
+//			graphics.translate(this.position.x, this.position.y);
 			graphics.rotate(drehung);
 			menu[0] = new PVector(0, DISTANCE);
 			menu[0].rotate(drehung);
@@ -187,7 +187,8 @@ public class Menu {
 			graphics.text(Ground.PRICE, 0, DISTANCE - 15);
 			graphics.resetMatrix();
 
-			graphics.translate(this.position.x, this.position.y);
+			calcDrawPosition(player , graphics );
+//			graphics.translate(this.position.x, this.position.y);
 			graphics.rotate(drehung);
 			menu[1] = new PVector(0, DISTANCE);
 			menu[1].rotate(drehung);
@@ -210,7 +211,8 @@ public class Menu {
 			graphics.text(Defence.PRICE, 0, DISTANCE - 15);
 			graphics.resetMatrix();
 
-			graphics.translate(this.position.x, this.position.y);
+			calcDrawPosition(player , graphics );
+//			graphics.translate(this.position.x, this.position.y);
 			graphics.rotate(drehung);
 			menu[2] = new PVector(0, DISTANCE);
 			menu[2].rotate(drehung);
@@ -230,7 +232,8 @@ public class Menu {
 			graphics.text(Support.PRICE, 0, DISTANCE - 15);
 			graphics.resetMatrix();
 
-			graphics.translate(this.position.x, this.position.y);
+			calcDrawPosition(player , graphics );
+//			graphics.translate(this.position.x, this.position.y);
 			graphics.rotate(drehung);
 			menu[3] = new PVector(0, DISTANCE);
 			menu[3].rotate(drehung);
@@ -241,7 +244,8 @@ public class Menu {
 			drehung += drehungProUntermenue;
 			graphics.resetMatrix();
 
-			graphics.translate(this.position.x, this.position.y);
+			calcDrawPosition(player , graphics );
+//			graphics.translate(this.position.x, this.position.y);
 			graphics.rotate(drehung);
 			menu[4] = new PVector(0, DISTANCE);
 			menu[4].rotate(drehung);
@@ -250,7 +254,8 @@ public class Menu {
 			drehung += drehungProUntermenue;
 			graphics.resetMatrix();
 
-			graphics.translate(this.position.x, this.position.y);
+			calcDrawPosition(player , graphics );
+//			graphics.translate(this.position.x, this.position.y);
 			graphics.rotate(drehung);
 			menu[5] = new PVector(0, DISTANCE);
 			menu[5].rotate(drehung);
@@ -317,6 +322,8 @@ public class Menu {
 			graphics.text(getActualBuildingLevel(position), 0, 45);
 			graphics.resetMatrix();
 		}
+		
+		graphics.resetMatrix();
 	}
 
 	/**

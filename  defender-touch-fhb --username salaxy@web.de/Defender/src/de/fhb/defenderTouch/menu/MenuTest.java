@@ -55,7 +55,7 @@ public class MenuTest extends PApplet {
 		// listens to port 3333
 		tuioClient = new TuioProcessing(this);
 
-		menu = new Menu(this, buildings, nonLoopingGifDestroy);
+//		menu = new Menu(this, buildings, nonLoopingGifDestroy);
 
 		// activate anti aliaising
 		this.smooth();
@@ -75,7 +75,7 @@ public class MenuTest extends PApplet {
 		textAlign(CENTER);
 
 		// create menue for building options
-		menu.drawMenu();
+//		menu.drawMenu();
 
 		// shows all buildings of the players
 //		for (BaseUnit u : buildings) {

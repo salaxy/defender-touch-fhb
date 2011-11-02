@@ -254,20 +254,7 @@ public class DefenderView extends PApplet {
     public void mouseClicked(){
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
 
-//	    //Klickvektor zurück rechnen auf spielkoordinaten
-//		//***********************
-//		PVector realClickKoordinates=clickVector.get();
-////		System.out.println(" Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-//		realClickKoordinates.sub(gamelogic.getPlayerTwo().getOriginPosition());
-//		realClickKoordinates.sub(new PVector(515f, 0f));//(ist dort wo das PGRaphics gezeichnet)//Korektur!!!Platzhalter
-//		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerTwo().getGeneralAngle());
-//		realClickKoordinates.sub(gamelogic.getPlayerTwo().getViewPosition());
-//		realClickKoordinates.mult(1/gamelogic.getPlayerTwo().getActualZoom());		
-//		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-//		//***************************
-    	
-    	
-    	
+
     	
 //    	this.unitControl(clickVector);
 		
@@ -481,34 +468,37 @@ public class DefenderView extends PApplet {
 //		PVector clickVector = new PVector(this.mouseX, this.mouseY);
 		Menu menu=this.gamelogic.getMenu();
 		
+		
 	    //Klickvektor zurück rechnen auf spielkoordinaten
 		//***********************
-		PVector realClickKoordinates=clickVector.get();
+		PVector realClickKoordinates=clickVector.get();		
 //		System.out.println(" Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
 		realClickKoordinates.sub(gamelogic.getPlayerOne().getOriginPosition());
 		realClickKoordinates.sub(new PVector(0f, 0f));//(ist dort wo das PGRaphics gezeichnet)//Korektur!!!Platzhalter
 		realClickKoordinates.rotate(TWO_PI-gamelogic.getPlayerOne().getGeneralAngle());
 		realClickKoordinates.sub(gamelogic.getPlayerOne().getViewPosition());
-		realClickKoordinates.mult(1/gamelogic.getPlayerOne().getActualZoom());		
+		realClickKoordinates.mult(1/gamelogic.getPlayerOne().getActualZoom());
 		System.out.println("realer Klick bei: "+ realClickKoordinates.x + ", " +realClickKoordinates.y);
-		//***************************
+		//***********************
+	    
+
 
 		if (this.mouseButton == LEFT) {
 			if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
-				menu.setPosition(clickVector);
-				if (menu.isTaken(clickVector)) {
+				menu.setPosition(realClickKoordinates);
+				if (menu.isTaken(realClickKoordinates)) {
 					// IF A BUILDING IS CLICKED
 					System.out.println("open building menu");
-					menu.setBuildingOpen(true, clickVector);
+					menu.setBuildingOpen(true, realClickKoordinates);
 				} else {
 					// OPENS MAIN MENU
 					System.out.println("open menu");
 					menu.setMenuOpen(true);
 				}
-				menu.setActualBuildingName(clickVector);
+				menu.setActualBuildingName(realClickKoordinates);
 			} else if (menu.isBuildingOpen()) {
 				// WHEN UPGRADE OR DESTROY WAS CLICKED
-				if (menu.isInnerBuildingElement(clickVector)) {
+				if (menu.isInnerBuildingElement(realClickKoordinates)) {
 
 					switch (menu.getActualStatus()) {
 					case 0:
@@ -533,16 +523,15 @@ public class DefenderView extends PApplet {
 					switch (menu.getActualStatus()) {
 					case 0:
 						System.out.println("building a Ground unit");
-						//TODO wieder konform machen zu restl Programm
-//						buildings.add(new Ground((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+//						  new Ground((int)clickVector.x,(int)clickVector.y,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this,gamelogic);
 						break;
 					case 1:
 						System.out.println("building a Defence unit");
-//						buildings.add(new Defence((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						  new Defence((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this,gamelogic);
 						break;
 					case 2:
 						System.out.println("building a Support unit");
-//						buildings.add(new Support((int) menu.getPositionX(), (int) menu.getPositionY(), BaseUnit.MODE_NORMAL, 0, this));
+						  new Support((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this,gamelogic);
 						break;
 					default:
 						System.out.println();
@@ -554,12 +543,12 @@ public class DefenderView extends PApplet {
 		if (this.mouseButton == RIGHT) {
 
 			// CLOSES MENU
-			if (menu.isMenuOpen() && menu.isInnerMainElement(clickVector)) {
+			if (menu.isMenuOpen() && menu.isInnerMainElement(realClickKoordinates)) {
 				menu.setMenuOpen(false);
 				System.out.println("close menu");
 			}
 			// CLOSES BUILDING MENU
-			if (menu.isBuildingOpen() && menu.isTaken(clickVector)) {
+			if (menu.isBuildingOpen() && menu.isTaken(realClickKoordinates)) {
 				System.out.println("close building menu");
 				menu.setBuildingOpen(false, null);
 			}

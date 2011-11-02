@@ -77,9 +77,7 @@ public class DefenderControl {
 	public void drawAll() {		
 		
 		
-		//menue zeichen fuer player one
-		
-		this.menu.drawMenu(this.screenLeft, this.playerOne);
+
 		
 		
 		// neue positionen berechnen
@@ -94,12 +92,19 @@ public class DefenderControl {
 		screenLeft.rectMode(PGraphics.CENTER);
 		screenLeft.background(255f);
 		
+
+		
 		//Feld zeichnen
-		this.zeichneRahmen(screenLeft, playerOne);
+		this.zeichneRahmen(screenLeft, playerOne);		
+		
+		//menue zeichen fuer player one
+		this.menu.drawMenu(this.screenLeft, this.playerOne);
 		
 		for (BaseUnit unit : globalUnits) {
 			unit.paint(this.playerOne, screenLeft);
 		}
+		
+
 		
 		screenLeft.endDraw();
 
