@@ -21,7 +21,7 @@ public class Support extends Building{
 	public void drawFigure(PGraphics graphics){
 		
 		//farbewechsel bei Aktivierung
-		this.entscheideLineFarbe( graphics);
+//		this.entscheideLineFarbe( graphics);
 		//Skalieren
 		graphics.scale(1.5f);
 		//Nach norden ausrichten
@@ -43,4 +43,6 @@ public class Support extends Building{
 		graphics.stroke(0);
 		
 	}
+	
+
 }

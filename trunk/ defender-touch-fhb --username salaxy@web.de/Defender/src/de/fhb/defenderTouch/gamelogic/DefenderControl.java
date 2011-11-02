@@ -2,6 +2,7 @@ package de.fhb.defenderTouch.gamelogic;
 
 import gifAnimation.Gif;
 
+import java.awt.Color;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import processing.core.PApplet;
@@ -55,8 +56,8 @@ public class DefenderControl {
 	private DefenderControl(PApplet display,PGraphics screenLeft,PGraphics screenRight) {
 		
 		//die beiden Spieler initialisieren
-		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f),SCREENLEFT_POSITION);
-		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION);
+		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f),SCREENLEFT_POSITION, Color.BLUE);
+		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.GREEN);
 		
 		this.display = display;
 		globalUnits = new CopyOnWriteArrayList<BaseUnit>();
@@ -114,7 +115,13 @@ public class DefenderControl {
 
 		//units playerOne zeichen
 		for (BaseUnit unit : globalUnits) {
-			unit.paint(this.playerOne, screenLeft);
+			if(unit.isActive()&&unit.getPlayerID()==PLAYER_ONE){
+				//zeichne Aktiviert
+				unit.paint(this.playerOne, screenLeft,true);	
+			}else{
+				//zeichen normal
+				unit.paint(this.playerOne, screenLeft,false);				
+			}
 		}
 		
 		//menue zeichen fuer player one
@@ -133,9 +140,15 @@ public class DefenderControl {
 		//Feld zeichnen
 		zeichneRahmen(screenRight, playerTwo);
 		
-		//units playerTwo zeichnen
+		//units playerTwo zeichen
 		for (BaseUnit unit : globalUnits) {
-			unit.paint(this.playerTwo, screenRight);
+			if(unit.isActive()&&unit.getPlayerID()==PLAYER_TWO){
+				//zeichne Aktiviert
+				unit.paint(this.playerTwo, screenRight,true);	
+			}else{
+				//zeichen normal
+				unit.paint(this.playerTwo, screenRight,false);				
+			}
 		}
 		
 		//menue zeichen fuer playerTwo

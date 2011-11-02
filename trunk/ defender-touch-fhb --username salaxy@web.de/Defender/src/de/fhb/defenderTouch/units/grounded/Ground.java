@@ -20,12 +20,13 @@ public class Ground extends Building {
 		graphics.noFill();
 		graphics.scale(2);
 		graphics.rotate((float) Math.PI);
-		this.entscheideLineFarbe(graphics);
+//		this.entscheideLineFarbe(graphics);
 		graphics.triangle(-5, +5, 0, -5, +5, +5);
 
 		graphics.resetMatrix();
 		graphics.stroke(0);
 
 	}
+	
 
 }
