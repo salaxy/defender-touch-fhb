@@ -8,8 +8,8 @@ public class Ground extends Building {
 
 	public static final int PRICE = 50;
 
-	public Ground(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
-		super(x, y, mode, playerID, disp, gamelogic);
+	public Ground(int x, int y, int mode, int playerID,DefenderControl gamelogic) {
+		super(x, y, mode, playerID, gamelogic);
 	}
 
 	public void drawFigure(PGraphics graphics) {

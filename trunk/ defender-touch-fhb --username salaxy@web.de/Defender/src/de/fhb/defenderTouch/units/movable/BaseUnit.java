@@ -8,6 +8,7 @@ import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Gamemap;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 
@@ -27,6 +28,8 @@ public class BaseUnit {
 	protected int attackRange = 100;
 
 	protected int playerID;
+	
+	protected Gamemap map;
 
 	/**
 	 * beinhaltet alle Einheiten die existent sind
@@ -159,7 +162,7 @@ public class BaseUnit {
 	 */
 	protected boolean isMoving=false;
 
-	public BaseUnit(int x, int y, int mode, int playerID, PApplet disp, DefenderControl gamelogic) {
+	public BaseUnit(int x, int y, int mode, int playerID, DefenderControl gamelogic) {
 
 //		this.graphics = disp;
 		this.mode = mode;
@@ -171,6 +174,7 @@ public class BaseUnit {
 
 //		gamelogic = DefenderControl.getInstance(graphics);
 		this.gamelogic=gamelogic;
+		this.map=gamelogic.getMap();
 
 		// Id verpassen
 		this.id = BaseUnit.idCounter;
@@ -711,7 +715,7 @@ public class BaseUnit {
 		// muss sich ziel merken)
 		// Schuss erstellen
 
-		new Shoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, DefenderControl.PLAYER_SYSTEM, null, destinationUnit, this.damagePerHit,gamelogic);
+		new Shoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, DefenderControl.PLAYER_SYSTEM, destinationUnit, this.damagePerHit,gamelogic);
 
 		// //neue Blickrichtung berechnen
 		// berechneNeueBlickrichtung();

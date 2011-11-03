@@ -33,8 +33,8 @@ public class Building extends BaseUnit {
 		}
 	}
 
-	public Building(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
-		super(x, y, mode, playerID, disp, gamelogic);
+	public Building(int x, int y, int mode, int playerID,DefenderControl gamelogic) {
+		super(x, y, mode, playerID, gamelogic);
 		this.movementSpeed = 0.5f;
 	}
 

@@ -13,8 +13,8 @@ public class Fighter extends BaseUnit {
 
 //	private float movementSpeed=5f;
 	
-	public Fighter(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
-		super(x, y, mode, playerID, disp, gamelogic);
+	public Fighter(int x, int y, int mode, int playerID ,DefenderControl gamelogic) {
+		super(x, y, mode, playerID, gamelogic);
 		this.movementSpeed=5f;
 	}
 
