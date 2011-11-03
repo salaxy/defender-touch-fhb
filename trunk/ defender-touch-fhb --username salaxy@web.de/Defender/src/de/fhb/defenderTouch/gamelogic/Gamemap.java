@@ -29,7 +29,7 @@ public class Gamemap {
 		GraphicTools.calcDrawTransformation(player, graphics, new PVector(0,0));
 	
 		// für Spieler sichtbare Karte zeichnen
-		graphics.image(visibleMap, 0f, 0f);
+		//graphics.image(visibleMap, 0f, 0f);
 		
 		//Feldumrandung zeichnen
 		//graphics.fill(255, 255, 0,55);
