@@ -144,6 +144,10 @@ public class Menu {
 		}
 	}
 
+	public Player getPlayer() {
+		return player;
+	}
+
 	/**
 	 * is always been done
 	 */
@@ -188,6 +192,8 @@ public class Menu {
 			GraphicTools.calcDrawTransformation(player, graphics, this.position);
 			// eigentliche Zeichnung
 			graphics.rotate(drehung);
+//			graphics.scale(1 / player.getActualZoom());
+//			menu[0].scaleTo(1 / player.getActualZoom());
 			menu[0] = new PVector(0, DISTANCE);
 			menu[0].rotate(drehung);
 			menu[0].add(position);
@@ -198,7 +204,7 @@ public class Menu {
 			drehung += drehungProUntermenue;
 			graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 			graphics.fill(255);
-
+			// graphics.strokeWeight(2f);
 			graphics.text(Ground.PRICE, 0, DISTANCE - RADIUSCIRCLEMENU);
 			graphics.resetMatrix();
 
@@ -291,8 +297,6 @@ public class Menu {
 		 * here is the complete menu for a specific building
 		 */
 		if (buildingOpen) {
-			System.out.println("Klick "+ this.position);
-			System.out.println("Build "+ this.positionBuilding);
 			graphics.textAlign(PApplet.CENTER);
 			graphics.textSize(12);
 			graphics.noFill();
@@ -389,9 +393,9 @@ public class Menu {
 	 *         looking if a menu point was clicked
 	 */
 	public boolean isInnerMenuElement(PVector clickVector) {
-
-		if (this.menu[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
+		if (this.menu[0].dist(clickVector) < this.RADIUSCIRCLEMENU ) {
 			// System.out.println("Menue 1");
+
 			if (isEnoughCredits(Ground.PRICE)) {
 				player.setCredits(player.getCredits() - Ground.PRICE);
 				setActualStatus(0);
