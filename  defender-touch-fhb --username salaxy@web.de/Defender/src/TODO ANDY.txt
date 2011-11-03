@@ -1,0 +1,36 @@
+TODO ANDY
+**********
+
+- Integration der TUIO-Steuerung
+
+- Angriffsradius, Automatischer Angriff(zunächst ohne  hinfliegen, ohne User Interaktion)
+
+- Loesung fuer die Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Offene Punkte fuer Später
+**********************************************
+
+- Automatischer Angriff(User Interaktion, hinfliegen bis in Reichweite, dann angreifen)
+
+
+- Schussrate begrenzen!!!
+
+- Vollständige Integration Map
+
+- Sounds suchen

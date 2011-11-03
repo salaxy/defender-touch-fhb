@@ -1,0 +1,10 @@
+TODO MINKE
+***********
+
+
+- neue Schüsse anlegen und gestalten (mind zwei), also von Shoot als Oberklasse ableiten
+
+- Schusswirkungsreichweite implementieren in der Klasse Shoot
+
+- auch einmal ein linearen Schuss machen der dem Ziel nciht folgt...
+(guck dir dazu am besten BaseUnit an und versuche das zu verstehen...)
