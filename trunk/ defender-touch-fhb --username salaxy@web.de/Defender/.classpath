@@ -5,9 +5,9 @@
 	<classpathentry kind="lib" path="lib/core.jar"/>
 	<classpathentry kind="lib" path="lib/libTUIO.jar"/>
 	<classpathentry kind="lib" path="lib/TUIO.jar"/>
-	<classpathentry kind="lib" path="lib/gifAnimation.jar"/>
 	<classpathentry kind="lib" path="lib/audio/jl1.0.jar"/>
 	<classpathentry kind="lib" path="lib/audio/mp3spi1.9.4.jar"/>
 	<classpathentry kind="lib" path="lib/audio/tritonus_share.jar"/>
+	<classpathentry kind="lib" path="lib/animation/gifAnimation.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
