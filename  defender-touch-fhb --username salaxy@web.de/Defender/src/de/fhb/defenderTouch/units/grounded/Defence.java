@@ -12,8 +12,8 @@ public class Defence extends Building{
 
 	public static final int PRICE = 40;
 	
-	public Defence(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
-		super(x, y, mode, playerID, disp, gamelogic);
+	public Defence(int x, int y, int mode, int playerID,DefenderControl gamelogic) {
+		super(x, y, mode, playerID, gamelogic);
 	}
 
 	

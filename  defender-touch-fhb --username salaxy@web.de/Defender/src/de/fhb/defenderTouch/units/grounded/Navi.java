@@ -12,8 +12,8 @@ public class Navi extends Building{
 	
 	public static final int PRICE = 30;
 
-	public Navi(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
-		super(x, y, mode, playerID, disp, gamelogic);
+	public Navi(int x, int y, int mode, int playerID,DefenderControl gamelogic) {
+		super(x, y, mode, playerID, gamelogic);
 	}
 	
 	

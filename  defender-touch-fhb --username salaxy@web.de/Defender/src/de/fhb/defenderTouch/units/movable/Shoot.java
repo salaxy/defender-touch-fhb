@@ -22,8 +22,8 @@ public class Shoot extends BaseUnit {
 	private  BaseUnit destinationUnit;
 	private int damage;
 	
-	public Shoot(int x, int y, int mode, int playerID, PApplet disp, BaseUnit destinationUnit, int damage, DefenderControl gamelogic){
-		super(x, y, mode, playerID, disp, gamelogic);
+	public Shoot(int x, int y, int mode, int playerID, BaseUnit destinationUnit, int damage, DefenderControl gamelogic){
+		super(x, y, mode, playerID, gamelogic);
 		
 		//Einheit ist sehr schnell
 		this.movementSpeed=5f;

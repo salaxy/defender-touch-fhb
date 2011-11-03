@@ -20,8 +20,8 @@ public class Support extends Building{
 	
 	private int creditsPerTime=20;
 	
-	public Support(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
-		super(x, y, mode, playerID, disp, gamelogic);
+	public Support(int x, int y, int mode, int playerID,DefenderControl gamelogic) {
+		super(x, y, mode, playerID, gamelogic);
 	}
 
 	
