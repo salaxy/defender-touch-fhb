@@ -44,7 +44,7 @@ public class Player {
 	
 //	private DefenderControl gamelogic;
 
-	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPositionInScreen,int side,PVector viewPosition, PVector screenPosition,Color unitColor){
+	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPositionInScreen, int side, PVector viewPosition, PVector screenPosition, Color unitColor) {
 		this.generalAngle=generalAngle;
 		this.actualZoom=actualZoom;
 		this.originPositionInScreen=originPositionInScreen;
@@ -85,7 +85,10 @@ public class Player {
 	}
 	
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public PVector getOriginPositionInScreen() {
 		return originPositionInScreen;
 	}
