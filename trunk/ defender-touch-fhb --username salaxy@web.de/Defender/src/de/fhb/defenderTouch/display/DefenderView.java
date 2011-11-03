@@ -60,12 +60,12 @@ public class DefenderView extends PApplet {
 	  gamelogic= DefenderControl.getInstance(this, screenLeft, screenRight);
 	
 	  //size(screen.width,screen.height);
-	  size(width,height, JAVA2D); //size of window
+	  size(width,height, P2D); //size of window
 	  noStroke(); //draw no borders
 //	  fill(0); //fill shapes (e.g. rectangles, ellipses) with black
 	  
 	  loop(); //loop the draw-methode
-	  frameRate(20);
+	  frameRate(60);
 	  //noLoop();
 	  
 	  hint(ENABLE_NATIVE_FONTS); //render fonts faster
@@ -264,9 +264,9 @@ public class DefenderView extends PApplet {
     	//Klickvektor holen
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
     	
-//    	this.unitControl(clickVector);
+    	this.unitControl(clickVector);
 		
-		this.menueControl(clickVector);
+//		this.menueControl(clickVector);
     	
     }
     
