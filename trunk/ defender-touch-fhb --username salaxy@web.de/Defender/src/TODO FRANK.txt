@@ -1,0 +1,8 @@
+TODO FRANK
+***********
+
+- An der Gamemap Klasse arbeiten mit Einflussbereich der Spieler
+
+- musst sagen können in welchem Bereich jemand bauen darf 
+(hatte ich glaube vergessen)(genauso wie bei isFlyable, isWater etc.)
+(unterscheidung Spieler EINS oder Zwei, mache es am besten mit den Konstanten aus DefenderControl)
