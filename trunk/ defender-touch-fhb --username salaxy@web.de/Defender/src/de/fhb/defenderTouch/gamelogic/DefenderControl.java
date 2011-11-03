@@ -10,6 +10,7 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
+import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.menu.Menu;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
@@ -26,9 +27,9 @@ public class DefenderControl {
 
 	public static final int PLAYER_ONE = 0;
 	public static final int PLAYER_TWO = 1;
-
-
 	public static final int PLAYER_SYSTEM = 2;
+	
+	
 	
 	/**
 	 * gibt an wo auf dem PApplet der screenLeft gezeichnet werden soll
@@ -47,6 +48,7 @@ public class DefenderControl {
 	private Player playerOne;
 	private Player playerTwo;
 	private PGraphics screenLeft, screenRight;
+	private Gamemap map;
 	
 	
 	private Menu menuePlayerOne;
@@ -54,6 +56,8 @@ public class DefenderControl {
 	private Gif nonLoopingGifDestroy;
 
 	private DefenderControl(PApplet display,PGraphics screenLeft,PGraphics screenRight) {
+		//map init
+		map=new Gamemap();
 		
 		//die beiden Spieler initialisieren
 		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f),SCREENLEFT_POSITION, Color.BLUE);
@@ -72,8 +76,14 @@ public class DefenderControl {
 		menuePlayerTwo = new Menu(this.globalUnits, nonLoopingGifDestroy,playerTwo);
 		
 		
+
+		
 		this.playBackgroundSound();
 
+	}
+
+	public Gamemap getMap() {
+		return map;
 	}
 
 	public static DefenderControl getInstance(PApplet display, PGraphics screenLeft,PGraphics screenRight) {
@@ -110,7 +120,8 @@ public class DefenderControl {
 		screenLeft.background(255f);
 		
 		//Feld zeichnen
-		this.zeichneRahmen(screenLeft, playerOne);		
+//		this.zeichneRahmen(screenLeft, playerOne);	
+		this.map.zeichne(screenLeft, playerOne);	
 		
 
 		//units playerOne zeichen
@@ -146,7 +157,8 @@ public class DefenderControl {
 		screenRight.background(255f);
 		
 		//Feld zeichnen
-		zeichneRahmen(screenRight, playerTwo);
+//		zeichneRahmen(screenRight, playerTwo);
+		this.map.zeichne(screenRight, playerTwo);	
 		
 		//units playerTwo zeichen
 		for (BaseUnit unit : globalUnits) {
@@ -187,26 +199,20 @@ public class DefenderControl {
 		display.line(513f, 0f, 513f, 768f);
 	}
 
-	public void zeichneRahmen(PGraphics display, Player player){
-		
-		//Feldumrandung zeichnen
-		//*******************************************
-		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
-		drawPosition.rotate(player.getGeneralAngle());
-		drawPosition.add(player.getOriginPositionInScreen());
-		
-		//Transformationen		
-		display.translate(drawPosition.x, +drawPosition.y);		
-		display.scale(player.getActualZoom());	
-		display.rotate(player.getGeneralAngle());
-		
-		display.fill(255, 255, 0,55);
-		display.stroke(0, 0, 0);
-		display.rect(512f, 384f, 1024, 768);
-		
-		display.resetMatrix();
-		
-	}
+//	public void zeichneRahmen(PGraphics graphics, Player player){
+//		
+//		
+//		//Transformationen
+//		GraphicTools.calcDrawTransformation(player, graphics, new PVector(0,0));
+//	
+//		//Feldumrandung zeichnen
+//		graphics.fill(255, 255, 0,55);
+//		graphics.stroke(0, 0, 0);
+//		graphics.rect(512f, 384f, 1024, 768);
+//		
+//		graphics.resetMatrix();
+//		
+//	}
 	
 
 	public Menu getMenuePlayerOne() {
