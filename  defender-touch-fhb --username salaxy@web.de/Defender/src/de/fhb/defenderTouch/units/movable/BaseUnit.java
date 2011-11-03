@@ -137,7 +137,7 @@ public class BaseUnit {
 	 * Aktivierungsradius um das Zentrum der Einheit, in dem diese angeklickt
 	 * werden kann
 	 */
-	protected float activateRadius = 15;
+	protected float activateRadius = 20;
 
 	/**
 	 * Kollisionssradius um das Zentrum der Einheit
