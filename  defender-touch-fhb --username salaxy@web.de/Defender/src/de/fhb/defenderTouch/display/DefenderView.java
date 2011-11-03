@@ -65,7 +65,7 @@ public class DefenderView extends PApplet {
 //	  fill(0); //fill shapes (e.g. rectangles, ellipses) with black
 	  
 	  loop(); //loop the draw-methode
-	  frameRate(1);
+	  frameRate(25);
 	  //noLoop();
 	  
 	  hint(ENABLE_NATIVE_FONTS); //render fonts faster
