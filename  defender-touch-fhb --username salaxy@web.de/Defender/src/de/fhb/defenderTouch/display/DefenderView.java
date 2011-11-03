@@ -65,7 +65,7 @@ public class DefenderView extends PApplet {
 //	  fill(0); //fill shapes (e.g. rectangles, ellipses) with black
 	  
 	  loop(); //loop the draw-methode
-	  frameRate(60);
+	  frameRate(1);
 	  //noLoop();
 	  
 	  hint(ENABLE_NATIVE_FONTS); //render fonts faster
@@ -459,9 +459,9 @@ public class DefenderView extends PApplet {
     	
     	if (mouseButton == RIGHT) {
     		if (mouseX < 512) {
-    			gamelogic.getPlayerOne().setActualZoom(gamelogic.getPlayerOne().getActualZoom() + (mouseY - pmouseY) * 0.001f);    			
+    			gamelogic.getPlayerOne().setActualZoom(gamelogic.getPlayerOne().getActualZoom() + (mouseY - pmouseY) * 0.01f);    			
     		} else {
-    			gamelogic.getPlayerTwo().setActualZoom(gamelogic.getPlayerTwo().getActualZoom()  + (mouseY - pmouseY) * 0.001f);    			
+    			gamelogic.getPlayerTwo().setActualZoom(gamelogic.getPlayerTwo().getActualZoom()  + (mouseY - pmouseY) * 0.01f);    			
     		}
     	}
     }

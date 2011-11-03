@@ -57,11 +57,13 @@ public class DefenderControl {
 
 	private DefenderControl(PApplet display,PGraphics screenLeft,PGraphics screenRight) {
 		//map init
-		map=new Gamemap();
+		map=new Gamemap(display);
 		
 		//die beiden Spieler initialisieren
 		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f),SCREENLEFT_POSITION, Color.BLUE);
 		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.GREEN);
+		// SlpitScrren für den zweiten Spieler *nicht* um 180° gedreht.
+		//playerTwo = new Player(this,PApplet.HALF_PI,0.65f, new PVector(512f, 0f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.GREEN);
 		
 		this.display = display;
 		globalUnits = new CopyOnWriteArrayList<BaseUnit>();

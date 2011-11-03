@@ -74,17 +74,17 @@ public class GraphicTools {
 	 * @param graphics - gibt fuer welchem Bildschirm die Abbildung berechnet wird 
 	 * @param position - Postion des zu zeichnenden Objekts
 	 */
-	public static void calcDrawTransformation(Player player,PGraphics graphics,PVector position){
+	public static void calcDrawTransformation(Player player, PGraphics graphics, PVector position){
 		
 		//Berechnung des neuen Koordinaten Ursprungs Vektors
-		PVector drawPosition=new PVector(player.getViewPosition().x,player.getViewPosition().y);
+		PVector drawPosition = new PVector(player.getViewPosition().x,player.getViewPosition().y);
 		drawPosition.rotate(player.getGeneralAngle());
 		drawPosition.add(player.getOriginPositionInScreen());
 		
 		//Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
 		graphics.translate(drawPosition.x, +drawPosition.y);		
 		graphics.scale(player.getActualZoom());	
-		graphics.rotate(player.getGeneralAngle());//nötig???
+		graphics.rotate(player.getGeneralAngle());
 		
 		//zeichne an Position im Verhältnis zu gesamt Transformation
 		graphics.translate(position.x, +position.y);	
