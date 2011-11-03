@@ -145,7 +145,7 @@ public class BaseUnit {
 	/**
 	 * Kollisionssradius um das Zentrum der Einheit
 	 */
-	protected float collisionRadius = 15;
+	protected float collisionRadius = 20;
 
 	/**
 	 * jede einheit hat eine eindeutige ID zur identifizierung
@@ -527,7 +527,7 @@ public class BaseUnit {
 					if (!(PVector.dist(unit.position, newPosition) > PVector.dist(unit.position, this.position))) {
 						// Kollision liegt vor, bewegung stoppen
 						// reset des zielvector (auf aktuelle position)
-						this.destinationVector = this.position;
+						//this.destinationVector = this.position;
 
 						// dann ist es eine moegliche kollison
 						return true;
