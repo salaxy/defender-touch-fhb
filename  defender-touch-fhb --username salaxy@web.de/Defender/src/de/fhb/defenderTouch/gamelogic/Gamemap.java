@@ -32,9 +32,9 @@ public class Gamemap {
 		//graphics.image(visibleMap, 0f, 0f);
 		
 		//Feldumrandung zeichnen
-		//graphics.fill(255, 255, 0,55);
-		//graphics.stroke(0, 0, 0);
-		//graphics.rect(512f, 384f, 1024, 768);
+		graphics.fill(255, 255, 0,55);
+		graphics.stroke(0, 0, 0);
+		graphics.rect(512f, 384f, 1024, 768);
 		
 		graphics.resetMatrix();
 		
