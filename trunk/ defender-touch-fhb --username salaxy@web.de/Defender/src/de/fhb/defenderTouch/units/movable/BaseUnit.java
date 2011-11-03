@@ -19,14 +19,14 @@ import de.fhb.defenderTouch.graphics.GraphicTools;
  */
 public class BaseUnit {
 
-	private DefenderControl gamelogic;
+	protected DefenderControl gamelogic;
 
-	private int healthpointsMax = 250;
-	private int healthpointsStat = 250;
-	private int damagePerHit = 50;
-	private int attackRange = 100;
+	protected int healthpointsMax = 250;
+	protected int healthpointsStat = 250;
+	protected int damagePerHit = 50;
+	protected int attackRange = 100;
 
-	private int playerID;
+	protected int playerID;
 
 	/**
 	 * beinhaltet alle Einheiten die existent sind

@@ -1,8 +1,10 @@
 package de.fhb.defenderTouch.units.grounded;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 
 import processing.core.PApplet;
@@ -13,12 +15,19 @@ public class Support extends Building{
 
 	public static final int PRICE = 30;
 	
+	private int frameTimesToRaiseCredits=50;
+	private int framesTemp=0;
+	
+	private int creditsPerTime=20;
+	
 	public Support(int x, int y, int mode, int playerID, PApplet disp,DefenderControl gamelogic) {
 		super(x, y, mode, playerID, disp, gamelogic);
 	}
 
 	
 	public void drawFigure(PGraphics graphics){
+		
+
 		
 		//farbewechsel bei Aktivierung
 //		this.entscheideLineFarbe( graphics);
@@ -44,5 +53,22 @@ public class Support extends Building{
 		
 	}
 	
+	
+	 public void calcNewPosition(){
+
+		 	framesTemp++;				
+		 	
+		 	if(framesTemp==frameTimesToRaiseCredits){
+				if(this.playerID==DefenderControl.PLAYER_ONE){
+					gamelogic.getPlayerOne().addCredits(this.creditsPerTime);
+				}
+	
+				if(this.playerID==DefenderControl.PLAYER_TWO){
+					gamelogic.getPlayerTwo().addCredits(this.creditsPerTime);
+				}
+			}
+		 				
+
+	 }
 
 }
