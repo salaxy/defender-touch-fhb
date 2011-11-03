@@ -80,7 +80,7 @@ public class DefenderControl {
 		
 
 		
-		this.playBackgroundSound();
+//		this.playBackgroundSound();
 
 	}
 
