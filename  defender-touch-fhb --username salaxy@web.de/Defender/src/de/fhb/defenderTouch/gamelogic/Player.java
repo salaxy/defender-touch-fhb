@@ -115,11 +115,9 @@ public class Player {
 		return generalAngle;
 	}
 	
-//	public void addCredits(int credits){
-//		if(this.credits>0){
-//			
-//		}
-//	}
+	public void addCredits(int credits){
+		this.credits=this.credits + credits;
+	}
 
 
 }

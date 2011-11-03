@@ -264,9 +264,9 @@ public class DefenderView extends PApplet {
     	//Klickvektor holen
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
     	
-    	this.unitControl(clickVector);
+//    	this.unitControl(clickVector);
 		
-//		this.menueControl(clickVector);
+		this.menueControl(clickVector);
     	
     }
     
