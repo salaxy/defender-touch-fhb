@@ -8,7 +8,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.Player;
@@ -37,12 +36,12 @@ public class Menu {
 	protected PVector positionBuilding;
 
 	/**
-	 * menu points, actual 6 points, 3 in use
+	 * menu points, actual 6 points, 3 in use - Ground - Defence - Support
 	 */
 	protected PVector menu[] = new PVector[6];
 
 	/**
-	 * buildings menu point, 4 points, 2 in use
+	 * buildings menu point, 4 points, 2 in use - Upgrade - Destroy
 	 */
 	protected PVector menuBuildings[] = new PVector[2];
 
@@ -63,29 +62,29 @@ public class Menu {
 	protected boolean buildingOpen = false;
 
 	/**
+	 * activation raduis of a menupoint
+	 */
+	protected final int DIAMETERCIRCLEMENU = 80;
+
+	/**
 	 * Radius of the circle Is always half its diameter
 	 */
 	protected final int RADIUSCIRCLEMENU;
 
 	/**
-	 * Aktivierungsradius eines Menupunkts
+	 * size of the menu text
 	 */
-	protected final int DIAMETERCIRCLEMENU = 50;
+	protected final int TEXTSIZE;
 
 	/**
 	 * Aktivierungsradius eines Menupunkts
 	 */
-	protected final int DISTANCE = -55;
+	protected final int DISTANCE;
 
 	/**
 	 * Nummer des gebäudes
 	 */
 	protected int actualStatus = -1;
-
-	// /**
-	// * Startcredit of every palyer
-	// */
-	// protected int creditsPlayer = 200;
 
 	/**
 	 * actual address with the building, used for deleting it
@@ -133,6 +132,9 @@ public class Menu {
 		this.buildings = buildings;
 		this.player = player;
 		this.RADIUSCIRCLEMENU = this.DIAMETERCIRCLEMENU / 2;
+		this.TEXTSIZE = this.RADIUSCIRCLEMENU / 2;
+		this.DISTANCE = -(this.DIAMETERCIRCLEMENU + 5);
+		System.out.println(DISTANCE);
 		// this.nonLoopingGifDestroy = new Gif(graphics, "expl_kl.gif");
 		// TODO hier Gif erstellen
 
@@ -146,6 +148,49 @@ public class Menu {
 
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public void rotateMenu(int element, float rotation, PGraphics graphics){
+		graphics.rotate(rotation);
+		menu[element] = new PVector(0, DISTANCE);
+		menu[element].rotate(rotation);
+		menu[element].add(position);
+	}
+	
+	public void rotateMenuBuildings(int element, float rotation, PGraphics graphics){
+		graphics.rotate(rotation);
+		menuBuildings[element] = new PVector(0, DISTANCE);
+		menuBuildings[element].rotate(rotation);
+		menuBuildings[element].add(position);
+	}
+	
+	public void calcDrawTransformation(PGraphics graphics){
+		GraphicTools.calcDrawTransformation(player, graphics, position);
+	}
+	
+	public void calcDrawTransformationBuildings(PGraphics graphics){
+		GraphicTools.calcDrawTransformation(player, graphics, positionBuilding);
+	}
+	
+	public void showBigMenuCircle(PGraphics graphics){
+		graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+	}
+	
+	public void showSmallMenuCircle(PGraphics graphics){
+		graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+	}
+	
+	public void showVerySmallMenuCircle(PGraphics graphics){
+		graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+	}
+	
+	public void showSignTriangle(PGraphics graphics){
+		graphics.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
+	}
+	
+	public void changeActualColor(Color color, PGraphics graphics){
+		graphics.fill(color.getRed(), color.getGreen(), color.getBlue());
+		
 	}
 
 	/**
@@ -182,42 +227,27 @@ public class Menu {
 		if (menuOpen) {
 
 			graphics.textAlign(PApplet.CENTER);
-			graphics.textSize(12);
+			graphics.textSize(TEXTSIZE);
 
 			graphics.stroke(255);
-			float drehung = 0f;
+			float rotation = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
-
-			// wende Abbildung an um an der richtiegn stelle zu zeichen
-			GraphicTools.calcDrawTransformation(player, graphics, this.position);
-			// eigentliche Zeichnung
-			graphics.rotate(drehung);
-//			graphics.scale(1 / player.getActualZoom());
-//			menu[0].scaleTo(1 / player.getActualZoom());
-			menu[0] = new PVector(0, DISTANCE);
-			menu[0].rotate(drehung);
-			menu[0].add(position);
-			// graphics.fill(20, 50, 20);
-			graphics.fill(Color.CYAN.getRed(), Color.CYAN.getGreen(), Color.CYAN.getBlue());
-			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
-			graphics.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
-			drehung += drehungProUntermenue;
-			graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			
+			calcDrawTransformation(graphics);
+			rotateMenu(0,rotation,graphics);
+			changeActualColor(Color.CYAN,graphics);
+			showBigMenuCircle(graphics);
+			showSignTriangle(graphics);
+			rotation += drehungProUntermenue;
+			showVerySmallMenuCircle(graphics);
 			graphics.fill(255);
-			// graphics.strokeWeight(2f);
 			graphics.text(Ground.PRICE, 0, DISTANCE - RADIUSCIRCLEMENU);
 			graphics.resetMatrix();
 
-			// wende Abbildung an um an der richtiegn stelle zu zeichen
-			GraphicTools.calcDrawTransformation(player, graphics, this.position);
-			// eigentliche Zeichnung
-			graphics.rotate(drehung);
-			menu[1] = new PVector(0, DISTANCE);
-			menu[1].rotate(drehung);
-			menu[1].add(position);
-			// graphics.fill(20, 20, 50);
-			graphics.fill(Color.BLUE.getRed(), Color.BLUE.getGreen(), Color.BLUE.getBlue());
-			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			calcDrawTransformation(graphics);
+			rotateMenu(1,rotation,graphics);
+			changeActualColor(Color.BLUE,graphics);
+			showBigMenuCircle(graphics);
 			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 			vektoren1.add(new PVector(-4, DISTANCE - 4));
 			vektoren1.add(new PVector(4, DISTANCE - 4));
@@ -228,22 +258,16 @@ public class Menu {
 			vektoren1.add(new PVector(-4, DISTANCE + 4));
 			graphics.ellipse(0, DISTANCE - 4, 8, 8);
 			GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
-			drehung += drehungProUntermenue;
-			graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			rotation += drehungProUntermenue;
+			showVerySmallMenuCircle(graphics);
 			graphics.fill(255);
 			graphics.text(Defence.PRICE, 0, DISTANCE - RADIUSCIRCLEMENU);
 			graphics.resetMatrix();
 
-			// wende Abbildung an um an der richtiegn stelle zu zeichen
-			GraphicTools.calcDrawTransformation(player, graphics, this.position);
-			// eigentliche Zeichnung
-			graphics.rotate(drehung);
-			menu[2] = new PVector(0, DISTANCE);
-			menu[2].rotate(drehung);
-			menu[2].add(position);
-			// graphics.fill(50, 20, 20);
-			graphics.fill(Color.MAGENTA.getRed(), Color.MAGENTA.getGreen(), Color.MAGENTA.getBlue());
-			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			calcDrawTransformation(graphics);
+			rotateMenu(2,rotation,graphics);
+			changeActualColor(Color.MAGENTA,graphics);
+			showBigMenuCircle(graphics);
 			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 			vektoren2.add(new PVector(0, DISTANCE - 8));
 			vektoren2.add(new PVector(0, DISTANCE + 8));
@@ -251,45 +275,30 @@ public class Menu {
 			vektoren2.add(new PVector(8, DISTANCE));
 			vektoren2.add(new PVector(-8, DISTANCE));
 			GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
-			drehung += drehungProUntermenue;
-			graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			rotation += drehungProUntermenue;
+			showVerySmallMenuCircle(graphics);
 			graphics.fill(255);
 			graphics.text(Support.PRICE, 0, DISTANCE - RADIUSCIRCLEMENU);
 			graphics.resetMatrix();
 
-			// wende Abbildung an um an der richtiegn stelle zu zeichen
-			GraphicTools.calcDrawTransformation(player, graphics, this.position);
-			// eigentliche Zeichnung
-			graphics.rotate(drehung);
-			menu[3] = new PVector(0, DISTANCE);
-			menu[3].rotate(drehung);
-			menu[3].add(position);
+			calcDrawTransformation(graphics);
+			rotateMenu(3,rotation,graphics);
 			graphics.noFill();
 			graphics.stroke(150);
-			graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			drehung += drehungProUntermenue;
+			showSmallMenuCircle(graphics);
+			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
-			// wende Abbildung an um an der richtiegn stelle zu zeichen
-			GraphicTools.calcDrawTransformation(player, graphics, this.position);
-			// eigentliche Zeichnung
-			graphics.rotate(drehung);
-			menu[4] = new PVector(0, DISTANCE);
-			menu[4].rotate(drehung);
-			menu[4].add(position);
-			graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			drehung += drehungProUntermenue;
+			calcDrawTransformation(graphics);
+			rotateMenu(4,rotation,graphics);
+			showSmallMenuCircle(graphics);
+			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
-			// wende Abbildung an um an der richtiegn stelle zu zeichen
-			GraphicTools.calcDrawTransformation(player, graphics, this.position);
-			// eigentliche Zeichnung
-			graphics.rotate(drehung);
-			menu[5] = new PVector(0, DISTANCE);
-			menu[5].rotate(drehung);
-			menu[5].add(position);
-			graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
-			drehung += drehungProUntermenue;
+			calcDrawTransformation(graphics);
+			rotateMenu(5,rotation,graphics);
+			showSmallMenuCircle(graphics);
+			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 		}
 
@@ -298,43 +307,34 @@ public class Menu {
 		 */
 		if (buildingOpen) {
 			graphics.textAlign(PApplet.CENTER);
-			graphics.textSize(12);
+			graphics.textSize(TEXTSIZE);
 			graphics.noFill();
 			graphics.stroke(255);
-			float drehung = 0f;
+			
+			float rotation = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 4;
 
-			// wende Abbildung an um an der richtiegn stelle zu zeichen
-			GraphicTools.calcDrawTransformation(player, graphics, positionBuilding);
-			// eigentliche Zeichnung
-			graphics.rotate(drehung);
-			menuBuildings[0] = new PVector(0, DISTANCE);
-			menuBuildings[0].rotate(drehung);
-			menuBuildings[0].add(positionBuilding);
-			graphics.fill(20, 50, 20);
-			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			calcDrawTransformationBuildings(graphics);
+			rotateMenuBuildings(0,rotation,graphics);
+			changeActualColor(Color.GREEN,graphics);
+			showBigMenuCircle(graphics);
 			graphics.fill(255);
 			graphics.triangle(-5, DISTANCE, 0, DISTANCE - 10, +5, DISTANCE);
-			graphics.fill(20, 50, 20);
+			changeActualColor(Color.GREEN,graphics);
 			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 			vektoren1.add(new PVector(0, DISTANCE));
 			vektoren1.add(new PVector(0, DISTANCE + 8));
 			GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
-			drehung += drehungProUntermenue;
-			graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			rotation += drehungProUntermenue;
+			showVerySmallMenuCircle(graphics);
 			graphics.fill(255);
 			graphics.text(getActualBuildingPrice(positionBuilding), 0, DISTANCE - RADIUSCIRCLEMENU);
 			graphics.resetMatrix();
 
-			// wende Abbildung an um an der richtiegn stelle zu zeichen
-			GraphicTools.calcDrawTransformation(player, graphics, positionBuilding);
-			// eigentliche Zeichnung
-			graphics.rotate(drehung);
-			menuBuildings[1] = new PVector(0, DISTANCE);
-			menuBuildings[1].rotate(drehung);
-			menuBuildings[1].add(positionBuilding);
-			graphics.fill(50, 20, 20);
-			graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
+			calcDrawTransformationBuildings(graphics);
+			rotateMenuBuildings(1,rotation,graphics);
+			changeActualColor(Color.RED,graphics);
+			showBigMenuCircle(graphics);
 			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 			vektoren2.add(new PVector(5, DISTANCE - 5));
 			vektoren2.add(new PVector(-5, DISTANCE + 5));
@@ -342,18 +342,16 @@ public class Menu {
 			vektoren2.add(new PVector(5, DISTANCE + 5));
 			vektoren2.add(new PVector(-5, DISTANCE - 5));
 			GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
-			drehung += drehungProUntermenue;
+			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
-			// wende Abbildung an um an der richtiegn stelle zu zeichen
-			GraphicTools.calcDrawTransformation(player, graphics, positionBuilding);
-			// eigentliche Zeichnung
-			graphics.rotate(drehung);
+			calcDrawTransformationBuildings(graphics);
+			graphics.rotate(rotation);
 			graphics.fill(150);
-			graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
+			showSmallMenuCircle(graphics);
 			// TODO ist unschön! aber mir fällt grad nix bessres ein, 3 steht
 			// sonst falsch rum...
-			graphics.rotate(drehung);
+			graphics.rotate(rotation);
 			graphics.fill(255);
 			graphics.text(getActualBuildingLevel(positionBuilding), 0, Math.abs(DISTANCE) + 5);
 			graphics.resetMatrix();
@@ -393,7 +391,7 @@ public class Menu {
 	 *         looking if a menu point was clicked
 	 */
 	public boolean isInnerMenuElement(PVector clickVector) {
-		if (this.menu[0].dist(clickVector) < this.RADIUSCIRCLEMENU ) {
+		if (this.menu[0].dist(clickVector) < this.RADIUSCIRCLEMENU) {
 			// System.out.println("Menue 1");
 
 			if (isEnoughCredits(Ground.PRICE)) {
