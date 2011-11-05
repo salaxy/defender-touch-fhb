@@ -50,7 +50,7 @@ public class DefenderView extends PApplet {
 	{
 
 		
-		
+		 
 		
 	//Screens links und rechts initialisieren
 	screenLeft = createGraphics(510, 768, JAVA2D);
@@ -127,7 +127,7 @@ public class DefenderView extends PApplet {
 	{
 //	  background(255);
 	  textFont(font,18);
-	  float obj_size = object_size; 
+	 // float obj_size = object_size; 
 	  float cur_size = cursor_size;
 	  
 	  
@@ -264,9 +264,9 @@ public class DefenderView extends PApplet {
     	//Klickvektor holen
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
     	
-    	this.unitControl(clickVector);
+    	//this.unitControl(clickVector);
 		
-//		this.menueControl(clickVector);
+		this.menueControl(clickVector);
     	
     }
     
