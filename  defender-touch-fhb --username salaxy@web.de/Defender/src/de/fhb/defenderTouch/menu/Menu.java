@@ -64,7 +64,7 @@ public class Menu {
 	/**
 	 * activation raduis of a menupoint
 	 */
-	protected final int DIAMETERCIRCLEMENU = 80;
+	protected final int DIAMETERCIRCLEMENU = 100;
 
 	/**
 	 * Radius of the circle Is always half its diameter
@@ -149,48 +149,92 @@ public class Menu {
 	public Player getPlayer() {
 		return player;
 	}
-	
-	public void rotateMenu(int element, float rotation, PGraphics graphics){
+
+	public void rotateMenu(int element, float rotation, PGraphics graphics) {
 		graphics.rotate(rotation);
 		menu[element] = new PVector(0, DISTANCE);
 		menu[element].rotate(rotation);
 		menu[element].add(position);
 	}
-	
-	public void rotateMenuBuildings(int element, float rotation, PGraphics graphics){
+
+	public void rotateMenuBuildings(int element, float rotation, PGraphics graphics) {
 		graphics.rotate(rotation);
 		menuBuildings[element] = new PVector(0, DISTANCE);
 		menuBuildings[element].rotate(rotation);
 		menuBuildings[element].add(position);
 	}
-	
-	public void calcDrawTransformation(PGraphics graphics){
+
+	public void calcDrawTransformation(PGraphics graphics) {
 		GraphicTools.calcDrawTransformation(player, graphics, position);
 	}
-	
-	public void calcDrawTransformationBuildings(PGraphics graphics){
+
+	public void calcDrawTransformationBuildings(PGraphics graphics) {
 		GraphicTools.calcDrawTransformation(player, graphics, positionBuilding);
 	}
-	
-	public void showBigMenuCircle(PGraphics graphics){
+
+	public void showBigMenuCircle(PGraphics graphics) {
 		graphics.ellipse(0, DISTANCE, DIAMETERCIRCLEMENU, DIAMETERCIRCLEMENU);
 	}
-	
-	public void showSmallMenuCircle(PGraphics graphics){
+
+	public void showSmallMenuCircle(PGraphics graphics) {
 		graphics.ellipse(0, DISTANCE, RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 	}
-	
-	public void showVerySmallMenuCircle(PGraphics graphics){
+
+	public void showVerySmallMenuCircle(PGraphics graphics) {
 		graphics.ellipse(0, DISTANCE + (DISTANCE / 2), RADIUSCIRCLEMENU, RADIUSCIRCLEMENU);
 	}
-	
-	public void showSignTriangle(PGraphics graphics){
+
+	public void showSignGround(PGraphics graphics) {
 		graphics.triangle(-5, DISTANCE + 5, 0, DISTANCE - 5, +5, DISTANCE + 5);
 	}
+
+	public void showSignDefence(PGraphics graphics) {
+		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
+		vektoren1.add(new PVector(-4, DISTANCE - 4));
+		vektoren1.add(new PVector(4, DISTANCE - 4));
+		vektoren1.add(new PVector(0, DISTANCE - 4));
+		vektoren1.add(new PVector(0, DISTANCE - 8));
+		vektoren1.add(new PVector(0, DISTANCE + 4));
+		vektoren1.add(new PVector(4, DISTANCE + 4));
+		vektoren1.add(new PVector(-4, DISTANCE + 4));
+		graphics.ellipse(0, DISTANCE - 4, 8, 8);
+		GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
+	}
+
+	public void showSignSupport(PGraphics graphics) {
+		ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
+		vektoren2.add(new PVector(0, DISTANCE - 8));
+		vektoren2.add(new PVector(0, DISTANCE + 8));
+		vektoren2.add(new PVector(0, DISTANCE));
+		vektoren2.add(new PVector(8, DISTANCE));
+		vektoren2.add(new PVector(-8, DISTANCE));
+		GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
+	}
+
+	public void showSignUpgrade(PGraphics graphics) {
+		graphics.triangle(-5, DISTANCE, 0, DISTANCE - 10, +5, DISTANCE);
+		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
+		vektoren1.add(new PVector(0, DISTANCE));
+		vektoren1.add(new PVector(0, DISTANCE + 8));
+		GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
+	}
 	
-	public void changeActualColor(Color color, PGraphics graphics){
+	public void showSignDestroy(PGraphics graphics) {
+		ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
+		vektoren2.add(new PVector(5, DISTANCE - 5));
+		vektoren2.add(new PVector(-5, DISTANCE + 5));
+		vektoren2.add(new PVector(0, DISTANCE));
+		vektoren2.add(new PVector(5, DISTANCE + 5));
+		vektoren2.add(new PVector(-5, DISTANCE - 5));
+		GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
+	}
+
+	public void changeActualColor(Color color, PGraphics graphics) {
 		graphics.fill(color.getRed(), color.getGreen(), color.getBlue());
-		
+	}
+
+	public void showPriceBuildings(PGraphics graphics, int price) {
+		graphics.text(price, 0, DISTANCE - RADIUSCIRCLEMENU);
 	}
 
 	/**
@@ -232,71 +276,56 @@ public class Menu {
 			graphics.stroke(255);
 			float rotation = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 6;
-			
+
 			calcDrawTransformation(graphics);
-			rotateMenu(0,rotation,graphics);
-			changeActualColor(Color.CYAN,graphics);
+			rotateMenu(0, rotation, graphics);
+			changeActualColor(Color.CYAN, graphics);
 			showBigMenuCircle(graphics);
-			showSignTriangle(graphics);
-			rotation += drehungProUntermenue;
+			showSignGround(graphics);
 			showVerySmallMenuCircle(graphics);
-			graphics.fill(255);
-			graphics.text(Ground.PRICE, 0, DISTANCE - RADIUSCIRCLEMENU);
+			changeActualColor(Color.WHITE, graphics);
+			showPriceBuildings(graphics, Ground.PRICE);
+			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
 			calcDrawTransformation(graphics);
-			rotateMenu(1,rotation,graphics);
-			changeActualColor(Color.BLUE,graphics);
+			rotateMenu(1, rotation, graphics);
+			changeActualColor(Color.BLUE, graphics);
 			showBigMenuCircle(graphics);
-			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
-			vektoren1.add(new PVector(-4, DISTANCE - 4));
-			vektoren1.add(new PVector(4, DISTANCE - 4));
-			vektoren1.add(new PVector(0, DISTANCE - 4));
-			vektoren1.add(new PVector(0, DISTANCE - 8));
-			vektoren1.add(new PVector(0, DISTANCE + 4));
-			vektoren1.add(new PVector(4, DISTANCE + 4));
-			vektoren1.add(new PVector(-4, DISTANCE + 4));
-			graphics.ellipse(0, DISTANCE - 4, 8, 8);
-			GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
-			rotation += drehungProUntermenue;
+			showSignDefence(graphics);
 			showVerySmallMenuCircle(graphics);
-			graphics.fill(255);
-			graphics.text(Defence.PRICE, 0, DISTANCE - RADIUSCIRCLEMENU);
+			changeActualColor(Color.WHITE, graphics);
+			showPriceBuildings(graphics, Defence.PRICE);
+			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
 			calcDrawTransformation(graphics);
-			rotateMenu(2,rotation,graphics);
-			changeActualColor(Color.MAGENTA,graphics);
+			rotateMenu(2, rotation, graphics);
+			changeActualColor(Color.MAGENTA, graphics);
 			showBigMenuCircle(graphics);
-			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
-			vektoren2.add(new PVector(0, DISTANCE - 8));
-			vektoren2.add(new PVector(0, DISTANCE + 8));
-			vektoren2.add(new PVector(0, DISTANCE));
-			vektoren2.add(new PVector(8, DISTANCE));
-			vektoren2.add(new PVector(-8, DISTANCE));
-			GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
-			rotation += drehungProUntermenue;
+			showSignSupport(graphics);
 			showVerySmallMenuCircle(graphics);
-			graphics.fill(255);
-			graphics.text(Support.PRICE, 0, DISTANCE - RADIUSCIRCLEMENU);
+			changeActualColor(Color.WHITE, graphics);
+			showPriceBuildings(graphics, Support.PRICE);
+			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
-			calcDrawTransformation(graphics);
-			rotateMenu(3,rotation,graphics);
 			graphics.noFill();
 			graphics.stroke(150);
+			calcDrawTransformation(graphics);
+			rotateMenu(3, rotation, graphics);
 			showSmallMenuCircle(graphics);
 			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
 			calcDrawTransformation(graphics);
-			rotateMenu(4,rotation,graphics);
+			rotateMenu(4, rotation, graphics);
 			showSmallMenuCircle(graphics);
 			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
 			calcDrawTransformation(graphics);
-			rotateMenu(5,rotation,graphics);
+			rotateMenu(5, rotation, graphics);
 			showSmallMenuCircle(graphics);
 			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
@@ -310,38 +339,26 @@ public class Menu {
 			graphics.textSize(TEXTSIZE);
 			graphics.noFill();
 			graphics.stroke(255);
-			
+
 			float rotation = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 4;
 
 			calcDrawTransformationBuildings(graphics);
-			rotateMenuBuildings(0,rotation,graphics);
-			changeActualColor(Color.GREEN,graphics);
+			rotateMenuBuildings(0, rotation, graphics);
+			changeActualColor(Color.GREEN, graphics);
 			showBigMenuCircle(graphics);
-			graphics.fill(255);
-			graphics.triangle(-5, DISTANCE, 0, DISTANCE - 10, +5, DISTANCE);
-			changeActualColor(Color.GREEN,graphics);
-			ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
-			vektoren1.add(new PVector(0, DISTANCE));
-			vektoren1.add(new PVector(0, DISTANCE + 8));
-			GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
-			rotation += drehungProUntermenue;
 			showVerySmallMenuCircle(graphics);
-			graphics.fill(255);
-			graphics.text(getActualBuildingPrice(positionBuilding), 0, DISTANCE - RADIUSCIRCLEMENU);
+			changeActualColor(Color.WHITE, graphics);
+			showSignUpgrade(graphics);
+			showPriceBuildings(graphics, getActualBuildingPrice(positionBuilding));
+			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
 			calcDrawTransformationBuildings(graphics);
-			rotateMenuBuildings(1,rotation,graphics);
-			changeActualColor(Color.RED,graphics);
+			rotateMenuBuildings(1, rotation, graphics);
+			changeActualColor(Color.RED, graphics);
 			showBigMenuCircle(graphics);
-			ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
-			vektoren2.add(new PVector(5, DISTANCE - 5));
-			vektoren2.add(new PVector(-5, DISTANCE + 5));
-			vektoren2.add(new PVector(0, DISTANCE));
-			vektoren2.add(new PVector(5, DISTANCE + 5));
-			vektoren2.add(new PVector(-5, DISTANCE - 5));
-			GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
+			showSignDestroy(graphics);
 			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
@@ -352,7 +369,7 @@ public class Menu {
 			// TODO ist unschön! aber mir fällt grad nix bessres ein, 3 steht
 			// sonst falsch rum...
 			graphics.rotate(rotation);
-			graphics.fill(255);
+			changeActualColor(Color.WHITE, graphics);
 			graphics.text(getActualBuildingLevel(positionBuilding), 0, Math.abs(DISTANCE) + 5);
 			graphics.resetMatrix();
 		}
