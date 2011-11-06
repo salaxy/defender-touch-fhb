@@ -19,6 +19,7 @@ import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Navi;
 import de.fhb.defenderTouch.units.grounded.Support;
+import de.fhb.defenderTouch.units.grounded.Tank;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 import de.fhb.defenderTouch.units.movable.Fighter;
 
@@ -560,6 +561,10 @@ public class DefenderView extends PApplet {
 				case 2:
 					System.out.println("building a Support unit");
 					new Support((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
+					break;
+				case 3:
+					System.out.println("building a Tank unit");
+					new Tank((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
 					break;
 				default:
 					System.out.println();

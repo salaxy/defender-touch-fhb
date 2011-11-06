@@ -1,7 +1,7 @@
 TODO CURTIS
 ***********
 
-- Menü überarbeiten (Skaliebar,verbessern Grafisch sowohl auch den Code...)
+fertig - Menü überarbeiten (Skaliebar,verbessern Grafisch sowohl auch den Code...)
 - korrekte Integration des Meneus ins Gesamtprogramm!
 
 - Ausgestaltung einer weiteren Unit (Bodeneinheit)(neu anlegen, Erben von BaseUnit, guck dir FIGHTER an als Beispiel)
