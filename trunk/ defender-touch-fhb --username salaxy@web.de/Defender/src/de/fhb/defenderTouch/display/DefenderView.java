@@ -532,7 +532,7 @@ public class DefenderView extends PApplet {
 			// WHEN UPGRADE OR DESTROY WAS CLICKED
 			if (menu.isInnerBuildingElement(realClickKoordinates)) {
 
-				switch (menu.getActualStatus()) {
+				switch (menu.getActualChosenBuilding()) {
 				case 0:
 					System.out.println("do Building upgrade");
 					menu.getActualBuilding().upgrade();
@@ -548,7 +548,7 @@ public class DefenderView extends PApplet {
 			
 			// CHOOSING A BUILDING
 			if (menu.isInnerMenuElement(realClickKoordinates)) {
-				switch (menu.getActualStatus()) {
+				switch (menu.getActualChosenBuilding()) {
 				case 0:
 					System.out.println("building a Ground unit");
 					new Ground((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);

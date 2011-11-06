@@ -117,7 +117,7 @@ public class Menu {
 	/**
 	 * Nummer des gebäudes
 	 */
-	protected int actualStatus = -1;
+	protected int actualChosenBuilding = -1;
 
 	/**
 	 * actual address with the building, used for deleting it
@@ -167,7 +167,7 @@ public class Menu {
 		RADIUS = DIAMETER / 2;
 		TEXTSIZE = RADIUS / 2;
 		DISTANCE = -(DIAMETER + 5);
-		TEXTDISTANCE = TEXTSIZE / 4;
+		TEXTDISTANCE = TEXTSIZE / 3;
 		SIZEOFGROUND = TEXTDISTANCE * 3;
 		SIZEOFDEFENCE = TEXTDISTANCE * 2;
 		SIZEOFSUPPORT = TEXTDISTANCE * 3;
@@ -317,15 +317,12 @@ public class Menu {
 			graphics.rotate(rotation);
 			graphics.fill(150);
 			showSmallMenuCircle(graphics);
-			// TODO ist unschön! aber mir fällt grad nix bessres ein, 3 steht
-			// sonst falsch rum...
 			graphics.rotate(rotation);
 			changeActualColor(Color.WHITE, graphics);
 			graphics.text(getActualBuildingLevel(positionBuilding), 0, Math.abs(DISTANCE) + TEXTDISTANCE);
 			graphics.resetMatrix();
 			graphics.strokeWeight(1);
 		}
-
 		graphics.resetMatrix();
 		graphics.textAlign(PApplet.CORNER);
 	}
@@ -364,7 +361,7 @@ public class Menu {
 			// System.out.println("Menue 1");
 			if (isEnoughCredits(Ground.PRICE)) {
 				player.setCredits(player.getCredits() - Ground.PRICE);
-				setActualStatus(0);
+				setActualChosenBuilding(0);
 				setMenuOpen(false);
 				return true;
 			}
@@ -373,7 +370,7 @@ public class Menu {
 			// System.out.println("Menue 2");
 			if (isEnoughCredits(Defence.PRICE)) {
 				player.setCredits(player.getCredits() - Defence.PRICE);
-				setActualStatus(1);
+				setActualChosenBuilding(1);
 				setMenuOpen(false);
 				return true;
 			}
@@ -382,7 +379,7 @@ public class Menu {
 			// System.out.println("Menue 3");
 			if (isEnoughCredits(Support.PRICE)) {
 				player.setCredits(player.getCredits() - Support.PRICE);
-				setActualStatus(2);
+				setActualChosenBuilding(2);
 				setMenuOpen(false);
 				return true;
 			}
@@ -417,13 +414,13 @@ public class Menu {
 		if (this.menuBuildings[0].dist(clickVector) < this.RADIUS) {
 			setBuildingOpen(false, null);
 			upgradeBuilding();
-			setActualStatus(0);
+			setActualChosenBuilding(0);
 			return true;
 		}
 		if (this.menuBuildings[1].dist(clickVector) < this.RADIUS) {
 			setBuildingOpen(false, null);
 			setActualBuildingDestroyPrice();
-			setActualStatus(1);
+			setActualChosenBuilding(1);
 			return true;
 		}
 
@@ -640,8 +637,8 @@ public class Menu {
 		return buildingOpen;
 	}
 
-	public void setActualStatus(int actualStatus) {
-		this.actualStatus = actualStatus;
+	public void setActualChosenBuilding(int actualChosenBuilding) {
+		this.actualChosenBuilding = actualChosenBuilding;
 	}
 
 	public void setMenuOpen(boolean menuOpen) {
@@ -652,8 +649,8 @@ public class Menu {
 		return menuOpen;
 	}
 
-	public int getActualStatus() {
-		return actualStatus;
+	public int getActualChosenBuilding() {
+		return actualChosenBuilding;
 	}
 
 	public float getPositionX() {
