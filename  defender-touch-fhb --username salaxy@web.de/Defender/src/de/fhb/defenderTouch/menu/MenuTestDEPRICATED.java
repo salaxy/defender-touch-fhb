@@ -17,7 +17,7 @@ import de.fhb.defenderTouch.units.grounded.Support;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 import gifAnimation.*;
 
-public class MenuTest extends PApplet {
+public class MenuTestDEPRICATED extends PApplet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -150,7 +150,7 @@ public class MenuTest extends PApplet {
 				// WHEN UPGRADE OR DESTROY WAS CLICKED
 				if (menu.isInnerBuildingElement(clickVector)) {
 
-					switch (menu.getActualStatus()) {
+					switch (menu.getActualChosenBuilding()) {
 					case 0:
 						System.out.println("do Building upgrade");
 						menu.getActualBuilding().upgrade();
@@ -170,7 +170,7 @@ public class MenuTest extends PApplet {
 			} else if (menu.isMenuOpen()) {
 				// CHOOSING A BUILDING
 				if (menu.isInnerMenuElement(clickVector)) {
-					switch (menu.getActualStatus()) {
+					switch (menu.getActualChosenBuilding()) {
 					case 0:
 						System.out.println("building a Ground unit");
 						//TODO wieder konform machen zu restl Programm
