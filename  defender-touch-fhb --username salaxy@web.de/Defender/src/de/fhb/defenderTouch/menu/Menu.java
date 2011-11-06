@@ -14,6 +14,7 @@ import de.fhb.defenderTouch.units.grounded.Building;
 import de.fhb.defenderTouch.units.grounded.Defence;
 import de.fhb.defenderTouch.units.grounded.Ground;
 import de.fhb.defenderTouch.units.grounded.Support;
+import de.fhb.defenderTouch.units.grounded.Tank;
 import de.fhb.defenderTouch.units.movable.BaseUnit;
 
 public class Menu {
@@ -100,6 +101,11 @@ public class Menu {
 	protected final int SIZEOFSUPPORT;
 
 	/**
+	 * size of Defence sign
+	 */
+	protected final int SIZEOFTANK;
+
+	/**
 	 * size of Destroy sign
 	 */
 	protected final int SIZEOFDESTROY;
@@ -174,6 +180,7 @@ public class Menu {
 		SIZEOFDESTROY = TEXTDISTANCE * 2;
 		SIZEOFUPGRADE = TEXTDISTANCE * 3;
 		SIZEOFLINESTROKES = 1 + DIAMETER / 80;
+		SIZEOFTANK = TEXTDISTANCE * 2;
 		// this.nonLoopingGifDestroy = new Gif(graphics, "expl_kl.gif");
 		// TODO hier Gif erstellen
 
@@ -261,14 +268,19 @@ public class Menu {
 			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
-			graphics.noFill();
-			graphics.stroke(150);
 			calcDrawTransformation(graphics);
 			rotateMenu(3, rotation, graphics);
-			showSmallMenuCircle(graphics);
+			changeActualColor(Color.orange, graphics);
+			showBigMenuCircle(graphics);
+			showSignTank(graphics);
+			showVerySmallMenuCircle(graphics);
+			changeActualColor(Color.WHITE, graphics);
+			showPriceBuildings(graphics, Tank.PRICE);
 			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
 
+			graphics.noFill();
+			graphics.stroke(150);
 			calcDrawTransformation(graphics);
 			rotateMenu(4, rotation, graphics);
 			showSmallMenuCircle(graphics);
@@ -385,8 +397,13 @@ public class Menu {
 			}
 		}
 		if (this.menu[3].dist(clickVector) < this.RADIUS) {
-			// System.out.println("Menue 4");
-			// TODO
+			// System.out.println("Menue 3");
+			if (isEnoughCredits(Tank.PRICE)) {
+				player.setCredits(player.getCredits() - Tank.PRICE);
+				setActualChosenBuilding(3);
+				setMenuOpen(false);
+				return true;
+			}
 		}
 		if (this.menu[4].dist(clickVector) < this.RADIUS) {
 			// System.out.println("Menue 5");
@@ -533,6 +550,9 @@ public class Menu {
 						if (bu instanceof Support) {
 							return Support.PRICE;
 						}
+						if (bu instanceof Tank) {
+							return Tank.PRICE;
+						}
 					}
 				}
 			}
@@ -562,6 +582,9 @@ public class Menu {
 						}
 						if (bu instanceof Support) {
 							actualBuildingName = "Support";
+						}
+						if (bu instanceof Tank) {
+							actualBuildingName = "Tank";
 						}
 					}
 				}
@@ -594,6 +617,9 @@ public class Menu {
 						}
 						if (bu instanceof Support) {
 							player.setCredits(player.getCredits() + (Support.PRICE * bu.getLevel()) / 2);
+						}
+						if (bu instanceof Tank) {
+							player.setCredits(player.getCredits() + (Tank.PRICE * bu.getLevel()) / 2);
 						}
 					}
 				}
@@ -769,6 +795,12 @@ public class Menu {
 		vektoren2.add(new PVector(SIZEOFSUPPORT, DISTANCE));
 		vektoren2.add(new PVector(-SIZEOFSUPPORT, DISTANCE));
 		GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
+	}
+
+	public void showSignTank(PGraphics graphics) {
+		graphics.rect(0, DISTANCE + SIZEOFTANK, SIZEOFTANK * 2, SIZEOFTANK * 3);
+		graphics.ellipse(0, DISTANCE + SIZEOFTANK, SIZEOFTANK, SIZEOFTANK);
+		graphics.rect(0, DISTANCE - SIZEOFTANK/2, SIZEOFTANK/2, SIZEOFTANK * 2);
 	}
 
 	public void showSignUpgrade(PGraphics graphics) {
