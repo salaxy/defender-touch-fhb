@@ -1,6 +1,5 @@
 package de.fhb.defenderTouch.units.grounded;
 
-import processing.core.PApplet;
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.units.movable.BaseUnit;

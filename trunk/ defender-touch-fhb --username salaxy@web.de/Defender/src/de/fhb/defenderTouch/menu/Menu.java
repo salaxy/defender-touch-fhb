@@ -1,11 +1,9 @@
 package de.fhb.defenderTouch.menu;
 
 import gifAnimation.Gif;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -228,8 +226,7 @@ public class Menu {
 			graphics.textAlign(PApplet.CENTER);
 			graphics.textSize(TEXTSIZE);
 			graphics.stroke(0);
-			
-			//graphics.strokeWeight(SIZEOFLINESTROKES);
+			graphics.strokeWeight(SIZEOFLINESTROKES);
 
 			calcDrawTransformation(graphics);
 			rotateMenu(0, rotation, graphics);
@@ -283,6 +280,7 @@ public class Menu {
 			showSmallMenuCircle(graphics);
 			rotation += drehungProUntermenue;
 			graphics.resetMatrix();
+			graphics.strokeWeight(1);
 		}
 
 		/**
@@ -294,6 +292,7 @@ public class Menu {
 			graphics.textAlign(PApplet.CENTER);
 			graphics.textSize(TEXTSIZE);
 			graphics.stroke(0);
+			graphics.strokeWeight(SIZEOFLINESTROKES);
 
 			calcDrawTransformationBuildings(graphics);
 			rotateMenuBuildings(0, rotation, graphics);
@@ -324,6 +323,7 @@ public class Menu {
 			changeActualColor(Color.WHITE, graphics);
 			graphics.text(getActualBuildingLevel(positionBuilding), 0, Math.abs(DISTANCE) + TEXTDISTANCE);
 			graphics.resetMatrix();
+			graphics.strokeWeight(1);
 		}
 
 		graphics.resetMatrix();
