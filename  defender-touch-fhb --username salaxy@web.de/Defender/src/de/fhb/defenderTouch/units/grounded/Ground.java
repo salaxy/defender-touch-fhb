@@ -1,7 +1,6 @@
 package de.fhb.defenderTouch.units.grounded;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
-import processing.core.PApplet;
 import processing.core.PGraphics;
 
 public class Ground extends Building {

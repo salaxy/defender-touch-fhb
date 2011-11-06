@@ -1,13 +1,8 @@
 package de.fhb.defenderTouch.units.grounded;
 
-import java.awt.Color;
 import java.util.ArrayList;
-
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
-import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
-
-import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 

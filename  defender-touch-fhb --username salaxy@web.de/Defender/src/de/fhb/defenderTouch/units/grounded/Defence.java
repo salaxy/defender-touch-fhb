@@ -2,7 +2,6 @@ package de.fhb.defenderTouch.units.grounded;
 
 import java.util.ArrayList;
 
-import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
