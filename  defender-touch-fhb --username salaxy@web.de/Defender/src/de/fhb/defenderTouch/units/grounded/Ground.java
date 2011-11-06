@@ -18,7 +18,7 @@ public class Ground extends Building {
 		// graphics.strokeWeight(10);
 		// graphics.fill(0);
 		graphics.noFill();
-		graphics.scale(2);
+		graphics.scale(1.5f);
 		graphics.rotate((float) Math.PI);
 //		this.entscheideLineFarbe(graphics);
 		graphics.triangle(-5, +5, 0, -5, +5, +5);
