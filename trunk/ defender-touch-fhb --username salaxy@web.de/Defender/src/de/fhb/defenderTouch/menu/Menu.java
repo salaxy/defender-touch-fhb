@@ -228,11 +228,12 @@ public class Menu {
 			graphics.textAlign(PApplet.CENTER);
 			graphics.textSize(TEXTSIZE);
 			graphics.stroke(0);
+			
+			//graphics.strokeWeight(SIZEOFLINESTROKES);
 
 			calcDrawTransformation(graphics);
 			rotateMenu(0, rotation, graphics);
 			changeActualColor(Color.CYAN, graphics);
-			graphics.strokeWeight(SIZEOFLINESTROKES);
 			showBigMenuCircle(graphics);
 			showSignGround(graphics);
 			showVerySmallMenuCircle(graphics);
