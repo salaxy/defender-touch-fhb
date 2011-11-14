@@ -34,17 +34,26 @@ public class DefenderView extends PApplet {
 	
 	// these are some helper variables which are used
 	// to create scalable graphical feedback
-	float cursor_size = 15;
-	float object_size = 60;
-	int width = 1024;
-	int height = 768;
-	PFont font;
-	BaseUnit test;
+	private float cursor_size = 15;
+	private float object_size = 60;
+	private int width = 1024;
+	private int height = 768;
+	private PFont font;
+	private BaseUnit test;
 
+	/**
+	 * Bildschirmgrapfken links und rechts
+	 */
+	private PGraphics screenLeft, screenRight;
 	
-	PGraphics screenLeft, screenRight;
+	/**
+	 * Gestenerkennung
+	 */
+	private Gestures gestures=new Gestures();
 	
-	//Spielelogik (Control)
+	/**
+	 * Controlunit des Gesamtprogramms
+	 */
 	private DefenderControl gamelogic;
 	
 	public void setup()
@@ -242,6 +251,12 @@ public class DefenderView extends PApplet {
 	public void updateTuioCursor (TuioCursor tcur) {
 	  println("update cursor "+tcur.getCursorID()+" ("+tcur.getSessionID()+ ") " +tcur.getX()+" "+tcur.getY()
 	          +" "+tcur.getMotionSpeed()+" "+tcur.getMotionAccel());
+	  
+	  //XXX erster Test .....anbiden von Gestures , NOTIZ funktioniert nicht
+		if(this.gestures.twoFingersInRange(this.tuioClient.getTuioCursors(), 2)){
+			
+			System.out.println("zwei finger erkannt");
+		}
 	}
 
 	// called when a cursor is removed from the scene
@@ -251,7 +266,11 @@ public class DefenderView extends PApplet {
 
 	// called after each message bundle
 	// representing the end of an image frame
-	public void refresh(TuioTime bundleTime) { 
+	public void refresh(TuioTime bundleTime) {
+		
+
+		
+		
 	  redraw();
 	}
 	
