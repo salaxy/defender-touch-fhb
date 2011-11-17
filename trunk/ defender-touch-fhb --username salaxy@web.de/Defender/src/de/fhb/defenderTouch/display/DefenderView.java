@@ -1,6 +1,4 @@
 package de.fhb.defenderTouch.display;
-import gifAnimation.Gif;
-
 import java.util.Vector;
 
 import processing.core.PApplet;
@@ -15,13 +13,13 @@ import TUIO.TuioTime;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.menu.Menu;
-import de.fhb.defenderTouch.units.grounded.Defence;
-import de.fhb.defenderTouch.units.grounded.Ground;
-import de.fhb.defenderTouch.units.grounded.Navi;
-import de.fhb.defenderTouch.units.grounded.Support;
-import de.fhb.defenderTouch.units.grounded.Tank;
-import de.fhb.defenderTouch.units.movable.BaseUnit;
+import de.fhb.defenderTouch.ui.Gestures;
 import de.fhb.defenderTouch.units.movable.Fighter;
+import de.fhb.defenderTouch.units.notmovable.Defence;
+import de.fhb.defenderTouch.units.notmovable.Ground;
+import de.fhb.defenderTouch.units.notmovable.Support;
+import de.fhb.defenderTouch.units.notmovable.Tank;
+import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class DefenderView extends PApplet {
 

@@ -1,4 +1,4 @@
-package de.fhb.defenderTouch.display;
+package de.fhb.defenderTouch.ui;
 //package uniteFollowLine;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class Gestures {
 	 *               return negativen Wert, wenn 2 Cursor ihren Abstand verringern  )
 	 * 					
 	 */
-	protected double rangeDifferent(Vector tuioCursorList){
+	public double rangeDifferent(Vector tuioCursorList){
 		TuioCursor tcur1, tcur2;	
 		double startRange = 0;
 		double endRange = 0;
@@ -84,7 +84,7 @@ public class Gestures {
 	 * 				(retrun true, wenn 2 Cursor, in einer Zeitspanne von 2 Sekunden, nah beieinander liegen)
 	 * 					
 	 */
-	protected boolean twoFingersInRange(Vector tuioCursorList, int secondsTwoWait){
+	public boolean twoFingersInRange(Vector tuioCursorList, int secondsTwoWait){
 		TuioCursor tcur1, tcur2;
 		TuioCursor tcur[] = new TuioCursor[2];		
 		double range;		
@@ -116,7 +116,7 @@ public class Gestures {
 	 * 				(retrun true, wenn 3 Cursor, in einer Zeitspanne von 2 Sekunden, nah beieinander liegen)
 	 * 					
 	 */
-	protected void threeFingersInRange(Vector tuioCursorList){
+	public void threeFingersInRange(Vector tuioCursorList){
 		TuioCursor tcur1, tcur2, tcur3;
 		double range1,range2,range3;	
 		//Die Entfernung von 3 Cursor zueinander vergleichen

@@ -1,4 +1,4 @@
-package de.fhb.defenderTouch.units.grounded;
+package de.fhb.defenderTouch.units.notmovable;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import processing.core.PGraphics;

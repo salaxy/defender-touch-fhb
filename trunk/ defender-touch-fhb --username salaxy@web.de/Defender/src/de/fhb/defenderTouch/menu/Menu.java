@@ -10,12 +10,12 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
-import de.fhb.defenderTouch.units.grounded.Building;
-import de.fhb.defenderTouch.units.grounded.Defence;
-import de.fhb.defenderTouch.units.grounded.Ground;
-import de.fhb.defenderTouch.units.grounded.Support;
-import de.fhb.defenderTouch.units.grounded.Tank;
-import de.fhb.defenderTouch.units.movable.BaseUnit;
+import de.fhb.defenderTouch.units.notmovable.Building;
+import de.fhb.defenderTouch.units.notmovable.Defence;
+import de.fhb.defenderTouch.units.notmovable.Ground;
+import de.fhb.defenderTouch.units.notmovable.Support;
+import de.fhb.defenderTouch.units.notmovable.Tank;
+import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class Menu {
 
