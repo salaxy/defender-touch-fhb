@@ -253,7 +253,7 @@ public class DefenderControl {
 	 * wertet die Menueaktionen aus
 	 * @param clickVector
 	 */
-	public void startMenueControl(PVector clickVector,int mouseButton) {
+	public void startMenueControlForMouse(PVector clickVector,int mouseButton) {
 		
 		//menue welches aufgerufen wird
 		Menu menu=null;
@@ -370,6 +370,171 @@ public class DefenderControl {
 			menu.setBuildingOpen(false, null);
 		}
 	}
+	
+    //Einheiten Kontrolle
+    public void startUnitControlForMouse(PVector clickVector,int mouseButton){
+    	
+		//wenn bei Spielr Zwei
+		if (clickVector.x > 512) {  		
+     		this.unitControlRightSide(clickVector, mouseButton);  
+		} else{
+     		this.unitControlLeftSide(clickVector, mouseButton);  
+		}
+    }
+    
+    
+    //Einheiten Kontrolle Spieler Zwei
+    public void unitControlRightSide(PVector clickVector,int mouseButton){
+    	boolean weitereAktivierung=false;
+	    boolean istAngriff=false;
+	    BaseUnit destinationUnit=null;
+	    
+	    //Klickvektor zurück rechnen auf spielkoordinaten
+		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.getPlayerTwo());
+
+
+    	if(mouseButton==PConstants.LEFT){    	
+			for(BaseUnit u: this.getGlobalUnits()){
+				
+				//wenn eine unit aktiviert wird dann die anderen deaktiveren
+				if(u.getPlayerID()==DefenderControl.PLAYER_TWO && u.isInner(realClickKoordinates)){	
+					u.activate();
+					//merken
+					this.getPlayerTwo().getActiveUnits().add(u);
+				}
+			}
+
+			//neues Ziel setzen wenn unit aktiv
+			for(BaseUnit u: this.getGlobalUnits()){
+			
+				if(u.isActive()){
+					//wenn  klick auf eine gegnerische Unit dann angriff
+					for(BaseUnit bu: this.getGlobalUnits()){
+						
+						//auf gegnerische einheit geklickt??
+						if(bu.getPlayerID()==DefenderControl.PLAYER_ONE && bu.isInner(realClickKoordinates)){
+							istAngriff=true;
+							destinationUnit=bu;
+							System.out.println("Angriff initiiert!");
+						}
+						
+						//auf weitere eigene einheit geklickt??
+						if(bu.getPlayerID()==DefenderControl.PLAYER_TWO && bu.isInner(realClickKoordinates)){
+							weitereAktivierung=true;
+							bu.activate();
+							System.out.println("Weitere Einheit aktiviert!");
+						}
+
+					}					
+					
+					if(!weitereAktivierung){
+						//bewegung anweisen wenn kein angriff
+						if(!istAngriff){
+							for(BaseUnit activeUnit: this.getPlayerTwo().getActiveUnits()){
+								activeUnit.commandDestination(realClickKoordinates);								
+							}
+
+						}else{
+							//falls angriff dann Angriff anweisen
+							for(BaseUnit activeUnit: this.getPlayerTwo().getActiveUnits()){
+								activeUnit.attack(destinationUnit);								
+							}
+						}
+					}
+
+				}
+			}	
+    	}
+	     
+    				
+		if(mouseButton==PConstants.RIGHT){
+
+			
+			for(BaseUnit u: this.getPlayerTwo().getActiveUnits()){
+				u.deactivate();
+				this.getPlayerTwo().getActiveUnits().remove(u);
+			}
+		}
+			
+    	
+    }
+    
+    //Einheiten Kontrolle Spieler Eins
+    public void unitControlLeftSide(PVector clickVector,int mouseButton){
+    	
+    	boolean weitereAktivierung=false;
+	    boolean istAngriff=false;
+	    BaseUnit destinationUnit=null;
+	    
+	    //Klickvektor zurück rechnen auf spielkoordinaten
+		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.getPlayerOne());
+	    
+	    
+    	if(mouseButton==PConstants.LEFT){    	
+			for(BaseUnit u: this.getGlobalUnits()){
+				
+				//wenn eine unit aktiviert wird dann die anderen deaktiveren
+				if(u.getPlayerID()==DefenderControl.PLAYER_ONE && u.isInner(realClickKoordinates)){	
+					u.activate();
+					//merken
+					this.getPlayerOne().getActiveUnits().add(u);
+				}
+			}
+
+			//neues Ziel setzen wenn unit aktiv
+			for(BaseUnit u: this.getGlobalUnits()){
+			
+				if(u.isActive()){
+					//wenn  klick auf eine gegnerische Unit dann angriff
+					for(BaseUnit bu: this.getGlobalUnits()){
+						
+						//auf gegnerische einheit geklickt??
+						if(bu.getPlayerID()==DefenderControl.PLAYER_TWO && bu.isInner(realClickKoordinates)){
+							istAngriff=true;
+							destinationUnit=bu;
+							System.out.println("Angriff initiiert!");
+							//TODO Sound
+						}
+						
+						//auf weitere eigene einheit geklickt??
+						if(bu.getPlayerID()==DefenderControl.PLAYER_ONE && bu.isInner(realClickKoordinates)){
+							weitereAktivierung=true;
+							bu.activate();
+							System.out.println("Weitere Einheit aktiviert!");
+						}
+
+					}					
+					
+					if(!weitereAktivierung){
+						//bewegung anweisen wenn kein angriff
+						if(!istAngriff){
+							for(BaseUnit activeUnit: this.getPlayerOne().getActiveUnits()){
+								activeUnit.commandDestination(realClickKoordinates);								
+							}
+
+						}else{
+							//falls angriff dann Angriff anweisen
+							for(BaseUnit activeUnit: this.getPlayerOne().getActiveUnits()){
+								activeUnit.attack(destinationUnit);								
+							}
+						}
+					}
+
+				}
+			}	
+    	}
+	     
+    				
+		if(mouseButton==PConstants.RIGHT){
+
+			
+			for(BaseUnit u: this.getPlayerOne().getActiveUnits()){
+				u.deactivate();
+				this.getPlayerOne().getActiveUnits().remove(u);
+			}
+		}
+			
+    }
 	
 	
 
