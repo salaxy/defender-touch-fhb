@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.units.root.BaseUnit;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;

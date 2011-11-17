@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import processing.core.PVector;
-import de.fhb.defenderTouch.units.movable.BaseUnit;
+import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class Player {
 	

@@ -12,7 +12,7 @@ import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.menu.Menu;
-import de.fhb.defenderTouch.units.movable.BaseUnit;
+import de.fhb.defenderTouch.units.root.BaseUnit;
 
 /**
  * Diese Klasse stellt die Verbindung zwischen Anzeige, also dem PApplet dar und

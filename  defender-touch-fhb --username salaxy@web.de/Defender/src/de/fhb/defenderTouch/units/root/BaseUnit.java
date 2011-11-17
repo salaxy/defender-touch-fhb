@@ -1,4 +1,4 @@
-package de.fhb.defenderTouch.units.movable;
+package de.fhb.defenderTouch.units.root;
 
 import java.awt.Color;
 
@@ -11,6 +11,7 @@ import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Gamemap;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.units.amunition.Shoot;
 
 /**
  * BaseUnit Version 0.5 vom 23.10.2011

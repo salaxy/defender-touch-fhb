@@ -1,4 +1,4 @@
-package de.fhb.defenderTouch.units.movable;
+package de.fhb.defenderTouch.units.amunition;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -6,6 +6,7 @@ import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.units.root.BaseUnit;
 
 /**
  * Stellt eine Einfache Animation eines Schusses einer Einheit dar
@@ -30,7 +31,7 @@ public class Shoot extends BaseUnit {
 		
 		this.damage=damage;
 		this.destinationUnit=destinationUnit;
-		this.commandDestination(destinationUnit.position);
+		this.commandDestination(destinationUnit.getPosition());
 		
 	}
 	
@@ -57,7 +58,7 @@ public class Shoot extends BaseUnit {
 	 */
 	public void calcNewPosition(){
 		
-		this.commandDestination(destinationUnit.position);
+		this.commandDestination(destinationUnit.getPosition());
 
 
 		PVector newPosition;
