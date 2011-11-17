@@ -4,6 +4,16 @@ TODO CURTIS
 fertig - Menü überarbeiten (Skaliebar,verbessern Grafisch sowohl auch den Code...)
 - korrekte Integration des Meneus ins Gesamtprogramm!
 
-- Ausgestaltung einer weiteren Unit (Bodeneinheit)(neu anlegen, Erben von BaseUnit, guck dir FIGHTER an als Beispiel)
+BITTE NACHBEARBEITEN- Ausgestaltung einer weiteren Unit (Bodeneinheit)(neu anlegen, Erben von BaseUnit, guck dir FIGHTER an als Beispiel)
 
 - Spawnen von Units in dem Gebäude Ground (seh dir Support an als Beispiel fuer die Zeitsteuerung mit Frames)
+
+@Curtis
+also folgendes:
+du hast nen neues Building erschaffen....war nciht die aufgabe....
+habe den Tank schon dahin verschoben wo er hingehört und zwar zu den beweglichen Einheiten,
+guck dir noch mal den Klassenkopf an und dein menü eintrag dazu ist schick, aber wir sollen aj nur Gebäüde bauen können,
+und man kann im moment NUR fuer den Grueen Spieler Gebäude bauen, bitte korrigieren das
+bzw. implementiere die Unterscheidung,
+habe diese Unterscheidung anders wo gemacht, nimm dir daran ein vorbild und gestalte es so
+(is fast copy paste)

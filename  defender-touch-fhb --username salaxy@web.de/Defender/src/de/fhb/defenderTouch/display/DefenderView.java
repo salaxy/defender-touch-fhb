@@ -15,10 +15,10 @@ import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.menu.Menu;
 import de.fhb.defenderTouch.ui.Gestures;
 import de.fhb.defenderTouch.units.movable.Fighter;
+import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.notmovable.Defence;
 import de.fhb.defenderTouch.units.notmovable.Ground;
 import de.fhb.defenderTouch.units.notmovable.Support;
-import de.fhb.defenderTouch.units.notmovable.Tank;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class DefenderView extends PApplet {

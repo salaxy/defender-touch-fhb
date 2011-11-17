@@ -1,7 +1,8 @@
-package de.fhb.defenderTouch.units.notmovable;
+package de.fhb.defenderTouch.units.movable;
 
 import processing.core.PGraphics;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.units.notmovable.Building;
 
 public class Tank extends Building {
 
