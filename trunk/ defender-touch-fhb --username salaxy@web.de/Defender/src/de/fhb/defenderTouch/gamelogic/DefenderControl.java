@@ -6,12 +6,17 @@ import java.awt.Color;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.menu.Menu;
+import de.fhb.defenderTouch.units.movable.Tank;
+import de.fhb.defenderTouch.units.notmovable.Defence;
+import de.fhb.defenderTouch.units.notmovable.Ground;
+import de.fhb.defenderTouch.units.notmovable.Support;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 /**
@@ -241,4 +246,131 @@ public class DefenderControl {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	/**
+	 * wertet die Menueaktionen aus
+	 * @param clickVector
+	 */
+	public void startMenueControl(PVector clickVector,int mouseButton) {
+		
+		//menue welches aufgerufen wird
+		Menu menu=null;
+		PVector realClickKoordinates= null;
+			
+		//wenn bei Spielr Zwei
+		if (clickVector.x > 512) {  		
+			//menue aus der Hauptlogik holen
+			menu=this.getMenuePlayerTwo();	
+			//spielkartenvektor berechnen
+			realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.getPlayerTwo());
+		} else{
+			//wenn bei Spieler Eins
+			//menue aus der Hauptlogik holen
+			menu=this.getMenuePlayerOne();
+			//spielkartenvektor berechnen
+			realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.getPlayerOne());
+		}
+
+		if (mouseButton == PConstants.LEFT) {
+			//menue oeffnen
+			openMenue(realClickKoordinates, menu);
+		}
+
+		if (mouseButton == PConstants.RIGHT) {
+			//menue schliessen
+			closeMenue(realClickKoordinates, menu);
+		}
+	}
+	
+	
+	
+	/**
+	 * Methode die aufgerufen werden soll wenn das menue(Bau/Gebauedemenue) geöffnet werden soll
+	 * 
+	 * @param realClickKoordinates - map koordinaten des Klicks
+	 * @param menu - menu welches geoeffnet werden soll
+	 */
+	private void openMenue(PVector realClickKoordinates, Menu menu){	
+		
+		if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
+			menu.setPosition(realClickKoordinates);
+			if (menu.isTaken(realClickKoordinates)) {
+				// IF A BUILDING IS CLICKED
+				System.out.println("open building menu");
+				menu.setBuildingOpen(true, realClickKoordinates);
+			} else {
+				// OPENS MAIN MENU
+				System.out.println("open menu");
+				menu.setMenuOpen(true);
+			}
+			menu.setActualBuildingName(realClickKoordinates);
+		} else if (menu.isBuildingOpen()) {
+			// WHEN UPGRADE OR DESTROY WAS CLICKED
+			if (menu.isInnerBuildingElement(realClickKoordinates)) {
+
+				switch (menu.getActualChosenBuilding()) {
+				case 0:
+					System.out.println("do Building upgrade");
+					menu.getActualBuilding().upgrade();
+					break;
+				case 1: 
+					System.out.println("do Building destroyed");
+					menu.getActualBuilding().delete();
+					break;
+				default:
+				}
+			}
+		} else if (menu.isMenuOpen()) {
+			
+			// CHOOSING A BUILDING
+			if (menu.isInnerMenuElement(realClickKoordinates)) {
+				switch (menu.getActualChosenBuilding()) {
+				case 0:
+					System.out.println("building a Ground unit");
+					new Ground((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+					break;
+				case 1:
+					System.out.println("building a Defence unit");
+					new Defence((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+					break;
+				case 2:
+					System.out.println("building a Support unit");
+					new Support((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+					break;
+				case 3:
+					System.out.println("building a Tank unit");
+					new Tank((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
+					break;
+				default:
+					System.out.println();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Methode die aufgerufen werden soll wenn das menue(Bau/Gebauedemenue) geschlossen werden soll
+	 * 
+	 * @param realClickKoordinates - map koordinaten des Klicks
+	 * @param menu - menu welches geschlossen werden soll
+	 */
+	private void closeMenue(PVector realClickKoordinates, Menu menu){
+		
+		// CLOSES MENU
+		if (menu.isMenuOpen() && menu.isInnerMainElement(realClickKoordinates)) {
+			menu.setMenuOpen(false);
+			System.out.println("close menu");
+		}
+		
+		// CLOSES BUILDING MENU
+		if (menu.isBuildingOpen() && menu.isTaken(realClickKoordinates)) {
+			System.out.println("close building menu");
+			menu.setBuildingOpen(false, null);
+		}
+	}
+	
+	
+
 }
