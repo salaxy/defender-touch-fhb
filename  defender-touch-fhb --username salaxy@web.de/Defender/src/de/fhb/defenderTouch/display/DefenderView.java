@@ -33,7 +33,7 @@ public class DefenderView extends PApplet {
 	// these are some helper variables which are used
 	// to create scalable graphical feedback
 	private float cursor_size = 15;
-	private float object_size = 60;
+//	private float object_size = 60;
 	private int width = 1024;
 	private int height = 768;
 	private PFont font;
@@ -52,20 +52,19 @@ public class DefenderView extends PApplet {
 	/**
 	 * Controlunit des Gesamtprogramms
 	 */
-	private DefenderControl gamelogic;
+	private DefenderControl control;
 	
 	public void setup()
 	{
 
-		
-		 
+
 		
 	//Screens links und rechts initialisieren
 	screenLeft = createGraphics(510, 768, JAVA2D);
 	screenRight = createGraphics(510, 768, JAVA2D);	
 	
 	//gamelogic initialisieren  
-	  gamelogic= DefenderControl.getInstance(this, screenLeft, screenRight);
+	  control= DefenderControl.getInstance(this, screenLeft, screenRight);
 	
 	  //size(screen.width,screen.height);
 	  size(width,height, P2D); //size of window
@@ -88,7 +87,7 @@ public class DefenderView extends PApplet {
 //	  karte = new Map(getWidth() / 32, getHeight() / 32); // Vorläufig wird das so initialisiert, später wird hier einfach nur eine vorhandene Karte geladen.
 	  
 	  //TestUnitBetas schaffen
-	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,gamelogic);
+	  test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,control);
 	  test.commandDestination(new PVector(1000,700));
 
 
@@ -99,23 +98,23 @@ public class DefenderView extends PApplet {
 //	  new Defence(700,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this,gamelogic);
 	  
 	  //Testflugstaffel
-	  new Fighter(100,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,gamelogic);
-	  new Fighter(200,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,gamelogic);
-	  new Fighter(300,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,gamelogic);
-	  new Fighter(400,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,gamelogic);
-	  new Fighter(500,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,gamelogic);	  
-	  new Fighter(600,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,gamelogic);
-	  new Fighter(700,50,BaseUnit.MODE_PULSE_IF_ACTIVE,DefenderControl.PLAYER_TWO,gamelogic);
+	  new Fighter(100,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);
+	  new Fighter(200,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);
+	  new Fighter(300,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);
+	  new Fighter(400,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);
+	  new Fighter(500,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);	  
+	  new Fighter(600,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);
+	  new Fighter(700,50,BaseUnit.MODE_PULSE_IF_ACTIVE,DefenderControl.PLAYER_TWO,control);
 
 	  //Testflugstaffel playerOne
-	  new Fighter(100,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
-	  new Fighter(200,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
-	  new Fighter(300,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
-	  new Fighter(400,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
-	  new Fighter(500,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
-	  new BaseUnit(600,700,BaseUnit.MODE_PULSE,DefenderControl.PLAYER_ONE,gamelogic);
-	  new BaseUnit(700,700,BaseUnit.MODE_ROTATE_AND_PULSE,DefenderControl.PLAYER_ONE,gamelogic);
-	  new BaseUnit(800,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
+	  new Fighter(100,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+	  new Fighter(200,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+	  new Fighter(300,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+	  new Fighter(400,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+	  new Fighter(500,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+	  new BaseUnit(600,700,BaseUnit.MODE_PULSE,DefenderControl.PLAYER_ONE,control);
+	  new BaseUnit(700,700,BaseUnit.MODE_ROTATE_AND_PULSE,DefenderControl.PLAYER_ONE,control);
+	  new BaseUnit(800,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
 	  
 
 	  
@@ -139,7 +138,7 @@ public class DefenderView extends PApplet {
 	  float cur_size = cursor_size;
 	  
 	  
-	  this.gamelogic.drawAll();
+	  this.control.drawAll();
 	  
 
 
@@ -218,7 +217,7 @@ public class DefenderView extends PApplet {
 	  	boolean wurdeEbendAktiviert=false;	
 	  	boolean warSchonAktiv=false;
 	
-		for(BaseUnit u: gamelogic.getGlobalUnits()){
+		for(BaseUnit u: control.getGlobalUnits()){
 			
 			
 			//wenn eine unit aktiviert wird dann die anderen deaktiveren
@@ -238,7 +237,7 @@ public class DefenderView extends PApplet {
 		}
 		
 		//neues Ziel setzen wenn unit aktiv
-		for(BaseUnit u: gamelogic.getGlobalUnits()){
+		for(BaseUnit u: control.getGlobalUnits()){
 			if(u.isActive()){
 				u.commandDestination(vector);				
 			}
@@ -282,9 +281,13 @@ public class DefenderView extends PApplet {
     	//Klickvektor holen
     	PVector clickVector=new PVector(this.mouseX,this.mouseY);
     	
-    	//this.unitControl(clickVector);
-		
-		this.menueControl(clickVector);
+		//wenn aktion im steuerbarenbereich
+		if(isInUsableInputarea(clickVector)){
+			
+//			this.unitControl(clickVector);
+			
+			this.control.startMenueControl(clickVector, this.mouseButton);	
+		}
     	
     }
     
@@ -294,16 +297,11 @@ public class DefenderView extends PApplet {
     //Einheiten Kontrolle
     public void unitControl(PVector clickVector){
     	
-		//wenn aktion im steuerbarenbereich
-		if(isInUsableInputarea(clickVector)){
-			
-			//wenn bei Spielr Zwei
-			if (clickVector.x > 512) {  		
-	     		this.unitControlRightSide(clickVector);  
-			} else{
-	     		this.unitControlLeftSide(clickVector);  
-			}
-
+		//wenn bei Spielr Zwei
+		if (clickVector.x > 512) {  		
+     		this.unitControlRightSide(clickVector);  
+		} else{
+     		this.unitControlLeftSide(clickVector);  
 		}
     }
     
@@ -315,26 +313,26 @@ public class DefenderView extends PApplet {
 	    BaseUnit destinationUnit=null;
 	    
 	    //Klickvektor zurück rechnen auf spielkoordinaten
-		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, gamelogic.getPlayerTwo());
+		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, control.getPlayerTwo());
 
 
     	if(this.mouseButton==LEFT){    	
-			for(BaseUnit u: gamelogic.getGlobalUnits()){
+			for(BaseUnit u: control.getGlobalUnits()){
 				
 				//wenn eine unit aktiviert wird dann die anderen deaktiveren
 				if(u.getPlayerID()==DefenderControl.PLAYER_TWO && u.isInner(realClickKoordinates)){	
 					u.activate();
 					//merken
-					gamelogic.getPlayerTwo().getActiveUnits().add(u);
+					control.getPlayerTwo().getActiveUnits().add(u);
 				}
 			}
 
 			//neues Ziel setzen wenn unit aktiv
-			for(BaseUnit u: gamelogic.getGlobalUnits()){
+			for(BaseUnit u: control.getGlobalUnits()){
 			
 				if(u.isActive()){
 					//wenn  klick auf eine gegnerische Unit dann angriff
-					for(BaseUnit bu: gamelogic.getGlobalUnits()){
+					for(BaseUnit bu: control.getGlobalUnits()){
 						
 						//auf gegnerische einheit geklickt??
 						if(bu.getPlayerID()==DefenderControl.PLAYER_ONE && bu.isInner(realClickKoordinates)){
@@ -355,13 +353,13 @@ public class DefenderView extends PApplet {
 					if(!weitereAktivierung){
 						//bewegung anweisen wenn kein angriff
 						if(!istAngriff){
-							for(BaseUnit activeUnit: gamelogic.getPlayerTwo().getActiveUnits()){
+							for(BaseUnit activeUnit: control.getPlayerTwo().getActiveUnits()){
 								activeUnit.commandDestination(realClickKoordinates);								
 							}
 
 						}else{
 							//falls angriff dann Angriff anweisen
-							for(BaseUnit activeUnit: gamelogic.getPlayerTwo().getActiveUnits()){
+							for(BaseUnit activeUnit: control.getPlayerTwo().getActiveUnits()){
 								activeUnit.attack(destinationUnit);								
 							}
 						}
@@ -375,9 +373,9 @@ public class DefenderView extends PApplet {
 		if(this.mouseButton==RIGHT){
 
 			
-			for(BaseUnit u: gamelogic.getPlayerTwo().getActiveUnits()){
+			for(BaseUnit u: control.getPlayerTwo().getActiveUnits()){
 				u.deactivate();
-				gamelogic.getPlayerTwo().getActiveUnits().remove(u);
+				control.getPlayerTwo().getActiveUnits().remove(u);
 			}
 		}
 			
@@ -392,26 +390,26 @@ public class DefenderView extends PApplet {
 	    BaseUnit destinationUnit=null;
 	    
 	    //Klickvektor zurück rechnen auf spielkoordinaten
-		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, gamelogic.getPlayerOne());
+		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, control.getPlayerOne());
 	    
 	    
     	if(this.mouseButton==LEFT){    	
-			for(BaseUnit u: gamelogic.getGlobalUnits()){
+			for(BaseUnit u: control.getGlobalUnits()){
 				
 				//wenn eine unit aktiviert wird dann die anderen deaktiveren
 				if(u.getPlayerID()==DefenderControl.PLAYER_ONE && u.isInner(realClickKoordinates)){	
 					u.activate();
 					//merken
-					gamelogic.getPlayerOne().getActiveUnits().add(u);
+					control.getPlayerOne().getActiveUnits().add(u);
 				}
 			}
 
 			//neues Ziel setzen wenn unit aktiv
-			for(BaseUnit u: gamelogic.getGlobalUnits()){
+			for(BaseUnit u: control.getGlobalUnits()){
 			
 				if(u.isActive()){
 					//wenn  klick auf eine gegnerische Unit dann angriff
-					for(BaseUnit bu: gamelogic.getGlobalUnits()){
+					for(BaseUnit bu: control.getGlobalUnits()){
 						
 						//auf gegnerische einheit geklickt??
 						if(bu.getPlayerID()==DefenderControl.PLAYER_TWO && bu.isInner(realClickKoordinates)){
@@ -433,13 +431,13 @@ public class DefenderView extends PApplet {
 					if(!weitereAktivierung){
 						//bewegung anweisen wenn kein angriff
 						if(!istAngriff){
-							for(BaseUnit activeUnit: gamelogic.getPlayerOne().getActiveUnits()){
+							for(BaseUnit activeUnit: control.getPlayerOne().getActiveUnits()){
 								activeUnit.commandDestination(realClickKoordinates);								
 							}
 
 						}else{
 							//falls angriff dann Angriff anweisen
-							for(BaseUnit activeUnit: gamelogic.getPlayerOne().getActiveUnits()){
+							for(BaseUnit activeUnit: control.getPlayerOne().getActiveUnits()){
 								activeUnit.attack(destinationUnit);								
 							}
 						}
@@ -453,9 +451,9 @@ public class DefenderView extends PApplet {
 		if(this.mouseButton==RIGHT){
 
 			
-			for(BaseUnit u: gamelogic.getPlayerOne().getActiveUnits()){
+			for(BaseUnit u: control.getPlayerOne().getActiveUnits()){
 				u.deactivate();
-				gamelogic.getPlayerOne().getActiveUnits().remove(u);
+				control.getPlayerOne().getActiveUnits().remove(u);
 			}
 		}
 			
@@ -465,11 +463,11 @@ public class DefenderView extends PApplet {
     public void mouseDragged() {
     	if (mouseButton == LEFT) {
     		if (mouseX < 512) {
-    			PVector tempVec = gamelogic.getPlayerOne().getViewPosition();
+    			PVector tempVec = control.getPlayerOne().getViewPosition();
     			tempVec.y = tempVec.y + pmouseX - mouseX;
     			tempVec.x = tempVec.x + mouseY - pmouseY;
     		} else {
-    			PVector tempVec = gamelogic.getPlayerTwo().getViewPosition();
+    			PVector tempVec = control.getPlayerTwo().getViewPosition();
     			tempVec.y = tempVec.y + mouseX  - pmouseX;
     			tempVec.x = tempVec.x + pmouseY - mouseY ;
     		}
@@ -477,141 +475,14 @@ public class DefenderView extends PApplet {
     	
     	if (mouseButton == RIGHT) {
     		if (mouseX < 512) {
-    			gamelogic.getPlayerOne().setActualZoom(gamelogic.getPlayerOne().getActualZoom() + (mouseY - pmouseY) * 0.01f);    			
+    			control.getPlayerOne().setActualZoom(control.getPlayerOne().getActualZoom() + (mouseY - pmouseY) * 0.01f);    			
     		} else {
-    			gamelogic.getPlayerTwo().setActualZoom(gamelogic.getPlayerTwo().getActualZoom()  + (mouseY - pmouseY) * 0.01f);    			
+    			control.getPlayerTwo().setActualZoom(control.getPlayerTwo().getActualZoom()  + (mouseY - pmouseY) * 0.01f);    			
     		}
     	}
     }
     
     
-    
-	/**
-	 * wertet die Menueaktionen aus
-	 * @param clickVector
-	 */
-	public void menueControl(PVector clickVector) {
-		
-		//menue welches aufgerufen wird
-		Menu menu=null;
-		PVector realClickKoordinates= null;
-		
-	    
-		//wenn aktion im steuerbarenbereich
-		if(isInUsableInputarea(clickVector)){
-			
-			//wenn bei Spielr Zwei
-			if (clickVector.x > 512) {  		
-				//menue aus der Hauptlogik holen
-				menu=this.gamelogic.getMenuePlayerTwo();	
-				//spielkartenvektor berechnen
-				realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.gamelogic.getPlayerTwo());
-			} else{
-				//wenn bei Spieler Eins
-				//menue aus der Hauptlogik holen
-				menu=this.gamelogic.getMenuePlayerOne();
-				//spielkartenvektor berechnen
-				realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.gamelogic.getPlayerOne());
-			}
-
-			if (this.mouseButton == LEFT) {
-				//menue oeffnen
-				openMenue(realClickKoordinates, menu);
-			}
-	
-			if (this.mouseButton == RIGHT) {
-				//menue schliessen
-				closeMenue(realClickKoordinates, menu);
-			}
-		}
-	}
-	
-	/**
-	 * Methode die aufgerufen werden soll wenn das menue(Bau/Gebauedemenue) geöffnet werden soll
-	 * 
-	 * @param realClickKoordinates - map koordinaten des Klicks
-	 * @param menu - menu welches geoeffnet werden soll
-	 */
-	private void openMenue(PVector realClickKoordinates, Menu menu){	
-		
-		if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
-			menu.setPosition(realClickKoordinates);
-			if (menu.isTaken(realClickKoordinates)) {
-				// IF A BUILDING IS CLICKED
-				System.out.println("open building menu");
-				menu.setBuildingOpen(true, realClickKoordinates);
-			} else {
-				// OPENS MAIN MENU
-				System.out.println("open menu");
-				menu.setMenuOpen(true);
-			}
-			menu.setActualBuildingName(realClickKoordinates);
-		} else if (menu.isBuildingOpen()) {
-			// WHEN UPGRADE OR DESTROY WAS CLICKED
-			if (menu.isInnerBuildingElement(realClickKoordinates)) {
-
-				switch (menu.getActualChosenBuilding()) {
-				case 0:
-					System.out.println("do Building upgrade");
-					menu.getActualBuilding().upgrade();
-					break;
-				case 1: 
-					System.out.println("do Building destroyed");
-					menu.getActualBuilding().delete();
-					break;
-				default:
-				}
-			}
-		} else if (menu.isMenuOpen()) {
-			
-			// CHOOSING A BUILDING
-			if (menu.isInnerMenuElement(realClickKoordinates)) {
-				switch (menu.getActualChosenBuilding()) {
-				case 0:
-					System.out.println("building a Ground unit");
-					new Ground((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
-					break;
-				case 1:
-					System.out.println("building a Defence unit");
-					new Defence((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
-					break;
-				case 2:
-					System.out.println("building a Support unit");
-					new Support((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
-					break;
-				case 3:
-					System.out.println("building a Tank unit");
-					new Tank((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,gamelogic);
-					break;
-				default:
-					System.out.println();
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Methode die aufgerufen werden soll wenn das menue(Bau/Gebauedemenue) geschlossen werden soll
-	 * 
-	 * @param realClickKoordinates - map koordinaten des Klicks
-	 * @param menu - menu welches geschlossen werden soll
-	 */
-	private void closeMenue(PVector realClickKoordinates, Menu menu){
-		
-		// CLOSES MENU
-		if (menu.isMenuOpen() && menu.isInnerMainElement(realClickKoordinates)) {
-			menu.setMenuOpen(false);
-			System.out.println("close menu");
-		}
-		
-		// CLOSES BUILDING MENU
-		if (menu.isBuildingOpen() && menu.isTaken(realClickKoordinates)) {
-			System.out.println("close building menu");
-			menu.setBuildingOpen(false, null);
-		}
-	}
-	
-	
 	/**
 	 * Gibt true zurueck wenn Klickvektor im Steuerbaren bereich
 	 * @param clickVector
@@ -621,5 +492,6 @@ public class DefenderView extends PApplet {
 		
 		return clickVector.x > 522|| clickVector.x < 502;
 	}
+
     
 }
