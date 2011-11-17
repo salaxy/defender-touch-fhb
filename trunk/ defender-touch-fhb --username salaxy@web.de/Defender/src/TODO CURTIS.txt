@@ -7,5 +7,3 @@ fertig - Menü überarbeiten (Skaliebar,verbessern Grafisch sowohl auch den Code..
 - Ausgestaltung einer weiteren Unit (Bodeneinheit)(neu anlegen, Erben von BaseUnit, guck dir FIGHTER an als Beispiel)
 
 - Spawnen von Units in dem Gebäude Ground (seh dir Support an als Beispiel fuer die Zeitsteuerung mit Frames)
-
-ich ficke dich hart andy :D
