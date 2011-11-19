@@ -1,6 +1,8 @@
 package de.fhb.defenderTouch.units.notmovable;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import processing.core.PGraphics;
@@ -11,10 +13,11 @@ public class Support extends Building {
 	public static final int PRICE = 30;
 	protected int size = 0;
 
-	private int frameTimesToRaiseCredits = 50;
-	private int framesTemp = 0;
+	private int timeTillNextIncome = 1000;
+	private int creditsPerTime = 1;
 
-	private int creditsPerTime = 20;
+	private long startingTime = new Date().getTime();
+	private long tickerTime;
 
 	public Support(int x, int y, int mode, int playerID, DefenderControl gamelogic) {
 		super(x, y, mode, playerID, gamelogic);
@@ -58,10 +61,9 @@ public class Support extends Building {
 	}
 
 	public void calcNewPosition() {
+		tickerTime = new Date().getTime();
 
-		framesTemp++;
-
-		if (framesTemp == frameTimesToRaiseCredits) {
+		if (getNewIncome(startingTime, tickerTime)) {
 			if (this.playerID == DefenderControl.PLAYER_ONE) {
 				gamelogic.getPlayerOne().addCredits(this.creditsPerTime);
 			}
@@ -69,9 +71,17 @@ public class Support extends Building {
 			if (this.playerID == DefenderControl.PLAYER_TWO) {
 				gamelogic.getPlayerTwo().addCredits(this.creditsPerTime);
 			}
-
-			framesTemp = 0;
 		}
+
+	}
+
+	public boolean getNewIncome(long startingTime, long tickerTime) {
+		long helpTime = tickerTime - startingTime;
+		if (helpTime >= timeTillNextIncome) {
+			this.startingTime = new Date().getTime();
+			return true;
+		}
+		return false;
 
 	}
 
