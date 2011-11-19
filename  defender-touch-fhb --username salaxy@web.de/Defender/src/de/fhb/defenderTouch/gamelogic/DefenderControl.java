@@ -79,8 +79,8 @@ public class DefenderControl {
 		
 		
 		//Menue init//TODO gifanimation
-		menuePlayerOne = new Menu(this.globalUnits, nonLoopingGifDestroy,playerOne);
-		menuePlayerTwo = new Menu(this.globalUnits, nonLoopingGifDestroy,playerTwo);
+		menuePlayerOne = new Menu(this.globalUnits, nonLoopingGifDestroy,playerOne, DefenderControl.PLAYER_ONE);
+		menuePlayerTwo = new Menu(this.globalUnits, nonLoopingGifDestroy,playerTwo, DefenderControl.PLAYER_TWO);
 		
 		
 
@@ -326,26 +326,7 @@ public class DefenderControl {
 			
 			// CHOOSING A BUILDING
 			if (menu.isInnerMenuElement(realClickKoordinates)) {
-				switch (menu.getActualChosenBuilding()) {
-				case 0:
-					System.out.println("building a Ground unit");
-					new Ground((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-					break;
-				case 1:
-					System.out.println("building a Defence unit");
-					new Defence((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-					break;
-				case 2:
-					System.out.println("building a Support unit");
-					new Support((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-					break;
-				case 3:
-					System.out.println("building a Tank unit");
-					new Tank((int)menu.getPositionX(),(int)menu.getPositionY(),BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,this);
-					break;
-				default:
-					System.out.println();
-				}
+				menu.createBuilding(this);
 			}
 		}
 	}

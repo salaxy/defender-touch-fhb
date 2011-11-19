@@ -284,9 +284,9 @@ public class DefenderView extends PApplet {
 		//wenn aktion im steuerbarenbereich
 		if(isInUsableInputarea(clickVector)){
 			
-			this.control.startUnitControlForMouse(clickVector, this.mouseButton);	
+//			this.control.startUnitControlForMouse(clickVector, this.mouseButton);	
 			
-//			this.control.startMenueControlForMouse(clickVector, this.mouseButton);	
+			this.control.startMenueControlForMouse(clickVector, this.mouseButton);	
 		}
     	
     }
