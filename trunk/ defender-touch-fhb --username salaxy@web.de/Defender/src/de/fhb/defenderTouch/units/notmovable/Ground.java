@@ -3,14 +3,17 @@ package de.fhb.defenderTouch.units.notmovable;
 import java.util.Date;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.units.movable.Fighter;
+import de.fhb.defenderTouch.units.movable.Tank;
+import de.fhb.defenderTouch.units.root.BaseUnit;
 import processing.core.PGraphics;
 
 public class Ground extends Building {
 
 	public static final int PRICE = 50;
 	protected int size = 0;
-	
-	private int timeTillNextIncome = 5000;
+
+	private int timeTillNextSpawn = 2000;
 
 	private long startingTime = new Date().getTime();
 	private long tickerTime;
@@ -48,30 +51,43 @@ public class Ground extends Building {
 		graphics.stroke(0);
 
 	}
-	
+
 	public void calcNewPosition() {
 		tickerTime = new Date().getTime();
 
-		if (getNewGroundUnit(startingTime, tickerTime)) {
+		if (createNewGroundUnit(startingTime, tickerTime)) {
 			if (this.playerID == DefenderControl.PLAYER_ONE) {
-				// TODO
+				new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL,
+						DefenderControl.PLAYER_ONE, gamelogic);
 			}
 
 			if (this.playerID == DefenderControl.PLAYER_TWO) {
-				//gamelogic.getPlayerTwo().addCredits(this.creditsPerTime);
+				new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL,
+						DefenderControl.PLAYER_TWO, gamelogic);
 			}
 		}
 
 	}
 
-	public boolean getNewGroundUnit(long startingTime, long tickerTime) {
+	public boolean createNewGroundUnit(long startingTime, long tickerTime) {
 		long helpTime = tickerTime - startingTime;
-		if (helpTime >= timeTillNextIncome) {
+		if (helpTime >= timeTillNextSpawn) {
 			this.startingTime = new Date().getTime();
 			return true;
 		}
 		return false;
 
+	}
+
+	public int generateRandomNumber(int x) {
+
+		int help;
+
+		if (Math.random() > 0.5)
+			help = (int) (this.activateRadius * 2);
+		else
+			help = (int) -(this.activateRadius * 2);
+		return x + help;
 	}
 
 }
