@@ -7,9 +7,9 @@ TODO ANDY
 
 - Loesung fuer die Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
 
-
-
-
+************************************
+		UMbau auf Slick
+************************************
 
 
 

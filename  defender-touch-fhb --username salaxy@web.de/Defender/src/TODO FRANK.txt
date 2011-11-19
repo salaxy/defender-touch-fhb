@@ -6,3 +6,6 @@ TODO FRANK
 - musst sagen können in welchem Bereich jemand bauen darf 
 (hatte ich glaube vergessen)(genauso wie bei isFlyable, isWater etc.)
 (unterscheidung Spieler EINS oder Zwei, mache es am besten mit den Konstanten aus DefenderControl)
+
+
+Immer noch deine Aufgabe!!!!!!

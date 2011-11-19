@@ -173,7 +173,7 @@ public class Menu {
 	 * 
 	 * @param nonLoopingGif
 	 */
-	public Menu(CopyOnWriteArrayList<BaseUnit> buildings, Gif nonLoopingGifDestroy, Player player, int playerID) {
+	public Menu(CopyOnWriteArrayList<BaseUnit> buildings, Player player, int playerID) {
 		this.position = new PVector(0, 0);
 		// this.graphics = graphics;
 		this.buildings = buildings;
