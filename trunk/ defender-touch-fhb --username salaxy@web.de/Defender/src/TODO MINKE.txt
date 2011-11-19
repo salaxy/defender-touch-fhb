@@ -1,7 +1,10 @@
 TODO MINKE
 ***********
 
-- Integration der TUIO-Steuerung in DefenderViewSlick
+- Integration der TUIO-Steuerung in DefenderControl!!
+	Hinweise:
+	Steuerung ist jetzt in der DefenderControl, hier hast du zugriff auf deine Gestenklasse "gestures"
+	sie ist Attribut von DefenderControl
 
 - neue Schüsse anlegen und gestalten (mind zwei), also von Shoot als Oberklasse ableiten
 

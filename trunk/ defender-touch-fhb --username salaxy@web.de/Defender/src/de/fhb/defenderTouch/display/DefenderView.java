@@ -64,7 +64,7 @@ public class DefenderView extends PApplet {
 	screenRight = createGraphics(510, 768, JAVA2D);	
 	
 	//gamelogic initialisieren  
-	  control= DefenderControl.getInstance(this, screenLeft, screenRight);
+//	  control= DefenderControl.getInstance(this, screenLeft, screenRight);
 	
 	  //size(screen.width,screen.height);
 	  size(width,height, P2D); //size of window
@@ -138,7 +138,7 @@ public class DefenderView extends PApplet {
 	  float cur_size = cursor_size;
 	  
 	  
-	  this.control.drawAll();
+//	  this.control.drawAll();
 	  
 
 

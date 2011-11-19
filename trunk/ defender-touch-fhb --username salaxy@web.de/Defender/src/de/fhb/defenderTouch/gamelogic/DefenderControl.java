@@ -2,19 +2,20 @@ package de.fhb.defenderTouch.gamelogic;
 
 
 
-import java.awt.Font;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.TrueTypeFont;
-
 import processing.core.PApplet;
 import processing.core.PVector;
+import TUIO.TuioCursor;
+import TUIO.TuioListener;
+import TUIO.TuioObject;
+import TUIO.TuioTime;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.menu.Menu;
+import de.fhb.defenderTouch.ui.Gestures;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 /**
@@ -24,7 +25,13 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
  * 
  * @author Salaxy 
  */
-public class DefenderControl {
+public class DefenderControl implements TuioListener{
+	
+	/**
+	 * Gestenerkennung
+	 */
+	private Gestures gestures=new Gestures();
+	
 	
 	public static final int MOUSE_LEFT = 0;
 	public static final int MOUSE_RIGHT = 1;
@@ -47,10 +54,10 @@ public class DefenderControl {
 	
 
 	private CopyOnWriteArrayList<BaseUnit> globalUnits;
-//	private Graphics display;
 	private static DefenderControl instance = null;
 	private Player playerOne;
 	private Player playerTwo;
+	//TODO Andy wieder Einbauen von Slickäquivalent zu den screens von Processing
 //	private PGraphics screenLeft, screenRight;
 	private Gamemap map;
 	
@@ -59,9 +66,9 @@ public class DefenderControl {
 	private Menu menuePlayerTwo;
 
 	public DefenderControl(
-//			Graphics display
 //			,PGraphics screenLeft,PGraphics screenRight
 			) {
+		
 		//map init
 		map=new Gamemap();
 		
@@ -77,12 +84,10 @@ public class DefenderControl {
 //		this.screenRight = screenRight;
 //		
 		
-		//Menue init//TODO gifanimation
+		//Menue init
 		menuePlayerOne = new Menu(this.globalUnits,playerOne, DefenderControl.PLAYER_ONE);
 		menuePlayerTwo = new Menu(this.globalUnits,playerTwo, DefenderControl.PLAYER_TWO);
 		
-		
-
 		
 //		this.playBackgroundSound();
 
@@ -117,7 +122,6 @@ public class DefenderControl {
 //		screenLeft.background(255f);
 		
 		//Feld zeichnen
-//		this.zeichneRahmen(screenLeft, playerOne);	
 		this.map.zeichne(display, playerOne);	
 		
 
@@ -136,19 +140,12 @@ public class DefenderControl {
 		this.menuePlayerOne.drawMenu(display, this.playerOne);
 		
 		//creditsinfo zeichnen
-//		display.textSize(20f);
-//		display.fill(0);
-//		display.rotate(PApplet.HALF_PI);
-//		display.text("Credits: " + playerOne.getCredits(), 20, -15);
-
-		
 		display.setColor(Color.black);
-//		display.translate(510, 768);
 //		display.translate(510, 768);
 		display.rotate(0,0,90);
 		display.scale(1.2f, 1.2f);
 		display.drawString("Credits: " + playerOne.getCredits(), 20, -15);
-////		screenLeft.text("Aktuelles Gebäude: " + menuePlayerOne.getActualBuildingName(), 350, -15);
+//		screenLeft.text("Aktuelles Gebäude: " + menuePlayerOne.getActualBuildingName(), 350, -15);
 //		display.text("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 300, -15);
 		
 //		screenLeft.endDraw();
@@ -179,20 +176,13 @@ public class DefenderControl {
 		
 		//menue zeichen fuer playerTwo
 //		this.menuePlayerTwo.drawMenu(display, this.playerTwo);
-		
-//		Font f = new Font("Verdana", Font.PLAIN, 18);
-
-//		TrueTypeFont ttf = new TrueTypeFont(f, false);
 
 		//creditsinfo zeichnen
-//		display.textSize(20f);
-//		display.fill(0);
-		display.setColor(Color.black);
-//		display.translate(510, 768);
+		display.setColor(Color.black);		
 		display.translate(510, 768);
-		display.rotate(0,0,-90);		
+		display.rotate(0,0,-90);
+
 		display.drawString("Credits: " + playerOne.getCredits(), 25, 490);
-//		ttf.drawString(10, 10, "Credits: " + playerTwo.getCredits());
 //		screenRight.text("Aktuelles Gebäude: " + menuePlayerTwo.getActualBuildingName(), 350, -15);
 //		display.text("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 300, -15);
 		display.resetTransform();
@@ -203,13 +193,9 @@ public class DefenderControl {
 //		//die beiden Seiten auf dem PApplet zeichnen
 //		display.image(display, SCREENLEFT_POSITION.x, SCREENLEFT_POSITION.y);
 //		display.image(display, SCREENRIGHT_POSITION.x, SCREENRIGHT_POSITION.y);
-//		
-		
 		
 		//Trennlinie
-		display.setColor(Color.red);
-//		display.stroke(0);
-//		display.drawLine(arg0, arg1, arg2, arg3);
+		display.setColor(Color.black);
 		display.drawLine(511f, 0f, 511f, 768f);
 		display.drawLine(512f, 0f, 512f, 768f);
 		display.drawLine(513f, 0f, 513f, 768f);
@@ -251,7 +237,6 @@ public class DefenderControl {
 		try {
 			new SampleThread("/sounds/background.mp3",10.0f,true).start();
 		} catch (FormatProblemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -438,7 +423,6 @@ public class DefenderControl {
 	     
     				
 		if(mouseButton==MOUSE_RIGHT){
-
 			
 			for(BaseUnit u: this.getPlayerTwo().getActiveUnits()){
 				u.deactivate();
@@ -459,8 +443,6 @@ public class DefenderControl {
 	    //Klickvektor zurück rechnen auf spielkoordinaten
 		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.getPlayerOne());
 	    
-	     		System.out.println(mouseButton); 
-//	     		System.out.println(PConstants.LEFT);
     	if(mouseButton==MOUSE_LEFT){
  
 			for(BaseUnit u: this.getGlobalUnits()){
@@ -517,7 +499,7 @@ public class DefenderControl {
     	}
 	     
     				
-		if(mouseButton==1){
+		if(mouseButton==MOUSE_RIGHT){
 
 			
 			for(BaseUnit u: this.getPlayerOne().getActiveUnits()){
@@ -527,7 +509,84 @@ public class DefenderControl {
 		}
 			
     }
+
+	@Override
+	public void addTuioCursor(TuioCursor arg0) {
+		// TODO MINKE
+		
+	}
+
+	@Override
+	public void addTuioObject(TuioObject arg0) {
+		// TODO MINKE
+		//gestures.methode
+		
+	}
+
+	@Override
+	public void refresh(TuioTime arg0) {
+		// TODO MINKE
+		
+	}
+
+	@Override
+	public void removeTuioCursor(TuioCursor arg0) {
+		// TODO MINKE
+		
+	}
+
+	@Override
+	public void removeTuioObject(TuioObject arg0) {
+		// TODO MINKE
+		
+	}
+
+	@Override
+	public void updateTuioCursor(TuioCursor arg0) {
+		// TODO MINKE
+		
+	}
+
+	@Override
+	public void updateTuioObject(TuioObject arg0) {
+		// TODO MINKE
+		
+	}
 	
+	/**
+	 * Zoomen der Anzeige
+	 * 
+	 * @param oldx
+	 * @param oldy
+	 * @param newx
+	 * @param newy
+	 */
+	public void zoomInterface(int oldx, int oldy, int newx, int newy){
+		if (newx < 512) {
+			this.getPlayerOne().setActualZoom(this.getPlayerOne().getActualZoom() + (newy -  oldy) * 0.01f);    			
+		} else {
+			this.getPlayerTwo().setActualZoom(this.getPlayerTwo().getActualZoom()  + (newy -  oldy) * 0.01f);    			
+		}
+	}
 	
+	/**
+	 * Schieben der anzeige
+	 * 
+	 * @param oldx
+	 * @param oldy
+	 * @param newx
+	 * @param newy
+	 */
+	public void schiebeInterface(int oldx, int oldy, int newx, int newy){
+		if (newx < 512) {
+			PVector tempVec = this.getPlayerOne().getViewPosition();
+			tempVec.y = tempVec.y + oldx - newx;
+			tempVec.x = tempVec.x + newy - oldy;
+		} else {
+			PVector tempVec = this.getPlayerTwo().getViewPosition();
+			tempVec.y = tempVec.y + newx  - oldx;
+			tempVec.x = tempVec.x + oldy - newy ;
+		}
+	}
 
 }
