@@ -58,7 +58,6 @@ public class DefenderControl {
 	
 	private Menu menuePlayerOne;
 	private Menu menuePlayerTwo;
-	private Gif nonLoopingGifDestroy;
 
 	private DefenderControl(PApplet display,PGraphics screenLeft,PGraphics screenRight) {
 		//map init
@@ -79,8 +78,8 @@ public class DefenderControl {
 		
 		
 		//Menue init//TODO gifanimation
-		menuePlayerOne = new Menu(this.globalUnits, nonLoopingGifDestroy,playerOne, DefenderControl.PLAYER_ONE);
-		menuePlayerTwo = new Menu(this.globalUnits, nonLoopingGifDestroy,playerTwo, DefenderControl.PLAYER_TWO);
+		menuePlayerOne = new Menu(this.globalUnits,playerOne, DefenderControl.PLAYER_ONE);
+		menuePlayerTwo = new Menu(this.globalUnits,playerTwo, DefenderControl.PLAYER_TWO);
 		
 		
 
