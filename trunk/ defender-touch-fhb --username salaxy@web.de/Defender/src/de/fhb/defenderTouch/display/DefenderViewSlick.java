@@ -59,8 +59,8 @@ public class DefenderViewSlick extends BasicGame{
   	  control= new DefenderControl();
   	  
   	  gc.setShowFPS(true);
-  	  gc.setMaximumLogicUpdateInterval(30);
-  	  gc.setTargetFrameRate(60);
+  	  gc.setTargetFrameRate(25);
+//  	  gc.setMaximumLogicUpdateInterval20);
 
   	  
 	  //TestUnitBetas schaffen
@@ -137,9 +137,9 @@ public class DefenderViewSlick extends BasicGame{
 		//wenn aktion im steuerbarenbereich
 		if(isInUsableInputarea(clickVector)){
 			
-			this.control.startUnitControlForMouse(clickVector, button);	
+//			this.control.startUnitControlForMouse(clickVector, button);	
 			
-//			this.control.startMenueControlForMouse(clickVector, button);	
+			this.control.startMenueControlForMouse(clickVector, button);	
 		}
     	
 

@@ -1,11 +1,21 @@
 TODO FRANK
 ***********
 
+Immer noch deine Aufgabe!!!!!!
+Slickumstellung hab ich grob gemacht!
+
+- ALLERHÖCHSTE Priorität!!!: 
+Herausfinden wie wir so ein Splitscreen hinbekommen mit Slick!!
+am besten in einem Extraprojekt testen, es soll analog zu dem Processing funktionieren,
+letztens hast du schon was angedeutet das du weißt wie es geht.
+
+
+Vorerst unwichtig, wirklich erst weitermachen wenn du ersters fertig hast
+************************************************************************
 - An der Gamemap Klasse arbeiten mit Einflussbereich der Spieler
 
-- musst sagen können in welchem Bereich jemand bauen darf 
+- musst sagen können in welchem Bereich jemand bauen darf (betrifft alles nur die Map-Klasse)
 (hatte ich glaube vergessen)(genauso wie bei isFlyable, isWater etc.)
 (unterscheidung Spieler EINS oder Zwei, mache es am besten mit den Konstanten aus DefenderControl)
 
 
-Immer noch deine Aufgabe!!!!!!

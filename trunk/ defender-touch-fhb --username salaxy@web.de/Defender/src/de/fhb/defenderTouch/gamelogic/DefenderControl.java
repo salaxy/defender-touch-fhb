@@ -2,15 +2,14 @@ package de.fhb.defenderTouch.gamelogic;
 
 
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
+import java.awt.Font;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.TrueTypeFont;
 
 import processing.core.PApplet;
-//import processing.core.PConstants;
 import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
@@ -68,11 +67,9 @@ public class DefenderControl {
 		
 		//die beiden Spieler initialisieren
 		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f),SCREENLEFT_POSITION, Color.blue);
-		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.green);
-		// SlpitScrren für den zweiten Spieler *nicht* um 180° gedreht.
-		//playerTwo = new Player(this,PApplet.HALF_PI,0.65f, new PVector(512f, 0f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.GREEN);
+//		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.green);
+		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(512f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.green);
 		
-//		this.display = display;
 		globalUnits = new CopyOnWriteArrayList<BaseUnit>();
 		
 		//init der beiden images fuer links und rechts
@@ -106,8 +103,24 @@ public class DefenderControl {
 	 */
 	public void drawAll(Graphics display) {		
 		
-		map.zeichne(display, this.playerOne);
+
 		
+		//units playerOne zeichen
+		for (BaseUnit unit : globalUnits) {
+			unit.calcNewPosition();
+		}
+		
+		// Linke Seite vorzeichnen
+//		screenLeft.beginDraw();		
+//		screenLeft.smooth();
+//		screenLeft.rectMode(PGraphics.CENTER);
+//		screenLeft.background(255f);
+		
+		//Feld zeichnen
+//		this.zeichneRahmen(screenLeft, playerOne);	
+		this.map.zeichne(display, playerOne);	
+		
+
 		//units playerOne zeichen
 		for (BaseUnit unit : globalUnits) {
 			if(unit.isActive()&&unit.getPlayerID()==PLAYER_ONE){
@@ -119,94 +132,80 @@ public class DefenderControl {
 			}
 		}
 		
+		//menue zeichen fuer player one
+		this.menuePlayerOne.drawMenu(display, this.playerOne);
+		
+		//creditsinfo zeichnen
+//		display.textSize(20f);
+//		display.fill(0);
+//		display.rotate(PApplet.HALF_PI);
+//		display.text("Credits: " + playerOne.getCredits(), 20, -15);
 
 		
-		
-		// neue positionen berechnen
-		for (BaseUnit unit : globalUnits) {
-			unit.calcNewPosition();
-		}
-//
-//		
-//		// Linke Seite vorzeichnen
-//		screenLeft.beginDraw();		
-//		screenLeft.smooth();
-//		screenLeft.rectMode(PGraphics.CENTER);
-//		screenLeft.background(255f);
-//		
-//		//Feld zeichnen
-////		this.zeichneRahmen(screenLeft, playerOne);	
-//		this.map.zeichne(screenLeft, playerOne);	
-//		
-//
-//		//units playerOne zeichen
-//		for (BaseUnit unit : globalUnits) {
-//			if(unit.isActive()&&unit.getPlayerID()==PLAYER_ONE){
-//				//zeichne Aktiviert
-//				unit.paint(this.playerOne, screenLeft,true);	
-//			}else{
-//				//zeichen normal
-//				unit.paint(this.playerOne, screenLeft,false);				
-//			}
-//		}
-//		
-//		//menue zeichen fuer player one
-//		this.menuePlayerOne.drawMenu(this.screenLeft, this.playerOne);
-//		
-//		//creditsinfo zeichnen
-//		screenLeft.textSize(20f);
-//		screenLeft.fill(0);
-//		screenLeft.rotate(PApplet.HALF_PI);
-//		screenLeft.text("Credits: " + playerOne.getCredits(), 20, -15);
+		display.setColor(Color.black);
+//		display.translate(510, 768);
+//		display.translate(510, 768);
+		display.rotate(0,0,90);
+		display.scale(1.2f, 1.2f);
+		display.drawString("Credits: " + playerOne.getCredits(), 20, -15);
 ////		screenLeft.text("Aktuelles Gebäude: " + menuePlayerOne.getActualBuildingName(), 350, -15);
-//		screenLeft.text("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 300, -15);
-//		
+//		display.text("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 300, -15);
+		
 //		screenLeft.endDraw();
+		display.resetTransform();
 
-//
-//		
-//		// Rechte Seite vorzeichnen
+		
+		// Rechte Seite vorzeichnen
 //		screenRight.beginDraw();
 //		screenRight.smooth();
 //		screenRight.rectMode(PGraphics.CENTER);
 //		screenRight.background(255f);
-//		
-//		//Feld zeichnen
-////		zeichneRahmen(screenRight, playerTwo);
-//		this.map.zeichne(screenRight, playerTwo);	
-//		
-//		//units playerTwo zeichen
-//		for (BaseUnit unit : globalUnits) {
-//			if(unit.isActive()&&unit.getPlayerID()==PLAYER_TWO){
-//				//zeichne Aktiviert
-//				unit.paint(this.playerTwo, screenRight,true);	
-//			}else{
-//				//zeichen normal
-//				unit.paint(this.playerTwo, screenRight,false);				
-//			}
-//		}
-//		
-//		//menue zeichen fuer playerTwo
-//		this.menuePlayerTwo.drawMenu(this.screenRight, this.playerTwo);
-//		
-//		//creditsinfo zeichnen
-//		screenRight.textSize(20f);
-//		screenRight.fill(0);
-//		screenRight.translate(510, 768);
-//		screenRight.rotate(-PApplet.HALF_PI);
-//		screenRight.text("Credits: " + playerTwo.getCredits(), 20, -15);
-////		screenRight.text("Aktuelles Gebäude: " + menuePlayerTwo.getActualBuildingName(), 350, -15);
-//		screenRight.text("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 300, -15);
-//		
-//		
-//		screenRight.endDraw();
-//
+		
+		//Feld zeichnen
+//		zeichneRahmen(screenRight, playerTwo);
+		this.map.zeichne(display, playerTwo);	
+		display.resetTransform();
+		
+		//units playerTwo zeichen
+		for (BaseUnit unit : globalUnits) {
+			if(unit.isActive()&&unit.getPlayerID()==PLAYER_TWO){
+				//zeichne Aktiviert
+				unit.paint(this.playerTwo, display,true);	
+			}else{
+				//zeichen normal
+				unit.paint(this.playerTwo, display,false);				
+			}
+		}
+		
+		//menue zeichen fuer playerTwo
+//		this.menuePlayerTwo.drawMenu(display, this.playerTwo);
+		
+//		Font f = new Font("Verdana", Font.PLAIN, 18);
+
+//		TrueTypeFont ttf = new TrueTypeFont(f, false);
+
+		//creditsinfo zeichnen
+//		display.textSize(20f);
+//		display.fill(0);
+		display.setColor(Color.black);
+//		display.translate(510, 768);
+		display.translate(510, 768);
+		display.rotate(0,0,-90);		
+		display.drawString("Credits: " + playerOne.getCredits(), 25, 490);
+//		ttf.drawString(10, 10, "Credits: " + playerTwo.getCredits());
+//		screenRight.text("Aktuelles Gebäude: " + menuePlayerTwo.getActualBuildingName(), 350, -15);
+//		display.text("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 300, -15);
+		display.resetTransform();
+		
+		
+//		display.endDraw();
+
 //		//die beiden Seiten auf dem PApplet zeichnen
-//		display.image(screenLeft, SCREENLEFT_POSITION.x, SCREENLEFT_POSITION.y);
-//		display.image(screenRight, SCREENRIGHT_POSITION.x, SCREENRIGHT_POSITION.y);
+//		display.image(display, SCREENLEFT_POSITION.x, SCREENLEFT_POSITION.y);
+//		display.image(display, SCREENRIGHT_POSITION.x, SCREENRIGHT_POSITION.y);
 //		
-//		
-//		
+		
+		
 		//Trennlinie
 		display.setColor(Color.red);
 //		display.stroke(0);

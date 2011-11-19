@@ -1,6 +1,27 @@
 TODO CURTIS
 ***********
 
+
+@Curtis AKTUELL zur Umstellung
+Menü wieder zurechtarbeiten!!!!!!!!!!!
+Viele sachen sind kaputt geganeg durch die Umstellung,
+habe dir aber sehr viele sachen abgenommen und das menü ist eineiger maßen in ordung.
+Es funktioniert erstmal nur auf der linken seite ...zum testen
+
+Großes Problem war einfach auch das einige Methoden gar nicht verfügbar sind sowas wie textalginment.
+Und die Zentrumsmodi sind auch nicht verfügbar.
+d.h. wenn du etwas zeichnest ist 0,0 nicht in der mitte des gezeichneten sondern links oben!
+Ich habs versucht soweit zu korrigieren, man muss es nun manuell ausgleichen,aber dynamisch bitte,
+so das ein scale nicht alles kapuut macht.
+
+Als zweites kannst du die Gebäude-Darstellungen auch korrigieren.
+(also nicht menü sondern auch bei den units)
+
+Und bitte auch alle Funktionen überprüfen
+
+
+
+
 fertig - Menü überarbeiten (Skaliebar,verbessern Grafisch sowohl auch den Code...)
 - korrekte Integration des Meneus ins Gesamtprogramm!
 
