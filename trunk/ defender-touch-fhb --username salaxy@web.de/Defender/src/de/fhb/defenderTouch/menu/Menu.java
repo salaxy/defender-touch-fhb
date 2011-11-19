@@ -8,6 +8,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.movable.Tank;
@@ -63,7 +64,7 @@ public class Menu {
 	/**
 	 * activation raduis of a menupoint - just configure here!
 	 */
-	protected final int DIAMETER = 80;
+	protected final int DIAMETER = 100;
 
 	/**
 	 * Radius of the circle Is always half its diameter
@@ -145,10 +146,10 @@ public class Menu {
 	 */
 	protected int actualBuildingCount = 0;
 
-	/**
-	 * Gif animation of destroying a building
-	 */
-	protected Gif nonLoopingGifDestroy;
+	// /**
+	// * Gif animation of destroying a building
+	// */
+	// protected Gif nonLoopingGifDestroy;
 
 	// /**
 	// * if destroying a building should be shown
@@ -161,15 +162,23 @@ public class Menu {
 	private Player player;
 
 	/**
+	 * ID vom Besitzer dieses Menues
+	 */
+	private int playerID;
+
+	/**
 	 * Constructor of Menu
+	 * 
+	 * @param playerID
 	 * 
 	 * @param nonLoopingGif
 	 */
-	public Menu(CopyOnWriteArrayList<BaseUnit> buildings, Gif nonLoopingGifDestroy, Player player) {
+	public Menu(CopyOnWriteArrayList<BaseUnit> buildings, Gif nonLoopingGifDestroy, Player player, int playerID) {
 		this.position = new PVector(0, 0);
 		// this.graphics = graphics;
 		this.buildings = buildings;
 		this.player = player;
+		this.playerID = playerID;
 		RADIUS = DIAMETER / 2;
 		TEXTSIZE = RADIUS / 2;
 		DISTANCE = -(DIAMETER + 5);
@@ -194,6 +203,33 @@ public class Menu {
 
 	public Player getPlayer() {
 		return player;
+	}
+
+	public int getPlayerID() {
+		return playerID;
+	}
+
+	public void createBuilding(DefenderControl defenderControl) {
+		switch (getActualChosenBuilding()) {
+		case 0:
+			System.out.println("building a Ground unit");
+			new Ground((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, getPlayerID(), defenderControl);
+			break;
+		case 1:
+			System.out.println("building a Defence unit");
+			new Defence((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, getPlayerID(), defenderControl);
+			break;
+		case 2:
+			System.out.println("building a Support unit");
+			new Support((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, getPlayerID(), defenderControl);
+			break;
+		case 3:
+			System.out.println("building a Tank unit");
+			new Tank((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, getPlayerID(), defenderControl);
+			break;
+		default:
+			System.out.println();
+		}
 	}
 
 	/**
@@ -800,7 +836,7 @@ public class Menu {
 	public void showSignTank(PGraphics graphics) {
 		graphics.rect(0, DISTANCE + SIZEOFTANK, SIZEOFTANK * 2, SIZEOFTANK * 3);
 		graphics.ellipse(0, DISTANCE + SIZEOFTANK, SIZEOFTANK, SIZEOFTANK);
-		graphics.rect(0, DISTANCE - SIZEOFTANK/2, SIZEOFTANK/2, SIZEOFTANK * 2);
+		graphics.rect(0, DISTANCE - SIZEOFTANK / 2, SIZEOFTANK / 2, SIZEOFTANK * 2);
 	}
 
 	public void showSignUpgrade(PGraphics graphics) {
