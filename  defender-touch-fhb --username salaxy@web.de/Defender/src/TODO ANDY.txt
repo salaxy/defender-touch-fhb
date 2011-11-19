@@ -2,12 +2,14 @@ TODO ANDY
 **********
 
 
+- restliche anpassungen an slick
 
 - Angriffsradius, Automatischer Angriff(zunächst ohne  hinfliegen, ohne User Interaktion)
 
-- Loesung fuer die Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
 
+(- Loesung fuer die Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition))
 
+(- Slicksoundsystem anbinden, altes system entfernen)
 
 
 
@@ -23,7 +25,6 @@ Offene Punkte fuer Später
 **********************************************
 
 - Automatischer Angriff(User Interaktion, hinfliegen bis in Reichweite, dann angreifen)
-
 
 - Schussrate begrenzen!!!
 

@@ -22,6 +22,9 @@ Und bitte auch alle Funktionen überprüfen
 
 
 
+
+
+
 fertig - Menü überarbeiten (Skaliebar,verbessern Grafisch sowohl auch den Code...)
 - korrekte Integration des Meneus ins Gesamtprogramm!
 

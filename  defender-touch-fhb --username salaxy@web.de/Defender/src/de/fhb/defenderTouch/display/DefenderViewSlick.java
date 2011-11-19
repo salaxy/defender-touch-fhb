@@ -10,7 +10,6 @@ import org.newdawn.slick.SlickException;
 
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
-import de.fhb.defenderTouch.ui.Gestures;
 import de.fhb.defenderTouch.units.movable.Fighter;
 import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.notmovable.Defence;
@@ -21,38 +20,27 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class DefenderViewSlick extends BasicGame{
 
-
-    
-
     public static final int WIDTH = 1024;
 
     public static final int HEIGHT = 768;
     
-    
+
 	/**
-	 * Gestenerkennung
-	 */
-	private Gestures gestures=new Gestures();
-	
-	/**
-	 * Controlunit des Gesamtprogramms
+	 * Control des Gesamtprogramms
 	 */
 	private DefenderControl control;
 
-   
-
+	/**
+	 * Konstruktor
+	 */
     public DefenderViewSlick() {
-
-          super("Pong");
-          
-          
-          
-          
-
+          super("DEFENDER ALPHA");
     }
 
 
-
+    /**
+     * initialisierung
+     */
     public void init(GameContainer gc) throws SlickException {
     	
     //gamelogic initialisieren  
@@ -60,8 +48,6 @@ public class DefenderViewSlick extends BasicGame{
   	  
   	  gc.setShowFPS(true);
   	  gc.setTargetFrameRate(25);
-//  	  gc.setMaximumLogicUpdateInterval20);
-
   	  
 	  //TestUnitBetas schaffen
   	BaseUnit test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,control);
@@ -91,24 +77,18 @@ public class DefenderViewSlick extends BasicGame{
 
 
     public void update(GameContainer gc, int delta) throws SlickException {
-
-          // Abfangen der Eingabegaräte
-
+          // Abfangen der Eingabegarät
           Input input = gc.getInput();
-
     }
 
 
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
     	
-//    	g.setDrawMode(g.Mo)
     	g.setAntiAlias(true);
     	g.setBackground(Color.white);
-    	g.setColor(Color.red);
-    	g.fillRect(0, 0, 20, 20);
-    	g.drawRect(0, 0, 20, 20);
-    	
+
+    	//alles zeichnen
     	this.control.drawAll(g);
     	
     }
@@ -117,15 +97,11 @@ public class DefenderViewSlick extends BasicGame{
 
     public static void main(String[] args) throws SlickException {
 
-          AppGameContainer pong = new AppGameContainer(new DefenderViewSlick());
-
-          pong.setDisplayMode(WIDTH, HEIGHT, false);
-
-          pong.setVSync(true);
-
-          pong.setShowFPS(false);
-
-          pong.start();
+          AppGameContainer defender = new AppGameContainer(new DefenderViewSlick());
+          defender.setDisplayMode(WIDTH, HEIGHT, false);
+          defender.setVSync(true);
+          defender.setShowFPS(false);
+          defender.start();
 
     }
 
@@ -138,40 +114,34 @@ public class DefenderViewSlick extends BasicGame{
 		if(isInUsableInputarea(clickVector)){
 			
 //			this.control.startUnitControlForMouse(clickVector, button);	
-			
 			this.control.startMenueControlForMouse(clickVector, button);	
+			
 		}
-    	
-
     }
 	
     
     
     public void mouseDragged(int oldx, int oldy, int newx, int newy) {
-//    	if (mouseButton == LEFT) {
-//    		if (mouseX < 512) {
-//    			PVector tempVec = control.getPlayerOne().getViewPosition();
-//    			tempVec.y = tempVec.y + pmouseX - mouseX;
-//    			tempVec.x = tempVec.x + mouseY - pmouseY;
-//    		} else {
-//    			PVector tempVec = control.getPlayerTwo().getViewPosition();
-//    			tempVec.y = tempVec.y + mouseX  - pmouseX;
-//    			tempVec.x = tempVec.x + pmouseY - mouseY ;
-//    		}
-//    	}
     	
-//    	if (mouseButton == RIGHT) {
-    		if (newx < 512) {
-    			control.getPlayerOne().setActualZoom(control.getPlayerOne().getActualZoom() + (newy -  oldy) * 0.01f);    			
-    		} else {
-    			control.getPlayerTwo().setActualZoom(control.getPlayerTwo().getActualZoom()  + (newy -  oldy) * 0.01f);    			
-    		}
-//    	}
+    	//Klickvektor holen
+    	PVector clickVector=new PVector(newx,newy);
+    	
+		if(isInUsableInputarea(clickVector)){
+			
+	//    	if (mouseButton == LEFT) {
+	//    		control.schiebeInterface(oldx, oldy, newx, newy);
+	//    	}
+	   
+	//    	if (mouseButton == RIGHT) {
+	    		control.zoomInterface(oldx, oldy, newx, newy);
+	//    	}			
+
+		}
+		
     }
     
     public void mouseWheelMoved(int change){
-//    	System.out.println("reaction");
-//		control.getPlayerOne().setActualZoom(control.getPlayerOne().getActualZoom() + change * 0.0001f);   
+    	
 	}
     
     
