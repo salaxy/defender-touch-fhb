@@ -1,22 +1,21 @@
 package de.fhb.defenderTouch.gamelogic;
 
-import gifAnimation.Gif;
 
-import java.awt.Color;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+
 import processing.core.PApplet;
-import processing.core.PConstants;
-import processing.core.PGraphics;
+//import processing.core.PConstants;
 import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.menu.Menu;
-import de.fhb.defenderTouch.units.movable.Tank;
-import de.fhb.defenderTouch.units.notmovable.Defence;
-import de.fhb.defenderTouch.units.notmovable.Ground;
-import de.fhb.defenderTouch.units.notmovable.Support;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 /**
@@ -24,11 +23,12 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
  * dem eigentlichen Spielinhalt wie die Units, Spiellogik usw. (und noch
  * zukünftige dinge)
  * 
- * @author Salaxy // * @deprecated Funktioniert Alles nicht, kannste vergessen
- *         ...scheiß Animationthread beißt sich alles, // * da dann mehere
- *         sachen aufs selbe zugreifen gleichzeitig verdammt!!
+ * @author Salaxy 
  */
 public class DefenderControl {
+	
+	public static final int MOUSE_LEFT = 0;
+	public static final int MOUSE_RIGHT = 1;
 
 	public static final int PLAYER_ONE = 0;
 	public static final int PLAYER_TWO = 1;
@@ -48,34 +48,37 @@ public class DefenderControl {
 	
 
 	private CopyOnWriteArrayList<BaseUnit> globalUnits;
-	private PApplet display;
+//	private Graphics display;
 	private static DefenderControl instance = null;
 	private Player playerOne;
 	private Player playerTwo;
-	private PGraphics screenLeft, screenRight;
+//	private PGraphics screenLeft, screenRight;
 	private Gamemap map;
 	
 	
 	private Menu menuePlayerOne;
 	private Menu menuePlayerTwo;
 
-	private DefenderControl(PApplet display,PGraphics screenLeft,PGraphics screenRight) {
+	public DefenderControl(
+//			Graphics display
+//			,PGraphics screenLeft,PGraphics screenRight
+			) {
 		//map init
-		map=new Gamemap(display);
+		map=new Gamemap();
 		
 		//die beiden Spieler initialisieren
-		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f),SCREENLEFT_POSITION, Color.BLUE);
-		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.GREEN);
+		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f),SCREENLEFT_POSITION, Color.blue);
+		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.green);
 		// SlpitScrren für den zweiten Spieler *nicht* um 180° gedreht.
 		//playerTwo = new Player(this,PApplet.HALF_PI,0.65f, new PVector(512f, 0f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.GREEN);
 		
-		this.display = display;
+//		this.display = display;
 		globalUnits = new CopyOnWriteArrayList<BaseUnit>();
 		
 		//init der beiden images fuer links und rechts
-		this.screenLeft = screenLeft;
-		this.screenRight = screenRight;
-		
+//		this.screenLeft = screenLeft;
+//		this.screenRight = screenRight;
+//		
 		
 		//Menue init//TODO gifanimation
 		menuePlayerOne = new Menu(this.globalUnits,playerOne, DefenderControl.PLAYER_ONE);
@@ -92,12 +95,6 @@ public class DefenderControl {
 		return map;
 	}
 
-	public static DefenderControl getInstance(PApplet display, PGraphics screenLeft,PGraphics screenRight) {
-		if (DefenderControl.instance == null)
-			DefenderControl.instance = new DefenderControl(display, screenLeft, screenRight);
-
-		return instance;
-	}
 
 	public CopyOnWriteArrayList<BaseUnit> getGlobalUnits() {
 		return globalUnits;
@@ -107,8 +104,20 @@ public class DefenderControl {
 	/**
 	 * Zeichnet beide Spielfelder und Inhalte
 	 */
-	public void drawAll() {		
+	public void drawAll(Graphics display) {		
 		
+		map.zeichne(display, this.playerOne);
+		
+		//units playerOne zeichen
+		for (BaseUnit unit : globalUnits) {
+			if(unit.isActive()&&unit.getPlayerID()==PLAYER_ONE){
+				//zeichne Aktiviert
+				unit.paint(this.playerOne, display,true);	
+			}else{
+				//zeichen normal
+				unit.paint(this.playerOne, display,false);				
+			}
+		}
 		
 
 		
@@ -117,92 +126,94 @@ public class DefenderControl {
 		for (BaseUnit unit : globalUnits) {
 			unit.calcNewPosition();
 		}
+//
+//		
+//		// Linke Seite vorzeichnen
+//		screenLeft.beginDraw();		
+//		screenLeft.smooth();
+//		screenLeft.rectMode(PGraphics.CENTER);
+//		screenLeft.background(255f);
+//		
+//		//Feld zeichnen
+////		this.zeichneRahmen(screenLeft, playerOne);	
+//		this.map.zeichne(screenLeft, playerOne);	
+//		
+//
+//		//units playerOne zeichen
+//		for (BaseUnit unit : globalUnits) {
+//			if(unit.isActive()&&unit.getPlayerID()==PLAYER_ONE){
+//				//zeichne Aktiviert
+//				unit.paint(this.playerOne, screenLeft,true);	
+//			}else{
+//				//zeichen normal
+//				unit.paint(this.playerOne, screenLeft,false);				
+//			}
+//		}
+//		
+//		//menue zeichen fuer player one
+//		this.menuePlayerOne.drawMenu(this.screenLeft, this.playerOne);
+//		
+//		//creditsinfo zeichnen
+//		screenLeft.textSize(20f);
+//		screenLeft.fill(0);
+//		screenLeft.rotate(PApplet.HALF_PI);
+//		screenLeft.text("Credits: " + playerOne.getCredits(), 20, -15);
+////		screenLeft.text("Aktuelles Gebäude: " + menuePlayerOne.getActualBuildingName(), 350, -15);
+//		screenLeft.text("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 300, -15);
+//		
+//		screenLeft.endDraw();
 
-		
-		// Linke Seite vorzeichnen
-		screenLeft.beginDraw();		
-		screenLeft.smooth();
-		screenLeft.rectMode(PGraphics.CENTER);
-		screenLeft.background(255f);
-		
-		//Feld zeichnen
-//		this.zeichneRahmen(screenLeft, playerOne);	
-		this.map.zeichne(screenLeft, playerOne);	
-		
-
-		//units playerOne zeichen
-		for (BaseUnit unit : globalUnits) {
-			if(unit.isActive()&&unit.getPlayerID()==PLAYER_ONE){
-				//zeichne Aktiviert
-				unit.paint(this.playerOne, screenLeft,true);	
-			}else{
-				//zeichen normal
-				unit.paint(this.playerOne, screenLeft,false);				
-			}
-		}
-		
-		//menue zeichen fuer player one
-		this.menuePlayerOne.drawMenu(this.screenLeft, this.playerOne);
-		
-		//creditsinfo zeichnen
-		screenLeft.textSize(20f);
-		screenLeft.fill(0);
-		screenLeft.rotate(PApplet.HALF_PI);
-		screenLeft.text("Credits: " + playerOne.getCredits(), 20, -15);
-//		screenLeft.text("Aktuelles Gebäude: " + menuePlayerOne.getActualBuildingName(), 350, -15);
-		screenLeft.text("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 300, -15);
-		
-		screenLeft.endDraw();
-
-
-		
-		// Rechte Seite vorzeichnen
-		screenRight.beginDraw();
-		screenRight.smooth();
-		screenRight.rectMode(PGraphics.CENTER);
-		screenRight.background(255f);
-		
-		//Feld zeichnen
-//		zeichneRahmen(screenRight, playerTwo);
-		this.map.zeichne(screenRight, playerTwo);	
-		
-		//units playerTwo zeichen
-		for (BaseUnit unit : globalUnits) {
-			if(unit.isActive()&&unit.getPlayerID()==PLAYER_TWO){
-				//zeichne Aktiviert
-				unit.paint(this.playerTwo, screenRight,true);	
-			}else{
-				//zeichen normal
-				unit.paint(this.playerTwo, screenRight,false);				
-			}
-		}
-		
-		//menue zeichen fuer playerTwo
-		this.menuePlayerTwo.drawMenu(this.screenRight, this.playerTwo);
-		
-		//creditsinfo zeichnen
-		screenRight.textSize(20f);
-		screenRight.fill(0);
-		screenRight.translate(510, 768);
-		screenRight.rotate(-PApplet.HALF_PI);
-		screenRight.text("Credits: " + playerTwo.getCredits(), 20, -15);
-//		screenRight.text("Aktuelles Gebäude: " + menuePlayerTwo.getActualBuildingName(), 350, -15);
-		screenRight.text("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 300, -15);
-		
-		
-		screenRight.endDraw();
-
-		//die beiden Seiten auf dem PApplet zeichnen
-		display.image(screenLeft, SCREENLEFT_POSITION.x, SCREENLEFT_POSITION.y);
-		display.image(screenRight, SCREENRIGHT_POSITION.x, SCREENRIGHT_POSITION.y);
-		
-		
-		
+//
+//		
+//		// Rechte Seite vorzeichnen
+//		screenRight.beginDraw();
+//		screenRight.smooth();
+//		screenRight.rectMode(PGraphics.CENTER);
+//		screenRight.background(255f);
+//		
+//		//Feld zeichnen
+////		zeichneRahmen(screenRight, playerTwo);
+//		this.map.zeichne(screenRight, playerTwo);	
+//		
+//		//units playerTwo zeichen
+//		for (BaseUnit unit : globalUnits) {
+//			if(unit.isActive()&&unit.getPlayerID()==PLAYER_TWO){
+//				//zeichne Aktiviert
+//				unit.paint(this.playerTwo, screenRight,true);	
+//			}else{
+//				//zeichen normal
+//				unit.paint(this.playerTwo, screenRight,false);				
+//			}
+//		}
+//		
+//		//menue zeichen fuer playerTwo
+//		this.menuePlayerTwo.drawMenu(this.screenRight, this.playerTwo);
+//		
+//		//creditsinfo zeichnen
+//		screenRight.textSize(20f);
+//		screenRight.fill(0);
+//		screenRight.translate(510, 768);
+//		screenRight.rotate(-PApplet.HALF_PI);
+//		screenRight.text("Credits: " + playerTwo.getCredits(), 20, -15);
+////		screenRight.text("Aktuelles Gebäude: " + menuePlayerTwo.getActualBuildingName(), 350, -15);
+//		screenRight.text("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 300, -15);
+//		
+//		
+//		screenRight.endDraw();
+//
+//		//die beiden Seiten auf dem PApplet zeichnen
+//		display.image(screenLeft, SCREENLEFT_POSITION.x, SCREENLEFT_POSITION.y);
+//		display.image(screenRight, SCREENRIGHT_POSITION.x, SCREENRIGHT_POSITION.y);
+//		
+//		
+//		
 		//Trennlinie
-		display.stroke(0);
-		display.line(511f, 0f, 511f, 768f);
-		display.line(512f, 0f, 512f, 768f);
-		display.line(513f, 0f, 513f, 768f);
+		display.setColor(Color.red);
+//		display.stroke(0);
+//		display.drawLine(arg0, arg1, arg2, arg3);
+		display.drawLine(511f, 0f, 511f, 768f);
+		display.drawLine(512f, 0f, 512f, 768f);
+		display.drawLine(513f, 0f, 513f, 768f);
 	}
 
 //	public void zeichneRahmen(PGraphics graphics, Player player){
@@ -272,12 +283,12 @@ public class DefenderControl {
 			realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.getPlayerOne());
 		}
 
-		if (mouseButton == PConstants.LEFT) {
+		if (mouseButton == MOUSE_LEFT) {
 			//menue oeffnen
 			openMenue(realClickKoordinates, menu);
 		}
 
-		if (mouseButton == PConstants.RIGHT) {
+		if (mouseButton == MOUSE_RIGHT) {
 			//menue schliessen
 			closeMenue(realClickKoordinates, menu);
 		}
@@ -373,7 +384,7 @@ public class DefenderControl {
 		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.getPlayerTwo());
 
 
-    	if(mouseButton==PConstants.LEFT){    	
+    	if(mouseButton==MOUSE_LEFT){    	
 			for(BaseUnit u: this.getGlobalUnits()){
 				
 				//wenn eine unit aktiviert wird dann die anderen deaktiveren
@@ -427,7 +438,7 @@ public class DefenderControl {
     	}
 	     
     				
-		if(mouseButton==PConstants.RIGHT){
+		if(mouseButton==MOUSE_RIGHT){
 
 			
 			for(BaseUnit u: this.getPlayerTwo().getActiveUnits()){
@@ -449,8 +460,10 @@ public class DefenderControl {
 	    //Klickvektor zurück rechnen auf spielkoordinaten
 		PVector realClickKoordinates=GraphicTools.calcInputVector(clickVector, this.getPlayerOne());
 	    
-	    
-    	if(mouseButton==PConstants.LEFT){    	
+	     		System.out.println(mouseButton); 
+//	     		System.out.println(PConstants.LEFT);
+    	if(mouseButton==MOUSE_LEFT){
+ 
 			for(BaseUnit u: this.getGlobalUnits()){
 				
 				//wenn eine unit aktiviert wird dann die anderen deaktiveren
@@ -505,7 +518,7 @@ public class DefenderControl {
     	}
 	     
     				
-		if(mouseButton==PConstants.RIGHT){
+		if(mouseButton==1){
 
 			
 			for(BaseUnit u: this.getPlayerOne().getActiveUnits()){

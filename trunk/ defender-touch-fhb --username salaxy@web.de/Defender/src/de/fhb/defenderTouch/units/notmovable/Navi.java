@@ -2,8 +2,8 @@ package de.fhb.defenderTouch.units.notmovable;
 
 import java.util.ArrayList;
 
-import processing.core.PApplet;
-import processing.core.PGraphics;
+import org.newdawn.slick.Graphics;
+
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.graphics.GraphicTools;
@@ -17,12 +17,12 @@ public class Navi extends Building{
 	}
 	
 	
-	public void drawFigure(PGraphics graphics){
+	public void drawFigure(Graphics graphics){
 		
 
 //		this.entscheideLineFarbe( graphics);
-		graphics.scale(1.5f);
-		graphics.rotate((float)Math.PI);
+		graphics.scale(1.5f,1.5f);
+		graphics.rotate(0,0,180);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
 		vektoren.add(new PVector(0, 0));
 		vektoren.add(new PVector(0,-8));
@@ -33,8 +33,8 @@ public class Navi extends Building{
 
 		GraphicTools.zeicheFigurNachVektoren(vektoren,graphics);
 		
-		graphics.resetMatrix();
-		graphics.stroke(0);
+		graphics.resetTransform();
+//		graphics.stroke(0);
 		
 	}
 	

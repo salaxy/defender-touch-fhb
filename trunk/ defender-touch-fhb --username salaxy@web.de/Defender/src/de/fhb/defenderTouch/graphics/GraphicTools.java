@@ -3,8 +3,9 @@ package de.fhb.defenderTouch.graphics;
 import java.util.Iterator;
 import java.util.List;
 
+import org.newdawn.slick.Graphics;
+
 import processing.core.PApplet;
-import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.Player;
 
@@ -42,7 +43,7 @@ public class GraphicTools {
     /**
      * hilfsmethode zum Zeichnen von Figuren nach einer collection Vektoren
      */
-	public static void zeicheFigurNachVektoren(List<PVector>liste, PGraphics pa){
+	public static void zeicheFigurNachVektoren(List<PVector>liste, Graphics pa){
 		PVector firstPoint=null;
 		PVector actualPoint=null;
 		PVector leastPoint=null;
@@ -55,7 +56,7 @@ public class GraphicTools {
 			
 			//wenn nicht erster punkt dann zeichen linen zwischen ersten und 
 			if(num>0){
-				pa.line(leastPoint.x, leastPoint.y, actualPoint.x, actualPoint.y);								
+				pa.drawLine(leastPoint.x, leastPoint.y, actualPoint.x, actualPoint.y);								
 			}else{
 				firstPoint=actualPoint;				
 			}
@@ -74,22 +75,50 @@ public class GraphicTools {
 	 * @param graphics - gibt fuer welchem Bildschirm die Abbildung berechnet wird 
 	 * @param position - Postion des zu zeichnenden Objekts
 	 */
-	public static void calcDrawTransformation(Player player, PGraphics graphics, PVector position){
+//	public static void calcDrawTransformation(Player player, PGraphics graphics, PVector position){
+//		
+//		//Berechnung des neuen Koordinaten Ursprungs Vektors
+//		PVector drawPosition = new PVector(player.getViewPosition().x,player.getViewPosition().y);
+//		drawPosition.rotate(player.getGeneralAngle());
+//		drawPosition.add(player.getOriginPositionInScreen());
+//		
+//		//Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
+//		graphics.translate(drawPosition.x, +drawPosition.y);		
+//		graphics.scale(player.getActualZoom());	
+//		graphics.rotate(player.getGeneralAngle());
+//		
+//		//zeichne an Position im Verhältnis zu gesamt Transformation
+//		graphics.translate(position.x, +position.y);	
+//		
+//	}
+	
+	/**
+	 * Führt die nötigen Transformationen aus die nötig sind um Objekte auf dem Bildschirm 
+	 * an der richtigen zu zeichen
+	 * @param player - Spielerobjekt, wichtig fuer die unterscheidung Rechter oder Linker Bildschrim (Berechnungstechnisch)
+	 * @param graphics - gibt fuer welchem Bildschirm die Abbildung berechnet wird 
+	 * @param position - Postion des zu zeichnenden Objekts
+	 */
+	public static void calcDrawTransformationForSlick(Player player, Graphics graphics, PVector position){
 		
 		//Berechnung des neuen Koordinaten Ursprungs Vektors
 		PVector drawPosition = new PVector(player.getViewPosition().x,player.getViewPosition().y);
 		drawPosition.rotate(player.getGeneralAngle());
+//		drawPosition.rotate(180);
 		drawPosition.add(player.getOriginPositionInScreen());
 		
 		//Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
-		graphics.translate(drawPosition.x, +drawPosition.y);		
-		graphics.scale(player.getActualZoom());	
-		graphics.rotate(player.getGeneralAngle());
+		graphics.translate(drawPosition.x, drawPosition.y);
+		graphics.scale(player.getActualZoom(), player.getActualZoom());
+		graphics.rotate(0, 0, player.getGeneralAngle()/PApplet.PI*180);
+		//notiz...umrechnung von bogen in degree
 		
 		//zeichne an Position im Verhältnis zu gesamt Transformation
 		graphics.translate(position.x, +position.y);	
 		
 	}
+	
+	
 	
 	public static PVector calcInputVector(PVector clickVector, Player player){
 		

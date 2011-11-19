@@ -1,7 +1,8 @@
 package de.fhb.defenderTouch.gamelogic;
 
-import java.awt.Color;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.newdawn.slick.Color;
 
 import processing.core.PVector;
 import de.fhb.defenderTouch.units.root.BaseUnit;

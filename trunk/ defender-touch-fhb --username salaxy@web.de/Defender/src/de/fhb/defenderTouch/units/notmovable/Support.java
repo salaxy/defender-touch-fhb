@@ -3,10 +3,11 @@ package de.fhb.defenderTouch.units.notmovable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.newdawn.slick.Graphics;
+
+import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.graphics.GraphicTools;
-import processing.core.PGraphics;
-import processing.core.PVector;
 
 public class Support extends Building {
 
@@ -23,14 +24,14 @@ public class Support extends Building {
 		super(x, y, mode, playerID, gamelogic);
 	}
 
-	public void drawFigure(PGraphics graphics) {
+	public void drawFigure(Graphics graphics) {
 		// farbewechsel bei Aktivierung
 		// this.entscheideLineFarbe( graphics);
 		// Skalieren
-		graphics.scale(1.5f);
+		graphics.scale(1.5f,1.5f);
 		// graphics.strokeWeight(1);
 		// Nach norden ausrichten
-		graphics.rotate((float) Math.PI);
+		graphics.rotate(0,0,180);
 
 		switch (this.level) {
 		case LEVEL_ONE:
@@ -56,8 +57,8 @@ public class Support extends Building {
 		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
 
 		// zurücksetzen der Umgebungseinstellungen
-		graphics.resetMatrix();
-		graphics.stroke(0);
+		graphics.resetTransform();
+//		graphics.stroke(0);
 	}
 
 	public void calcNewPosition() {

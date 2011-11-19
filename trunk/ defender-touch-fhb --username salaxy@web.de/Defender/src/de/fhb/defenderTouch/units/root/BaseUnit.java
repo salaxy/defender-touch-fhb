@@ -1,9 +1,10 @@
 package de.fhb.defenderTouch.units.root;
 
-import java.awt.Color;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 
 import processing.core.PApplet;
-import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
@@ -125,12 +126,12 @@ public class BaseUnit {
 	 * Farbe in der Einheit gezeichnet wird, wenn Einheit Aktiv ist, also
 	 * Einheit Steuerbar ist
 	 */
-	protected Color activeColor = Color.RED;
+	protected Color activeColor = Color.red;
 
 	/**
 	 * Farbe in der Einheit gezeichnet wird, wenn Einheit NICHT Aktiv ist
 	 */
-	protected Color passiveColor = Color.BLACK;
+	protected Color passiveColor = Color.black;
 
 	/**
 	 * Zielvektor der Einheit
@@ -204,7 +205,7 @@ public class BaseUnit {
 	 * @param graphics
 	 * @param focus - wird Unit Aktiv gezeichnet oder nicht
 	 */
-	public void paint(Player player, PGraphics graphics,boolean drawActive) {
+	public void paint(Player player, Graphics graphics,boolean drawActive) {
 
 		//Umrechnung auf Spielersicht	
 		//Transformationen
@@ -256,7 +257,7 @@ public class BaseUnit {
 		
 		
 		// zurücksetzen der Umgebung, Seiteneffekte vermeiden
-		graphics.resetMatrix();
+		graphics.resetTransform();
 		
 	}
 	
@@ -265,13 +266,15 @@ public class BaseUnit {
 	 * @param player
 	 * @param graphics
 	 */
-	public void drawActiveAppearance(Player player, PGraphics graphics) {
+	public void drawActiveAppearance(Player player, Graphics graphics) {
 	
 
-		graphics.stroke(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
-		graphics.fill(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+//		graphics.stroke(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+//		graphics.fill(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+		//TODO
+		graphics.setColor(new Color(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue()));
 		this.drawFigure(graphics);
-		graphics.resetMatrix();
+		graphics.resetTransform();
 		
 	}
 	
@@ -281,7 +284,7 @@ public class BaseUnit {
 	 * @param player 
 	 * @param graphics 
 	 */
-	protected void drawNormalAppearance(Player player, PGraphics graphics) {
+	protected void drawNormalAppearance(Player player, Graphics graphics) {
 			
 		//Umrechnung auf Spielersicht
 		//Umrechnung/Transformation nun bereits in this.paint() drin	
@@ -292,7 +295,7 @@ public class BaseUnit {
 		
 		
 		this.drawFigure(graphics);
-		graphics.resetMatrix();
+		graphics.resetTransform();
 	}
 
 	/**
@@ -300,7 +303,7 @@ public class BaseUnit {
 	 * @param player 
 	 * @param graphics 
 	 */
-	protected void drawPulseIfActive(Player player, PGraphics graphics) {
+	protected void drawPulseIfActive(Player player, Graphics graphics) {
 		// Wenn aktiv dann normal
 		if (!active) {
 			// normal zeichnen
@@ -316,7 +319,7 @@ public class BaseUnit {
 	 * @param player 
 	 * @param graphics 
 	 */
-	protected void drawPulseAppearance(Player player, PGraphics graphics) {
+	protected void drawPulseAppearance(Player player, Graphics graphics) {
 
 		//Umrechnung auf Spielersicht
 		//Umrechnung/Transformation nun bereits in this.paint() drin
@@ -330,13 +333,13 @@ public class BaseUnit {
 		}
 
 		// skalieren
-		graphics.scale(pulseSkala[pulseStat]);
+		graphics.scale(pulseSkala[pulseStat],pulseSkala[pulseStat]);
 
 //		this.entscheideFarbe(graphics);
 		this.entscheideFillFarbe(graphics);
 		this.drawFigure(graphics);
 
-		graphics.resetMatrix();
+		graphics.resetTransform();
 	}
 
 	/**
@@ -344,7 +347,7 @@ public class BaseUnit {
 	 * @param player 
 	 * @param graphics 
 	 */
-	protected void drawHalo(Player player, PGraphics graphics) {
+	protected void drawHalo(Player player, Graphics graphics) {
 
 		//Umrechnung auf Spielersicht
 		this.calcDrawPosition(player, graphics);
@@ -358,14 +361,16 @@ public class BaseUnit {
 		}
 
 		// skalieren
-		graphics.scale(haloSkala[haloStat]);
+		graphics.scale(haloSkala[haloStat], haloSkala[haloStat]);
 
 		//zeichnen
-		graphics.noFill();
-		graphics.stroke(0);
-		graphics.ellipse(0, 0, 20, 20);
+//		graphics.noFill();
+//		graphics.stroke(0);
+		//TODO nofill
+		graphics.setColor(Color.black);
+		graphics.drawOval(-10, -10, 20, 20);
 
-		graphics.resetMatrix();
+		graphics.resetTransform();
 	}
 
 	/**
@@ -373,7 +378,7 @@ public class BaseUnit {
 	 * @param player 
 	 * @param graphics 
 	 */
-	protected void drawRotateAppearance(Player player, PGraphics graphics) {
+	protected void drawRotateAppearance(Player player, Graphics graphics) {
 
 		//Umrechnung auf Spielersicht
 		//Umrechnung/Transformation nun bereits in this.paint() drin
@@ -387,12 +392,12 @@ public class BaseUnit {
 		}
 
 		// skalieren
-		graphics.rotate(rotatingAngle);
+		graphics.rotate(0,0,rotatingAngle);
 
 		this.entscheideFillFarbe(graphics);
 		this.drawFigure(graphics);
 
-		graphics.resetMatrix();
+		graphics.resetTransform();
 
 	}
 
@@ -401,7 +406,7 @@ public class BaseUnit {
 	 * @param player 
 	 * @param graphics 
 	 */
-	protected void drawRotateAndPulseAppearance(Player player, PGraphics graphics) {
+	protected void drawRotateAndPulseAppearance(Player player, Graphics graphics) {
 
 		//Umrechnung auf Spielersicht
 		//Umrechnung/Transformation nun bereits in this.paint() drin
@@ -415,7 +420,7 @@ public class BaseUnit {
 		}
 
 		// skalieren
-		graphics.rotate(rotatingAngle);
+		graphics.rotate(0,0,rotatingAngle);
 
 		// solange die skala noch nicht durchlaufen ist
 		if (pulseStat < pulseSkala.length - 1) {
@@ -426,23 +431,23 @@ public class BaseUnit {
 		}
 
 		// skalieren
-		graphics.scale(pulseSkala[pulseStat]);
+		graphics.scale(pulseSkala[pulseStat],pulseSkala[pulseStat]);
 
 		// gefuelllt zeichnen
 		this.entscheideFillFarbe( graphics);
 		this.drawFigure(graphics);
 
 		// Umgebung zurücksetzen
-		graphics.resetMatrix();
+		graphics.resetTransform();
 
 	}
 
 	/**
 	 * zeichnen des normalen Erscheinungs bildes ohne Effekte
 	 */
-	protected void drawFigure(PGraphics graphics) {
+	protected void drawFigure(Graphics graphics) {
 
-		graphics.rect(0, 0, 0 + 20, 0 + 20);
+		graphics.fillRect(-10, -10, 20, 20);
 		// pa.triangle(-20,+20, 0, -20, +20, +20);
 
 	}
@@ -544,7 +549,7 @@ public class BaseUnit {
 	/**
 	 * Zeichne Schweif
 	 */
-	protected void drawTail(Player player,PGraphics graphics) {
+	protected void drawTail(Player player,Graphics graphics) {
 			
 
 		// Zielpunkt hinter der Einheit berechnen
@@ -560,22 +565,22 @@ public class BaseUnit {
 	
 
 		//Eigendrehung ausgleichen (wird in calcDrawPostion gesetzt)
-		graphics.rotate(PApplet.TWO_PI-this.actualAngle);
+		graphics.rotate(0,0,PApplet.TWO_PI-this.actualAngle);
 		
 
 
 		// linien in schwarz zeichnen
 //		graphics.stroke(0);
 
-		graphics.line(0, 0, ende.x / 2, ende.y / 2);
-		graphics.line(1, 1, ende.x / 2, ende.y / 2);
-		graphics.line(-1, -1, ende.x / 2, ende.y / 2);
+		graphics.drawLine(0, 0, ende.x / 2, ende.y / 2);
+		graphics.drawLine(1, 1, ende.x / 2, ende.y / 2);
+		graphics.drawLine(-1, -1, ende.x / 2, ende.y / 2);
 
-		graphics.line(ende.x / 2, ende.y / 2, ende.x, ende.y);
-		graphics.line(ende.x * 1.1f, ende.y * 1.1f, ende.x * 1.2f, ende.y * 1.2f);
-		graphics.line(ende.x * 1.3f, ende.y * 1.3f, ende.x * 1.4f, ende.y * 1.4f);
+		graphics.drawLine(ende.x / 2, ende.y / 2, ende.x, ende.y);
+		graphics.drawLine(ende.x * 1.1f, ende.y * 1.1f, ende.x * 1.2f, ende.y * 1.2f);
+		graphics.drawLine(ende.x * 1.3f, ende.y * 1.3f, ende.x * 1.4f, ende.y * 1.4f);
 
-		graphics.resetMatrix();
+		graphics.resetTransform();
 	}
 
 	/**
@@ -636,52 +641,56 @@ public class BaseUnit {
 	/**
 	 * setzt Füll-Farbe zum Zeichen nach Status der einheit
 	 */
-	protected void entscheideFillFarbe(PGraphics graphics) {
+	protected void entscheideFillFarbe(Graphics graphics) {
 		
 		if(this.playerID==DefenderControl.PLAYER_SYSTEM){
 			if (this.active) {
-				graphics.fill(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+				graphics.setColor(this.activeColor);
 			} else {
-				graphics.fill(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
+				graphics.setColor(this.passiveColor);
 			}		
 		}
 		
 		if(this.playerID==DefenderControl.PLAYER_ONE){
 			Player p = this.gamelogic.getPlayerOne();
 			Color unitColor=p.getUnitColor();
-			graphics.fill(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
+			graphics.setColor(unitColor);
 		}
 
 		if(this.playerID==DefenderControl.PLAYER_TWO){
 			Player p = this.gamelogic.getPlayerTwo();
 			Color unitColor=p.getUnitColor();
-			graphics.fill(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
+			graphics.setColor(unitColor);
 		}
 	}
 
 	/**
 	 * setzt Linien-Farbe zum Zeichen nach Status der einheit
 	 */
-	protected void entscheideLineFarbe(PGraphics graphics) {
+	protected void entscheideLineFarbe(Graphics graphics) {
 		
 		if(this.playerID==DefenderControl.PLAYER_SYSTEM){
 			if (this.active) {
-				graphics.stroke(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+//				graphics.stroke(this.activeColor.getRed(), this.activeColor.getGreen(), this.activeColor.getBlue());
+				graphics.setColor(this.activeColor);
 			} else {
-				graphics.stroke(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
+//				graphics.stroke(this.passiveColor.getRed(), this.passiveColor.getGreen(), this.passiveColor.getBlue());
+				graphics.setColor(this.passiveColor);
 			}		
 		}
 		
 		if(this.playerID==DefenderControl.PLAYER_ONE){
 			Player p = this.gamelogic.getPlayerOne();
 			Color unitColor=p.getUnitColor();
-			graphics.stroke(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
+//			graphics.stroke(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
+			graphics.setColor(unitColor);
 		}
 
 		if(this.playerID==DefenderControl.PLAYER_TWO){
 			Player p = this.gamelogic.getPlayerTwo();
 			Color unitColor=p.getUnitColor();
-			graphics.stroke(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
+//			graphics.stroke(unitColor.getRed(),unitColor.getBlue(),unitColor.getGreen());
+			graphics.setColor(unitColor);
 		}
 	}
 	
@@ -693,10 +702,10 @@ public class BaseUnit {
 		// berechne neue Blickrichtung
 		if (direction.x > 0) {
 			// rechts
-			actualAngle = PVector.angleBetween(direction, new PVector(0, -1));
+			actualAngle = PVector.angleBetween(direction, new PVector(0, -1))/PApplet.PI*180;
 		} else {
 			// links
-			actualAngle = PApplet.TWO_PI - PVector.angleBetween(direction, new PVector(0, -1));
+			actualAngle = (PApplet.TWO_PI - PVector.angleBetween(direction, new PVector(0, -1)))/PApplet.PI*180;
 		}
 	}
 
@@ -758,12 +767,12 @@ public class BaseUnit {
 	 * Berechnet Zeichnenposition und setzt Abblidungsmatrix(Transformationsmatix)
 	 * @return
 	 */
-	private void calcDrawPosition(Player player,PGraphics graphics){
+	private void calcDrawPosition(Player player,Graphics graphics){
 
-		GraphicTools.calcDrawTransformation( player, graphics, position);
+		GraphicTools.calcDrawTransformationForSlick( player, graphics, position);
 		
 		//eigendrehung hinzurechnen
-		graphics.rotate(this.actualAngle);
+		graphics.rotate(0,0,this.actualAngle);
 	}
 	
 

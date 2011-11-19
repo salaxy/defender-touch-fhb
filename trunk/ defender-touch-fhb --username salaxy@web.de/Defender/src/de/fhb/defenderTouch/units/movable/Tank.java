@@ -1,6 +1,7 @@
 package de.fhb.defenderTouch.units.movable;
 
-import processing.core.PGraphics;
+import org.newdawn.slick.Graphics;
+
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.units.notmovable.Building;
 
@@ -13,13 +14,13 @@ public class Tank extends Building {
 		super(x, y, mode, playerID, gamelogic);
 	}
 
-	public void drawFigure(PGraphics graphics) {
+	public void drawFigure(Graphics graphics) {
 
 		// this.entscheideLineFarbe(graphics);
-		graphics.scale(1.5f);
-		graphics.noFill();
+		graphics.scale(1.5f,1.5f);
+//		graphics.noFill();
 		// graphics.strokeWeight(1);
-		graphics.rotate((float) Math.PI);
+		graphics.rotate(0,0,180);
 		switch (this.level) {
 		case LEVEL_ONE:
 			size = 8;
@@ -32,12 +33,12 @@ public class Tank extends Building {
 			break;
 		}
 
-		graphics.rect(0, size, size * 2, size * 3);
-		graphics.ellipse(0, size, size, size);
-		graphics.rect(0, -size/2, size/2, size * 2);
+		graphics.drawRect(0, size, size * 2, size * 3);
+		graphics.drawOval(0, size, size, size);
+		graphics.drawRect(0, -size/2, size/2, size * 2);
 
-		graphics.resetMatrix();
-		graphics.stroke(0);
+		graphics.resetTransform();
+//		graphics.stroke(0);
 
 	}
 
