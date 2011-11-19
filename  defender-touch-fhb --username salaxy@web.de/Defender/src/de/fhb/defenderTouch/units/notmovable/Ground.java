@@ -2,11 +2,11 @@ package de.fhb.defenderTouch.units.notmovable;
 
 import java.util.Date;
 
+import org.newdawn.slick.Graphics;
+
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
-import de.fhb.defenderTouch.units.movable.Fighter;
 import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.root.BaseUnit;
-import processing.core.PGraphics;
 
 public class Ground extends Building {
 
@@ -22,15 +22,15 @@ public class Ground extends Building {
 		super(x, y, mode, playerID, gamelogic);
 	}
 
-	public void drawFigure(PGraphics graphics) {
+	public void drawFigure(Graphics graphics) {
 
 		// graphics.stroke(0);
 		// graphics.strokeWeight(10);
 		// graphics.fill(0);
-		graphics.noFill();
-		graphics.scale(1.5f);
+//		graphics.noFill();
+		graphics.scale(1.5f,1.5f);
 		// graphics.strokeWeight(1);
-		graphics.rotate((float) Math.PI);
+		graphics.rotate(0,0,180);
 
 		switch (this.level) {
 		case LEVEL_ONE:
@@ -45,10 +45,13 @@ public class Ground extends Building {
 		}
 
 		// this.entscheideLineFarbe(graphics);
-		graphics.triangle(-size, +size, 0, -size, +size, +size);
+		graphics.drawLine(-size, +size,0, -size);
+		graphics.drawLine(0, -size, +size, +size);
+		graphics.drawLine(+size, +size,-size, +size);
+//		graphics.triangle(-size, +size, 0, -size, +size, +size);
 
-		graphics.resetMatrix();
-		graphics.stroke(0);
+		graphics.resetTransform();
+//		graphics.stroke(0);
 
 	}
 

@@ -1,7 +1,7 @@
 package de.fhb.defenderTouch.units.amunition;
 
-import processing.core.PApplet;
-import processing.core.PGraphics;
+import org.newdawn.slick.Graphics;
+
 import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
@@ -36,19 +36,19 @@ public class Shoot extends BaseUnit {
 	}
 	
 	
-	public void drawFigure(PGraphics graphics){
+	public void drawFigure(Graphics graphics){
 		
 	//	graphics.stroke(0);
 	//	graphics.strokeWeight(10);
 	//	graphics.fill(0);
 		this.entscheideLineFarbe(graphics);
-		graphics.scale(0.5f);
+		graphics.scale(0.5f,0.5f);
 	
-		graphics.rect(0, 0, 10, 30);
+		graphics.fillRect(0, 0, 10, 30);
 	
 	//	GraphicTools.zeicheFigurNachVektoren(vektoren,graphics);
 		
-		graphics.resetMatrix();
+		graphics.resetTransform();
 //		graphics.stroke(0);
 		
 	}

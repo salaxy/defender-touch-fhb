@@ -2,13 +2,12 @@ package de.fhb.defenderTouch.units.movable;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Graphics;
+
+import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.root.BaseUnit;
-
-import processing.core.PApplet;
-import processing.core.PGraphics;
-import processing.core.PVector;
 
 public class Fighter extends BaseUnit {
 
@@ -20,13 +19,13 @@ public class Fighter extends BaseUnit {
 	}
 
 	
-	public void drawFigure(PGraphics graphics){
+	public void drawFigure(Graphics graphics){
 		
 //		graphics.stroke(0);
 //		graphics.strokeWeight(10);
 //		graphics.fill(0);
 //		this.entscheideLineFarbe(graphics);
-		graphics.scale(2);
+		graphics.scale(2,2);
 //		graphics.triangle(-20,+20, 0, -20, +20, +20);
 		ArrayList<PVector> vektoren=new ArrayList<PVector>();
 		vektoren.add(new PVector(0, -8));
@@ -41,7 +40,7 @@ public class Fighter extends BaseUnit {
 
 		GraphicTools.zeicheFigurNachVektoren(vektoren,graphics);
 		
-		graphics.resetMatrix();
+		graphics.resetTransform();
 //		graphics.stroke(0);
 		
 	}
