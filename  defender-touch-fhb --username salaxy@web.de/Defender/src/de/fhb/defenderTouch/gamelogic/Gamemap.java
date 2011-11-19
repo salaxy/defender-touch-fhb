@@ -33,7 +33,8 @@ public class Gamemap {
 		//graphics.image(visibleMap, 0f, 0f);
 		
 		//Feldumrandung zeichnen
-		graphics.setColor(new Color(255, 255, 0,55));
+//		graphics.setColor(new Color(255, 255, 0,55));
+		graphics.setColor(new Color(50, 50, 50,55));
 //		graphics.stroke(0, 0, 0);
 //		graphics.fillRect(512f, 384f, 1024, 768);
 		graphics.fillRect(0f, 0f, 1024, 768);

@@ -1,15 +1,11 @@
 TODO ANDY
 **********
 
-- Integration der TUIO-Steuerung
+
 
 - Angriffsradius, Automatischer Angriff(zunächst ohne  hinfliegen, ohne User Interaktion)
 
 - Loesung fuer die Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
-
-************************************
-		UMbau auf Slick
-************************************
 
 
 

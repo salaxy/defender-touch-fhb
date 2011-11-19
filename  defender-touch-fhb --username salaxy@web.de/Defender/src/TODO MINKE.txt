@@ -1,6 +1,7 @@
 TODO MINKE
 ***********
 
+- Integration der TUIO-Steuerung in DefenderViewSlick
 
 - neue Schüsse anlegen und gestalten (mind zwei), also von Shoot als Oberklasse ableiten
 
