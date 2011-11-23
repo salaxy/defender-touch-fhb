@@ -1,7 +1,10 @@
 package de.fhb.defenderTouch.units.notmovable;
 
+import org.newdawn.slick.Color;
+
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class Building extends BaseUnit {
@@ -32,8 +35,8 @@ public class Building extends BaseUnit {
 		}
 	}
 
-	public Building(int x, int y, int mode, int playerID,DefenderControl gamelogic) {
-		super(x, y, mode, playerID, gamelogic);
+	public Building(int x, int y, int mode, Player player,DefenderControl gamelogic) {
+		super(x, y, mode, player, gamelogic);
 		this.movementSpeed = 0.5f;
 	}
 

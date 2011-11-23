@@ -2,12 +2,17 @@ package de.fhb.defenderTouch.units.notmovable;
 
 import java.util.Date;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.root.BaseUnit;
-
+/**
+ * 
+ * @author Curtis Mosters, Andy Klay
+ */
 public class Ground extends Building {
 
 	public static final int PRICE = 50;
@@ -18,18 +23,13 @@ public class Ground extends Building {
 	private long startingTime = new Date().getTime();
 	private long tickerTime;
 
-	public Ground(int x, int y, int mode, int playerID, DefenderControl gamelogic) {
-		super(x, y, mode, playerID, gamelogic);
+	public Ground(int x, int y, int mode, Player player, DefenderControl gamelogic) {
+		super(x, y, mode, player, gamelogic);
 	}
 
 	public void drawFigure(Graphics graphics) {
 
-		// graphics.stroke(0);
-		// graphics.strokeWeight(10);
-		// graphics.fill(0);
-//		graphics.noFill();
 		graphics.scale(1.5f,1.5f);
-		// graphics.strokeWeight(1);
 		graphics.rotate(0,0,180);
 
 		switch (this.level) {
@@ -44,30 +44,19 @@ public class Ground extends Building {
 			break;
 		}
 
-		// this.entscheideLineFarbe(graphics);
 		graphics.drawLine(-size, +size,0, -size);
 		graphics.drawLine(0, -size, +size, +size);
 		graphics.drawLine(+size, +size,-size, +size);
-//		graphics.triangle(-size, +size, 0, -size, +size, +size);
 
 		graphics.resetTransform();
-//		graphics.stroke(0);
-
 	}
 
 	public void calcNewPosition() {
 		tickerTime = new Date().getTime();
 
 		if (createNewGroundUnit(startingTime, tickerTime)) {
-			if (this.playerID == DefenderControl.PLAYER_ONE) {
-				new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL,
-						DefenderControl.PLAYER_ONE, gamelogic);
-			}
-
-			if (this.playerID == DefenderControl.PLAYER_TWO) {
-				new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL,
-						DefenderControl.PLAYER_TWO, gamelogic);
-			}
+			new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL,
+					this.player, gamelogic);
 		}
 
 	}
