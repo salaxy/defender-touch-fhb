@@ -168,7 +168,7 @@ public class BaseUnit {
 	/**
 	 * Besitzer der Unit
 	 */
-	protected Player player;
+	protected Player owner;
 	
 	/**
 	 * 
@@ -182,13 +182,13 @@ public class BaseUnit {
 	public BaseUnit(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 
 		this.mode = mode;
-		this.player=player;
+		this.owner=player;
 		this.playerID = player.getId();
 		this.position = new PVector(x, y);
 		this.destinationVector = new PVector(x, y);
 		this.berechneNeueBlickrichtung();
 		this.initHaloSkala();
-		this.passiveColor=this.player.getUnitColor();
+		this.passiveColor=this.owner.getUnitColor();
 		this.gamelogic=gamelogic;
 		this.map=gamelogic.getMap();
 
@@ -276,7 +276,7 @@ public class BaseUnit {
 	 */
 	public void drawActiveAppearance(Player player, Graphics graphics) {
 	
-		graphics.setColor(activeColor);
+		graphics.setColor(this.activeColor);
 		this.drawFigure(graphics);
 		graphics.resetTransform();
 	}
@@ -292,8 +292,7 @@ public class BaseUnit {
 		//Umrechnung auf Spielersicht	
 	
 		//farben setzen
-		this.entscheideFillFarbe(graphics);
-		this.entscheideLineFarbe(graphics);
+		graphics.setColor(this.passiveColor);
 		
 		//zeichnen
 		this.drawFigure(graphics);
@@ -334,7 +333,7 @@ public class BaseUnit {
 		// skalieren
 		graphics.scale(pulseSkala[pulseStat],pulseSkala[pulseStat]);
 
-		this.entscheideFillFarbe(graphics);
+		graphics.setColor(this.passiveColor);
 		this.drawFigure(graphics);
 
 		graphics.resetTransform();
@@ -386,7 +385,7 @@ public class BaseUnit {
 		// skalieren
 		graphics.rotate(0,0,rotatingAngle);
 
-		this.entscheideFillFarbe(graphics);
+		graphics.setColor(this.passiveColor);
 		this.drawFigure(graphics);
 
 		graphics.resetTransform();
@@ -424,7 +423,7 @@ public class BaseUnit {
 		graphics.scale(pulseSkala[pulseStat],pulseSkala[pulseStat]);
 
 		// gefuelllt zeichnen
-		this.entscheideFillFarbe( graphics);
+		graphics.setColor(this.passiveColor);
 		this.drawFigure(graphics);
 
 		// Umgebung zurücksetzen
@@ -619,29 +618,29 @@ public class BaseUnit {
 		active = false;
 	}
 
-	/**
-	 * setzt Füll-Farbe zum Zeichen nach Status der einheit
-	 */
-	protected void entscheideFillFarbe(Graphics graphics) {
-		
-		if (this.active) {
-			graphics.setColor(this.activeColor);
-		} else {
-			graphics.setColor(this.passiveColor);
-		}		
-	}
+//	/**
+//	 * setzt Füll-Farbe zum Zeichen nach Status der einheit
+//	 */
+//	protected void entscheideFillFarbe(Graphics graphics) {
+//		
+//		if (this.active) {
+//			graphics.setColor(this.activeColor);
+//		} else {
+//			graphics.setColor(this.passiveColor);
+//		}		
+//	}
 
 	/**
-	 * setzt Linien-Farbe zum Zeichen nach Status der einheit
-	 */
-	protected void entscheideLineFarbe(Graphics graphics) {
-		
-		if (this.active) {
-			graphics.setColor(this.activeColor);
-		} else {
-			graphics.setColor(this.passiveColor);
-		}		
-	}
+//	 * setzt Linien-Farbe zum Zeichen nach Status der einheit
+//	 */
+//	protected void entscheideLineFarbe(Graphics graphics) {
+//		
+//		if (this.active) {
+//			graphics.setColor(this.activeColor);
+//		} else {
+//			graphics.setColor(this.passiveColor);
+//		}		
+//	}
 	
 
 	/**

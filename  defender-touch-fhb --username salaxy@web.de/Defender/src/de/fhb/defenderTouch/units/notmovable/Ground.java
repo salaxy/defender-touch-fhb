@@ -56,7 +56,7 @@ public class Ground extends Building {
 
 		if (createNewGroundUnit(startingTime, tickerTime)) {
 			new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL,
-					this.player, gamelogic);
+					this.owner, gamelogic);
 		}
 
 	}
