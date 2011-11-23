@@ -120,6 +120,9 @@ public class DefenderControl implements TuioListener{
 //		screenLeft.smooth();
 //		screenLeft.rectMode(PGraphics.CENTER);
 //		screenLeft.background(255f);
+		display.resetTransform();
+		
+		display.setClip(0, 0, 512, 768);
 		
 		//Feld zeichnen
 		this.map.zeichne(display, playerOne);	
@@ -151,12 +154,14 @@ public class DefenderControl implements TuioListener{
 //		screenLeft.endDraw();
 		display.resetTransform();
 
+		display.clearClip();
 		
 		// Rechte Seite vorzeichnen
 //		screenRight.beginDraw();
 //		screenRight.smooth();
 //		screenRight.rectMode(PGraphics.CENTER);
 //		screenRight.background(255f);
+		display.setClip(512,0,512,768);
 		
 		//Feld zeichnen
 //		zeichneRahmen(screenRight, playerTwo);
@@ -199,6 +204,8 @@ public class DefenderControl implements TuioListener{
 		display.drawLine(511f, 0f, 511f, 768f);
 		display.drawLine(512f, 0f, 512f, 768f);
 		display.drawLine(513f, 0f, 513f, 768f);
+		
+		display.clearClip();
 	}
 
 //	public void zeichneRahmen(PGraphics graphics, Player player){
