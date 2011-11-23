@@ -6,7 +6,8 @@ TODO ANDY
 
 - Angriffsradius, Automatischer Angriff(zunächst ohne  hinfliegen, ohne User Interaktion)
 
-
+Specials
+******************
 (- Loesung fuer die Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition))
 
 (- Slicksoundsystem anbinden, altes system entfernen)

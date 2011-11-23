@@ -23,7 +23,7 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
  * dem eigentlichen Spielinhalt wie die Units, Spiellogik usw. (und noch
  * zukünftige dinge)
  * 
- * @author Salaxy 
+ * @author Andy Klay <klay@fh-brandenburg.de> 
  */
 public class DefenderControl implements TuioListener{
 	
@@ -32,7 +32,7 @@ public class DefenderControl implements TuioListener{
 	 */
 	private Gestures gestures=new Gestures();
 	
-	
+	//Spielkonstanten
 	public static final int MOUSE_LEFT = 0;
 	public static final int MOUSE_RIGHT = 1;
 
@@ -45,44 +45,36 @@ public class DefenderControl implements TuioListener{
 	/**
 	 * gibt an wo auf dem PApplet der screenLeft gezeichnet werden soll
 	 */
-	public static PVector SCREENLEFT_POSITION= new PVector(0, 0);
+	public final static PVector ORIGIN_POSITION_LEFT= new PVector(512f,0f);
 	
 	/**
 	 * gibt an wo auf dem PApplet der screenLeft gezeichnet werden soll
 	 */
-	public static PVector SCREENRIGHT_POSITION= new PVector(515, 0);
+	public final static PVector ORIGIN_POSITION_RIGHT= new PVector(512f, 768f);
 	
-
+	/**
+	 * Globale Liste an zu zeichnende Objekte/Units
+	 */
 	private CopyOnWriteArrayList<BaseUnit> globalUnits;
-	private static DefenderControl instance = null;
+	
 	private Player playerOne;
 	private Player playerTwo;
-	//TODO Andy wieder Einbauen von Slickäquivalent zu den screens von Processing
-//	private PGraphics screenLeft, screenRight;
 	private Gamemap map;
 	
 	
 	private Menu menuePlayerOne;
 	private Menu menuePlayerTwo;
 
-	public DefenderControl(
-//			,PGraphics screenLeft,PGraphics screenRight
-			) {
+	public DefenderControl() {
 		
 		//map init
 		map=new Gamemap();
 		
 		//die beiden Spieler initialisieren
-		playerOne = new Player(this,PApplet.HALF_PI, 0.65f, new PVector(512f,0f),Player.LEFT, new PVector(0f,0f),SCREENLEFT_POSITION, Color.blue);
-//		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(0f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.green);
-		playerTwo = new Player(this,3*PApplet.HALF_PI,0.65f, new PVector(512f, 768f),Player.RIGHT, new PVector(0f,0f),SCREENRIGHT_POSITION, Color.green);
+		playerOne = new Player(this,(float)Math.PI/2, 0.65f, ORIGIN_POSITION_LEFT,Player.LEFT, Color.blue);
+		playerTwo = new Player(this,3*(float)Math.PI/2,0.65f, ORIGIN_POSITION_RIGHT,Player.RIGHT, Color.green);
 		
 		globalUnits = new CopyOnWriteArrayList<BaseUnit>();
-		
-		//init der beiden images fuer links und rechts
-//		this.screenLeft = screenLeft;
-//		this.screenRight = screenRight;
-//		
 		
 		//Menue init
 		menuePlayerOne = new Menu(this.globalUnits,playerOne, DefenderControl.PLAYER_ONE);
@@ -108,21 +100,15 @@ public class DefenderControl implements TuioListener{
 	 */
 	public void drawAll(Graphics display) {		
 		
-
-		
-		//units playerOne zeichen
+		//Berechnen der Positionen aller Units
 		for (BaseUnit unit : globalUnits) {
 			unit.calcNewPosition();
 		}
 		
-		// Linke Seite vorzeichnen
-//		screenLeft.beginDraw();		
-//		screenLeft.smooth();
-//		screenLeft.rectMode(PGraphics.CENTER);
-//		screenLeft.background(255f);
-		display.resetTransform();
 		
-		display.setClip(0, 0, 512, 768);
+		// Linke Seite zeichnen
+		//zeichenbereich setzen
+		display.setClip(0, 0, 510, 768);
 		
 		//Feld zeichnen
 		this.map.zeichne(display, playerOne);	
@@ -142,29 +128,24 @@ public class DefenderControl implements TuioListener{
 		//menue zeichen fuer player one
 		this.menuePlayerOne.drawMenu(display, this.playerOne);
 		
-		//creditsinfo zeichnen
+		//info zeichnen
 		display.setColor(Color.black);
-//		display.translate(510, 768);
 		display.rotate(0,0,90);
 		display.scale(1.2f, 1.2f);
-		display.drawString("Credits: " + playerOne.getCredits(), 20, -15);
-//		screenLeft.text("Aktuelles Gebäude: " + menuePlayerOne.getActualBuildingName(), 350, -15);
-//		display.text("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 300, -15);
+		display.drawString("Credits: " + playerOne.getCredits(), 10, -18);
+		display.drawString("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 180, -18);
+		//display.drawString("Aktuelles Gebäude: " + menuePlayerOne.getActualBuildingName(), 100, -15);
 		
-//		screenLeft.endDraw();
+		
 		display.resetTransform();
-
+		//zeichenbereich leoschen
 		display.clearClip();
 		
-		// Rechte Seite vorzeichnen
-//		screenRight.beginDraw();
-//		screenRight.smooth();
-//		screenRight.rectMode(PGraphics.CENTER);
-//		screenRight.background(255f);
-		display.setClip(512,0,512,768);
+		// Rechte Seite zeichnen
+		//zeichenbereich setzen
+		display.setClip(512,0,514,768);
 		
 		//Feld zeichnen
-//		zeichneRahmen(screenRight, playerTwo);
 		this.map.zeichne(display, playerTwo);	
 		display.resetTransform();
 		
@@ -180,49 +161,31 @@ public class DefenderControl implements TuioListener{
 		}
 		
 		//menue zeichen fuer playerTwo
-//		this.menuePlayerTwo.drawMenu(display, this.playerTwo);
+		this.menuePlayerTwo.drawMenu(display, this.playerTwo);
 
-		//creditsinfo zeichnen
+		//info zeichnen
 		display.setColor(Color.black);		
 		display.translate(510, 768);
 		display.rotate(0,0,-90);
+//		display.scale(1.05f, 1.05f);
+		//XXX ??? scalieren laesst schrift verschwinden
 
-		display.drawString("Credits: " + playerOne.getCredits(), 25, 490);
-//		screenRight.text("Aktuelles Gebäude: " + menuePlayerTwo.getActualBuildingName(), 350, -15);
-//		display.text("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 300, -15);
+		display.drawString("Credits: " + playerTwo.getCredits(), 25, 490);
+		display.drawString("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 180, 490);
+		//display.drawString("Aktuelles Gebäude: " + menuePlayerTwo.getActualBuildingName(), 100, 490);
+		
 		display.resetTransform();
+		//zeichenbereich leoschen
+		display.clearClip();
 		
-		
-//		display.endDraw();
-
-//		//die beiden Seiten auf dem PApplet zeichnen
-//		display.image(display, SCREENLEFT_POSITION.x, SCREENLEFT_POSITION.y);
-//		display.image(display, SCREENRIGHT_POSITION.x, SCREENRIGHT_POSITION.y);
-		
-		//Trennlinie
+		//Trennlinie zeichnen
 		display.setColor(Color.black);
 		display.drawLine(511f, 0f, 511f, 768f);
 		display.drawLine(512f, 0f, 512f, 768f);
 		display.drawLine(513f, 0f, 513f, 768f);
 		
-		display.clearClip();
-	}
 
-//	public void zeichneRahmen(PGraphics graphics, Player player){
-//		
-//		
-//		//Transformationen
-//		GraphicTools.calcDrawTransformation(player, graphics, new PVector(0,0));
-//	
-//		//Feldumrandung zeichnen
-//		graphics.fill(255, 255, 0,55);
-//		graphics.stroke(0, 0, 0);
-//		graphics.rect(512f, 384f, 1024, 768);
-//		
-//		graphics.resetMatrix();
-//		
-//	}
-	
+	}
 
 	public Menu getMenuePlayerOne() {
 		return menuePlayerOne;
