@@ -13,9 +13,16 @@ import TUIO.TuioObject;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
+import de.fhb.defenderTouch.display.DefenderViewSlick;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.menu.Menu;
 import de.fhb.defenderTouch.ui.Gestures;
+import de.fhb.defenderTouch.units.movable.Fighter;
+import de.fhb.defenderTouch.units.movable.Tank;
+import de.fhb.defenderTouch.units.notmovable.Defence;
+import de.fhb.defenderTouch.units.notmovable.Ground;
+import de.fhb.defenderTouch.units.notmovable.Navi;
+import de.fhb.defenderTouch.units.notmovable.Support;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 /**
@@ -36,20 +43,13 @@ public class DefenderControl implements TuioListener{
 	public static final int MOUSE_LEFT = 0;
 	public static final int MOUSE_RIGHT = 1;
 
-	public static final int PLAYER_ONE = 0;
-	public static final int PLAYER_TWO = 1;
-	public static final int PLAYER_SYSTEM = 2;
+	//Konstanten fuer Spielerzugehoerigheit
+	public static final int PLAYER_ONE_ID = 0;
+	public static final int PLAYER_TWO_ID = 1;
+	public static final int PLAYER_SYSTEM_ID = 2;
 	
-	
-	
-	/**
-	 * gibt an wo auf dem PApplet der screenLeft gezeichnet werden soll
-	 */
+	//Ursprungspunkte fuer Spielerviews
 	public final static PVector ORIGIN_POSITION_LEFT= new PVector(512f,0f);
-	
-	/**
-	 * gibt an wo auf dem PApplet der screenLeft gezeichnet werden soll
-	 */
 	public final static PVector ORIGIN_POSITION_RIGHT= new PVector(512f, 768f);
 	
 	/**
@@ -57,12 +57,34 @@ public class DefenderControl implements TuioListener{
 	 */
 	private CopyOnWriteArrayList<BaseUnit> globalUnits;
 	
+	/**
+	 * Spielerobjekt Spieler Eins
+	 */
 	private Player playerOne;
+	
+	/**
+	 * Spielerobjekt Spieler Zwei
+	 */
 	private Player playerTwo;
+	
+	/**
+	 * Spielerobjekt Spieler System
+	 */
+	private Player playerSystem;
+	
+	/**
+	 * Spielkarte
+	 */
 	private Gamemap map;
 	
-	
+	/**
+	 * Menue Spieler Eins
+	 */
 	private Menu menuePlayerOne;
+	
+	/**
+	 * Menue Spieler Zwei
+	 */
 	private Menu menuePlayerTwo;
 
 	public DefenderControl() {
@@ -71,18 +93,17 @@ public class DefenderControl implements TuioListener{
 		map=new Gamemap();
 		
 		//die beiden Spieler initialisieren
-		playerOne = new Player(this,(float)Math.PI/2, 0.65f, ORIGIN_POSITION_LEFT,Player.LEFT, Color.blue);
-		playerTwo = new Player(this,3*(float)Math.PI/2,0.65f, ORIGIN_POSITION_RIGHT,Player.RIGHT, Color.green);
+		playerOne = new Player(this,(float)Math.PI/2, 0.65f, ORIGIN_POSITION_LEFT, Color.blue, PLAYER_ONE_ID);
+		playerTwo = new Player(this,3*(float)Math.PI/2,0.65f, ORIGIN_POSITION_RIGHT, Color.green, PLAYER_TWO_ID);
+		playerSystem = new Player(this,02,1f, ORIGIN_POSITION_RIGHT, Color.black, PLAYER_SYSTEM_ID);
 		
 		globalUnits = new CopyOnWriteArrayList<BaseUnit>();
 		
 		//Menue init
-		menuePlayerOne = new Menu(this.globalUnits,playerOne, DefenderControl.PLAYER_ONE);
-		menuePlayerTwo = new Menu(this.globalUnits,playerTwo, DefenderControl.PLAYER_TWO);
-		
+		menuePlayerOne = new Menu(this.globalUnits,playerOne);
+		menuePlayerTwo = new Menu(this.globalUnits,playerTwo);
 		
 //		this.playBackgroundSound();
-
 	}
 
 	public Gamemap getMap() {
@@ -95,10 +116,14 @@ public class DefenderControl implements TuioListener{
 
 	}
 
+	public Player getPlayerSystem() {
+		return playerSystem;
+	}
+
 	/**
 	 * Zeichnet beide Spielfelder und Inhalte
 	 */
-	public void drawAll(Graphics display) {		
+	public void drawAll(Graphics graphics) {		
 		
 		//Berechnen der Positionen aller Units
 		for (BaseUnit unit : globalUnits) {
@@ -108,81 +133,81 @@ public class DefenderControl implements TuioListener{
 		
 		// Linke Seite zeichnen
 		//zeichenbereich setzen
-		display.setClip(0, 0, 510, 768);
+		graphics.setClip(0, 0, 510, 768);
 		
 		//Feld zeichnen
-		this.map.zeichne(display, playerOne);	
+		this.map.zeichne(graphics, playerOne);	
 		
 
 		//units playerOne zeichen
 		for (BaseUnit unit : globalUnits) {
-			if(unit.isActive()&&unit.getPlayerID()==PLAYER_ONE){
+			if(unit.isActive()&&unit.getPlayerID()==PLAYER_ONE_ID){
 				//zeichne Aktiviert
-				unit.paint(this.playerOne, display,true);	
+				unit.paint(this.playerOne, graphics,true);	
 			}else{
 				//zeichen normal
-				unit.paint(this.playerOne, display,false);				
+				unit.paint(this.playerOne, graphics,false);				
 			}
 		}
 		
 		//menue zeichen fuer player one
-		this.menuePlayerOne.drawMenu(display, this.playerOne);
+		this.menuePlayerOne.drawMenu(graphics, this.playerOne);
 		
 		//info zeichnen
-		display.setColor(Color.black);
-		display.rotate(0,0,90);
-		display.scale(1.2f, 1.2f);
-		display.drawString("Credits: " + playerOne.getCredits(), 10, -18);
-		display.drawString("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 180, -18);
+		graphics.setColor(Color.black);
+		graphics.rotate(0,0,90);
+		graphics.scale(1.2f, 1.2f);
+		graphics.drawString("Credits: " + playerOne.getCredits(), 10, -18);
+		graphics.drawString("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 180, -18);
 		//display.drawString("Aktuelles Gebäude: " + menuePlayerOne.getActualBuildingName(), 100, -15);
 		
 		
-		display.resetTransform();
+		graphics.resetTransform();
 		//zeichenbereich leoschen
-		display.clearClip();
+		graphics.clearClip();
 		
 		// Rechte Seite zeichnen
 		//zeichenbereich setzen
-		display.setClip(512,0,514,768);
+		graphics.setClip(512,0,514,768);
 		
 		//Feld zeichnen
-		this.map.zeichne(display, playerTwo);	
-		display.resetTransform();
+		this.map.zeichne(graphics, playerTwo);	
+		graphics.resetTransform();
 		
 		//units playerTwo zeichen
 		for (BaseUnit unit : globalUnits) {
-			if(unit.isActive()&&unit.getPlayerID()==PLAYER_TWO){
+			if(unit.isActive()&&unit.getPlayerID()==PLAYER_TWO_ID){
 				//zeichne Aktiviert
-				unit.paint(this.playerTwo, display,true);	
+				unit.paint(this.playerTwo, graphics,true);	
 			}else{
 				//zeichen normal
-				unit.paint(this.playerTwo, display,false);				
+				unit.paint(this.playerTwo, graphics,false);				
 			}
 		}
 		
 		//menue zeichen fuer playerTwo
-		this.menuePlayerTwo.drawMenu(display, this.playerTwo);
+		this.menuePlayerTwo.drawMenu(graphics, this.playerTwo);
 
 		//info zeichnen
-		display.setColor(Color.black);		
-		display.translate(510, 768);
-		display.rotate(0,0,-90);
+		graphics.setColor(Color.black);		
+		graphics.translate(510, 768);
+		graphics.rotate(0,0,-90);
 //		display.scale(1.05f, 1.05f);
 		//XXX ??? scalieren laesst schrift verschwinden
 
-		display.drawString("Credits: " + playerTwo.getCredits(), 25, 490);
-		display.drawString("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 180, 490);
+		graphics.drawString("Credits: " + playerTwo.getCredits(), 25, 490);
+		graphics.drawString("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 180, 490);
 		//display.drawString("Aktuelles Gebäude: " + menuePlayerTwo.getActualBuildingName(), 100, 490);
 		
-		display.resetTransform();
+		graphics.resetTransform();
 		//zeichenbereich leoschen
-		display.clearClip();
+		graphics.clearClip();
 		
 		//Trennlinie zeichnen
-		display.setColor(Color.black);
-		display.drawLine(511f, 0f, 511f, 768f);
-		display.drawLine(512f, 0f, 512f, 768f);
-		display.drawLine(513f, 0f, 513f, 768f);
+		graphics.setColor(Color.black);
+		graphics.drawLine(511f, 0f, 511f, 768f);
+		graphics.drawLine(512f, 0f, 512f, 768f);
+		graphics.drawLine(513f, 0f, 513f, 768f);
 		
 
 	}
@@ -342,7 +367,7 @@ public class DefenderControl implements TuioListener{
 			for(BaseUnit u: this.getGlobalUnits()){
 				
 				//wenn eine unit aktiviert wird dann die anderen deaktiveren
-				if(u.getPlayerID()==DefenderControl.PLAYER_TWO && u.isInner(realClickKoordinates)){	
+				if(u.getPlayerID()==DefenderControl.PLAYER_TWO_ID && u.isInner(realClickKoordinates)){	
 					u.activate();
 					//merken
 					this.getPlayerTwo().getActiveUnits().add(u);
@@ -357,14 +382,14 @@ public class DefenderControl implements TuioListener{
 					for(BaseUnit bu: this.getGlobalUnits()){
 						
 						//auf gegnerische einheit geklickt??
-						if(bu.getPlayerID()==DefenderControl.PLAYER_ONE && bu.isInner(realClickKoordinates)){
+						if(bu.getPlayerID()==DefenderControl.PLAYER_ONE_ID && bu.isInner(realClickKoordinates)){
 							istAngriff=true;
 							destinationUnit=bu;
 							System.out.println("Angriff initiiert!");
 						}
 						
 						//auf weitere eigene einheit geklickt??
-						if(bu.getPlayerID()==DefenderControl.PLAYER_TWO && bu.isInner(realClickKoordinates)){
+						if(bu.getPlayerID()==DefenderControl.PLAYER_TWO_ID && bu.isInner(realClickKoordinates)){
 							weitereAktivierung=true;
 							bu.activate();
 							System.out.println("Weitere Einheit aktiviert!");
@@ -418,7 +443,7 @@ public class DefenderControl implements TuioListener{
 			for(BaseUnit u: this.getGlobalUnits()){
 				
 				//wenn eine unit aktiviert wird dann die anderen deaktiveren
-				if(u.getPlayerID()==DefenderControl.PLAYER_ONE && u.isInner(realClickKoordinates)){	
+				if(u.getPlayerID()==DefenderControl.PLAYER_ONE_ID && u.isInner(realClickKoordinates)){	
 					u.activate();
 					//merken
 					this.getPlayerOne().getActiveUnits().add(u);
@@ -433,7 +458,7 @@ public class DefenderControl implements TuioListener{
 					for(BaseUnit bu: this.getGlobalUnits()){
 						
 						//auf gegnerische einheit geklickt??
-						if(bu.getPlayerID()==DefenderControl.PLAYER_TWO && bu.isInner(realClickKoordinates)){
+						if(bu.getPlayerID()==DefenderControl.PLAYER_TWO_ID && bu.isInner(realClickKoordinates)){
 							istAngriff=true;
 							destinationUnit=bu;
 							System.out.println("Angriff initiiert!");
@@ -441,7 +466,7 @@ public class DefenderControl implements TuioListener{
 						}
 						
 						//auf weitere eigene einheit geklickt??
-						if(bu.getPlayerID()==DefenderControl.PLAYER_ONE && bu.isInner(realClickKoordinates)){
+						if(bu.getPlayerID()==DefenderControl.PLAYER_ONE_ID && bu.isInner(realClickKoordinates)){
 							weitereAktivierung=true;
 							bu.activate();
 							System.out.println("Weitere Einheit aktiviert!");
@@ -483,7 +508,37 @@ public class DefenderControl implements TuioListener{
 	@Override
 	public void addTuioCursor(TuioCursor arg0) {
 		// TODO MINKE
+		  System.out.println("add cursor "+arg0.getCursorID()+" ("+arg0.getSessionID()+ ") " +arg0.getX()+" "+arg0.getY());
+		  
+		  	PVector vector=new PVector(arg0.getScreenX(DefenderViewSlick.HEIGHT),arg0.getScreenY(DefenderViewSlick.WIDTH));
+		  	boolean wurdeEbendAktiviert=false;	
+		  	boolean warSchonAktiv=false;
 		
+			for(BaseUnit u: this.getGlobalUnits()){
+				
+				
+				//wenn eine unit aktiviert wird dann die anderen deaktiveren
+				if(!wurdeEbendAktiviert){
+					
+					//wenn bereits aktiv dann deaktivieren
+					warSchonAktiv=u.isActive();
+					wurdeEbendAktiviert=u.isInner(vector);	
+					
+					if(wurdeEbendAktiviert&&warSchonAktiv){
+						u.deactivate();
+					}
+					
+				}else{
+					u.deactivate();
+				}
+			}
+			
+			//neues Ziel setzen wenn unit aktiv
+			for(BaseUnit u: this.getGlobalUnits()){
+				if(u.isActive()){
+					u.commandDestination(vector);				
+				}
+			}
 	}
 
 	@Override
@@ -559,4 +614,31 @@ public class DefenderControl implements TuioListener{
 		}
 	}
 
+	
+	private void createTestUnits(){
+		
+		  //TestUnitBetas schaffen
+		BaseUnit test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,this.playerOne,this);
+		test.commandDestination(new PVector(1000,700));
+	
+		  //Testflugstaffel
+		  new Tank(100,50,BaseUnit.MODE_NORMAL,this.playerTwo,this);
+		  new Defence(200,50,BaseUnit.MODE_NORMAL,this.playerTwo,this);
+		  new Ground(300,50,BaseUnit.MODE_NORMAL,this.playerTwo,this);
+		  new Navi(400,50,BaseUnit.MODE_NORMAL,this.playerTwo,this);
+		  new Support(500,50,BaseUnit.MODE_NORMAL,this.playerTwo,this);	  
+		  new Fighter(600,50,BaseUnit.MODE_NORMAL,this.playerTwo,this);
+		  new Fighter(700,50,BaseUnit.MODE_PULSE_IF_ACTIVE,this.playerTwo,this);
+		
+		  //Testflugstaffel playerOne
+		  new Fighter(100,700,BaseUnit.MODE_NORMAL,this.playerOne,this);
+		  new Fighter(200,700,BaseUnit.MODE_NORMAL,this.playerOne,this);
+		  new Fighter(300,700,BaseUnit.MODE_NORMAL,this.playerOne,this);
+		  new Fighter(400,700,BaseUnit.MODE_NORMAL,this.playerOne,this);
+		  new Fighter(500,700,BaseUnit.MODE_NORMAL,this.playerOne,this);
+		  new BaseUnit(600,700,BaseUnit.MODE_PULSE,this.playerOne,this);
+		  new BaseUnit(700,700,BaseUnit.MODE_ROTATE_AND_PULSE,this.playerOne,this);
+		  new BaseUnit(800,700,BaseUnit.MODE_NORMAL,this.playerOne,this);
+
+	}
 }

@@ -154,23 +154,17 @@ public class Menu {
 	private Player player;
 
 	/**
-	 * ID vom Besitzer dieses Menues
-	 */
-	private int playerID;
-
-	/**
 	 * Constructor of Menu
 	 * 
 	 * @param playerID
 	 * 
 	 * @param nonLoopingGif
 	 */
-	public Menu(CopyOnWriteArrayList<BaseUnit> buildings, Player player, int playerID) {
+	public Menu(CopyOnWriteArrayList<BaseUnit> buildings, Player player) {
 		this.position = new PVector(0, 0);
 		// this.graphics = graphics;
 		this.buildings = buildings;
 		this.player = player;
-		this.playerID = playerID;
 		RADIUS = DIAMETER / 2;
 		TEXTSIZE = RADIUS / 2;
 		DISTANCE = -(DIAMETER + 5);
@@ -197,27 +191,23 @@ public class Menu {
 		return player;
 	}
 
-	public int getPlayerID() {
-		return playerID;
-	}
-
 	public void createBuilding(DefenderControl defenderControl) {
 		switch (getActualChosenBuilding()) {
 		case 0:
 			System.out.println("building a Ground unit");
-			new Ground((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, getPlayerID(), defenderControl);
+			new Ground((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		case 1:
 			System.out.println("building a Defence unit");
-			new Defence((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, getPlayerID(), defenderControl);
+			new Defence((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		case 2:
 			System.out.println("building a Support unit");
-			new Support((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, getPlayerID(), defenderControl);
+			new Support((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		case 3:
 			System.out.println("building a Tank unit");
-			new Tank((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, getPlayerID(), defenderControl);
+			new Tank((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		default:
 			System.out.println();

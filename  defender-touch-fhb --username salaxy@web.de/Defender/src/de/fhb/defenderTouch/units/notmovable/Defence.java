@@ -2,10 +2,12 @@ package de.fhb.defenderTouch.units.notmovable;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 
 public class Defence extends Building {
@@ -13,8 +15,8 @@ public class Defence extends Building {
 	public static final int PRICE = 40;
 	protected int size = 0;
 
-	public Defence(int x, int y, int mode, int playerID, DefenderControl gamelogic) {
-		super(x, y, mode, playerID, gamelogic);
+	public Defence(int x, int y, int mode, Player player, DefenderControl gamelogic) {
+		super(x, y, mode, player, gamelogic);
 	}
 
 	public void drawFigure(Graphics graphics) {

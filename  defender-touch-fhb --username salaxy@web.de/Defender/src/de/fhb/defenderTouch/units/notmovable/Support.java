@@ -3,10 +3,12 @@ package de.fhb.defenderTouch.units.notmovable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 
 public class Support extends Building {
@@ -20,8 +22,8 @@ public class Support extends Building {
 	private long startingTime = new Date().getTime();
 	private long tickerTime;
 
-	public Support(int x, int y, int mode, int playerID, DefenderControl gamelogic) {
-		super(x, y, mode, playerID, gamelogic);
+	public Support(int x, int y, int mode, Player player, DefenderControl gamelogic) {
+		super(x, y, mode, player, gamelogic);
 	}
 
 	public void drawFigure(Graphics graphics) {
@@ -65,11 +67,11 @@ public class Support extends Building {
 		tickerTime = new Date().getTime();
 
 		if (getNewIncome(startingTime, tickerTime)) {
-			if (this.playerID == DefenderControl.PLAYER_ONE) {
+			if (this.playerID == DefenderControl.PLAYER_ONE_ID) {
 				gamelogic.getPlayerOne().addCredits(this.creditsPerTime);
 			}
 
-			if (this.playerID == DefenderControl.PLAYER_TWO) {
+			if (this.playerID == DefenderControl.PLAYER_TWO_ID) {
 				gamelogic.getPlayerTwo().addCredits(this.creditsPerTime);
 			}
 		}

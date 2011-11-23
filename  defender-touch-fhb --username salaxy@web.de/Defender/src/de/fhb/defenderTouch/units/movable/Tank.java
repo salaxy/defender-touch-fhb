@@ -1,8 +1,10 @@
 package de.fhb.defenderTouch.units.movable;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.notmovable.Building;
 
 public class Tank extends Building {
@@ -10,8 +12,8 @@ public class Tank extends Building {
 	public static final int PRICE = 80;
 	protected int size = 0;
 
-	public Tank(int x, int y, int mode, int playerID, DefenderControl gamelogic) {
-		super(x, y, mode, playerID, gamelogic);
+	public Tank(int x, int y, int mode, Player player, DefenderControl gamelogic) {
+		super(x, y, mode, player, gamelogic);
 	}
 
 	public void drawFigure(Graphics graphics) {

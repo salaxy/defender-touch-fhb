@@ -1,11 +1,13 @@
 package de.fhb.defenderTouch.units.amunition;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 /**
@@ -23,8 +25,8 @@ public class Shoot extends BaseUnit {
 	private  BaseUnit destinationUnit;
 	private int damage;
 	
-	public Shoot(int x, int y, int mode, int playerID, BaseUnit destinationUnit, int damage, DefenderControl gamelogic){
-		super(x, y, mode, playerID, gamelogic);
+	public Shoot(int x, int y, int mode, Player player, BaseUnit destinationUnit, int damage, DefenderControl gamelogic){
+		super(x, y, mode, player, gamelogic);
 		
 		//Einheit ist sehr schnell
 		this.movementSpeed=5f;

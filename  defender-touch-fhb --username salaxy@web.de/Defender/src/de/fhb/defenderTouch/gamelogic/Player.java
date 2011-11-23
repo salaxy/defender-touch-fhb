@@ -13,6 +13,9 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
  */
 public class Player {
 	
+	/**
+	 * generelle Drehung der View des Spielers
+	 */
 	private float generalAngle;
 	
 	/**
@@ -22,8 +25,6 @@ public class Player {
 	
 	private final float zoomMin=0.3f;
 	private final float zoomMax=3.0f;
-	
-	private int side;
 	
 	/**
 	 * Relative Position der Sicht im Verhältnis zum Ursprung (originPosition) des Spielers
@@ -36,9 +37,6 @@ public class Player {
 	 */
 	private float actualZoom=0.5f;
 	
-	public static final int RIGHT=0;
-	public static final int LEFT=1;
-	
 	/**
 	 * Einheitenfarbe des Spielers
 	 */
@@ -50,17 +48,18 @@ public class Player {
 	private int credits=500;
 
 	/**
-	 * Liste der aktivierten Units
+	 * Liste der aktivierten Units des Spielers
 	 */
 	private CopyOnWriteArrayList<BaseUnit> activeUnits;
 	
+	private int id;
 
-	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPosition, int side, Color unitColor) {
+	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPosition, Color unitColor,int id) {
 		
+		this.id=id;
 		this.generalAngle=generalAngle;
 		this.actualZoom=actualZoom;
 		this.originPosition=originPosition;		
-		this.side=side;
 		this.viewPosition=new PVector(0,0);
 		this.activeUnits= new CopyOnWriteArrayList<BaseUnit>();
 		this.unitColor=unitColor;
@@ -70,24 +69,15 @@ public class Player {
 		return unitColor;
 	}
 
-	public boolean isRight() {
-		if(this.side==Player.RIGHT){
-			return true;
-		}else{
-			return false;	
-		}
-	}
 
 	public CopyOnWriteArrayList<BaseUnit> getActiveUnits() {
 		return activeUnits;
 	}
 
-	public boolean isLeft() {
-		if(this.side==Player.LEFT){
-			return true;
-		}else{
-			return false;	
-		}
+
+	
+	public int getId() {
+		return id;
 	}
 	
 	
