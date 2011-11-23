@@ -624,13 +624,11 @@ public class BaseUnit {
 	 */
 	protected void entscheideFillFarbe(Graphics graphics) {
 		
-		if(this.playerID==DefenderControl.PLAYER_SYSTEM_ID){
-			if (this.active) {
-				graphics.setColor(this.activeColor);
-			} else {
-				graphics.setColor(this.passiveColor);
-			}		
-		}
+		if (this.active) {
+			graphics.setColor(this.activeColor);
+		} else {
+			graphics.setColor(this.passiveColor);
+		}		
 	}
 
 	/**
@@ -638,13 +636,11 @@ public class BaseUnit {
 	 */
 	protected void entscheideLineFarbe(Graphics graphics) {
 		
-		if(this.playerID==DefenderControl.PLAYER_SYSTEM_ID){
-			if (this.active) {
-				graphics.setColor(this.activeColor);
-			} else {
-				graphics.setColor(this.passiveColor);
-			}		
-		}
+		if (this.active) {
+			graphics.setColor(this.activeColor);
+		} else {
+			graphics.setColor(this.passiveColor);
+		}		
 	}
 	
 

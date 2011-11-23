@@ -103,6 +103,7 @@ public class DefenderControl implements TuioListener{
 		menuePlayerOne = new Menu(this.globalUnits,playerOne);
 		menuePlayerTwo = new Menu(this.globalUnits,playerTwo);
 		
+		
 //		this.playBackgroundSound();
 	}
 
@@ -615,7 +616,7 @@ public class DefenderControl implements TuioListener{
 	}
 
 	
-	private void createTestUnits(){
+	public void createTestUnits(){
 		
 		  //TestUnitBetas schaffen
 		BaseUnit test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,this.playerOne,this);
