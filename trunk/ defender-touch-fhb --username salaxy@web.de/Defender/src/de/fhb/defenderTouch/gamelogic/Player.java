@@ -1,68 +1,73 @@
 package de.fhb.defenderTouch.gamelogic;
 
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.newdawn.slick.Color;
-
 import processing.core.PVector;
 import de.fhb.defenderTouch.units.root.BaseUnit;
-
+/**
+ * Dies Klasse beinhaltet einstellungen und Positionen 
+ * eines Spielers 
+ * 
+ * @author Andy Klay <klay@fh-brandenburg.de> 
+ * 
+ */
 public class Player {
 	
 	private float generalAngle;
 	
-	private PVector originPositionInScreen;
-	private PVector screenPosition;
+	/**
+	 * Position des Ursprungs auf dem Bildschirm fuer den Spieler
+	 */
+	private PVector originPosition;
 	
-	private float zoomMin=0.3f;
-	private float zoomMax=3.0f;
+	private final float zoomMin=0.3f;
+	private final float zoomMax=3.0f;
 	
 	private int side;
 	
+	/**
+	 * Relative Position der Sicht im Verhältnis zum Ursprung (originPosition) des Spielers
+	 * als Vektor
+	 */
 	private PVector viewPosition= new PVector(0,0);
 	
+	/**
+	 * Zoomfaktor der aktuellen Spielersicht
+	 */
 	private float actualZoom=0.5f;
 	
 	public static final int RIGHT=0;
 	public static final int LEFT=1;
 	
+	/**
+	 * Einheitenfarbe des Spielers
+	 */
 	private Color unitColor;
 	
+	/**
+	 * Ressourceneinheiten des Spielers
+	 */
 	private int credits=500;
-	
-	public int getCredits() {
-		return credits;
-	}
-
-	public void setCredits(int credits) {
-		this.credits = credits;
-	}
 
 	/**
 	 * Liste der aktivierten Units
 	 */
 	private CopyOnWriteArrayList<BaseUnit> activeUnits;
 	
-//	private DefenderControl gamelogic;
 
-	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPositionInScreen, int side, PVector viewPosition, PVector screenPosition, Color unitColor) {
+	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPosition, int side, Color unitColor) {
+		
 		this.generalAngle=generalAngle;
 		this.actualZoom=actualZoom;
-		this.originPositionInScreen=originPositionInScreen;
-		this.screenPosition=screenPosition;
-//		this.gamelogic=gamelogic;			
+		this.originPosition=originPosition;		
 		this.side=side;
-		this.viewPosition=viewPosition;
-		activeUnits= new CopyOnWriteArrayList<BaseUnit>();
+		this.viewPosition=new PVector(0,0);
+		this.activeUnits= new CopyOnWriteArrayList<BaseUnit>();
 		this.unitColor=unitColor;
 	}
 
 	public Color getUnitColor() {
 		return unitColor;
-	}
-
-	public PVector getScreenPosition() {
-		return screenPosition;
 	}
 
 	public boolean isRight() {
@@ -86,18 +91,35 @@ public class Player {
 	}
 	
 	
+	public int getCredits() {
+		return credits;
+	}
+
+	public void setCredits(int credits) {
+		this.credits = credits;
+	}
+
+	
 	/**
-	 * 
-	 * @return
+	 * Gibt den Ursprungsvector des Players zurueck
+	 * @return PVector
 	 */
-	public PVector getOriginPositionInScreen() {
-		return originPositionInScreen;
+	public PVector getOriginPosition() {
+		return originPosition;
 	}
 	
+	/**
+	 * Gibt den Sichtvektor zureuck
+	 * @return PVector
+	 */
 	public PVector getViewPosition() {
 		return viewPosition;
 	}
 
+	/**
+	 * setzt den Sichtvektor
+	 * @param viewPosition
+	 */
 	public void setViewPosition(PVector viewPosition) {
 		this.viewPosition = viewPosition;
 	}
