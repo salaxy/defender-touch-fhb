@@ -3,6 +3,8 @@ package de.fhb.defenderTouch.units.root;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import processing.core.PApplet;
 import processing.core.PVector;
