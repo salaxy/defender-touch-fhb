@@ -45,6 +45,7 @@ public class DefenderViewSlick extends BasicGame{
     	
     //gamelogic initialisieren  
   	  control= new DefenderControl();
+  	  control.createTestUnits();
   	  
   	  gc.setShowFPS(true);
   	  gc.setTargetFrameRate(25);
