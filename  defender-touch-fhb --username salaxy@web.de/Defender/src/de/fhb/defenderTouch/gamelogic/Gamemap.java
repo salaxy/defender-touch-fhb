@@ -16,6 +16,13 @@ public class Gamemap {
 	
 	public Gamemap() {
 
+		try {
+			visibleMap = new Image("./maps/vtestmap.png");
+			informationalMap = new Image("./maps/itestmap.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}	
 	
 	public void zeichne(Graphics graphics, Player player){
