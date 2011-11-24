@@ -42,7 +42,7 @@ public class DefenderViewSlick extends BasicGame{
      * initialisierung
      */
     public void init(GameContainer gc) throws SlickException {
-    	
+    	 
     //gamelogic initialisieren  
   	  control= new DefenderControl();
   	  control.createTestUnits();
