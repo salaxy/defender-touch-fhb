@@ -564,6 +564,8 @@ public class DefenderControl implements TuioListener{
 	@Override
 	public void removeTuioObject(TuioObject arg0) {
 		// TODO MINKE
+		System.out.println("remove object "+arg0.getSymbolID()+" ("+arg0.getSessionID()+")");
+
 		
 	}
 
