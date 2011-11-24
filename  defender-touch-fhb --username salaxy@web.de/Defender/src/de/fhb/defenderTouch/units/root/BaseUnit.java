@@ -29,9 +29,9 @@ public class BaseUnit {
 	protected int healthpointsMax = 250;
 	protected int healthpointsStat = 250;
 	protected int damagePerHit = 50;
-	protected int attackRange = 100;
+	protected int attackRange = 200;
 	
-	protected boolean isAutoAttackOn=true;
+	protected boolean isAutoAttackOn=false;
 
 	/**
 	 * Spielerzugehoerigkeit der Unit
@@ -708,21 +708,41 @@ public class BaseUnit {
 		gamelogic.getGlobalUnits().remove(this);
 	}
 
+	/**
+	 * Angreifen einer anderen Unit
+	 * @param destinationUnit
+	 */
 	public void attack(BaseUnit destinationUnit) {
 		System.out.println("UNIT " + this.id + " is attacking UNIT " + destinationUnit.id);
-		// TODO Reichweite einbauen
-		// TODO Wiederholung einbauen....nach einer Schuss rate (d.h. erinheit
-		// muss sich ziel merken)
-		// Schuss erstellen
 
+//		if(!this.isAutoAttackOn){
+//			moveToAttackDestination(destinationUnit);			
+//		}
+
+		
 		if(isAttackPossible()){
 			this.lastShootTime=System.currentTimeMillis();
 			new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit,gamelogic);	
 		}
 
-
 		// //neue Blickrichtung berechnen
 		// berechneNeueBlickrichtung();
+	}
+		
+	/**
+	 * Angriffskommando
+	 * wenn nicht in Reichweite des Ziels dann zum ziel bewegn
+	 * @param destinationUnit
+	 */
+	public void moveToAttackDestination(BaseUnit destinationUnit){
+			
+		//TODO verbessern
+		//wenn nicht in Angriffsreichweite dann hinfliegen bis in reichweite
+		if(this.position.dist(destinationUnit.getPosition())>this.attackRange){
+			this.commandDestination(destinationUnit.getPosition());
+			this.commandDestination(PVector.add(this.position, PVector.mult(direction,(float)(this.attackRange+5))));
+		}
+		
 	}
 	
 	protected boolean isAttackPossible(){
