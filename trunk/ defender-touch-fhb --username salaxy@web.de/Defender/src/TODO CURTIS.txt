@@ -2,40 +2,9 @@ TODO CURTIS
 ***********
 
 
-@Curtis AKTUELL zur Umstellung
-Menü wieder zurechtarbeiten!!!!!!!!!!!
-Viele sachen sind kaputt geganeg durch die Umstellung,
-habe dir aber sehr viele sachen abgenommen und das menü ist eineiger maßen in ordung.
-Es funktioniert erstmal nur auf der linken seite ...zum testen
 
-Großes Problem war einfach auch das einige Methoden gar nicht verfügbar sind sowas wie textalginment.
-Und die Zentrumsmodi sind auch nicht verfügbar.
-d.h. wenn du etwas zeichnest ist 0,0 nicht in der mitte des gezeichneten sondern links oben!
-Ich habs versucht soweit zu korrigieren, man muss es nun manuell ausgleichen,aber dynamisch bitte,
-so das ein scale nicht alles kapuut macht.
+- Menü nachbearbeiten und verbessern
 
-Als zweites kannst du die Gebäude-Darstellungen auch korrigieren.
-(also nicht menü sondern auch bei den units)
+- Unitdarstellungen ancharbeiten
 
-Und bitte auch alle Funktionen überprüfen
-
-
-
-
-
-
-
-fertig - Menü überarbeiten (Skaliebar,verbessern Grafisch sowohl auch den Code...)
-- korrekte Integration des Meneus ins Gesamtprogramm!
-
-BITTE NACHBEARBEITEN- Ausgestaltung einer weiteren Unit (Bodeneinheit)(neu anlegen, Erben von BaseUnit, guck dir FIGHTER an als Beispiel)
-
-@Curtis
-also folgendes:
-du hast nen neues Building erschaffen....war nciht die aufgabe....
-habe den Tank schon dahin verschoben wo er hingehört und zwar zu den beweglichen Einheiten,
-guck dir noch mal den Klassenkopf an und dein menü eintrag dazu ist schick, aber wir sollen aj nur Gebäüde bauen können,
-und man kann im moment NUR fuer den Grueen Spieler Gebäude bauen, bitte korrigieren das
-bzw. implementiere die Unterscheidung,
-habe diese Unterscheidung anders wo gemacht, nimm dir daran ein vorbild und gestalte es so
-(is fast copy paste)
+- Anitmation testen bei ShootWithRange
