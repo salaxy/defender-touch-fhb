@@ -1,6 +1,6 @@
 package de.fhb.defenderTouch.gamelogic;
 
-
+ 
 
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.newdawn.slick.Color;
