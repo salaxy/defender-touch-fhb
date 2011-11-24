@@ -21,7 +21,6 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class Menu {
 
-
 	/**
 	 * recent position of the click
 	 */
@@ -41,7 +40,6 @@ public class Menu {
 	 * buildings menu point, 4 points, 2 in use - Upgrade - Destroy
 	 */
 	protected PVector menuBuildings[] = new PVector[2];
-
 
 	/**
 	 * saves if the menu is open
@@ -111,7 +109,7 @@ public class Menu {
 	/**
 	 * size of like line strokes of the signs
 	 */
-	protected final int SIZEOFLINESTROKES;
+	protected final int SIZEOFTEXTALIGNMENT;
 
 	/**
 	 * Nummer des gebäudes
@@ -138,16 +136,6 @@ public class Menu {
 	 */
 	protected int actualBuildingCount = 0;
 
-	// /**
-	// * Gif animation of destroying a building
-	// */
-	// protected Gif nonLoopingGifDestroy;
-
-	// /**
-	// * if destroying a building should be shown
-	// */
-	// protected boolean showLoopingGifDestroy = false;
-
 	/**
 	 * Besitzer dieses Menue objekts
 	 */
@@ -162,7 +150,6 @@ public class Menu {
 	 */
 	public Menu(CopyOnWriteArrayList<BaseUnit> buildings, Player player) {
 		this.position = new PVector(0, 0);
-		// this.graphics = graphics;
 		this.buildings = buildings;
 		this.player = player;
 		RADIUS = DIAMETER / 2;
@@ -174,10 +161,8 @@ public class Menu {
 		SIZEOFSUPPORT = TEXTDISTANCE * 3;
 		SIZEOFDESTROY = TEXTDISTANCE * 2;
 		SIZEOFUPGRADE = TEXTDISTANCE * 3;
-		SIZEOFLINESTROKES = 1 + DIAMETER / 80;
+		SIZEOFTEXTALIGNMENT = DIAMETER /2*3 + TEXTDISTANCE*2;
 		SIZEOFTANK = TEXTDISTANCE * 2;
-		// this.nonLoopingGifDestroy = new Gif(graphics, "expl_kl.gif");
-		// TODO hier Gif erstellen
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
@@ -219,40 +204,14 @@ public class Menu {
 	 */
 	public void drawMenu(Graphics graphics, Player player) {
 
-		// graphics.text("Aktuelle Credits: " + creditsPlayer, 100, 15);
-		// graphics.text("Aktuelles Gebäude: " + actualBuildingName, 350, 15);
-		// graphics.text("Aktuelle Gebäudeanzahl: " + getActualBuildingCount(),
-		// 600, 15);
-
-		// calcDrawPosition(player , graphics );
-
-//		graphics.ellipseMode(PConstants.CENTER);
-
-		// TODO wieder einbauen...muss aber über Pgraphics zeichenabr sein
-		// /**
-		// * here is the animation of destroying a building
-		// */
-		// if (isShowLoopingGifDestroy() && positionBuilding != null) {
-		// graphics.image(nonLoopingGifDestroy, positionBuilding.x - 11,
-		// positionBuilding.y - 15);
-		// nonLoopingGifDestroy.loop();
-		// if (nonLoopingGifDestroy.currentFrame() == 15) {
-		// setShowLoopingGifDestroy(false);
-		// nonLoopingGifDestroy.stop();
-		// }
-		// }
-
 		/**
 		 * here is the complete normal menu
 		 */
 		if (menuOpen) {
 			float rotation = 0f;
 			float drehungProUntermenue = 60;
-//			graphics.textAlign(PApplet.CENTER);
-//			graphics.textSize(TEXTSIZE);
-			//TODO nacharbeiten
+			
 			graphics.setColor(Color.black);
-//			graphics.strokeWeight(SIZEOFLINESTROKES);
 
 			calcDrawTransformation(graphics);
 			rotateMenu(0, rotation, graphics);
@@ -302,7 +261,7 @@ public class Menu {
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
 
-//			graphics.noFill();
+			// graphics.noFill();
 			graphics.setColor(Color.darkGray);
 			calcDrawTransformation(graphics);
 			rotateMenu(4, rotation, graphics);
@@ -315,7 +274,7 @@ public class Menu {
 			showSmallMenuCircle(graphics);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
-//			graphics.strokeWeight(1);
+			// graphics.strokeWeight(1);
 		}
 
 		/**
@@ -324,10 +283,10 @@ public class Menu {
 		if (buildingOpen) {
 			float rotation = 0f;
 			float drehungProUntermenue = PApplet.TWO_PI / 4;
-//			graphics.textAlign(PApplet.CENTER);
-//			graphics.textSize(TEXTSIZE);
+			// graphics.textAlign(PApplet.CENTER);
+			// graphics.textSize(TEXTSIZE);
 			graphics.setColor(Color.black);
-//			graphics.strokeWeight(SIZEOFLINESTROKES);
+			// graphics.strokeWeight(SIZEOFLINESTROKES);
 
 			calcDrawTransformationBuildings(graphics);
 			rotateMenuBuildings(0, rotation, graphics);
@@ -349,18 +308,18 @@ public class Menu {
 			graphics.resetTransform();
 
 			calcDrawTransformationBuildings(graphics);
-			graphics.rotate(0,0,rotation);
-//			graphics.fill(150);
+			graphics.rotate(0, 0, rotation);
+			// graphics.fill(150);
 			showSmallMenuCircle(graphics);
-			graphics.rotate(0,0,rotation);
+			graphics.rotate(0, 0, rotation);
 			graphics.setColor(Color.white);
-			graphics.drawString(getActualBuildingLevel(positionBuilding)+"", 0, Math.abs(DISTANCE) + TEXTDISTANCE);
+			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) + TEXTDISTANCE);
 			graphics.resetTransform();
-//			graphics.strokeWeight(1);
+			// graphics.strokeWeight(1);
 		}
 		graphics.resetTransform();
-//		graphics.textAlign(PApplet.CORNER);
-		//TODO nacharbeiten
+		// graphics.textAlign(PApplet.CORNER);
+		// TODO nacharbeiten
 	}
 
 	public String getActualBuildingName() {
@@ -759,14 +718,14 @@ public class Menu {
 	// }
 
 	public void rotateMenu(int element, float rotation, Graphics graphics) {
-		graphics.rotate(0,0,rotation);
+		graphics.rotate(0, 0, rotation);
 		menu[element] = new PVector(0, DISTANCE);
 		menu[element].rotate(rotation);
 		menu[element].add(position);
 	}
 
 	public void rotateMenuBuildings(int element, float rotation, Graphics graphics) {
-		graphics.rotate(0,0,rotation);
+		graphics.rotate(0, 0, rotation);
 		menuBuildings[element] = new PVector(0, DISTANCE);
 		menuBuildings[element].rotate(rotation);
 		menuBuildings[element].add(position);
@@ -781,26 +740,30 @@ public class Menu {
 	}
 
 	public void showBigMenuCircle(Graphics graphics) {
-		graphics.fillOval(-DIAMETER/2, DISTANCE-DIAMETER/2, DIAMETER, DIAMETER);
+		graphics.fillOval(-DIAMETER / 2, DISTANCE - DIAMETER / 2, DIAMETER, DIAMETER);
 		graphics.setColor(Color.darkGray);
-		graphics.drawOval(-DIAMETER/2, DISTANCE-DIAMETER/2, DIAMETER, DIAMETER);
+		graphics.drawOval(-DIAMETER / 2, DISTANCE - DIAMETER / 2, DIAMETER, DIAMETER);
 	}
 
 	public void showSmallMenuCircle(Graphics graphics) {
-		graphics.fillOval(-RADIUS/2, DISTANCE-RADIUS/2, RADIUS, RADIUS);
+		graphics.fillOval(-RADIUS / 2, DISTANCE - RADIUS / 2, RADIUS, RADIUS);
 		graphics.setColor(Color.darkGray);
-		graphics.drawOval(-RADIUS/2, DISTANCE-RADIUS/2, RADIUS, RADIUS);
+		graphics.drawOval(-RADIUS / 2, DISTANCE - RADIUS / 2, RADIUS, RADIUS);
 	}
 
 	public void showVerySmallMenuCircle(Graphics graphics) {
-		graphics.fillOval(-RADIUS/2, DISTANCE + (DISTANCE / 2)-RADIUS/2, RADIUS, RADIUS);
+		graphics.fillOval(-RADIUS / 2, DISTANCE + (DISTANCE / 2) - RADIUS / 2, RADIUS, RADIUS);
 		graphics.setColor(Color.darkGray);
-		graphics.drawOval(-RADIUS/2, DISTANCE + (DISTANCE / 2)-RADIUS/2, RADIUS, RADIUS);
+		graphics.drawOval(-RADIUS / 2, DISTANCE + (DISTANCE / 2) - RADIUS / 2, RADIUS, RADIUS);
 	}
 
 	public void showSignGround(Graphics graphics) {
-//		graphics.triangle(-SIZEOFGROUND, DISTANCE + SIZEOFGROUND, 0, DISTANCE - SIZEOFGROUND, +SIZEOFGROUND, DISTANCE + SIZEOFGROUND);
-//		TODO nacharbeiten
+		graphics.drawLine(-SIZEOFGROUND, SIZEOFGROUND + DISTANCE, 0, -SIZEOFGROUND + DISTANCE);
+		graphics.drawLine(0, -SIZEOFGROUND + DISTANCE, SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
+		graphics.drawLine(+SIZEOFGROUND, +SIZEOFGROUND + DISTANCE, -SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
+		// graphics.triangle(-SIZEOFGROUND, DISTANCE + SIZEOFGROUND, 0, DISTANCE
+		// - SIZEOFGROUND, +SIZEOFGROUND, DISTANCE + SIZEOFGROUND);
+		// TODO nacharbeiten
 	}
 
 	public void showSignDefence(Graphics graphics) {
@@ -833,12 +796,10 @@ public class Menu {
 	}
 
 	public void showSignUpgrade(Graphics graphics) {
-//		graphics.triangle(-SIZEOFUPGRADE / 2, DISTANCE, 0, DISTANCE - SIZEOFUPGRADE, +SIZEOFUPGRADE / 2, DISTANCE);
-		
-		graphics.drawLine(-SIZEOFUPGRADE / 2, DISTANCE,0, DISTANCE - SIZEOFUPGRADE);
-		graphics.drawLine(0, DISTANCE - SIZEOFUPGRADE,  +SIZEOFUPGRADE / 2, DISTANCE);
-		graphics.drawLine( +SIZEOFUPGRADE / 2, DISTANCE,-SIZEOFUPGRADE / 2, DISTANCE);
-		
+		graphics.drawLine(-SIZEOFUPGRADE / 2, DISTANCE, 0, DISTANCE - SIZEOFUPGRADE);
+		graphics.drawLine(0, DISTANCE - SIZEOFUPGRADE, +SIZEOFUPGRADE / 2, DISTANCE);
+		graphics.drawLine(+SIZEOFUPGRADE / 2, DISTANCE, -SIZEOFUPGRADE / 2, DISTANCE);
+
 		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 		vektoren1.add(new PVector(0, DISTANCE));
 		vektoren1.add(new PVector(0, DISTANCE + SIZEOFUPGRADE));
@@ -855,16 +816,11 @@ public class Menu {
 		GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
 	}
 
-//	public void changeActualColor(Color color, Graphics graphics) {
-//		graphics.setColor(color);
-//	}
-
 	public void showPriceBuildings(Graphics graphics, int price) {
-//		graphics.text(price, 0, DISTANCE - RADIUS + TEXTDISTANCE);
-//		graphics.drawString(price+"", 0, DISTANCE - RADIUS + TEXTDISTANCE);
-		graphics.drawString(price+"",-RADIUS/2, DISTANCE + (DISTANCE / 2)-RADIUS/2);
-		
-		
+		// graphics.text(price, 0, DISTANCE - RADIUS + TEXTDISTANCE);
+		// graphics.drawString(price+"", 0, DISTANCE - RADIUS + TEXTDISTANCE);
+		graphics.drawString(price + "", -TEXTDISTANCE, -SIZEOFTEXTALIGNMENT);
+
 	}
 
 }
