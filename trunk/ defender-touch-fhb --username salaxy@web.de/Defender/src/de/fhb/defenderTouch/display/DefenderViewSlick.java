@@ -84,21 +84,21 @@ public class DefenderViewSlick extends BasicGame{
 		if(isInUsableInputarea(clickVector)){
 			
 			// Test der Mapeigenschaften:
-						System.out.println("Map Properties:");
-						System.out.println("Coordinates: " + clickVector.toString());
-						System.out.println("isWalkable:  " + control.getMap().isWalkable(clickVector));
-						System.out.println("isFlyable:   " + control.getMap().isFlyable(clickVector));
-						System.out.println("isBuildable: (click at center of building)\n" +
-											   "\t[10x10]   Player 1: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_ONE_ID) +
-											   "  Player 2: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_TWO_ID) +
-											   "  System: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
-											   "\t[25x25]   Player 1: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_ONE_ID) +
-											   "  Player 2: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_TWO_ID) +
-											   "  System: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
-											   "\t[100x100] Player 1: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_ONE_ID) +
-											   "  Player 2: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_TWO_ID) +
-											   "  System: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
-										   );
+//						System.out.println("Map Properties:");
+//						System.out.println("Coordinates: " + clickVector.toString());
+//						System.out.println("isWalkable:  " + control.getMap().isWalkable(clickVector));
+//						System.out.println("isFlyable:   " + control.getMap().isFlyable(clickVector));
+//						System.out.println("isBuildable: (click at center of building)\n" +
+//											   "\t[10x10]   Player 1: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_ONE_ID) +
+//											   "  Player 2: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_TWO_ID) +
+//											   "  System: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
+//											   "\t[25x25]   Player 1: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_ONE_ID) +
+//											   "  Player 2: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_TWO_ID) +
+//											   "  System: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
+//											   "\t[100x100] Player 1: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_ONE_ID) +
+//											   "  Player 2: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_TWO_ID) +
+//											   "  System: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
+//										   );
 						
 //			this.control.startUnitControlForMouse(clickVector, button);	
 			this.control.startMenueControlForMouse(clickVector, button);	
