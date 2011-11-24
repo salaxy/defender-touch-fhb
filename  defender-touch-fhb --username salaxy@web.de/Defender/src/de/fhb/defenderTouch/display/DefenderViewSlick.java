@@ -45,10 +45,33 @@ public class DefenderViewSlick extends BasicGame{
     	
     //gamelogic initialisieren  
   	  control= new DefenderControl();
-  	  control.createTestUnits();
   	  
   	  gc.setShowFPS(true);
   	  gc.setTargetFrameRate(25);
+  	  
+	  //TestUnitBetas schaffen
+  	BaseUnit test=new BaseUnit(100,200,BaseUnit.MODE_ROTATE,DefenderControl.PLAYER_ONE,control);
+	  test.commandDestination(new PVector(1000,700));
+    	
+  	  //Testflugstaffel
+  	  new Tank(100,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);
+  	  new Defence(200,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);
+  	  new Ground(300,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);
+  	  new Navi(400,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);
+  	  new Support(500,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);	  
+  	  new Fighter(600,50,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_TWO,control);
+  	  new Fighter(700,50,BaseUnit.MODE_PULSE_IF_ACTIVE,DefenderControl.PLAYER_TWO,control);
+
+  	  //Testflugstaffel playerOne
+  	  new Fighter(100,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+  	  new Fighter(200,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+  	  new Fighter(300,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+  	  new Fighter(400,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+  	  new Fighter(500,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+  	  new BaseUnit(600,700,BaseUnit.MODE_PULSE,DefenderControl.PLAYER_ONE,control);
+  	  new BaseUnit(700,700,BaseUnit.MODE_ROTATE_AND_PULSE,DefenderControl.PLAYER_ONE,control);
+  	  new BaseUnit(800,700,BaseUnit.MODE_NORMAL,DefenderControl.PLAYER_ONE,control);
+
     }
 
 
@@ -89,9 +112,26 @@ public class DefenderViewSlick extends BasicGame{
     	
 		//wenn aktion im steuerbarenbereich
 		if(isInUsableInputarea(clickVector)){
+		
+			// Test der Mapeigenschaften:
+			System.out.println("Map Properties:");
+			System.out.println("Coordinates: " + clickVector.toString());
+			System.out.println("isWalkable:  " + control.getMap().isWalkable(clickVector));
+			System.out.println("isFlyable:   " + control.getMap().isFlyable(clickVector));
+			System.out.println("isBuildable: (click at center of building)\n" +
+								   "\t[10x10]   Player 1: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_ONE) +
+								   "  Player 2: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_TWO) +
+								   "  System: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_SYSTEM) + "\n" + 
+								   "\t[25x25]   Player 1: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_ONE) +
+								   "  Player 2: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_TWO) +
+								   "  System: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_SYSTEM) + "\n" + 
+								   "\t[100x100] Player 1: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_ONE) +
+								   "  Player 2: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_TWO) +
+								   "  System: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_SYSTEM) + "\n" 
+							   );
 			
-			this.control.startUnitControlForMouse(clickVector, button);	
-//			this.control.startMenueControlForMouse(clickVector, button);	
+//			this.control.startUnitControlForMouse(clickVector, button);	
+			this.control.startMenueControlForMouse(clickVector, button);	
 			
 		}
     }
