@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 import processing.core.PImage;
 import processing.core.PVector;
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.units.notmovable.Building;
 
 public class Gamemap {
 
@@ -17,7 +18,7 @@ public class Gamemap {
 	public Gamemap() {
 
 		try {
-			visibleMap = new Image("./maps/vtestmap.png");
+			//visibleMap = new Image("./maps/vtestmap.png");
 			informationalMap = new Image("./maps/itestmap.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
@@ -58,20 +59,24 @@ public class Gamemap {
 	
 	}
 	
-	public boolean isBuildable(PVector upperLeft, PVector lowerRight, int Player) {
+	public boolean isBuildable(float x1, float y1, float x2, float y2, int player) {
 
-		for (int x = (int) upperLeft.x; x < (int) lowerRight.x; x++)
-			for (int y = (int) upperLeft.y; y < (int) lowerRight.y; x++) {
+		for (int x = (int) x1; x < (int) x2; x++)
+			for (int y = (int) y1; y < (int) y2; x++) {
 		
-				if (Player == DefenderControl.PLAYER_ONE_ID)
+				if (player == DefenderControl.PLAYER_ONE_ID)
 					if (informationalMap.getColor(x, y).r < 1f) return false;
-				if (Player == DefenderControl.PLAYER_TWO_ID)
+				if (player == DefenderControl.PLAYER_TWO_ID)
 					if (informationalMap.getColor(x, y).g < 1f) return false;
-				if (Player == DefenderControl.PLAYER_SYSTEM_ID)
+				if (player == DefenderControl.PLAYER_SYSTEM_ID)
 					if (informationalMap.getColor(x, y).b < 1f) return false;
 				
 			}				
 		
 		return true;
+	}
+	
+	public boolean isBuildable(PVector position, Building unit, int player) {
+		return isBuildable(position.x - (1 + unit.LEVEL_THREE), position.y - (1 + unit.LEVEL_THREE), position.x + unit.LEVEL_THREE, position.x + unit.LEVEL_THREE, player);
 	}
 }
