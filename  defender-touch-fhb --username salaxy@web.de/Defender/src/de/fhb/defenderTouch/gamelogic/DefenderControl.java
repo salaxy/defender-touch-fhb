@@ -33,7 +33,7 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
  * @author Andy Klay <klay@fh-brandenburg.de> 
  */
 public class DefenderControl implements TuioListener{
-	
+	 
 	/**
 	 * Gestenerkennung
 	 */
