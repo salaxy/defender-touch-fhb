@@ -16,13 +16,6 @@ public class Gamemap {
 	
 	public Gamemap() {
 
-		try {
-			visibleMap = new Image("./maps/vtestmap.png");
-			informationalMap = new Image("./maps/itestmap.png");
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}	
 	
 	public void zeichne(Graphics graphics, Player player){
@@ -61,11 +54,11 @@ public class Gamemap {
 		for (int x = (int) upperLeft.x; x < (int) lowerRight.x; x++)
 			for (int y = (int) upperLeft.y; y < (int) lowerRight.y; x++) {
 		
-				if (Player == DefenderControl.PLAYER_ONE)
+				if (Player == DefenderControl.PLAYER_ONE_ID)
 					if (informationalMap.getColor(x, y).r < 1f) return false;
-				if (Player == DefenderControl.PLAYER_TWO)
+				if (Player == DefenderControl.PLAYER_TWO_ID)
 					if (informationalMap.getColor(x, y).g < 1f) return false;
-				if (Player == DefenderControl.PLAYER_SYSTEM)
+				if (Player == DefenderControl.PLAYER_SYSTEM_ID)
 					if (informationalMap.getColor(x, y).b < 1f) return false;
 				
 			}				
