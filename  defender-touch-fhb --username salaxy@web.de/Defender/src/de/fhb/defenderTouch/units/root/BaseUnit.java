@@ -15,7 +15,7 @@ import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.amunition.Shoot;
 
 /**
- * BaseUnit Version 0.5 vom 23.10.2011
+ * BaseUnit Version 0.8 vom 24.11.2011
  * 
  * @author Andy Klay <klay@fh-brandenburg.de>
  * 
@@ -38,6 +38,18 @@ public class BaseUnit {
 	 * Referenz auf Spielkarte
 	 */
 	protected Gamemap map;
+	
+	
+	/**
+	 * Zeit des letzten Angriffs
+	 */
+	protected long lastShootTime = System.currentTimeMillis();
+	
+	
+	/**
+	 * Zeit bis zum naechsten Schuss
+	 */
+	protected long shootMinTime = 3000;
 
 	/**
 	 * beinhaltet alle Einheiten die existent sind
@@ -668,7 +680,11 @@ public class BaseUnit {
 		// muss sich ziel merken)
 		// Schuss erstellen
 
-		new Shoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit,gamelogic);
+		if((System.currentTimeMillis()-lastShootTime)>this.shootMinTime){
+			this.lastShootTime=System.currentTimeMillis();
+			new Shoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit,gamelogic);	
+		}
+
 
 		// //neue Blickrichtung berechnen
 		// berechneNeueBlickrichtung();
