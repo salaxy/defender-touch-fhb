@@ -10,13 +10,6 @@ import org.newdawn.slick.SlickException;
 
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
-import de.fhb.defenderTouch.units.movable.Fighter;
-import de.fhb.defenderTouch.units.movable.Tank;
-import de.fhb.defenderTouch.units.notmovable.Defence;
-import de.fhb.defenderTouch.units.notmovable.Ground;
-import de.fhb.defenderTouch.units.notmovable.Navi;
-import de.fhb.defenderTouch.units.notmovable.Support;
-import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class DefenderViewSlick extends BasicGame{
 
