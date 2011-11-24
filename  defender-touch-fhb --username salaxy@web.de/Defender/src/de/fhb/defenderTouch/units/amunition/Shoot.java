@@ -59,7 +59,7 @@ public class Shoot extends BaseUnit {
 	/**
 	 * Berechnen des neuen Position, wenn in Bewegung
 	 */
-	public void calcNewPosition(){
+	public void update(){
 		
 		this.commandDestination(destinationUnit.getPosition());
 

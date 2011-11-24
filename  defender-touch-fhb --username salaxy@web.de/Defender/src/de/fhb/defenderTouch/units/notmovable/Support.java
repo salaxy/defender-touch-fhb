@@ -63,7 +63,7 @@ public class Support extends Building {
 //		graphics.stroke(0);
 	}
 
-	public void calcNewPosition() {
+	public void update() {
 		tickerTime = new Date().getTime();
 
 		if (getNewIncome(startingTime, tickerTime)) {

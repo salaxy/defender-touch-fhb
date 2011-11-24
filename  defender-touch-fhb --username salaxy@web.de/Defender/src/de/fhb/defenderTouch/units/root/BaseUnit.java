@@ -44,11 +44,6 @@ public class BaseUnit {
 	 */
 	public static int idCounter = 0;
 
-	/**
-	 * Ist das Applet auf dem die einheiten zugeordnet sind
-	 */
-//	protected PApplet graphics;
-
 	public static final int MODE_NORMAL = 0;
 	public static final int MODE_ROTATE = 1;
 	public static final int MODE_PULSE = 2;
@@ -471,7 +466,7 @@ public class BaseUnit {
 	/**
 	 * Berechnen des neuen Position, wenn in Bewegung
 	 */
-	public void calcNewPosition() {
+	public void update() {
 
 		PVector newPosition;
 

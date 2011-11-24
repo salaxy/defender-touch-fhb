@@ -128,7 +128,7 @@ public class DefenderControl implements TuioListener{
 		
 		//Berechnen der Positionen aller Units
 		for (BaseUnit unit : globalUnits) {
-			unit.calcNewPosition();
+			unit.update();
 		}
 		
 		

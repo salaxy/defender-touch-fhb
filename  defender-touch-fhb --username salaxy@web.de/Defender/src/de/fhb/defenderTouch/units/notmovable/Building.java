@@ -40,7 +40,7 @@ public class Building extends BaseUnit {
 		this.movementSpeed = 0.5f;
 	}
 
-	 public void calcNewPosition(){
+	 public void update(){
 
 	 }
 	 
