@@ -30,7 +30,9 @@ public class Gamemap {
 		GraphicTools.calcDrawTransformationForSlick(player, graphics, new PVector(0,0));
 	
 		// für Spieler sichtbare Karte zeichnen
-		visibleMap.draw();
+		
+		// TODO Frank machen tun
+		//visibleMap.draw();
 		
 		//Feldumrandung zeichnen
 		//graphics.setColor(new Color(50, 50, 50,55));
