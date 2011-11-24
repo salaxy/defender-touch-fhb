@@ -12,7 +12,7 @@ import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Gamemap;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
-import de.fhb.defenderTouch.units.amunition.Shoot;
+import de.fhb.defenderTouch.units.amunition.ShootWithRange;
 
 /**
  * BaseUnit Version 0.8 vom 24.11.2011
@@ -27,7 +27,9 @@ public class BaseUnit {
 	protected int healthpointsMax = 250;
 	protected int healthpointsStat = 250;
 	protected int damagePerHit = 50;
-	protected int attackRange = 1000;
+	protected int attackRange = 100;
+	
+	protected boolean isAutoAttackOn=true;
 
 	/**
 	 * Spielerzugehoerigkeit der Unit
@@ -509,7 +511,7 @@ public class BaseUnit {
 		
 		
 		//AutoAngriffs Algorithmus aufrufen wenn moeglich
-		if(isAttackPossible()){
+		if(isAutoAttackOn&&isAttackPossible()){
 			autoAttack();			
 		}
 	}
@@ -526,7 +528,7 @@ public class BaseUnit {
 				//zu weit weg
 			}else{
 				//nah dran
-				if(this.getPlayerID()!=u.getPlayerID()){
+				if(this.getPlayerID()!=u.getPlayerID()&&u.getPlayerID()!=DefenderControl.PLAYER_SYSTEM_ID){
 					//Feind erkannt
 					//angriff
 					this.attack(u);
@@ -713,7 +715,7 @@ public class BaseUnit {
 
 		if(isAttackPossible()){
 			this.lastShootTime=System.currentTimeMillis();
-			new Shoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit,gamelogic);	
+			new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit,gamelogic);	
 		}
 
 

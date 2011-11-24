@@ -22,8 +22,9 @@ public class Shoot extends BaseUnit {
 	
 	
 	//	private float movementSpeed=5f;
-	private  BaseUnit destinationUnit;
-	private int damage;
+	protected  BaseUnit destinationUnit;
+	protected int damage;
+	
 	
 	public Shoot(int x, int y, int mode, Player player, BaseUnit destinationUnit, int damage, DefenderControl gamelogic){
 		super(x, y, mode, player, gamelogic);
@@ -90,7 +91,7 @@ public class Shoot extends BaseUnit {
 	
 	private void hasReachedDestination(){
 		
-		this.playDestroySound();
+//		this.playDestroySound();
 		this.destinationUnit.getDamage(damage);
 		this.delete();
 	}
