@@ -41,19 +41,13 @@ public class Shoot extends BaseUnit {
 	
 	public void drawFigure(Graphics graphics){
 		
-	//	graphics.stroke(0);
-	//	graphics.strokeWeight(10);
-	//	graphics.fill(0);
-//		this.entscheideLineFarbe(graphics);
+
 		graphics.setColor(Color.black);
 		graphics.scale(0.5f,0.5f);
 	
 		graphics.fillRect(0, 0, 10, 30);
-	
-	//	GraphicTools.zeicheFigurNachVektoren(vektoren,graphics);
 		
 		graphics.resetTransform();
-//		graphics.stroke(0);
 		
 	}
 	

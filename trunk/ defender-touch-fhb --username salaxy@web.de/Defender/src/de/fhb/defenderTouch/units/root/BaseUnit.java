@@ -722,11 +722,19 @@ public class BaseUnit {
 		
 		if(isAttackPossible()){
 			this.lastShootTime=System.currentTimeMillis();
-			new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit,gamelogic);	
+			this.startShoot(destinationUnit);
 		}
 
 		// //neue Blickrichtung berechnen
 		// berechneNeueBlickrichtung();
+	}
+	
+	/**
+	 * erzeugt Schuss
+	 * @param destinationUnit
+	 */
+	protected void startShoot(BaseUnit destinationUnit){
+		new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit,gamelogic);	
 	}
 		
 	/**
