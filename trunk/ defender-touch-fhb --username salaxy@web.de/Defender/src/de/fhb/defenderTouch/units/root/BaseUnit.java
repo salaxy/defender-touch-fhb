@@ -27,7 +27,7 @@ public class BaseUnit {
 	protected int healthpointsMax = 250;
 	protected int healthpointsStat = 250;
 	protected int damagePerHit = 50;
-	protected int attackRange = 100;
+	protected int attackRange = 1000;
 
 	/**
 	 * Spielerzugehoerigkeit der Unit
@@ -117,6 +117,7 @@ public class BaseUnit {
 	 * Blickrichtung
 	 */
 	protected float actualAngle = 0;
+	
 
 	/**
 	 * Geschwindigkeitsfaktor der Rotation
@@ -504,6 +505,36 @@ public class BaseUnit {
 		}else{
 			isMoving=false;
 		}
+		
+		
+		
+		//AutoAngriffs Algorithmus aufrufen wenn moeglich
+		if(isAttackPossible()){
+			autoAttack();			
+		}
+	}
+	
+	/**
+	 * Automatischer Angriff
+	 */
+	protected void autoAttack(){
+		
+		for(BaseUnit u: this.gamelogic.getGlobalUnits()){
+			
+			//wenn eine unit aktiviert wird dann die anderen deaktiveren
+			if(u.getPosition().dist(this.position)>this.attackRange){	
+				//zu weit weg
+			}else{
+				//nah dran
+				if(this.getPlayerID()!=u.getPlayerID()){
+					//Feind erkannt
+					//angriff
+					this.attack(u);
+				}
+			}
+		}
+
+		
 	}
 
 	/**
@@ -680,7 +711,7 @@ public class BaseUnit {
 		// muss sich ziel merken)
 		// Schuss erstellen
 
-		if((System.currentTimeMillis()-lastShootTime)>this.shootMinTime){
+		if(isAttackPossible()){
 			this.lastShootTime=System.currentTimeMillis();
 			new Shoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit,gamelogic);	
 		}
@@ -689,6 +720,11 @@ public class BaseUnit {
 		// //neue Blickrichtung berechnen
 		// berechneNeueBlickrichtung();
 	}
+	
+	protected boolean isAttackPossible(){
+		return (System.currentTimeMillis()-lastShootTime)>this.shootMinTime;
+	}
+	
 
 	public void getDamage(int damage) {
 		this.healthpointsStat = this.healthpointsStat - damage;
