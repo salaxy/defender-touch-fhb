@@ -18,7 +18,7 @@ public class Ground extends Building {
 	public static final int PRICE = 50;
 	protected int size = 0;
 
-	private int timeTillNextSpawn = 2000;
+	private int timeTillNextSpawn = 6000;
 
 	private long startingTime = new Date().getTime();
 	private long tickerTime;

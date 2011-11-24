@@ -5,6 +5,9 @@ package de.fhb.defenderTouch.gamelogic;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
 import processing.core.PApplet;
 import processing.core.PVector;
 import TUIO.TuioCursor;
@@ -135,6 +138,7 @@ public class DefenderControl implements TuioListener{
 		// Linke Seite zeichnen
 		//zeichenbereich setzen
 		graphics.setClip(0, 0, 510, 768);
+
 		
 		//Feld zeichnen
 		this.map.zeichne(graphics, playerOne);	

@@ -1,13 +1,12 @@
 package de.fhb.defenderTouch.units.movable;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
-import de.fhb.defenderTouch.units.notmovable.Building;
+import de.fhb.defenderTouch.units.root.BaseUnit;
 
-public class Tank extends Building {
+public class Tank extends BaseUnit {
 
 	public static final int PRICE = 80;
 	protected int size = 0;
@@ -23,17 +22,17 @@ public class Tank extends Building {
 //		graphics.noFill();
 		// graphics.strokeWeight(1);
 		graphics.rotate(0,0,180);
-		switch (this.level) {
-		case LEVEL_ONE:
+//		switch (this.level) {
+//		case LEVEL_ONE:
 			size = 8;
-			break;
-		case LEVEL_TWO:
-			size = 10;
-			break;
-		case LEVEL_THREE:
-			size = 12;
-			break;
-		}
+//			break;
+//		case LEVEL_TWO:
+//			size = 10;
+//			break;
+//		case LEVEL_THREE:
+//			size = 12;
+//			break;
+//		}
 
 		graphics.drawRect(0, size, size * 2, size * 3);
 		graphics.drawOval(0, size, size, size);
