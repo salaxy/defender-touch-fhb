@@ -32,11 +32,11 @@ public class Gamemap {
 		// für Spieler sichtbare Karte zeichnen
 		
 		// TODO Frank machen tun
-		//visibleMap.draw();
+//		visibleMap.draw();
 		
 		//Feldumrandung zeichnen
-		//graphics.setColor(new Color(50, 50, 50,55));
-		//graphics.fillRect(0f, 0f, 1024, 768);
+		graphics.setColor(new Color(50, 50, 50,55));
+		graphics.fillRect(0f, 0f, 1024, 768);
 		
 		graphics.resetTransform();		
 	}
