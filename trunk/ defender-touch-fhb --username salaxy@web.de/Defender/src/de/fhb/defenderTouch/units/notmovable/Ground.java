@@ -51,7 +51,7 @@ public class Ground extends Building {
 		graphics.resetTransform();
 	}
 
-	public void calcNewPosition() {
+	public void update() {
 		tickerTime = new Date().getTime();
 
 		if (createNewGroundUnit(startingTime, tickerTime)) {
