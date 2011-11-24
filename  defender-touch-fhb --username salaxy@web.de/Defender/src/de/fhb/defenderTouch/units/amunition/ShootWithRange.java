@@ -25,4 +25,14 @@ public class ShootWithRange extends Shoot {
 			this.delete();
 		}
 	}
+	
+	public void delete(){
+		//TODO hier Explosion einbauen
+		//*************************
+		
+		
+		
+		//************************* muss vor delete
+		super.delete();
+	}
 }
