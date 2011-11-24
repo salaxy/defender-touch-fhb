@@ -17,13 +17,13 @@ public class Gamemap {
 	
 	public Gamemap() {
 
-		try {
-			//visibleMap = new Image("./maps/vtestmap.png");
-			informationalMap = new Image("./maps/itestmap.png");
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			//visibleMap = new Image("./maps/vtestmap.png");
+//			informationalMap = new Image("./maps/itestmap.png");
+//		} catch (SlickException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}	
 	
 	public void zeichne(Graphics graphics, Player player){
@@ -36,7 +36,7 @@ public class Gamemap {
 //		visibleMap.draw();
 		
 		//Feldumrandung zeichnen
-		graphics.setColor(new Color(50, 50, 50,55));
+		graphics.setColor(new Color(255, 255, 0,55));
 		graphics.fillRect(0f, 0f, 1024, 768);
 		
 		graphics.resetTransform();		
