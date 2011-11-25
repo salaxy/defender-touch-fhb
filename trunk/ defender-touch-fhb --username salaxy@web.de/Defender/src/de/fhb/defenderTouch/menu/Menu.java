@@ -27,12 +27,13 @@ public class Menu {
 	protected PVector position;
 
 	/**
-	 * recent position of the building
+	 * recent position of the actual chosen building
 	 */
 	protected PVector positionBuilding;
 
 	/**
-	 * menu points, actual 6 points, 3 in use - Ground - Defence - Support
+	 * menu points, actual 6 points, 3 in use - Ground - Defence - Support -
+	 * Tank?
 	 */
 	protected PVector menu[] = new PVector[6];
 
@@ -52,9 +53,9 @@ public class Menu {
 	protected boolean buildingOpen = false;
 
 	/**
-	 * activation raduis of a menupoint - just configure here!
+	 * activation raduis of a menupoint - just configure here! <----
 	 */
-	protected final int DIAMETER = 100;
+	protected final int DIAMETER = 80;
 
 	/**
 	 * Radius of the circle Is always half its diameter
@@ -107,12 +108,12 @@ public class Menu {
 	protected final int SIZEOFUPGRADE;
 
 	/**
-	 * size of like line strokes of the signs
+	 * size of the text, like costs of buildings
 	 */
 	protected final int SIZEOFTEXTALIGNMENT;
 
 	/**
-	 * Nummer des gebäudes
+	 * number of building
 	 */
 	protected int actualChosenBuilding = -1;
 
@@ -132,7 +133,7 @@ public class Menu {
 	protected String actualBuildingName = "Nichts gewählt";
 
 	/**
-	 * array list with all its buildings
+	 * actual number of buildings
 	 */
 	protected int actualBuildingCount = 0;
 
@@ -144,9 +145,6 @@ public class Menu {
 	/**
 	 * Constructor of Menu
 	 * 
-	 * @param playerID
-	 * 
-	 * @param nonLoopingGif
 	 */
 	public Menu(CopyOnWriteArrayList<BaseUnit> buildings, Player player) {
 		this.position = new PVector(0, 0);
@@ -170,10 +168,6 @@ public class Menu {
 		for (int i = 0; i < menuBuildings.length; i++) {
 			menuBuildings[i] = new PVector(-100, -100);
 		}
-	}
-
-	public Player getPlayer() {
-		return player;
 	}
 
 	public void createBuilding(DefenderControl defenderControl) {
@@ -208,8 +202,8 @@ public class Menu {
 		 * here is the complete normal menu
 		 */
 		if (menuOpen) {
-			float rotation = 0f;
-			float drehungProUntermenue = 60;
+			int rotation = 0;
+			int drehungProUntermenue = 360 / 6;
 
 			graphics.setColor(Color.black);
 
@@ -261,8 +255,8 @@ public class Menu {
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
 
-			// graphics.noFill();
 			graphics.setColor(Color.darkGray);
+
 			calcDrawTransformation(graphics);
 			rotateMenu(4, rotation, graphics);
 			showSmallMenuCircle(graphics);
@@ -274,19 +268,15 @@ public class Menu {
 			showSmallMenuCircle(graphics);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
-			// graphics.strokeWeight(1);
 		}
 
 		/**
 		 * here is the complete menu for a specific building
 		 */
 		if (buildingOpen) {
-			float rotation = 0f;
-			float drehungProUntermenue = PApplet.TWO_PI / 4;
-			// graphics.textAlign(PApplet.CENTER);
-			// graphics.textSize(TEXTSIZE);
+			int rotation = 0;
+			int drehungProUntermenue = 360 / 4;
 			graphics.setColor(Color.black);
-			// graphics.strokeWeight(SIZEOFLINESTROKES);
 
 			calcDrawTransformationBuildings(graphics);
 			rotateMenuBuildings(0, rotation, graphics);
@@ -309,17 +299,12 @@ public class Menu {
 
 			calcDrawTransformationBuildings(graphics);
 			graphics.rotate(0, 0, rotation);
-			// graphics.fill(150);
 			showSmallMenuCircle(graphics);
-			graphics.rotate(0, 0, rotation);
 			graphics.setColor(Color.white);
 			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) + TEXTDISTANCE);
 			graphics.resetTransform();
-			// graphics.strokeWeight(1);
 		}
 		graphics.resetTransform();
-		// graphics.textAlign(PApplet.CORNER);
-		// TODO nacharbeiten
 	}
 
 	public String getActualBuildingName() {
@@ -353,7 +338,7 @@ public class Menu {
 	 */
 	public boolean isInnerMenuElement(PVector clickVector) {
 		if (this.menu[0].dist(clickVector) < this.RADIUS) {
-			// System.out.println("Menue 1");
+			System.out.println("Menue 1");
 			if (isEnoughCredits(Ground.PRICE)) {
 				player.setCredits(player.getCredits() - Ground.PRICE);
 				setActualChosenBuilding(0);
@@ -362,7 +347,7 @@ public class Menu {
 			}
 		}
 		if (this.menu[1].dist(clickVector) < this.RADIUS) {
-			// System.out.println("Menue 2");
+			System.out.println("Menue 2");
 			if (isEnoughCredits(Defence.PRICE)) {
 				player.setCredits(player.getCredits() - Defence.PRICE);
 				setActualChosenBuilding(1);
@@ -371,7 +356,7 @@ public class Menu {
 			}
 		}
 		if (this.menu[2].dist(clickVector) < this.RADIUS) {
-			// System.out.println("Menue 3");
+			System.out.println("Menue 3");
 			if (isEnoughCredits(Support.PRICE)) {
 				player.setCredits(player.getCredits() - Support.PRICE);
 				setActualChosenBuilding(2);
@@ -380,7 +365,7 @@ public class Menu {
 			}
 		}
 		if (this.menu[3].dist(clickVector) < this.RADIUS) {
-			// System.out.println("Menue 3");
+			System.out.println("Menue 4");
 			if (isEnoughCredits(Tank.PRICE)) {
 				player.setCredits(player.getCredits() - Tank.PRICE);
 				setActualChosenBuilding(3);
@@ -389,10 +374,10 @@ public class Menu {
 			}
 		}
 		if (this.menu[4].dist(clickVector) < this.RADIUS) {
-			// System.out.println("Menue 5");
+			System.out.println("Menue 5");
 		}
 		if (this.menu[5].dist(clickVector) < this.RADIUS) {
-			// System.out.println("Menue 6");
+			System.out.println("Menue 6");
 		}
 
 		return false;
@@ -684,47 +669,14 @@ public class Menu {
 		this.positionBuilding = positionBuilding;
 	}
 
-	// public boolean isShowLoopingGifDestroy() {
-	// return showLoopingGifDestroy;
-	// }
-	//
-	// public void setShowLoopingGifDestroy(boolean showLoopingGifDestroy) {
-	// this.showLoopingGifDestroy = showLoopingGifDestroy;
-	// }
-
-	// /**
-	// * Berechnet Zeichnenposition und setzt
-	// Abblidungsmatrix(Transformationsmatix)
-	// * @return
-	// */
-	// private void calcDrawPosition(Player player,PGraphics graphics){
-	//
-	// //Berechnung des neuen Koordinaten Ursprungs Vektors
-	// PVector drawPosition=new
-	// PVector(player.getViewPosition().x,player.getViewPosition().y);
-	// drawPosition.rotate(player.getGeneralAngle());
-	// drawPosition.add(player.getOriginPosition());
-	//
-	// //Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
-	// graphics.translate(drawPosition.x, +drawPosition.y);
-	// graphics.scale(player.getActualZoom());
-	// graphics.rotate(player.getGeneralAngle());//nötig???
-	//
-	// //zeichne an Position im Verhältnis zu gesamt Transformation
-	// graphics.translate(position.x, +position.y);
-	//
-	// // //eigendrehung hinzu
-	// // graphics.rotate(this.actualAngle);
-	// }
-
-	public void rotateMenu(int element, float rotation, Graphics graphics) {
+	public void rotateMenu(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menu[element] = new PVector(0, DISTANCE);
 		menu[element].rotate(rotation);
 		menu[element].add(position);
 	}
 
-	public void rotateMenuBuildings(int element, float rotation, Graphics graphics) {
+	public void rotateMenuBuildings(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menuBuildings[element] = new PVector(0, DISTANCE);
 		menuBuildings[element].rotate(rotation);
@@ -761,9 +713,6 @@ public class Menu {
 		graphics.drawLine(-SIZEOFGROUND, SIZEOFGROUND + DISTANCE, 0, -SIZEOFGROUND + DISTANCE);
 		graphics.drawLine(0, -SIZEOFGROUND + DISTANCE, SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
 		graphics.drawLine(+SIZEOFGROUND, +SIZEOFGROUND + DISTANCE, -SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
-		// graphics.triangle(-SIZEOFGROUND, DISTANCE + SIZEOFGROUND, 0, DISTANCE
-		// - SIZEOFGROUND, +SIZEOFGROUND, DISTANCE + SIZEOFGROUND);
-		// TODO nacharbeiten
 	}
 
 	public void showBuildingDefence(Graphics graphics) {
@@ -817,8 +766,6 @@ public class Menu {
 	}
 
 	public void showPriceBuildings(Graphics graphics, int price) {
-		// graphics.text(price, 0, DISTANCE - RADIUS + TEXTDISTANCE);
-		// graphics.drawString(price+"", 0, DISTANCE - RADIUS + TEXTDISTANCE);
 		graphics.drawString(price + "", -TEXTDISTANCE, -SIZEOFTEXTALIGNMENT);
 
 	}
