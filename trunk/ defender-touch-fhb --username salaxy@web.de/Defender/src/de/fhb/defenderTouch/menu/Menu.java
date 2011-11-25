@@ -2,12 +2,8 @@ package de.fhb.defenderTouch.menu;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-
-import processing.core.PApplet;
-import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
@@ -199,10 +195,7 @@ public class Menu {
 	public void drawMenu(Graphics graphics, Player player) {
 
 		/**
-		 * here is the complete normal menu
-		 * Ground
-		 * Defence
-		 * Support
+		 * here is the complete normal menu Ground Defence Support
 		 * 
 		 */
 		if (menuOpen) {
@@ -275,15 +268,12 @@ public class Menu {
 		}
 
 		/**
-		 * here is the complete menu for a specific building
-		 * Upgrade
-		 * Destroy
+		 * here is the complete menu for a specific building Upgrade Destroy
 		 * Actual Level
 		 */
 		if (buildingOpen) {
 			int rotation = 0;
 			int drehungProUntermenue = 360 / 4;
-			//graphics.setColor(Color.black);
 
 			calcDrawTransformationBuildings(graphics);
 			rotateMenuBuildings(0, rotation, graphics);
@@ -313,10 +303,6 @@ public class Menu {
 			graphics.resetTransform();
 		}
 		graphics.resetTransform();
-	}
-
-	public String getActualBuildingName() {
-		return actualBuildingName;
 	}
 
 	/**
@@ -631,6 +617,10 @@ public class Menu {
 				actualBuildingCount++;
 		}
 		return actualBuildingCount;
+	}
+
+	public String getActualBuildingName() {
+		return actualBuildingName;
 	}
 
 	public boolean isBuildingOpen() {
