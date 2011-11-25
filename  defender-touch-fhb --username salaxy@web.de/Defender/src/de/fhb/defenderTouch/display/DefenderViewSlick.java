@@ -100,8 +100,8 @@ public class DefenderViewSlick extends BasicGame{
 //											   "  System: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
 //										   );
 						
-			this.control.startUnitControlForMouse(clickVector, button);	
-//			this.control.startMenueControlForMouse(clickVector, button);	
+//			this.control.startUnitControlForMouse(clickVector, button);	
+			this.control.startMenueControlForMouse(clickVector, button);	
 			
 		}
     }
