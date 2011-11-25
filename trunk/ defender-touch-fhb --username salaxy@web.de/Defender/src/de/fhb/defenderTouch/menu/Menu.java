@@ -161,7 +161,7 @@ public class Menu {
 		SIZEOFSUPPORT = TEXTDISTANCE * 3;
 		SIZEOFDESTROY = TEXTDISTANCE * 2;
 		SIZEOFUPGRADE = TEXTDISTANCE * 3;
-		SIZEOFTEXTALIGNMENT = DIAMETER /2*3 + TEXTDISTANCE*2;
+		SIZEOFTEXTALIGNMENT = DIAMETER / 2 * 3 + TEXTDISTANCE * 2;
 		SIZEOFTANK = TEXTDISTANCE * 2;
 
 		for (int i = 0; i < menu.length; i++) {
@@ -210,7 +210,7 @@ public class Menu {
 		if (menuOpen) {
 			float rotation = 0f;
 			float drehungProUntermenue = 60;
-			
+
 			graphics.setColor(Color.black);
 
 			calcDrawTransformation(graphics);
@@ -218,7 +218,7 @@ public class Menu {
 			graphics.setColor(Color.cyan);
 			showBigMenuCircle(graphics);
 			graphics.setColor(Color.black);
-			showSignGround(graphics);
+			showBuildingGround(graphics);
 			showVerySmallMenuCircle(graphics);
 			graphics.setColor(Color.white);
 			showPriceBuildings(graphics, Ground.PRICE);
@@ -230,7 +230,7 @@ public class Menu {
 			graphics.setColor(Color.lightGray);
 			showBigMenuCircle(graphics);
 			graphics.setColor(Color.black);
-			showSignDefence(graphics);
+			showBuildingDefence(graphics);
 			showVerySmallMenuCircle(graphics);
 			graphics.setColor(Color.white);
 			showPriceBuildings(graphics, Defence.PRICE);
@@ -242,7 +242,7 @@ public class Menu {
 			graphics.setColor(Color.magenta);
 			showBigMenuCircle(graphics);
 			graphics.setColor(Color.black);
-			showSignSupport(graphics);
+			showBuildingSupport(graphics);
 			showVerySmallMenuCircle(graphics);
 			graphics.setColor(Color.white);
 			showPriceBuildings(graphics, Support.PRICE);
@@ -254,7 +254,7 @@ public class Menu {
 			graphics.setColor(Color.orange);
 			showBigMenuCircle(graphics);
 			graphics.setColor(Color.black);
-			showSignTank(graphics);
+			showBuildingTank(graphics);
 			showVerySmallMenuCircle(graphics);
 			graphics.setColor(Color.white);
 			showPriceBuildings(graphics, Tank.PRICE);
@@ -757,7 +757,7 @@ public class Menu {
 		graphics.drawOval(-RADIUS / 2, DISTANCE + (DISTANCE / 2) - RADIUS / 2, RADIUS, RADIUS);
 	}
 
-	public void showSignGround(Graphics graphics) {
+	public void showBuildingGround(Graphics graphics) {
 		graphics.drawLine(-SIZEOFGROUND, SIZEOFGROUND + DISTANCE, 0, -SIZEOFGROUND + DISTANCE);
 		graphics.drawLine(0, -SIZEOFGROUND + DISTANCE, SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
 		graphics.drawLine(+SIZEOFGROUND, +SIZEOFGROUND + DISTANCE, -SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
@@ -766,7 +766,7 @@ public class Menu {
 		// TODO nacharbeiten
 	}
 
-	public void showSignDefence(Graphics graphics) {
+	public void showBuildingDefence(Graphics graphics) {
 		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 		vektoren1.add(new PVector(-SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE));
 		vektoren1.add(new PVector(SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE));
@@ -775,11 +775,11 @@ public class Menu {
 		vektoren1.add(new PVector(0, DISTANCE + SIZEOFDEFENCE));
 		vektoren1.add(new PVector(SIZEOFDEFENCE, DISTANCE + SIZEOFDEFENCE));
 		vektoren1.add(new PVector(-SIZEOFDEFENCE, DISTANCE + SIZEOFDEFENCE));
-		graphics.drawOval(0, DISTANCE - SIZEOFDEFENCE, SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2);
+		graphics.drawOval(-SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2);
 		GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
 	}
 
-	public void showSignSupport(Graphics graphics) {
+	public void showBuildingSupport(Graphics graphics) {
 		ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 		vektoren2.add(new PVector(0, DISTANCE - SIZEOFSUPPORT));
 		vektoren2.add(new PVector(0, DISTANCE + SIZEOFSUPPORT));
@@ -789,15 +789,15 @@ public class Menu {
 		GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
 	}
 
-	public void showSignTank(Graphics graphics) {
-		graphics.drawRect(0, DISTANCE + SIZEOFTANK, SIZEOFTANK * 2, SIZEOFTANK * 3);
-		graphics.drawOval(0, DISTANCE + SIZEOFTANK, SIZEOFTANK, SIZEOFTANK);
-		graphics.drawRect(0, DISTANCE - SIZEOFTANK / 2, SIZEOFTANK / 2, SIZEOFTANK * 2);
+	public void showBuildingTank(Graphics graphics) {
+		graphics.drawRect(-SIZEOFTANK, DISTANCE - SIZEOFTANK, SIZEOFTANK * 2, SIZEOFTANK * 3);
+		graphics.drawOval(-SIZEOFTANK / 2, DISTANCE + SIZEOFTANK - SIZEOFTANK / 4, SIZEOFTANK, SIZEOFTANK);
+		graphics.drawRect(-SIZEOFTANK / 4, DISTANCE - SIZEOFTANK - SIZEOFTANK / 4, SIZEOFTANK / 2, SIZEOFTANK * 2);
 	}
 
 	public void showSignUpgrade(Graphics graphics) {
 		graphics.drawLine(-SIZEOFUPGRADE / 2, DISTANCE, 0, DISTANCE - SIZEOFUPGRADE);
-		graphics.drawLine(0, DISTANCE - SIZEOFUPGRADE, +SIZEOFUPGRADE / 2, DISTANCE);
+		graphics.drawLine(0, DISTANCE - SIZEOFUPGRADE, SIZEOFUPGRADE / 2, DISTANCE);
 		graphics.drawLine(+SIZEOFUPGRADE / 2, DISTANCE, -SIZEOFUPGRADE / 2, DISTANCE);
 
 		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
