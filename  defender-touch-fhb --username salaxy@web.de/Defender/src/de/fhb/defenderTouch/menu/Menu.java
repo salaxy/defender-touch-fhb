@@ -200,6 +200,10 @@ public class Menu {
 
 		/**
 		 * here is the complete normal menu
+		 * Ground
+		 * Defence
+		 * Support
+		 * 
 		 */
 		if (menuOpen) {
 			int rotation = 0;
@@ -272,11 +276,14 @@ public class Menu {
 
 		/**
 		 * here is the complete menu for a specific building
+		 * Upgrade
+		 * Destroy
+		 * Actual Level
 		 */
 		if (buildingOpen) {
 			int rotation = 0;
 			int drehungProUntermenue = 360 / 4;
-			graphics.setColor(Color.black);
+			//graphics.setColor(Color.black);
 
 			calcDrawTransformationBuildings(graphics);
 			rotateMenuBuildings(0, rotation, graphics);
@@ -300,8 +307,9 @@ public class Menu {
 			calcDrawTransformationBuildings(graphics);
 			graphics.rotate(0, 0, rotation);
 			showSmallMenuCircle(graphics);
+			graphics.rotate(0, 0, rotation);
 			graphics.setColor(Color.white);
-			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) + TEXTDISTANCE);
+			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) - TEXTDISTANCE);
 			graphics.resetTransform();
 		}
 		graphics.resetTransform();
