@@ -46,7 +46,8 @@ public class Defence extends Building {
 		vektoren.add(new PVector(size, size));
 		vektoren.add(new PVector(-size, size));
 //		graphics.noFill();
-		graphics.drawOval(0, -size, size * 2, size * 2);
+		//graphics.drawOval(0, -size, size * 2, size * 2);
+		graphics.drawOval(-size,  - size * 2, size * 2, size * 2);
 		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
 
 		graphics.resetTransform();
