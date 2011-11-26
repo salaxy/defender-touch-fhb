@@ -677,7 +677,7 @@ public class Menu {
 	public void rotateMenu(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menu[element] = new PVector(0, DISTANCE);
-		menu[element].rotate((rotation/180)*(float)Math.PI);
+		menu[element].rotate((rotation / 180) * (float) Math.PI);
 		menu[element].add(position);
 	}
 
@@ -691,7 +691,7 @@ public class Menu {
 	public void rotateMenuBuildings(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menuBuildings[element] = new PVector(0, DISTANCE);
-		menuBuildings[element].rotate((rotation/180)*(float)Math.PI);
+		menuBuildings[element].rotate((rotation / 180) * (float) Math.PI);
 		menuBuildings[element].add(position);
 	}
 
@@ -742,9 +742,9 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void createVerySmallMenuCircle(Graphics graphics) {
-		graphics.fillOval(-RADIUS / 2, DISTANCE + (DISTANCE / 2) - RADIUS / 2, RADIUS, RADIUS);
+		graphics.fillOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
 		graphics.setColor(Color.pink);
-		graphics.drawOval(-RADIUS / 2, DISTANCE + (DISTANCE / 2) - RADIUS / 2, RADIUS, RADIUS);
+		graphics.drawOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
 	}
 
 	/**
