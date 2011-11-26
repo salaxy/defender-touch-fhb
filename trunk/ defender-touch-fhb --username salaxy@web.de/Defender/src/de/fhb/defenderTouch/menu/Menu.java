@@ -200,10 +200,11 @@ public class Menu {
 		 */
 		if (menuOpen) {
 			int rotation = 0;
+			int counter = 0;
 			int drehungProUntermenue = 360 / 6;
 
 			calcDrawTransformation(graphics);
-			rotateAndCreateMenu(0, rotation, graphics);
+			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.cyan);
 			createBigMenuCircle(graphics);
 			showBuildingGround(graphics);
@@ -213,7 +214,7 @@ public class Menu {
 			graphics.resetTransform();
 
 			calcDrawTransformation(graphics);
-			rotateAndCreateMenu(1, rotation, graphics);
+			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.lightGray);
 			createBigMenuCircle(graphics);
 			showBuildingDefence(graphics);
@@ -223,7 +224,7 @@ public class Menu {
 			graphics.resetTransform();
 
 			calcDrawTransformation(graphics);
-			rotateAndCreateMenu(2, rotation, graphics);
+			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.magenta);
 			createBigMenuCircle(graphics);
 			showBuildingSupport(graphics);
@@ -233,7 +234,7 @@ public class Menu {
 			graphics.resetTransform();
 
 			calcDrawTransformation(graphics);
-			rotateAndCreateMenu(3, rotation, graphics);
+			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.orange);
 			createBigMenuCircle(graphics);
 			showBuildingTank(graphics);
@@ -243,13 +244,13 @@ public class Menu {
 			graphics.resetTransform();
 
 			calcDrawTransformation(graphics);
-			rotateAndCreateMenu(4, rotation, graphics);
+			rotateAndCreateMenu(counter++, rotation, graphics);
 			createSmallMenuCircle(graphics);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
 
 			calcDrawTransformation(graphics);
-			rotateAndCreateMenu(5, rotation, graphics);
+			rotateAndCreateMenu(counter++, rotation, graphics);
 			createSmallMenuCircle(graphics);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
@@ -261,10 +262,11 @@ public class Menu {
 		 */
 		if (buildingOpen) {
 			int rotation = 0;
+			int counter = 0;
 			int drehungProUntermenue = 360 / 4;
 
 			calcDrawTransformationBuildings(graphics);
-			rotateAndCreateMenuBuilding(0, rotation, graphics);
+			rotateAndCreateMenuBuilding(counter++, rotation, graphics);
 			graphics.setColor(Color.green);
 			createBigMenuCircle(graphics);
 			createTinyMenuCircle(graphics);
@@ -274,7 +276,7 @@ public class Menu {
 			graphics.resetTransform();
 
 			calcDrawTransformationBuildings(graphics);
-			rotateAndCreateMenuBuilding(1, rotation, graphics);
+			rotateAndCreateMenuBuilding(counter++, rotation, graphics);
 			graphics.setColor(Color.red);
 			createBigMenuCircle(graphics);
 			showSignDestroy(graphics);
