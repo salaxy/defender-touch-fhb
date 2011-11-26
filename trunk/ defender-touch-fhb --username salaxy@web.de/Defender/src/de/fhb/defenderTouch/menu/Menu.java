@@ -677,7 +677,7 @@ public class Menu {
 	public void rotateMenu(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menu[element] = new PVector(0, DISTANCE);
-		menu[element].rotate(rotation);
+		menu[element].rotate((rotation/180)*(float)Math.PI);
 		menu[element].add(position);
 	}
 
@@ -691,7 +691,7 @@ public class Menu {
 	public void rotateMenuBuildings(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menuBuildings[element] = new PVector(0, DISTANCE);
-		menuBuildings[element].rotate(rotation);
+		menuBuildings[element].rotate((rotation/180)*(float)Math.PI);
 		menuBuildings[element].add(position);
 	}
 
