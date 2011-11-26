@@ -207,7 +207,7 @@ public class Menu {
 			graphics.setColor(Color.cyan);
 			createBigMenuCircle(graphics);
 			showBuildingGround(graphics);
-			createVerySmallMenuCircle(graphics);
+			createTinyMenuCircle(graphics);
 			showPriceBuildings(graphics, Ground.PRICE);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
@@ -217,7 +217,7 @@ public class Menu {
 			graphics.setColor(Color.lightGray);
 			createBigMenuCircle(graphics);
 			showBuildingDefence(graphics);
-			createVerySmallMenuCircle(graphics);
+			createTinyMenuCircle(graphics);
 			showPriceBuildings(graphics, Defence.PRICE);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
@@ -227,7 +227,7 @@ public class Menu {
 			graphics.setColor(Color.magenta);
 			createBigMenuCircle(graphics);
 			showBuildingSupport(graphics);
-			createVerySmallMenuCircle(graphics);
+			createTinyMenuCircle(graphics);
 			showPriceBuildings(graphics, Support.PRICE);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
@@ -237,7 +237,7 @@ public class Menu {
 			graphics.setColor(Color.orange);
 			createBigMenuCircle(graphics);
 			showBuildingTank(graphics);
-			createVerySmallMenuCircle(graphics);
+			createTinyMenuCircle(graphics);
 			showPriceBuildings(graphics, Tank.PRICE);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
@@ -267,7 +267,7 @@ public class Menu {
 			rotateAndCreateMenuBuilding(0, rotation, graphics);
 			graphics.setColor(Color.green);
 			createBigMenuCircle(graphics);
-			createVerySmallMenuCircle(graphics);
+			createTinyMenuCircle(graphics);
 			showSignUpgrade(graphics);
 			showPriceBuildings(graphics, getActualBuildingPrice(positionBuilding));
 			rotation += drehungProUntermenue;
@@ -728,7 +728,7 @@ public class Menu {
 	 * 
 	 * @param graphics
 	 */
-	public void createVerySmallMenuCircle(Graphics graphics) {
+	public void createTinyMenuCircle(Graphics graphics) {
 		graphics.fillOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
 		graphics.setColor(Color.orange);
 		graphics.drawOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
