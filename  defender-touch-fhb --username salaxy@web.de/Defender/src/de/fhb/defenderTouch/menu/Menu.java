@@ -51,7 +51,7 @@ public class Menu {
 	/**
 	 * activation raduis of a menupoint - just configure here! <----
 	 */
-	protected final int DIAMETER = 80;
+	protected final int DIAMETER = 100;
 
 	/**
 	 * Radius of the circle Is always half its diameter
@@ -202,16 +202,12 @@ public class Menu {
 			int rotation = 0;
 			int drehungProUntermenue = 360 / 6;
 
-			graphics.setColor(Color.black);
-
 			calcDrawTransformation(graphics);
 			rotateAndCreateMenu(0, rotation, graphics);
 			graphics.setColor(Color.cyan);
 			createBigMenuCircle(graphics);
-			graphics.setColor(Color.black);
 			showBuildingGround(graphics);
 			createVerySmallMenuCircle(graphics);
-			graphics.setColor(Color.white);
 			showPriceBuildings(graphics, Ground.PRICE);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
@@ -220,10 +216,8 @@ public class Menu {
 			rotateAndCreateMenu(1, rotation, graphics);
 			graphics.setColor(Color.lightGray);
 			createBigMenuCircle(graphics);
-			graphics.setColor(Color.black);
 			showBuildingDefence(graphics);
 			createVerySmallMenuCircle(graphics);
-			graphics.setColor(Color.white);
 			showPriceBuildings(graphics, Defence.PRICE);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
@@ -232,10 +226,8 @@ public class Menu {
 			rotateAndCreateMenu(2, rotation, graphics);
 			graphics.setColor(Color.magenta);
 			createBigMenuCircle(graphics);
-			graphics.setColor(Color.black);
 			showBuildingSupport(graphics);
 			createVerySmallMenuCircle(graphics);
-			graphics.setColor(Color.white);
 			showPriceBuildings(graphics, Support.PRICE);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
@@ -244,15 +236,11 @@ public class Menu {
 			rotateAndCreateMenu(3, rotation, graphics);
 			graphics.setColor(Color.orange);
 			createBigMenuCircle(graphics);
-			graphics.setColor(Color.black);
 			showBuildingTank(graphics);
 			createVerySmallMenuCircle(graphics);
-			graphics.setColor(Color.white);
 			showPriceBuildings(graphics, Tank.PRICE);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
-
-			graphics.setColor(Color.darkGray);
 
 			calcDrawTransformation(graphics);
 			rotateAndCreateMenu(4, rotation, graphics);
@@ -281,7 +269,6 @@ public class Menu {
 			createBigMenuCircle(graphics);
 			createVerySmallMenuCircle(graphics);
 			showSignUpgrade(graphics);
-			graphics.setColor(Color.white);
 			showPriceBuildings(graphics, getActualBuildingPrice(positionBuilding));
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
@@ -302,7 +289,6 @@ public class Menu {
 			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) - TEXTDISTANCE);
 			graphics.resetTransform();
 		}
-		graphics.resetTransform();
 	}
 
 	/**
@@ -701,6 +687,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void calcDrawTransformation(Graphics graphics) {
+		graphics.setColor(Color.darkGray);
 		GraphicTools.calcDrawTransformationForSlick(player, graphics, position);
 	}
 
@@ -743,7 +730,7 @@ public class Menu {
 	 */
 	public void createVerySmallMenuCircle(Graphics graphics) {
 		graphics.fillOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
-		graphics.setColor(Color.pink);
+		graphics.setColor(Color.orange);
 		graphics.drawOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
 	}
 
@@ -753,6 +740,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingGround(Graphics graphics) {
+		graphics.setColor(Color.black);
 		graphics.drawLine(-SIZEOFGROUND, SIZEOFGROUND + DISTANCE, 0, -SIZEOFGROUND + DISTANCE);
 		graphics.drawLine(0, -SIZEOFGROUND + DISTANCE, SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
 		graphics.drawLine(+SIZEOFGROUND, +SIZEOFGROUND + DISTANCE, -SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
@@ -764,6 +752,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingDefence(Graphics graphics) {
+		graphics.setColor(Color.black);
 		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 		vektoren1.add(new PVector(-SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE));
 		vektoren1.add(new PVector(SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE));
@@ -782,6 +771,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingSupport(Graphics graphics) {
+		graphics.setColor(Color.black);
 		ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 		vektoren2.add(new PVector(0, DISTANCE - SIZEOFSUPPORT));
 		vektoren2.add(new PVector(0, DISTANCE + SIZEOFSUPPORT));
@@ -797,6 +787,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingTank(Graphics graphics) {
+		graphics.setColor(Color.black);
 		graphics.drawRect(-SIZEOFTANK, DISTANCE - SIZEOFTANK, SIZEOFTANK * 2, SIZEOFTANK * 3);
 		graphics.drawOval(-SIZEOFTANK / 2, DISTANCE + SIZEOFTANK - SIZEOFTANK / 4, SIZEOFTANK, SIZEOFTANK);
 		graphics.drawRect(-SIZEOFTANK / 4, DISTANCE - SIZEOFTANK - SIZEOFTANK / 4, SIZEOFTANK / 2, SIZEOFTANK * 2);
@@ -808,6 +799,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showSignUpgrade(Graphics graphics) {
+		graphics.setColor(Color.black);
 		graphics.drawLine(-SIZEOFUPGRADE / 2, DISTANCE, 0, DISTANCE - SIZEOFUPGRADE);
 		graphics.drawLine(0, DISTANCE - SIZEOFUPGRADE, SIZEOFUPGRADE / 2, DISTANCE);
 		graphics.drawLine(+SIZEOFUPGRADE / 2, DISTANCE, -SIZEOFUPGRADE / 2, DISTANCE);
@@ -824,6 +816,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showSignDestroy(Graphics graphics) {
+		graphics.setColor(Color.black);
 		ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
 		vektoren2.add(new PVector(SIZEOFDESTROY, DISTANCE - SIZEOFDESTROY));
 		vektoren2.add(new PVector(-SIZEOFDESTROY, DISTANCE + SIZEOFDESTROY));
@@ -839,6 +832,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showPriceBuildings(Graphics graphics, int price) {
+		graphics.setColor(Color.white);
 		graphics.drawString(price + "", -TEXTDISTANCE, -SIZEOFTEXTALIGNMENT);
 
 	}
