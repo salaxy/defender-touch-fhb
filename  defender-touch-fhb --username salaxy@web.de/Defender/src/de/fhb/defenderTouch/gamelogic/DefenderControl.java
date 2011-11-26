@@ -283,7 +283,7 @@ public class DefenderControl implements TuioListener {
 
 		if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
 			menu.setPosition(realClickKoordinates);
-			if (menu.isTaken(realClickKoordinates)) {
+			if (menu.isPlaceTaken(realClickKoordinates)) {
 				System.out.println("open building menu");
 				menu.setBuildingOpen(true, realClickKoordinates);
 			} else {
@@ -331,7 +331,7 @@ public class DefenderControl implements TuioListener {
 		}
 
 		// CLOSES BUILDING MENU
-		if (menu.isBuildingOpen() && menu.isTaken(realClickKoordinates)) {
+		if (menu.isBuildingOpen() && menu.isPlaceTaken(realClickKoordinates)) {
 			System.out.println("close building menu");
 			menu.setBuildingOpen(false, null);
 		}

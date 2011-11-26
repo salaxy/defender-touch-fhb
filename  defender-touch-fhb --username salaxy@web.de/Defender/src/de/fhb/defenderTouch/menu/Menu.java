@@ -302,7 +302,7 @@ public class Menu {
 	public boolean isInnerMainElement(PVector clickVector) {
 
 		if (this.position.dist(clickVector) < this.RADIUS) {
-			// System.out.println("Menu close choosed");
+			System.out.println("Menu close choosed");
 			setMenuOpen(false);
 			return true;
 		}
@@ -384,7 +384,7 @@ public class Menu {
 		}
 		if (this.menuBuildings[1].dist(clickVector) < this.RADIUS) {
 			setBuildingOpen(false, null);
-			setActualBuildingDestroyPrice();
+			setBuildingDestroyPrice();
 			setActualChosenBuilding(1);
 			return true;
 		}
@@ -433,18 +433,14 @@ public class Menu {
 	 */
 	public void setBuildingOpen(boolean buildingOpen, PVector clickVector) {
 
-		// damit menue acuh geschlossen werden kann
 		if (!buildingOpen) {
 			this.buildingOpen = false;
 		} else {
-			// es soll das baumenu aktiviert werden
 			if (clickVector != null) {
 				for (BaseUnit bu : buildings) {
 					if (bu.isInner(clickVector)) {
 						if (bu instanceof Building) {
 							actualBuilding = (Building) bu;
-							// nur baumenue oeffnen wenn auch Gebauede
-							// angeclickt
 							this.buildingOpen = buildingOpen;
 						}
 					}
@@ -467,8 +463,6 @@ public class Menu {
 
 	/**
 	 * 
-	 * @param clickVector
-	 *            (actual position of mouse click)
 	 * @return PRICE (price of the specific building)
 	 * 
 	 *         searching for the actual price of a building
@@ -517,7 +511,7 @@ public class Menu {
 	/**
 	 * calculate the credits u get from destroying a building
 	 */
-	public void setActualBuildingDestroyPrice() {
+	public void setBuildingDestroyPrice() {
 
 		if (actualBuilding instanceof Defence)
 			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
@@ -540,7 +534,7 @@ public class Menu {
 	 * @param clickVector
 	 * @return if place for the new building is free
 	 */
-	public boolean isTaken(PVector clickVector) {
+	public boolean isPlaceTaken(PVector clickVector) {
 		for (BaseUnit building : buildings) {
 			if (building.getPosition().dist(clickVector) < (building.getCollisionRadius())) {
 				setPositionBuilding(building.getPosition());
