@@ -462,17 +462,7 @@ public class Menu {
 	 *         searching for the actual building level
 	 */
 	public int getActualBuildingLevel(PVector clickVector) {
-		// XXX geht wesentlich besser
-		if (clickVector != null) {
-			for (BaseUnit bu : buildings) {
-				if (bu.isInner(clickVector)) {
-					if (bu instanceof Building) {
-						return actualBuilding.getLevel();
-					}
-				}
-			}
-		}
-		return 0;
+		return actualBuilding.getLevel();
 	}
 
 	/**
@@ -484,28 +474,20 @@ public class Menu {
 	 *         searching for the actual price of a building
 	 */
 	public int getActualBuildingPrice(PVector clickVector) {
-		// XXX geht wesentlich besser, genau daselbe
-		if (clickVector != null) {
-			for (BaseUnit bu : buildings) {
-				if (bu.isInner(clickVector)) {
-					if (bu instanceof Building) {
-						if (bu instanceof Ground) {
-							return Ground.PRICE;
-						}
-						if (bu instanceof Defence) {
-							return Defence.PRICE;
-						}
-						if (bu instanceof Support) {
-							return Support.PRICE;
-						}
-						if (bu instanceof Tank) {
-							return Tank.PRICE;
-						}
-					}
-				}
-			}
+		if (actualBuilding instanceof Ground) {
+			return Ground.PRICE;
 		}
-		return 0;
+		if (actualBuilding instanceof Defence) {
+			return Defence.PRICE;
+		}
+		if (actualBuilding instanceof Support) {
+			return Support.PRICE;
+		} // if (actualBuilding instanceof Tank) {
+			// return Tank.PRICE;
+			// }
+		else
+			return 0;
+
 	}
 
 	/**
@@ -517,29 +499,23 @@ public class Menu {
 	 *         searching for the actual price of a building
 	 */
 	public void setActualBuildingName(PVector clickVector) {
-		// XXX geht wesentlich besser, genau daselbe
-		if (isTaken(clickVector)) {
-			for (BaseUnit bu : buildings) {
-				if (bu.isInner(positionBuilding)) {
-					if (bu instanceof Building) {
-						if (bu instanceof Defence) {
-							actualBuildingName = "Defence";
-						}
-						if (bu instanceof Ground) {
-							actualBuildingName = "Ground";
-						}
-						if (bu instanceof Support) {
-							actualBuildingName = "Support";
-						}
-						if (bu instanceof Tank) {
-							actualBuildingName = "Tank";
-						}
-					}
-				}
-			}
-		} else {
-			actualBuildingName = "Nichts gewählt";
+
+		if (actualBuilding instanceof Defence) {
+			actualBuildingName = "Defence";
 		}
+		if (actualBuilding instanceof Ground) {
+			actualBuildingName = "Ground";
+		}
+		if (actualBuilding instanceof Support) {
+			actualBuildingName = "Support";
+		}
+		// if (actualBuilding instanceof Tank) {
+		// actualBuildingName = "Tank";
+		// }
+
+		else
+			actualBuildingName = "Nichts gewählt";
+
 	}
 
 	/**
@@ -551,28 +527,21 @@ public class Menu {
 	 *         calculate the credits u get from destroying a building
 	 */
 	public void setActualBuildingDestroyPrice() {
-		// XXX geht wesentlich besser, genau daselbe
-		if (positionBuilding != null) {
-			for (BaseUnit bu : buildings) {
-				if (bu.isInner(positionBuilding)) {
-					if (bu instanceof Building) {
-						// setShowLoopingGifDestroy(true);
-						if (bu instanceof Defence) {
-							player.setCredits(player.getCredits() + (Defence.PRICE * bu.getLevel()) / 2);
-						}
-						if (bu instanceof Ground) {
-							player.setCredits(player.getCredits() + (Ground.PRICE * bu.getLevel()) / 2);
-						}
-						if (bu instanceof Support) {
-							player.setCredits(player.getCredits() + (Support.PRICE * bu.getLevel()) / 2);
-						}
-						if (bu instanceof Tank) {
-							player.setCredits(player.getCredits() + (Tank.PRICE * bu.getLevel()) / 2);
-						}
-					}
-				}
-			}
+
+		if (actualBuilding instanceof Defence) {
+			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
 		}
+		if (actualBuilding instanceof Ground) {
+			player.setCredits(player.getCredits() + (Ground.PRICE * actualBuilding.getLevel()) / 2);
+		}
+		if (actualBuilding instanceof Support) {
+			player.setCredits(player.getCredits() + (Support.PRICE * actualBuilding.getLevel()) / 2);
+		}
+		// if (actualBuilding instanceof Tank) {
+		// player.setCredits(player.getCredits() + (Tank.PRICE * bu.getLevel())
+		// / 2);
+		// }
+
 	}
 
 	/**
@@ -582,9 +551,7 @@ public class Menu {
 	 */
 	public boolean isTaken(PVector clickVector) {
 		for (BaseUnit building : buildings) {
-			// BUILDING IS CLICKED
 			if (building.getPosition().dist(clickVector) < (building.getCollisionRadius())) {
-				// System.out.println("ficke dich");
 				setPositionBuilding(building.getPosition());
 				return true;
 			}
@@ -836,7 +803,5 @@ public class Menu {
 	public void showPriceBuildings(Graphics graphics, int price) {
 		graphics.setColor(Color.white);
 		graphics.drawString(price + "", -TEXTDISTANCE, -SIZEOFTEXTALIGNMENT);
-
 	}
-
 }
