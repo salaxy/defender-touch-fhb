@@ -271,7 +271,7 @@ public class Menu {
 			createBigMenuCircle(graphics);
 			createTinyMenuCircle(graphics);
 			showSignUpgrade(graphics);
-			showPriceBuildings(graphics, getActualBuildingPrice(positionBuilding));
+			showPriceBuildings(graphics, getActualBuildingPrice());
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
 
@@ -416,8 +416,8 @@ public class Menu {
 	 *         looking if enough credits are there
 	 */
 	public void upgradeBuilding() {
-		if (player.getCredits() - getActualBuildingPrice(positionBuilding) >= 0 && actualBuilding.getLevel() != 3) {
-			player.setCredits(player.getCredits() - getActualBuildingPrice(positionBuilding));
+		if (player.getCredits() - getActualBuildingPrice() >= 0 && actualBuilding.getLevel() != 3) {
+			player.setCredits(player.getCredits() - getActualBuildingPrice());
 		}
 	}
 
@@ -473,42 +473,38 @@ public class Menu {
 	 * 
 	 *         searching for the actual price of a building
 	 */
-	public int getActualBuildingPrice(PVector clickVector) {
-		if (actualBuilding instanceof Ground) {
+	public int getActualBuildingPrice() {
+		if (actualBuilding instanceof Ground)
 			return Ground.PRICE;
-		}
-		if (actualBuilding instanceof Defence) {
+
+		if (actualBuilding instanceof Defence)
 			return Defence.PRICE;
-		}
-		if (actualBuilding instanceof Support) {
+
+		if (actualBuilding instanceof Support)
 			return Support.PRICE;
-		} // if (actualBuilding instanceof Tank) {
-			// return Tank.PRICE;
-			// }
+
+		// if (actualBuilding instanceof Tank) {
+		// return Tank.PRICE;
+		// }
 		else
 			return 0;
 
 	}
 
 	/**
-	 * 
-	 * @param clickVector
-	 *            (actual position of mouse click)
-	 * @return PRICE (price of the specific building)
-	 * 
-	 *         searching for the actual price of a building
+	 * searching for the actual name of a building
 	 */
-	public void setActualBuildingName(PVector clickVector) {
+	public void setActualBuildingName() {
 
-		if (actualBuilding instanceof Defence) {
+		if (actualBuilding instanceof Defence)
 			actualBuildingName = "Defence";
-		}
-		if (actualBuilding instanceof Ground) {
+
+		if (actualBuilding instanceof Ground)
 			actualBuildingName = "Ground";
-		}
-		if (actualBuilding instanceof Support) {
+
+		if (actualBuilding instanceof Support)
 			actualBuildingName = "Support";
-		}
+
 		// if (actualBuilding instanceof Tank) {
 		// actualBuildingName = "Tank";
 		// }
@@ -519,24 +515,19 @@ public class Menu {
 	}
 
 	/**
-	 * 
-	 * @param clickVector
-	 *            (actual position of mouse click)
-	 * @return PRICE (price of the specific building)
-	 * 
-	 *         calculate the credits u get from destroying a building
+	 * calculate the credits u get from destroying a building
 	 */
 	public void setActualBuildingDestroyPrice() {
 
-		if (actualBuilding instanceof Defence) {
+		if (actualBuilding instanceof Defence)
 			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
-		}
-		if (actualBuilding instanceof Ground) {
+
+		if (actualBuilding instanceof Ground)
 			player.setCredits(player.getCredits() + (Ground.PRICE * actualBuilding.getLevel()) / 2);
-		}
-		if (actualBuilding instanceof Support) {
+
+		if (actualBuilding instanceof Support)
 			player.setCredits(player.getCredits() + (Support.PRICE * actualBuilding.getLevel()) / 2);
-		}
+
 		// if (actualBuilding instanceof Tank) {
 		// player.setCredits(player.getCredits() + (Tank.PRICE * bu.getLevel())
 		// / 2);

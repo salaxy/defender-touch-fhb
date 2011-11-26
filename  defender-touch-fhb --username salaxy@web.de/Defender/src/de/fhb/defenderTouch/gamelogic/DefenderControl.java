@@ -290,7 +290,7 @@ public class DefenderControl implements TuioListener {
 				System.out.println("open main menu");
 				menu.setMenuOpen(true);
 			}
-			menu.setActualBuildingName(realClickKoordinates);
+			menu.setActualBuildingName();
 		} else if (menu.isBuildingOpen()) {
 			if (menu.isInnerBuildingElement(realClickKoordinates)) {
 				switch (menu.getActualChosenBuilding()) {
