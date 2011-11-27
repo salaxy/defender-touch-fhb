@@ -134,7 +134,7 @@ public class DefenderViewSlick extends BasicGame{
     }
     
     /**
-     * What happens when
+     * What happens when mousewhell is scrolled
      */
     public void mouseWheelMoved(int change){
     	
