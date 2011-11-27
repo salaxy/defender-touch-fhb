@@ -324,20 +324,23 @@ public class DefenderControl implements TuioListener {
 	 */
 	private void closeMenue(PVector realClickKoordinates, Menu menu) {
 
-		// CLOSES MENU
 		if (menu.isMenuOpen() && menu.isInnerMainElement(realClickKoordinates)) {
 			menu.setMenuOpen(false);
 			System.out.println("close menu");
 		}
 
-		// CLOSES BUILDING MENU
 		if (menu.isBuildingOpen() && menu.isPlaceTaken(realClickKoordinates)) {
 			System.out.println("close building menu");
 			menu.setBuildingOpen(false, null);
 		}
 	}
 
-	// Einheiten Kontrolle
+	/**
+	 * Controlling for the players
+	 * 
+	 * @param clickVector
+	 * @param mouseButton
+	 */
 	public void startUnitControlForMouse(PVector clickVector, int mouseButton) {
 
 		// wenn bei Spielr Zwei
@@ -348,7 +351,12 @@ public class DefenderControl implements TuioListener {
 		}
 	}
 
-	// Einheiten Kontrolle Spieler Zwei
+	/**
+	 * Controlling for the units of the player ONE
+	 * 
+	 * @param clickVector
+	 * @param mouseButton
+	 */
 	public void unitControlRightSide(PVector clickVector, int mouseButton) {
 		boolean weitereAktivierung = false;
 		boolean istAngriff = false;
@@ -420,7 +428,12 @@ public class DefenderControl implements TuioListener {
 
 	}
 
-	// Einheiten Kontrolle Spieler Eins
+	/**
+	 * Controlling for the units of the player TWO
+	 * 
+	 * @param clickVector
+	 * @param mouseButton
+	 */
 	public void unitControlLeftSide(PVector clickVector, int mouseButton) {
 
 		boolean weitereAktivierung = false;
@@ -604,6 +617,9 @@ public class DefenderControl implements TuioListener {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void createTestUnits() {
 
 		// TestUnitBetas schaffen
