@@ -9,6 +9,7 @@ import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.root.BaseUnit;
+
 /**
  * 
  * @author Curtis Mosters, Andy Klay
@@ -29,8 +30,8 @@ public class Ground extends Building {
 
 	public void drawFigure(Graphics graphics) {
 
-		graphics.scale(1.5f,1.5f);
-		graphics.rotate(0,0,180);
+		graphics.scale(1.5f, 1.5f);
+		graphics.rotate(0, 0, 180);
 
 		switch (this.level) {
 		case LEVEL_ONE:
@@ -44,9 +45,9 @@ public class Ground extends Building {
 			break;
 		}
 
-		graphics.drawLine(-size, +size,0, -size);
+		graphics.drawLine(-size, +size, 0, -size);
 		graphics.drawLine(0, -size, +size, +size);
-		graphics.drawLine(+size, +size,-size, +size);
+		graphics.drawLine(+size, +size, -size, +size);
 
 		graphics.resetTransform();
 	}
@@ -55,8 +56,7 @@ public class Ground extends Building {
 		tickerTime = new Date().getTime();
 
 		if (createNewGroundUnit(startingTime, tickerTime)) {
-			new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL,
-					this.owner, gamelogic);
+			new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL, this.owner, gamelogic);
 		}
 
 	}

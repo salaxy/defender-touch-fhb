@@ -30,10 +30,10 @@ public class Support extends Building {
 		// farbewechsel bei Aktivierung
 		// this.entscheideLineFarbe( graphics);
 		// Skalieren
-		graphics.scale(1.5f,1.5f);
+		graphics.scale(1.5f, 1.5f);
 		// graphics.strokeWeight(1);
 		// Nach norden ausrichten
-		graphics.rotate(0,0,180);
+		graphics.rotate(0, 0, 180);
 
 		switch (this.level) {
 		case LEVEL_ONE:
@@ -60,7 +60,7 @@ public class Support extends Building {
 
 		// zurücksetzen der Umgebungseinstellungen
 		graphics.resetTransform();
-//		graphics.stroke(0);
+		// graphics.stroke(0);
 	}
 
 	public void update() {

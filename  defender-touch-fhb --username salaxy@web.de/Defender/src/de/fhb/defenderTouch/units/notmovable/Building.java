@@ -35,15 +35,15 @@ public class Building extends BaseUnit {
 		}
 	}
 
-	public Building(int x, int y, int mode, Player player,DefenderControl gamelogic) {
+	public Building(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
 		this.movementSpeed = 0.5f;
 	}
 
-	 public void update(){
+	public void update() {
 
-	 }
-	 
+	}
+
 	public void commandDestination(PVector dest) {
 
 	}
