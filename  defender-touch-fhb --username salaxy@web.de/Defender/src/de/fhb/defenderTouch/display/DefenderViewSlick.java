@@ -76,7 +76,7 @@ public class DefenderViewSlick extends BasicGame{
     }
 
     /**
-     * 
+     * What happens when mouse was clicked
      */
     public void mouseClicked(int button, int x, int y, int clickCount){
     	//Klickvektor holen
@@ -109,7 +109,9 @@ public class DefenderViewSlick extends BasicGame{
     }
 	
     
-    
+    /**
+     * What happens when mouse is moving
+     */
     public void mouseDragged(int oldx, int oldy, int newx, int newy) {
     	
     	//Klickvektor holen
@@ -131,6 +133,9 @@ public class DefenderViewSlick extends BasicGame{
 		
     }
     
+    /**
+     * What happens when
+     */
     public void mouseWheelMoved(int change){
     	
 	}
