@@ -618,7 +618,7 @@ public class DefenderControl implements TuioListener {
 	}
 
 	/**
-	 * 
+	 * Creating some Test Units
 	 */
 	public void createTestUnits() {
 
