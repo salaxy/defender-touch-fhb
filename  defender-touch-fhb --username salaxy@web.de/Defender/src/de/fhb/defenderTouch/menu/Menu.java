@@ -1,5 +1,8 @@
 package de.fhb.defenderTouch.menu;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.newdawn.slick.Color;
@@ -789,4 +792,12 @@ public class Menu {
 		graphics.setColor(Color.white);
 		graphics.drawString(price + "", -TEXTDISTANCE, -SIZEOFTEXTALIGNMENT);
 	}
+
+//	public void makeAPicture(Graphics graphics) {
+//		org.newdawn.slick.Image image;
+//		File file;
+//		image = Toolkit.getDefaultToolkit().getImage( file.getAbsolutePath() );
+//		graphics.drawImage(image, 100, 100);
+//
+//	}
 }
