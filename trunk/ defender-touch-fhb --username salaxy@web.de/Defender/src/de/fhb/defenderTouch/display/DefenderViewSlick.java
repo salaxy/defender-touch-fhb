@@ -75,7 +75,9 @@ public class DefenderViewSlick extends BasicGame{
 
     }
 
-    
+    /**
+     * 
+     */
     public void mouseClicked(int button, int x, int y, int clickCount){
     	//Klickvektor holen
     	PVector clickVector=new PVector(x,y);

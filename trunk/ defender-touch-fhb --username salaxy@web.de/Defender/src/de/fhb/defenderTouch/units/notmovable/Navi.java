@@ -10,36 +10,32 @@ import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 
-public class Navi extends Building{
-	
+public class Navi extends Building {
+
 	public static final int PRICE = 30;
 
-	public Navi(int x, int y, int mode, Player player,DefenderControl gamelogic) {
+	public Navi(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
 	}
-	
-	
-	public void drawFigure(Graphics graphics){
-		
 
-//		this.entscheideLineFarbe( graphics);
-		graphics.scale(1.5f,1.5f);
-		graphics.rotate(0,0,180);
-		ArrayList<PVector> vektoren=new ArrayList<PVector>();
-		vektoren.add(new PVector(0, 0));
-		vektoren.add(new PVector(0,-8));
-		vektoren.add(new PVector(-8,0));
-		vektoren.add(new PVector(0, 0));
-		vektoren.add(new PVector(0,4));
-		vektoren.add(new PVector(4,4));
+	public void drawFigure(Graphics graphics) {
 
-		GraphicTools.zeicheFigurNachVektoren(vektoren,graphics);
-		
+		// this.entscheideLineFarbe( graphics);
+		graphics.scale(1.5f, 1.5f);
+		graphics.rotate(0, 0, 180);
+		ArrayList<PVector> vektoren = new ArrayList<PVector>();
+		vektoren.add(new PVector(0, 0));
+		vektoren.add(new PVector(0, -8));
+		vektoren.add(new PVector(-8, 0));
+		vektoren.add(new PVector(0, 0));
+		vektoren.add(new PVector(0, 4));
+		vektoren.add(new PVector(4, 4));
+
+		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
+
 		graphics.resetTransform();
-//		graphics.stroke(0);
-		
-	}
-	
+		// graphics.stroke(0);
 
+	}
 
 }
