@@ -1,12 +1,11 @@
 package de.fhb.defenderTouch.menu;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
@@ -620,7 +619,7 @@ public class Menu {
 	public void rotateAndCreateMenu(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menu[element] = new PVector(0, DISTANCE);
-		menu[element].rotate((rotation / 180) * (float) Math.PI);
+		menu[element].rotate((rotation / 180f) * (float) Math.PI);
 		menu[element].add(position);
 	}
 
@@ -634,7 +633,7 @@ public class Menu {
 	public void rotateAndCreateMenuBuilding(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menuBuildings[element] = new PVector(0, DISTANCE);
-		menuBuildings[element].rotate((rotation / 180) * (float) Math.PI);
+		menuBuildings[element].rotate((rotation / 180f) * (float) Math.PI);
 		menuBuildings[element].add(position);
 	}
 
