@@ -148,7 +148,12 @@ public class Menu {
 	/**
 	 * ANIMATION
 	 */
-	private Animation explosion;
+	private Animation smallExplosion;
+
+	/**
+	 * ANIMATION playing?
+	 */
+	private boolean smallExplosionPlaying = false;
 
 	/**
 	 * GIFLOADER
@@ -182,7 +187,7 @@ public class Menu {
 			menuBuildings[i] = new PVector(-100, -100);
 		}
 		gl = new GifLoader();
-		explosion = gl.getAni();
+		smallExplosion = gl.getAni();
 
 	}
 
@@ -216,6 +221,12 @@ public class Menu {
 		gl.setGraphics(graphics);
 
 		/**
+		 * here is the explosion when a building is destroyed
+		 */
+		if (smallExplosionPlaying)
+			animationSmallExplosion(gl.getGraphics());
+
+		/**
 		 * here is the complete normal menu Ground Defence Support
 		 * 
 		 */
@@ -223,7 +234,7 @@ public class Menu {
 			int rotation = 0;
 			int counter = 0;
 			int drehungProUntermenue = 360 / 6;
-			makeAPicture(gl.getGraphics());
+
 			calcDrawTransformation(graphics);
 			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.cyan);
@@ -533,7 +544,8 @@ public class Menu {
 	 * calculate the credits u get from destroying a building
 	 */
 	public void setBuildingDestroyPrice() {
-		makeAPicture(gl.getGraphics());
+		smallExplosionPlaying = true;
+		smallExplosion.restart();
 		if (actualBuilding instanceof Defence)
 			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
 
@@ -612,9 +624,9 @@ public class Menu {
 		return position.y;
 	}
 
-	public PVector getPosition() {
-		return position;
-	}
+	// public PVector getPosition() {
+	// return position;
+	// }
 
 	public void setPosition(PVector position) {
 		this.position = position.get();
@@ -777,7 +789,7 @@ public class Menu {
 		graphics.setColor(Color.black);
 		graphics.drawLine(-SIZEOFUPGRADE / 2, DISTANCE, 0, DISTANCE - SIZEOFUPGRADE);
 		graphics.drawLine(0, DISTANCE - SIZEOFUPGRADE, SIZEOFUPGRADE / 2, DISTANCE);
-		graphics.drawLine(+SIZEOFUPGRADE / 2, DISTANCE, -SIZEOFUPGRADE / 2, DISTANCE);
+		graphics.drawLine(SIZEOFUPGRADE / 2, DISTANCE, -SIZEOFUPGRADE / 2, DISTANCE);
 
 		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
 		vektoren1.add(new PVector(0, DISTANCE));
@@ -811,9 +823,18 @@ public class Menu {
 		graphics.drawString(price + "", -TEXTDISTANCE, -SIZEOFTEXTALIGNMENT);
 	}
 
-	public void makeAPicture(Graphics graphics) {
-System.out.println((int) getPositionX()+" , "+(int) getPositionY());
-		graphics.drawAnimation(explosion, (int) getPositionX(), (int) getPositionY());
-		
+	/**
+	 * Playing the animation for the explosion when a building is destroyed
+	 * 
+	 * @param graphics
+	 */
+	public void animationSmallExplosion(Graphics graphics) {
+		graphics.drawAnimation(smallExplosion, (int) getPositionX(), (int) getPositionY());
+
+		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
+			smallExplosionPlaying = false;
+			smallExplosion.stop();
+		}
+
 	}
 }
