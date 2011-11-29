@@ -32,4 +32,8 @@ public class GifLoader {
 	public void setGraphics(Graphics graphics) {
 		this.graphics = graphics;
 	}
+	
+	public int getNumberPictures(){
+		return images.length;
+	}
 }
