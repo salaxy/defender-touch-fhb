@@ -1,10 +1,15 @@
 package de.fhb.defenderTouch.menu;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.newdawn.slick.Animation;
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
@@ -141,6 +146,16 @@ public class Menu {
 	private Player player;
 
 	/**
+	 * ANIMATION
+	 */
+	private Animation explosion;
+
+	/**
+	 * GIFLOADER
+	 */
+	private GifLoader gl;
+
+	/**
 	 * Constructor of Menu
 	 * 
 	 */
@@ -166,6 +181,9 @@ public class Menu {
 		for (int i = 0; i < menuBuildings.length; i++) {
 			menuBuildings[i] = new PVector(-100, -100);
 		}
+		gl = new GifLoader();
+		explosion = gl.getAni();
+
 	}
 
 	public void createBuilding(DefenderControl defenderControl) {
@@ -195,6 +213,7 @@ public class Menu {
 	 * is always been done
 	 */
 	public void drawMenu(Graphics graphics, Player player) {
+		gl.setGraphics(graphics);
 
 		/**
 		 * here is the complete normal menu Ground Defence Support
@@ -204,7 +223,7 @@ public class Menu {
 			int rotation = 0;
 			int counter = 0;
 			int drehungProUntermenue = 360 / 6;
-
+			makeAPicture(gl.getGraphics());
 			calcDrawTransformation(graphics);
 			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.cyan);
@@ -514,7 +533,7 @@ public class Menu {
 	 * calculate the credits u get from destroying a building
 	 */
 	public void setBuildingDestroyPrice() {
-
+		makeAPicture(gl.getGraphics());
 		if (actualBuilding instanceof Defence)
 			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
 
@@ -792,11 +811,9 @@ public class Menu {
 		graphics.drawString(price + "", -TEXTDISTANCE, -SIZEOFTEXTALIGNMENT);
 	}
 
-//	public void makeAPicture(Graphics graphics) {
-//		org.newdawn.slick.Image image;
-//		File file;
-//		image = Toolkit.getDefaultToolkit().getImage( file.getAbsolutePath() );
-//		graphics.drawImage(image, 100, 100);
-//
-//	}
+	public void makeAPicture(Graphics graphics) {
+System.out.println((int) getPositionX()+" , "+(int) getPositionY());
+		graphics.drawAnimation(explosion, (int) getPositionX(), (int) getPositionY());
+		
+	}
 }
