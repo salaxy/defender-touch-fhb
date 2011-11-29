@@ -4,12 +4,12 @@ import org.newdawn.slick.*;
 
 public class GifLoader {
 
-	private Image[] images = new Image[17];
+	private Image[] images;
 	private Graphics graphics;
 	private Animation ani;
 
-	public GifLoader(String path) {
-
+	public GifLoader(String path, int number) {
+		images = new Image[number];
 		for (int i = 0; i < images.length; i++) {
 			try {
 				images[i] = new Image("data/" + path + "/" + (i + 1) + ".png");

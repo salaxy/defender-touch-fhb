@@ -110,7 +110,7 @@ public class Menu {
 	 * size of the text, like costs of buildings
 	 */
 	protected final int SIZEOFTEXTALIGNMENT;
-	
+
 	/**
 	 * size the animations must be dragged
 	 */
@@ -149,7 +149,7 @@ public class Menu {
 	/**
 	 * ANIMATION
 	 */
-	private Animation smallExplosion;
+	private Animation animation;
 
 	/**
 	 * ANIMATION playing?
@@ -180,7 +180,7 @@ public class Menu {
 		SIZEOFUPGRADE = TEXTDISTANCE * 3;
 		SIZEOFTEXTALIGNMENT = DIAMETER / 2 * 3 + TEXTDISTANCE * 2;
 		SIZEOFTANK = TEXTDISTANCE * 2;
-		ANIMATIONS = DIAMETER/8;
+		ANIMATIONS = DIAMETER / 8;
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
@@ -188,8 +188,8 @@ public class Menu {
 		for (int i = 0; i < menuBuildings.length; i++) {
 			menuBuildings[i] = new PVector(-100, -100);
 		}
-		gl = new GifLoader("small explosion");
-		smallExplosion = gl.getAni();
+		gl = new GifLoader("small explosion", 17);
+		animation = gl.getAni();
 
 	}
 
@@ -548,7 +548,7 @@ public class Menu {
 	 */
 	public void setBuildingDestroyPrice() {
 		smallExplosionPlaying = true;
-		smallExplosion.restart();
+		animation.restart();
 		if (actualBuilding instanceof Defence)
 			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
 
@@ -830,11 +830,11 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		graphics.drawAnimation(smallExplosion, -ANIMATIONS, -ANIMATIONS);
+		graphics.drawAnimation(animation, -ANIMATIONS, -ANIMATIONS);
 		graphics.resetTransform();
-		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
+		if (animation.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
-			smallExplosion.stop();
+			animation.stop();
 		}
 
 	}
