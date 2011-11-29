@@ -1,6 +1,5 @@
 package de.fhb.defenderTouch.units.root;
 
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -30,26 +29,24 @@ public class BaseUnit {
 	protected int healthpointsStat = 250;
 	protected int damagePerHit = 50;
 	protected int attackRange = 200;
-	
-	protected boolean isAutoAttackOn=false;
+
+	protected boolean isAutoAttackOn = false;
 
 	/**
 	 * Spielerzugehoerigkeit der Unit
 	 */
 	protected int playerID;
-	
+
 	/**
 	 * Referenz auf Spielkarte
 	 */
 	protected Gamemap map;
-	
-	
+
 	/**
 	 * Zeit des letzten Angriffs
 	 */
 	protected long lastShootTime = System.currentTimeMillis();
-	
-	
+
 	/**
 	 * Zeit bis zum naechsten Schuss
 	 */
@@ -121,7 +118,6 @@ public class BaseUnit {
 	 * Blickrichtung
 	 */
 	protected float actualAngle = 0;
-	
 
 	/**
 	 * Geschwindigkeitsfaktor der Rotation
@@ -166,22 +162,22 @@ public class BaseUnit {
 	 * jede einheit hat eine eindeutige ID zur identifizierung
 	 */
 	protected int id;
-	
+
 	/**
 	 * jedes Gebäude hat ein Level
 	 */
 	protected int level = 1;
-	
+
 	/**
 	 * sagt aus ob sich die Unit gerade in Bewegung befindet
 	 */
-	protected boolean isMoving=false;
+	protected boolean isMoving = false;
 
 	/**
 	 * Besitzer der Unit
 	 */
 	protected Player owner;
-	
+
 	/**
 	 * 
 	 * @param x
@@ -194,21 +190,21 @@ public class BaseUnit {
 	public BaseUnit(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 
 		this.mode = mode;
-		this.owner=player;
+		this.owner = player;
 		this.playerID = player.getId();
 		this.position = new PVector(x, y);
 		this.destinationVector = new PVector(x, y);
 		this.berechneNeueBlickrichtung();
 		this.initHaloSkala();
-		this.passiveColor=this.owner.getUnitColor();
-		this.gamelogic=gamelogic;
-		this.map=gamelogic.getMap();
+		this.passiveColor = this.owner.getUnitColor();
+		this.gamelogic = gamelogic;
+		this.map = gamelogic.getMap();
 
 		// Id verpassen
 		this.id = BaseUnit.idCounter;
 		// und ids weiter zählen
 		BaseUnit.idCounter++;
-		
+
 		// fuegt sich selbst zur globalen Menge der Einheiten hinzu
 		this.gamelogic.getGlobalUnits().add(this);
 	}
@@ -225,26 +221,26 @@ public class BaseUnit {
 		}
 	}
 
-
 	/**
 	 * zeichnet die Einheit, wird je Frame 1 mal aufgerufen!
+	 * 
 	 * @param player
 	 * @param graphics
-	 * @param focus - wird Unit Aktiv gezeichnet oder nicht
+	 * @param focus
+	 *            - wird Unit Aktiv gezeichnet oder nicht
 	 */
-	public void paint(Player player, Graphics graphics,boolean drawActive) {
+	public void paint(Player player, Graphics graphics, boolean drawActive) {
 
-		//Umrechnung auf Spielersicht	
-		//Transformationen
+		// Umrechnung auf Spielersicht
+		// Transformationen
 		calcDrawPosition(player, graphics);
 
-			
-		if(drawActive){
-			
-			this.drawActiveAppearance( player,  graphics);
-				
-		}else{
-			
+		if (drawActive) {
+
+			this.drawActiveAppearance(player, graphics);
+
+		} else {
+
 			// entscheide ueber erscheinungsbild
 			switch (mode) {
 			case MODE_ROTATE:
@@ -267,54 +263,55 @@ public class BaseUnit {
 			case MODE_PULSE_IF_ACTIVE:
 				this.drawPulseIfActive(player, graphics);
 				break;
-			}			
+			}
 		}
-		
+
 		// zeichne Schweif wenn in bewegung
-		if(this.isMoving){
-			drawTail(player, graphics);			
+		if (this.isMoving) {
+			drawTail(player, graphics);
 		}
-		
-		
+
 		// zurücksetzen der Umgebung, Seiteneffekte vermeiden
 		graphics.resetTransform();
-		
+
 	}
-	
+
 	/**
 	 * Zeichne Figur im Aktiven Zustand
+	 * 
 	 * @param player
 	 * @param graphics
 	 */
 	public void drawActiveAppearance(Player player, Graphics graphics) {
-	
+
 		graphics.setColor(this.activeColor);
 		this.drawFigure(graphics);
 		graphics.resetTransform();
 	}
-	
 
 	/**
 	 * zeichne Figur im Normalen Zustand
-	 * @param player 
-	 * @param graphics 
+	 * 
+	 * @param player
+	 * @param graphics
 	 */
 	protected void drawNormalAppearance(Player player, Graphics graphics) {
-			
-		//Umrechnung auf Spielersicht	
-	
-		//farben setzen
+
+		// Umrechnung auf Spielersicht
+
+		// farben setzen
 		graphics.setColor(this.passiveColor);
-		
-		//zeichnen
+
+		// zeichnen
 		this.drawFigure(graphics);
 		graphics.resetTransform();
 	}
 
 	/**
 	 * zeichne Figur im Normalen Zustand, wenn Aktiv dann pulsierend
-	 * @param player 
-	 * @param graphics 
+	 * 
+	 * @param player
+	 * @param graphics
 	 */
 	protected void drawPulseIfActive(Player player, Graphics graphics) {
 		// Wenn aktiv dann normal
@@ -329,8 +326,9 @@ public class BaseUnit {
 
 	/**
 	 * zeichne Figur im pulsierend
-	 * @param player 
-	 * @param graphics 
+	 * 
+	 * @param player
+	 * @param graphics
 	 */
 	protected void drawPulseAppearance(Player player, Graphics graphics) {
 
@@ -343,7 +341,7 @@ public class BaseUnit {
 		}
 
 		// skalieren
-		graphics.scale(pulseSkala[pulseStat],pulseSkala[pulseStat]);
+		graphics.scale(pulseSkala[pulseStat], pulseSkala[pulseStat]);
 
 		graphics.setColor(this.passiveColor);
 		this.drawFigure(graphics);
@@ -353,12 +351,13 @@ public class BaseUnit {
 
 	/**
 	 * zeichne Halo
-	 * @param player 
-	 * @param graphics 
+	 * 
+	 * @param player
+	 * @param graphics
 	 */
 	protected void drawHalo(Player player, Graphics graphics) {
 
-		//Umrechnung auf Spielersicht
+		// Umrechnung auf Spielersicht
 		this.calcDrawPosition(player, graphics);
 
 		// solange die skala noch nicht durchlaufen ist
@@ -372,7 +371,7 @@ public class BaseUnit {
 		// skalieren
 		graphics.scale(haloSkala[haloStat], haloSkala[haloStat]);
 
-		//zeichnen
+		// zeichnen
 		graphics.setColor(Color.black);
 		graphics.drawOval(-10, -10, 20, 20);
 
@@ -381,8 +380,9 @@ public class BaseUnit {
 
 	/**
 	 * zeichne Figur im rotierend
-	 * @param player 
-	 * @param graphics 
+	 * 
+	 * @param player
+	 * @param graphics
 	 */
 	protected void drawRotateAppearance(Player player, Graphics graphics) {
 
@@ -395,7 +395,7 @@ public class BaseUnit {
 		}
 
 		// skalieren
-		graphics.rotate(0,0,rotatingAngle);
+		graphics.rotate(0, 0, rotatingAngle);
 
 		graphics.setColor(this.passiveColor);
 		this.drawFigure(graphics);
@@ -406,11 +406,11 @@ public class BaseUnit {
 
 	/**
 	 * zeichne Figur im rotierend und pulsierend
-	 * @param player 
-	 * @param graphics 
+	 * 
+	 * @param player
+	 * @param graphics
 	 */
 	protected void drawRotateAndPulseAppearance(Player player, Graphics graphics) {
-
 
 		// solange die skala noch nicht durchlaufen ist
 		if (rotatingAngle < PApplet.TWO_PI) {
@@ -421,7 +421,7 @@ public class BaseUnit {
 		}
 
 		// skalieren
-		graphics.rotate(0,0,rotatingAngle);
+		graphics.rotate(0, 0, rotatingAngle);
 
 		// solange die skala noch nicht durchlaufen ist
 		if (pulseStat < pulseSkala.length - 1) {
@@ -432,7 +432,7 @@ public class BaseUnit {
 		}
 
 		// skalieren
-		graphics.scale(pulseSkala[pulseStat],pulseSkala[pulseStat]);
+		graphics.scale(pulseSkala[pulseStat], pulseSkala[pulseStat]);
 
 		// gefuelllt zeichnen
 		graphics.setColor(this.passiveColor);
@@ -447,14 +447,15 @@ public class BaseUnit {
 	 * zeichnen des normalen Erscheinungs bildes ohne Effekte
 	 */
 	protected void drawFigure(Graphics graphics) {
-		//zeichne gefuelltes Quadrat
+		// zeichne gefuelltes Quadrat
 		graphics.fillRect(-10, -10, 20, 20);
 	}
 
 	/**
 	 * neues Ziel befehlen zu dem die Einheit sich versucht hinzubewegen
 	 * 
-	 * @param Ziel - PVector
+	 * @param Ziel
+	 *            - PVector
 	 */
 	public void commandDestination(PVector dest) {
 
@@ -477,7 +478,7 @@ public class BaseUnit {
 	 */
 	public void commandTarget(PVector dest) {
 		// TODO coming soon
-		//setzen des Angroffsziels
+		// setzen des Angroffsziels
 	}
 
 	/**
@@ -499,46 +500,43 @@ public class BaseUnit {
 
 				// neue Position setzen
 				this.position = newPosition;
-				
-				isMoving=true;
 
-			}else{
-				isMoving=false;
+				isMoving = true;
+
+			} else {
+				isMoving = false;
 			}
 
-		}else{
-			isMoving=false;
+		} else {
+			isMoving = false;
 		}
-		
-		
-		
-		//AutoAngriffs Algorithmus aufrufen wenn moeglich
-		if(isAutoAttackOn&&isAttackPossible()){
-			autoAttack();			
+
+		// AutoAngriffs Algorithmus aufrufen wenn moeglich
+		if (isAutoAttackOn && isAttackPossible()) {
+			autoAttack();
 		}
 	}
-	
+
 	/**
 	 * Automatischer Angriff
 	 */
-	protected void autoAttack(){
-		
-		for(BaseUnit u: this.gamelogic.getGlobalUnits()){
-			
-			//wenn eine unit aktiviert wird dann die anderen deaktiveren
-			if(u.getPosition().dist(this.position)>this.attackRange){	
-				//zu weit weg
-			}else{
-				//nah dran
-				if(this.getPlayerID()!=u.getPlayerID()&&u.getPlayerID()!=DefenderControl.PLAYER_SYSTEM_ID){
-					//Feind erkannt
-					//angriff
+	protected void autoAttack() {
+
+		for (BaseUnit u : this.gamelogic.getGlobalUnits()) {
+
+			// wenn eine unit aktiviert wird dann die anderen deaktiveren
+			if (u.getPosition().dist(this.position) > this.attackRange) {
+				// zu weit weg
+			} else {
+				// nah dran
+				if (this.getPlayerID() != u.getPlayerID() && u.getPlayerID() != DefenderControl.PLAYER_SYSTEM_ID) {
+					// Feind erkannt
+					// angriff
 					this.attack(u);
 				}
 			}
 		}
 
-		
 	}
 
 	/**
@@ -562,11 +560,12 @@ public class BaseUnit {
 					if (!(PVector.dist(unit.position, newPosition) > PVector.dist(unit.position, this.position))) {
 						// Kollision liegt vor, bewegung stoppen
 						// reset des zielvector (auf aktuelle position)
-						//this.destinationVector = this.position;
+						// this.destinationVector = this.position;
 
 						// dann ist es eine moegliche kollison
 						return true;
-					}// sonst wenn die naechste position weiter entfernt sein würde,
+					}// sonst wenn die naechste position weiter entfernt sein
+						// würde,
 						// darf unit sich aber bewegen
 				}
 			}
@@ -578,23 +577,22 @@ public class BaseUnit {
 	/**
 	 * Zeichne Schweif
 	 */
-	protected void drawTail(Player player,Graphics graphics) {
-			
+	protected void drawTail(Player player, Graphics graphics) {
 
 		// Zielpunkt hinter der Einheit berechnen
-		//end Vektor fuer jeweiligen Spieler berechnen
+		// end Vektor fuer jeweiligen Spieler berechnen
 		PVector ende = direction.get();
-		//Vektor auf laenge 1 kuerzen
+		// Vektor auf laenge 1 kuerzen
 		ende.normalize();
-		//Richtungsvektor umkehren zum schweif
+		// Richtungsvektor umkehren zum schweif
 		ende.mult(schweiflaenge * -2);
-		
-		//Berechne Zeichnenposition und setzte Abblidungsmatrix(Transformationsmatix)
-		calcDrawPosition(player, graphics); 
-	
 
-		//Eigendrehung ausgleichen (wird in calcDrawPostion gesetzt)
-		graphics.rotate(0,0,-this.actualAngle);
+		// Berechne Zeichnenposition und setzte
+		// Abblidungsmatrix(Transformationsmatix)
+		calcDrawPosition(player, graphics);
+
+		// Eigendrehung ausgleichen (wird in calcDrawPostion gesetzt)
+		graphics.rotate(0, 0, -this.actualAngle);
 
 		// linien zeichnen
 		graphics.drawLine(0, 0, ende.x / 2, ende.y / 2);
@@ -636,9 +634,9 @@ public class BaseUnit {
 	public void activate() {
 
 		active = true;
-		
+
 		try {
-			new SampleThread("/sounds/fehler.mp3",10.0f,true).start();
+			new SampleThread("/sounds/fehler.mp3", 10.0f, true).start();
 		} catch (FormatProblemException e) {
 			e.printStackTrace();
 		}
@@ -660,30 +658,29 @@ public class BaseUnit {
 		active = false;
 	}
 
-//	/**
-//	 * setzt Füll-Farbe zum Zeichen nach Status der einheit
-//	 */
-//	protected void entscheideFillFarbe(Graphics graphics) {
-//		
-//		if (this.active) {
-//			graphics.setColor(this.activeColor);
-//		} else {
-//			graphics.setColor(this.passiveColor);
-//		}		
-//	}
+	// /**
+	// * setzt Füll-Farbe zum Zeichen nach Status der einheit
+	// */
+	// protected void entscheideFillFarbe(Graphics graphics) {
+	//
+	// if (this.active) {
+	// graphics.setColor(this.activeColor);
+	// } else {
+	// graphics.setColor(this.passiveColor);
+	// }
+	// }
 
 	/**
-//	 * setzt Linien-Farbe zum Zeichen nach Status der einheit
-//	 */
-//	protected void entscheideLineFarbe(Graphics graphics) {
-//		
-//		if (this.active) {
-//			graphics.setColor(this.activeColor);
-//		} else {
-//			graphics.setColor(this.passiveColor);
-//		}		
-//	}
-	
+	 * // * setzt Linien-Farbe zum Zeichen nach Status der einheit //
+	 */
+	// protected void entscheideLineFarbe(Graphics graphics) {
+	//
+	// if (this.active) {
+	// graphics.setColor(this.activeColor);
+	// } else {
+	// graphics.setColor(this.passiveColor);
+	// }
+	// }
 
 	/**
 	 * Berechnet Blickrichtung der Einheit nach dem Bewegungsvektor
@@ -692,10 +689,10 @@ public class BaseUnit {
 		// berechne neue Blickrichtung
 		if (direction.x > 0) {
 			// rechts
-			actualAngle = PVector.angleBetween(direction, new PVector(0, -1))/PApplet.PI*180;
+			actualAngle = PVector.angleBetween(direction, new PVector(0, -1)) / PApplet.PI * 180;
 		} else {
 			// links
-			actualAngle = (PApplet.TWO_PI - PVector.angleBetween(direction, new PVector(0, -1)))/PApplet.PI*180;
+			actualAngle = (PApplet.TWO_PI - PVector.angleBetween(direction, new PVector(0, -1))) / PApplet.PI * 180;
 		}
 	}
 
@@ -710,53 +707,53 @@ public class BaseUnit {
 
 	/**
 	 * Angreifen einer anderen Unit
+	 * 
 	 * @param destinationUnit
 	 */
 	public void attack(BaseUnit destinationUnit) {
 		System.out.println("UNIT " + this.id + " is attacking UNIT " + destinationUnit.id);
 
-//		if(!this.isAutoAttackOn){
-//			moveToAttackDestination(destinationUnit);			
-//		}
+		// if(!this.isAutoAttackOn){
+		// moveToAttackDestination(destinationUnit);
+		// }
 
-		
-		if(isAttackPossible()){
-			this.lastShootTime=System.currentTimeMillis();
+		if (isAttackPossible()) {
+			this.lastShootTime = System.currentTimeMillis();
 			this.startShoot(destinationUnit);
 		}
 
 		// //neue Blickrichtung berechnen
 		// berechneNeueBlickrichtung();
 	}
-	
+
 	/**
 	 * erzeugt Schuss
+	 * 
 	 * @param destinationUnit
 	 */
-	protected void startShoot(BaseUnit destinationUnit){
-		new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit,gamelogic);	
+	protected void startShoot(BaseUnit destinationUnit) {
+		new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
 	}
-		
+
 	/**
-	 * Angriffskommando
-	 * wenn nicht in Reichweite des Ziels dann zum ziel bewegn
+	 * Angriffskommando wenn nicht in Reichweite des Ziels dann zum ziel bewegn
+	 * 
 	 * @param destinationUnit
 	 */
-	public void moveToAttackDestination(BaseUnit destinationUnit){
-			
-		//TODO verbessern
-		//wenn nicht in Angriffsreichweite dann hinfliegen bis in reichweite
-		if(this.position.dist(destinationUnit.getPosition())>this.attackRange){
+	public void moveToAttackDestination(BaseUnit destinationUnit) {
+
+		// TODO verbessern
+		// wenn nicht in Angriffsreichweite dann hinfliegen bis in reichweite
+		if (this.position.dist(destinationUnit.getPosition()) > this.attackRange) {
 			this.commandDestination(destinationUnit.getPosition());
-			this.commandDestination(PVector.add(this.position, PVector.mult(direction,(float)(this.attackRange+5))));
+			this.commandDestination(PVector.add(this.position, PVector.mult(direction, (float) (this.attackRange + 5))));
 		}
-		
+
 	}
-	
-	protected boolean isAttackPossible(){
-		return (System.currentTimeMillis()-lastShootTime)>this.shootMinTime;
+
+	protected boolean isAttackPossible() {
+		return (System.currentTimeMillis() - lastShootTime) > this.shootMinTime;
 	}
-	
 
 	public void getDamage(int damage) {
 		this.healthpointsStat = this.healthpointsStat - damage;
@@ -781,7 +778,7 @@ public class BaseUnit {
 	public float getCollisionRadius() {
 		return collisionRadius;
 	}
-	
+
 	public int getLevel() {
 		return level;
 	}
@@ -789,18 +786,19 @@ public class BaseUnit {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
+
 	/**
-	 * Berechnet Zeichnenposition und setzt Abblidungsmatrix(Transformationsmatix)
+	 * Berechnet Zeichnenposition und setzt
+	 * Abblidungsmatrix(Transformationsmatix)
+	 * 
 	 * @return
 	 */
-	private void calcDrawPosition(Player player,Graphics graphics){
+	private void calcDrawPosition(Player player, Graphics graphics) {
 
-		GraphicTools.calcDrawTransformationForSlick( player, graphics, position);
-		
-		//eigendrehung hinzurechnen
-		graphics.rotate(0,0,this.actualAngle);
+		GraphicTools.calcDrawTransformationForSlick(player, graphics, position);
+
+		// eigendrehung hinzurechnen
+		graphics.rotate(0, 0, this.actualAngle);
 	}
-	
 
 }
