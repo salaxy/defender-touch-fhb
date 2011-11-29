@@ -172,13 +172,13 @@ public class Menu {
 		RADIUS = DIAMETER / 2;
 		TEXTSIZE = DIAMETER / 4;
 		DISTANCE = -(DIAMETER + 5);
-		TEXTDISTANCE = TEXTSIZE / 3;
+		TEXTDISTANCE = DIAMETER / 12;
+		SIZEOFTEXTALIGNMENT = DIAMETER + RADIUS + TEXTDISTANCE;
 		SIZEOFGROUND = TEXTDISTANCE * 3;
 		SIZEOFDEFENCE = TEXTDISTANCE * 2;
 		SIZEOFSUPPORT = TEXTDISTANCE * 3;
 		SIZEOFDESTROY = TEXTDISTANCE * 2;
 		SIZEOFUPGRADE = TEXTDISTANCE * 3;
-		SIZEOFTEXTALIGNMENT = DIAMETER / 2 * 3 + TEXTDISTANCE * 2;
 		SIZEOFTANK = TEXTDISTANCE * 2;
 		ANIMATIONS = DIAMETER / 8;
 
@@ -830,12 +830,13 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		graphics.drawAnimation(animation, -ANIMATIONS, -ANIMATIONS);
+		System.out.println(animation.getWidth());
+		graphics.drawAnimation(animation, -animation.getWidth() / 2, -animation.getWidth() / 2);
 		graphics.resetTransform();
 		if (animation.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
 			animation.stop();
 		}
-
+		// TODO Größe der animation anpassen
 	}
 }
