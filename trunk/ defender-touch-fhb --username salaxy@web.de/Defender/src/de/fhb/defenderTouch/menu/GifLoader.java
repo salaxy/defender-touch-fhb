@@ -8,11 +8,11 @@ public class GifLoader {
 	private Graphics graphics;
 	private Animation ani;
 
-	public GifLoader() {
+	public GifLoader(String path) {
 
 		for (int i = 0; i < images.length; i++) {
 			try {
-				images[i] = new Image("data/small explosion/" + (i + 1) + ".png");
+				images[i] = new Image("data/" + path + "/" + (i + 1) + ".png");
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
@@ -32,8 +32,8 @@ public class GifLoader {
 	public void setGraphics(Graphics graphics) {
 		this.graphics = graphics;
 	}
-	
-	public int getNumberPictures(){
+
+	public int getNumberPictures() {
 		return images.length;
 	}
 }

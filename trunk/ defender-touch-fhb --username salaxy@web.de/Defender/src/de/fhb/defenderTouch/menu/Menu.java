@@ -1,16 +1,10 @@
 package de.fhb.defenderTouch.menu;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
@@ -186,7 +180,7 @@ public class Menu {
 		for (int i = 0; i < menuBuildings.length; i++) {
 			menuBuildings[i] = new PVector(-100, -100);
 		}
-		gl = new GifLoader();
+		gl = new GifLoader("small explosion");
 		smallExplosion = gl.getAni();
 
 	}
