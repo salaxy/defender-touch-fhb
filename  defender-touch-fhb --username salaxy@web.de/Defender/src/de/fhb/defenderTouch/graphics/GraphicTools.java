@@ -11,6 +11,7 @@ import de.fhb.defenderTouch.gamelogic.Player;
 
 public class GraphicTools {
 
+	public static PVector realClickKoordinates;
 	/**
 	 * hilfsmethode zum Zeichnen von Figuren nach einer collection Vektoren
 	 */
@@ -69,7 +70,7 @@ public class GraphicTools {
 	public static PVector calcInputVector(PVector clickVector, Player player) {
 
 		// Klickvektor zurück rechnen auf spielkoordinaten
-		PVector realClickKoordinates = clickVector.get();
+		 realClickKoordinates = clickVector.get();
 		System.out.println("originalclick on Screen at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);
 		realClickKoordinates.sub(player.getOriginPosition());
 		realClickKoordinates.rotate(PApplet.TWO_PI - player.getGeneralAngle());
