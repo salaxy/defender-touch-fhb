@@ -592,7 +592,7 @@ public class Menu {
 	public int getActualBuildingCount(int playerNumber) {
 		actualBuildingCountPlayerZERO = 0;
 		actualBuildingCountPlayerONE = 0;
-		
+
 		for (BaseUnit building : buildings) {
 			if (building.getPlayerID() == 0)
 				if (building instanceof Building)
@@ -606,7 +606,8 @@ public class Menu {
 			return actualBuildingCountPlayerZERO;
 		if (playerNumber == 1)
 			return actualBuildingCountPlayerONE;
-		else return 0;
+		else
+			return 0;
 	}
 
 	public String getActualBuildingName() {
@@ -844,13 +845,12 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		System.out.println(animation.getWidth());
-		graphics.drawAnimation(animation, -animation.getWidth() / 2, -animation.getWidth() / 2);
+		animation.draw(-animation.getHeight() / 2, -animation.getWidth() / 2, animation.getHeight() * player.getActualZoom(), animation.getWidth() * player.getActualZoom());
+
 		graphics.resetTransform();
 		if (animation.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
 			animation.stop();
 		}
-		// TODO Größe der animation anpassen
 	}
 }
