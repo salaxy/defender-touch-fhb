@@ -137,9 +137,14 @@ public class Menu {
 	protected String actualBuildingName = "Nichts gewählt";
 
 	/**
-	 * actual number of buildings
+	 * Player ONE
 	 */
-	protected int actualBuildingCount = 0;
+	protected int actualBuildingCountPlayerZERO = 0;
+
+	/**
+	 * Player TWO
+	 */
+	protected int actualBuildingCountPlayerONE = 0;
 
 	/**
 	 * Besitzer dieses Menue objekts
@@ -584,15 +589,24 @@ public class Menu {
 	 * 
 	 * @return Number of buildings on map
 	 */
-	public int getActualBuildingCount() {
-		actualBuildingCount = 0;
-		// TODO funzt net richtig, zeigt Globale anzahl an Geböude an!
+	public int getActualBuildingCount(int playerNumber) {
+		actualBuildingCountPlayerZERO = 0;
+		actualBuildingCountPlayerONE = 0;
+		
 		for (BaseUnit building : buildings) {
-			// if a building is clicked
-			if (building instanceof Building)
-				actualBuildingCount++;
+			if (building.getPlayerID() == 0)
+				if (building instanceof Building)
+					actualBuildingCountPlayerZERO++;
+			if (building.getPlayerID() == 1)
+				if (building instanceof Building)
+					actualBuildingCountPlayerONE++;
 		}
-		return actualBuildingCount;
+
+		if (playerNumber == 0)
+			return actualBuildingCountPlayerZERO;
+		if (playerNumber == 1)
+			return actualBuildingCountPlayerONE;
+		else return 0;
 	}
 
 	public String getActualBuildingName() {

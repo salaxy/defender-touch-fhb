@@ -156,7 +156,7 @@ public class DefenderControl implements TuioListener {
 		graphics.rotate(0, 0, 90);
 		graphics.scale(1.2f, 1.2f);
 		graphics.drawString("Credits: " + playerOne.getCredits(), 10, -18);
-		graphics.drawString("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(), 180, -18);
+		graphics.drawString("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(PLAYER_ONE_ID), 180, -18);
 		// display.drawString("Aktuelles Gebäude: " +
 		// menuePlayerOne.getActualBuildingName(), 100, -15);
 
@@ -194,7 +194,7 @@ public class DefenderControl implements TuioListener {
 		// XXX ??? scalieren laesst schrift verschwinden
 
 		graphics.drawString("Credits: " + playerTwo.getCredits(), 25, 490);
-		graphics.drawString("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(), 180, 490);
+		graphics.drawString("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(PLAYER_TWO_ID), 180, 490);
 		// display.drawString("Aktuelles Gebäude: " +
 		// menuePlayerTwo.getActualBuildingName(), 100, 490);
 
