@@ -54,7 +54,7 @@ public class Menu {
 	/**
 	 * activation raduis of a menupoint - just configure here! <----
 	 */
-	protected final int DIAMETER = 100;
+	protected final int DIAMETER = 120;
 
 	/**
 	 * Radius of the circle Is always half its diameter
@@ -172,8 +172,8 @@ public class Menu {
 		RADIUS = DIAMETER / 2;
 		TEXTSIZE = DIAMETER / 4;
 		DISTANCE = -(DIAMETER + 5);
-		TEXTDISTANCE = DIAMETER / 12;
-		SIZEOFTEXTALIGNMENT = DIAMETER + RADIUS + TEXTDISTANCE;
+		TEXTDISTANCE = DIAMETER / 11;
+		SIZEOFTEXTALIGNMENT = DIAMETER + TEXTSIZE * 2 + TEXTDISTANCE * 2;
 		SIZEOFGROUND = TEXTDISTANCE * 3;
 		SIZEOFDEFENCE = TEXTDISTANCE * 2;
 		SIZEOFSUPPORT = TEXTDISTANCE * 3;
@@ -717,7 +717,7 @@ public class Menu {
 	 */
 	public void createTinyMenuCircle(Graphics graphics) {
 		graphics.fillOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
-		graphics.setColor(Color.orange);
+		graphics.setColor(Color.magenta);
 		graphics.drawOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
 	}
 
