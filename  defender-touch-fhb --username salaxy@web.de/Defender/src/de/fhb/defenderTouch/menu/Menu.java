@@ -18,9 +18,8 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class Menu {
 
-	//http://www.cppjj.com/slicktutorial/slickcollision.htm
-	
-	
+	// http://www.cppjj.com/slicktutorial/slickcollision.htm
+
 	/**
 	 * recent position of the click
 	 */
@@ -111,6 +110,11 @@ public class Menu {
 	 * size of the text, like costs of buildings
 	 */
 	protected final int SIZEOFTEXTALIGNMENT;
+	
+	/**
+	 * size the animations must be dragged
+	 */
+	protected final int ANIMATIONS;
 
 	/**
 	 * number of building
@@ -166,7 +170,7 @@ public class Menu {
 		this.buildings = buildings;
 		this.player = player;
 		RADIUS = DIAMETER / 2;
-		TEXTSIZE = RADIUS / 2;
+		TEXTSIZE = DIAMETER / 4;
 		DISTANCE = -(DIAMETER + 5);
 		TEXTDISTANCE = TEXTSIZE / 3;
 		SIZEOFGROUND = TEXTDISTANCE * 3;
@@ -176,6 +180,7 @@ public class Menu {
 		SIZEOFUPGRADE = TEXTDISTANCE * 3;
 		SIZEOFTEXTALIGNMENT = DIAMETER / 2 * 3 + TEXTDISTANCE * 2;
 		SIZEOFTANK = TEXTDISTANCE * 2;
+		ANIMATIONS = DIAMETER/8;
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new PVector(-100, -100);
@@ -412,7 +417,7 @@ public class Menu {
 			return true;
 		}
 		if (this.menuBuildings[1].dist(clickVector) < this.RADIUS) {
-			
+
 			setBuildingOpen(false, null);
 			setBuildingDestroyPrice();
 			setActualChosenBuilding(1);
@@ -622,10 +627,6 @@ public class Menu {
 		return position.y;
 	}
 
-	// public PVector getPosition() {
-	// return position;
-	// }
-
 	public void setPosition(PVector position) {
 		this.position = position.get();
 	}
@@ -829,7 +830,7 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		graphics.drawAnimation(smallExplosion, GraphicTools.realClickKoordinates.x, GraphicTools.realClickKoordinates.y);
+		graphics.drawAnimation(smallExplosion, -ANIMATIONS, -ANIMATIONS);
 		graphics.resetTransform();
 		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
