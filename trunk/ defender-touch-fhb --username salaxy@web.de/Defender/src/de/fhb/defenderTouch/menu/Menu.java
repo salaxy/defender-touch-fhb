@@ -18,6 +18,9 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class Menu {
 
+	//http://www.cppjj.com/slicktutorial/slickcollision.htm
+	
+	
 	/**
 	 * recent position of the click
 	 */
@@ -409,6 +412,7 @@ public class Menu {
 			return true;
 		}
 		if (this.menuBuildings[1].dist(clickVector) < this.RADIUS) {
+			
 			setBuildingOpen(false, null);
 			setBuildingDestroyPrice();
 			setActualChosenBuilding(1);
@@ -678,6 +682,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void calcDrawTransformationBuildings(Graphics graphics) {
+		graphics.setColor(Color.darkGray);
 		GraphicTools.calcDrawTransformationForSlick(player, graphics, positionBuilding);
 	}
 
@@ -823,8 +828,9 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
-		graphics.drawAnimation(smallExplosion, (int) getPositionX(), (int) getPositionY());
-
+		calcDrawTransformation(graphics);
+		graphics.drawAnimation(smallExplosion, GraphicTools.realClickKoordinates.x, GraphicTools.realClickKoordinates.y);
+		graphics.resetTransform();
 		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
 			smallExplosion.stop();
