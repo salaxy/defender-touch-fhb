@@ -1,7 +1,5 @@
 package de.fhb.defenderTouch.units.notmovable;
 
-import org.newdawn.slick.Color;
-
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
