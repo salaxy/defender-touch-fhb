@@ -2,6 +2,8 @@ package de.fhb.defenderTouch.units.amunition;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
@@ -17,10 +19,16 @@ public class TankShoot extends Shoot {
 	public void drawFigure(Graphics graphics) {
 
 		graphics.setColor(Color.black);
-		graphics.scale(0.5f, 0.5f);
-
-		graphics.fillRect(0, 0, 10, 30);
-
+		Image image = null;
+		int size = 10;
+		try {
+			image = new Image("data/shots/Tank.png");
+//			image = image.getScaledCopy(size, size);
+			image.setRotation(actualAngle);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
 
 	}
