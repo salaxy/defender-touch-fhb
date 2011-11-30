@@ -4,9 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Vector2f;
 
-import processing.core.PApplet;
-import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.Player;
 
 public class GraphicTools {
@@ -14,14 +13,14 @@ public class GraphicTools {
 	/**
 	 * hilfsmethode zum Zeichnen von Figuren nach einer collection Vektoren
 	 */
-	public static void zeicheFigurNachVektoren(List<PVector> liste, Graphics pa) {
-		PVector firstPoint = null;
-		PVector actualPoint = null;
-		PVector leastPoint = null;
+	public static void zeicheFigurNachVektoren(List<Vector2f> liste, Graphics pa) {
+		Vector2f firstPoint = null;
+		Vector2f actualPoint = null;
+		Vector2f leastPoint = null;
 		int num = 0;
 
 		// alle punkte durchlaufen
-		for (Iterator<PVector> i = liste.iterator(); i.hasNext();) {
+		for (Iterator<Vector2f> i = liste.iterator(); i.hasNext();) {
 			// aktuellen punkt holen
 			actualPoint = i.next();
 
@@ -50,31 +49,55 @@ public class GraphicTools {
 	 * @param position
 	 *            - Postion des zu zeichnenden Objekts
 	 */
-	public static void calcDrawTransformationForSlick(Player player, Graphics graphics, PVector position) {
+	public static void calcDrawTransformationForSlick(Player player, Graphics graphics, Vector2f position) {
 
+//		// Berechnung des neuen Koordinaten Ursprungs Vektors
+//		Vector2f drawPosition = new Vector2f(player.getViewPosition().x, player.getViewPosition().y);
+//		drawPosition.rotate(player.getGeneralAngle());
+//		drawPosition.add(player.getOriginPosition());
+//
+//		// Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
+//		graphics.translate(drawPosition.x, drawPosition.y);
+//		graphics.scale(player.getActualZoom(), player.getActualZoom());
+//		graphics.rotate(0, 0, player.getGeneralAngle() / PApplet.PI * 180);
+//
+//		// zeichne an Position im Verhältnis zu gesamt Transformation
+//		graphics.translate(position.x, +position.y);
+		
 		// Berechnung des neuen Koordinaten Ursprungs Vektors
-		PVector drawPosition = new PVector(player.getViewPosition().x, player.getViewPosition().y);
-		drawPosition.rotate(player.getGeneralAngle());
+		Vector2f drawPosition = new Vector2f(player.getViewPosition().x, player.getViewPosition().y);
+		drawPosition.setTheta(player.getGeneralAngle());
 		drawPosition.add(player.getOriginPosition());
 
 		// Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
 		graphics.translate(drawPosition.x, drawPosition.y);
 		graphics.scale(player.getActualZoom(), player.getActualZoom());
-		graphics.rotate(0, 0, player.getGeneralAngle() / PApplet.PI * 180);
+		graphics.rotate(0, 0, (float) (player.getGeneralAngle() / Math.PI * 180));
 
 		// zeichne an Position im Verhältnis zu gesamt Transformation
 		graphics.translate(position.x, +position.y);
 	}
 
-	public static PVector calcInputVector(PVector clickVector, Player player) {
+	public static Vector2f calcInputVector(Vector2f clickVector, Player player) {
 
+//		// Klickvektor zurück rechnen auf spielkoordinaten
+//		Vector2f realClickKoordinates = clickVector.get();
+//		System.out.println("originalclick on Screen at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);
+//		realClickKoordinates.sub(player.getOriginPosition());
+//		realClickKoordinates.rotate(PApplet.TWO_PI - player.getGeneralAngle());
+//		realClickKoordinates.sub(player.getViewPosition());
+//		realClickKoordinates.mult(1 / player.getActualZoom());
+//		System.out.println("click on gamemap at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);
+//
+//		return realClickKoordinates;
+		
 		// Klickvektor zurück rechnen auf spielkoordinaten
-		PVector realClickKoordinates = clickVector.get();
+		Vector2f realClickKoordinates = clickVector.copy();
 		System.out.println("originalclick on Screen at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);
 		realClickKoordinates.sub(player.getOriginPosition());
-		realClickKoordinates.rotate(PApplet.TWO_PI - player.getGeneralAngle());
+		realClickKoordinates.setTheta(360 - player.getGeneralAngle());
 		realClickKoordinates.sub(player.getViewPosition());
-		realClickKoordinates.mult(1 / player.getActualZoom());
+		realClickKoordinates.scale(1 / player.getActualZoom());
 		System.out.println("click on gamemap at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);
 
 		return realClickKoordinates;

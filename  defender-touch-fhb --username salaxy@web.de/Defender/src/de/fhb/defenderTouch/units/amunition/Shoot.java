@@ -2,12 +2,13 @@ package de.fhb.defenderTouch.units.amunition;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Vector2f;
 
-import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
+import de.fhb.defenderTouch.graphics.VectorHelper;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 /**
@@ -59,13 +60,13 @@ public class Shoot extends BaseUnit {
 		this.commandDestination(destinationUnit.getPosition());
 
 
-		PVector newPosition;
+		Vector2f newPosition;
 		
 		//wenn aktuelle position noch weit weg vom ziel, dann weiter bewegen
-		if(position.dist(destinationVector)>3){
+		if(position.distance(destinationVector)>3){
 			
 			//neue Position erechnen, normierten Richtungsvector zur position hinzurechnen
-			newPosition=PVector.add(this.position, PVector.mult(direction, movementSpeed));
+			newPosition=VectorHelper.add(this.position, VectorHelper.mult(direction, movementSpeed));
 			
 //			//wenn keien kollision dann bewegen
 //			if(!isCollision(newPosition)){

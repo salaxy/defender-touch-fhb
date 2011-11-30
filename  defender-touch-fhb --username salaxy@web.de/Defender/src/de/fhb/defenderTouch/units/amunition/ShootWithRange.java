@@ -1,6 +1,7 @@
 package de.fhb.defenderTouch.units.amunition;
 
-import processing.core.PVector;
+import org.newdawn.slick.geom.Vector2f;
+
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.root.BaseUnit;
@@ -8,11 +9,11 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
 public class ShootWithRange extends Shoot {
 
 	protected int maxRange=400;
-	protected PVector startPostion;
+	protected Vector2f startPostion;
 	
 	public ShootWithRange(int x, int y, int mode, Player player,BaseUnit destinationUnit, int damage, DefenderControl gamelogic) {
 		super(x, y, mode, player, destinationUnit, damage, gamelogic);
-		this.startPostion=new PVector(x,y);
+		this.startPostion=new Vector2f(x,y);
 	}
 
 	
@@ -21,7 +22,7 @@ public class ShootWithRange extends Shoot {
 		super.update();
 		
 		//out of Range
-		if(this.startPostion.dist(this.position)>maxRange){
+		if(this.startPostion.distance(this.position)>maxRange){
 			this.delete();
 		}
 	}

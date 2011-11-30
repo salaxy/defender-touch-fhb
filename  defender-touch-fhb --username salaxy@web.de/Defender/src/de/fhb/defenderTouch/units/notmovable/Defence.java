@@ -3,6 +3,7 @@ package de.fhb.defenderTouch.units.notmovable;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.root.Building;
@@ -33,14 +34,14 @@ public class Defence extends Building {
 			break;
 		}
 
-		// ArrayList<PVector> vektoren = new ArrayList<PVector>();
-		// vektoren.add(new PVector(-size, -size));
-		// vektoren.add(new PVector(size, -size));
-		// vektoren.add(new PVector(0, -size));
-		// vektoren.add(new PVector(0, -size * 2));
-		// vektoren.add(new PVector(0, size));
-		// vektoren.add(new PVector(size, size));
-		// vektoren.add(new PVector(-size, size));
+		// ArrayList<Vector2f> vektoren = new ArrayList<Vector2f>();
+		// vektoren.add(new Vector2f(-size, -size));
+		// vektoren.add(new Vector2f(size, -size));
+		// vektoren.add(new Vector2f(0, -size));
+		// vektoren.add(new Vector2f(0, -size * 2));
+		// vektoren.add(new Vector2f(0, size));
+		// vektoren.add(new Vector2f(size, size));
+		// vektoren.add(new Vector2f(-size, size));
 		// graphics.drawOval(-size, -size * 2, size * 2, size * 2);
 		// GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
 

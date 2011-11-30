@@ -3,10 +3,8 @@ package de.fhb.defenderTouch.gamelogic;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 
-import processing.core.PImage;
-import processing.core.PVector;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.root.Building;
 
@@ -28,7 +26,7 @@ public class Gamemap {
 	
 	public void zeichne(Graphics graphics, Player player){
 		//Transformationen
-		GraphicTools.calcDrawTransformationForSlick(player, graphics, new PVector(0,0));
+		GraphicTools.calcDrawTransformationForSlick(player, graphics, new Vector2f(0,0));
 	
 		// für Spieler sichtbare Karte zeichnen
 		
@@ -42,7 +40,7 @@ public class Gamemap {
 		graphics.resetTransform();		
 	}
 	
-	public boolean isFlyable(PVector position) {
+	public boolean isFlyable(Vector2f position) {
 	
 		return (position.x > 1f &&
 				position.y < informationalMap.getHeight() - 1f &&
@@ -53,7 +51,7 @@ public class Gamemap {
 	
 	}
 	
-	public boolean isWalkable(PVector position) {
+	public boolean isWalkable(Vector2f position) {
 
 		return informationalMap.getColor((int)position.x, (int)position.y) == Color.black ? false : true;
 	
@@ -76,7 +74,7 @@ public class Gamemap {
 		return true;
 	}
 	
-	public boolean isBuildable(PVector position, Building unit, int player) {
+	public boolean isBuildable(Vector2f position, Building unit, int player) {
 		return isBuildable(position.x - (1 + unit.LEVEL_THREE), position.y - (1 + unit.LEVEL_THREE), position.x + unit.LEVEL_THREE, position.x + unit.LEVEL_THREE, player);
 	}
 }

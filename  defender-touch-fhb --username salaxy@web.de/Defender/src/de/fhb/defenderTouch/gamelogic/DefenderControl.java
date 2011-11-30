@@ -1,13 +1,11 @@
 package de.fhb.defenderTouch.gamelogic;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 
-import processing.core.PApplet;
-import processing.core.PVector;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
@@ -20,9 +18,9 @@ import de.fhb.defenderTouch.menu.Menu;
 import de.fhb.defenderTouch.ui.Gestures;
 import de.fhb.defenderTouch.units.movable.Fighter;
 import de.fhb.defenderTouch.units.movable.Tank;
-import de.fhb.defenderTouch.units.notmovable.Defence;
 import de.fhb.defenderTouch.units.notmovable.Armory;
 import de.fhb.defenderTouch.units.notmovable.Barracks;
+import de.fhb.defenderTouch.units.notmovable.Defence;
 import de.fhb.defenderTouch.units.notmovable.Support;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
@@ -50,8 +48,8 @@ public class DefenderControl implements TuioListener {
 	public static final int PLAYER_SYSTEM_ID = 2;
 
 	// Ursprungspunkte fuer Spielerviews
-	public final static PVector ORIGIN_POSITION_LEFT = new PVector(512f, 0f);
-	public final static PVector ORIGIN_POSITION_RIGHT = new PVector(512f, 768f);
+	public final static Vector2f ORIGIN_POSITION_LEFT = new Vector2f(512f, 0f);
+	public final static Vector2f ORIGIN_POSITION_RIGHT = new Vector2f(512f, 768f);
 
 	/**
 	 * Globale Liste an zu zeichnende Objekte/Units
@@ -239,11 +237,11 @@ public class DefenderControl implements TuioListener {
 	 * 
 	 * @param clickVector
 	 */
-	public void startMenueControlForMouse(PVector clickVector, int mouseButton) {
+	public void startMenueControlForMouse(Vector2f clickVector, int mouseButton) {
 
 		// menue welches aufgerufen wird
 		Menu menu = null;
-		PVector realClickKoordinates = null;
+		Vector2f realClickKoordinates = null;
 
 		// wenn bei Spielr Zwei
 		if (clickVector.x > 512) {
@@ -279,7 +277,7 @@ public class DefenderControl implements TuioListener {
 	 * @param menu
 	 *            - menu welches geoeffnet werden soll
 	 */
-	private void openMenue(PVector realClickKoordinates, Menu menu) {
+	private void openMenue(Vector2f realClickKoordinates, Menu menu) {
 
 		if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
 			menu.setPosition(realClickKoordinates);
@@ -322,7 +320,7 @@ public class DefenderControl implements TuioListener {
 	 * @param menu
 	 *            - menu welches geschlossen werden soll
 	 */
-	private void closeMenue(PVector realClickKoordinates, Menu menu) {
+	private void closeMenue(Vector2f realClickKoordinates, Menu menu) {
 
 		if (menu.isMenuOpen() && menu.isInnerMainElement(realClickKoordinates)) {
 			menu.setMenuOpen(false);
@@ -341,7 +339,7 @@ public class DefenderControl implements TuioListener {
 	 * @param clickVector
 	 * @param mouseButton
 	 */
-	public void startUnitControlForMouse(PVector clickVector, int mouseButton) {
+	public void startUnitControlForMouse(Vector2f clickVector, int mouseButton) {
 
 		// wenn bei Spielr Zwei
 		if (clickVector.x > 512) {
@@ -357,13 +355,13 @@ public class DefenderControl implements TuioListener {
 	 * @param clickVector
 	 * @param mouseButton
 	 */
-	public void unitControlRightSide(PVector clickVector, int mouseButton) {
+	public void unitControlRightSide(Vector2f clickVector, int mouseButton) {
 		boolean weitereAktivierung = false;
 		boolean istAngriff = false;
 		BaseUnit destinationUnit = null;
 
 		// Klickvektor zurück rechnen auf spielkoordinaten
-		PVector realClickKoordinates = GraphicTools.calcInputVector(clickVector, this.getPlayerTwo());
+		Vector2f realClickKoordinates = GraphicTools.calcInputVector(clickVector, this.getPlayerTwo());
 
 		if (mouseButton == MOUSE_LEFT) {
 			for (BaseUnit u : this.getGlobalUnits()) {
@@ -434,14 +432,14 @@ public class DefenderControl implements TuioListener {
 	 * @param clickVector
 	 * @param mouseButton
 	 */
-	public void unitControlLeftSide(PVector clickVector, int mouseButton) {
+	public void unitControlLeftSide(Vector2f clickVector, int mouseButton) {
 
 		boolean weitereAktivierung = false;
 		boolean istAngriff = false;
 		BaseUnit destinationUnit = null;
 
 		// Klickvektor zurück rechnen auf spielkoordinaten
-		PVector realClickKoordinates = GraphicTools.calcInputVector(clickVector, this.getPlayerOne());
+		Vector2f realClickKoordinates = GraphicTools.calcInputVector(clickVector, this.getPlayerOne());
 
 		if (mouseButton == MOUSE_LEFT) {
 
@@ -513,7 +511,7 @@ public class DefenderControl implements TuioListener {
 		// TODO MINKE
 		System.out.println("add cursor " + arg0.getCursorID() + " (" + arg0.getSessionID() + ") " + arg0.getX() + " " + arg0.getY());
 
-		PVector vector = new PVector(arg0.getScreenX(DefenderViewSlick.HEIGHT), arg0.getScreenY(DefenderViewSlick.WIDTH));
+		Vector2f vector = new Vector2f(arg0.getScreenX(DefenderViewSlick.HEIGHT), arg0.getScreenY(DefenderViewSlick.WIDTH));
 		boolean wurdeEbendAktiviert = false;
 		boolean warSchonAktiv = false;
 
@@ -607,11 +605,11 @@ public class DefenderControl implements TuioListener {
 	 */
 	public void schiebeInterface(int oldx, int oldy, int newx, int newy) {
 		if (newx < 512) {
-			PVector tempVec = this.getPlayerOne().getViewPosition();
+			Vector2f tempVec = this.getPlayerOne().getViewPosition();
 			tempVec.y = tempVec.y + oldx - newx;
 			tempVec.x = tempVec.x + newy - oldy;
 		} else {
-			PVector tempVec = this.getPlayerTwo().getViewPosition();
+			Vector2f tempVec = this.getPlayerTwo().getViewPosition();
 			tempVec.y = tempVec.y + newx - oldx;
 			tempVec.x = tempVec.x + oldy - newy;
 		}
@@ -624,7 +622,7 @@ public class DefenderControl implements TuioListener {
 
 		// TestUnitBetas schaffen
 		BaseUnit test = new BaseUnit(100, 200, BaseUnit.MODE_ROTATE, this.playerOne, this);
-		test.commandDestination(new PVector(1000, 700));
+		test.commandDestination(new Vector2f(1000, 700));
 
 		// Testflugstaffel
 		new Tank(100, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);

@@ -7,8 +7,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 
-import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 
 public class DefenderViewSlick extends BasicGame{
@@ -80,7 +80,7 @@ public class DefenderViewSlick extends BasicGame{
      */
     public void mouseClicked(int button, int x, int y, int clickCount){
     	//Klickvektor holen
-    	PVector clickVector=new PVector(x,y);
+    	Vector2f clickVector=new Vector2f(x,y);
     	
 		//wenn aktion im steuerbarenbereich
 		if(isInUsableInputarea(clickVector)){
@@ -91,15 +91,15 @@ public class DefenderViewSlick extends BasicGame{
 //						System.out.println("isWalkable:  " + control.getMap().isWalkable(clickVector));
 //						System.out.println("isFlyable:   " + control.getMap().isFlyable(clickVector));
 //						System.out.println("isBuildable: (click at center of building)\n" +
-//											   "\t[10x10]   Player 1: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_ONE_ID) +
-//											   "  Player 2: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_TWO_ID) +
-//											   "  System: " + control.getMap().isBuildable(new PVector(x-4, y-4), new PVector(x+5, y+5), DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
-//											   "\t[25x25]   Player 1: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_ONE_ID) +
-//											   "  Player 2: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_TWO_ID) +
-//											   "  System: " + control.getMap().isBuildable(new PVector(x-12, y-12), new PVector(x+13, y+13), DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
-//											   "\t[100x100] Player 1: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_ONE_ID) +
-//											   "  Player 2: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_TWO_ID) +
-//											   "  System: " + control.getMap().isBuildable(new PVector(x-49, y-49), new PVector(x+50, y+50), DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
+//											   "\t[10x10]   Player 1: " + control.getMap().isBuildable(new Vector2f(x-4, y-4), new Vector2f(x+5, y+5), DefenderControl.PLAYER_ONE_ID) +
+//											   "  Player 2: " + control.getMap().isBuildable(new Vector2f(x-4, y-4), new Vector2f(x+5, y+5), DefenderControl.PLAYER_TWO_ID) +
+//											   "  System: " + control.getMap().isBuildable(new Vector2f(x-4, y-4), new Vector2f(x+5, y+5), DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
+//											   "\t[25x25]   Player 1: " + control.getMap().isBuildable(new Vector2f(x-12, y-12), new Vector2f(x+13, y+13), DefenderControl.PLAYER_ONE_ID) +
+//											   "  Player 2: " + control.getMap().isBuildable(new Vector2f(x-12, y-12), new Vector2f(x+13, y+13), DefenderControl.PLAYER_TWO_ID) +
+//											   "  System: " + control.getMap().isBuildable(new Vector2f(x-12, y-12), new Vector2f(x+13, y+13), DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
+//											   "\t[100x100] Player 1: " + control.getMap().isBuildable(new Vector2f(x-49, y-49), new Vector2f(x+50, y+50), DefenderControl.PLAYER_ONE_ID) +
+//											   "  Player 2: " + control.getMap().isBuildable(new Vector2f(x-49, y-49), new Vector2f(x+50, y+50), DefenderControl.PLAYER_TWO_ID) +
+//											   "  System: " + control.getMap().isBuildable(new Vector2f(x-49, y-49), new Vector2f(x+50, y+50), DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
 //										   );
 						
 //			this.control.startUnitControlForMouse(clickVector, button);	
@@ -115,7 +115,7 @@ public class DefenderViewSlick extends BasicGame{
     public void mouseDragged(int oldx, int oldy, int newx, int newy) {
     	
     	//Klickvektor holen
-    	PVector clickVector=new PVector(newx,newy);
+    	Vector2f clickVector=new Vector2f(newx,newy);
     	
 		if(isInUsableInputarea(clickVector)){
 			
@@ -146,7 +146,7 @@ public class DefenderViewSlick extends BasicGame{
 	 * @param clickVector
 	 * @return
 	 */
-	private boolean isInUsableInputarea(PVector clickVector){
+	private boolean isInUsableInputarea(Vector2f clickVector){
 		
 		return clickVector.x > 522|| clickVector.x < 502;
 	}

@@ -1,6 +1,7 @@
 package de.fhb.defenderTouch.units.root;
 
-import processing.core.PVector;
+import org.newdawn.slick.geom.Vector2f;
+
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 
@@ -41,7 +42,7 @@ public class Building extends BaseUnit {
 
 	}
 
-	public void commandDestination(PVector dest) {
+	public void commandDestination(Vector2f dest) {
 
 	}
 

@@ -1,8 +1,10 @@
 package de.fhb.defenderTouch.gamelogic;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.newdawn.slick.Color;
-import processing.core.PVector;
+import org.newdawn.slick.geom.Vector2f;
+
 import de.fhb.defenderTouch.units.root.BaseUnit;
 /**
  * Dies Klasse beinhaltet einstellungen und Positionen 
@@ -21,7 +23,7 @@ public class Player {
 	/**
 	 * Position des Ursprungs auf dem Bildschirm fuer den Spieler
 	 */
-	private PVector originPosition;
+	private Vector2f originPosition;
 	
 	private final float zoomMin=0.3f;
 	private final float zoomMax=3.0f;
@@ -30,7 +32,7 @@ public class Player {
 	 * Relative Position der Sicht im Verhältnis zum Ursprung (originPosition) des Spielers
 	 * als Vektor
 	 */
-	private PVector viewPosition= new PVector(0,0);
+	private Vector2f viewPosition= new Vector2f(0,0);
 	
 	/**
 	 * Zoomfaktor der aktuellen Spielersicht
@@ -54,13 +56,13 @@ public class Player {
 	
 	private int id;
 
-	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, PVector originPosition, Color unitColor,int id) {
+	public Player(DefenderControl gamelogic, float generalAngle, float actualZoom, Vector2f originPosition, Color unitColor,int id) {
 		
 		this.id=id;
 		this.generalAngle=generalAngle;
 		this.actualZoom=actualZoom;
 		this.originPosition=originPosition;		
-		this.viewPosition=new PVector(0,0);
+		this.viewPosition=new Vector2f(0,0);
 		this.activeUnits= new CopyOnWriteArrayList<BaseUnit>();
 		this.unitColor=unitColor;
 	}
@@ -92,17 +94,17 @@ public class Player {
 	
 	/**
 	 * Gibt den Ursprungsvector des Players zurueck
-	 * @return PVector
+	 * @return Vector2f
 	 */
-	public PVector getOriginPosition() {
+	public Vector2f getOriginPosition() {
 		return originPosition;
 	}
 	
 	/**
 	 * Gibt den Sichtvektor zureuck
-	 * @return PVector
+	 * @return Vector2f
 	 */
-	public PVector getViewPosition() {
+	public Vector2f getViewPosition() {
 		return viewPosition;
 	}
 
@@ -110,7 +112,7 @@ public class Player {
 	 * setzt den Sichtvektor
 	 * @param viewPosition
 	 */
-	public void setViewPosition(PVector viewPosition) {
+	public void setViewPosition(Vector2f viewPosition) {
 		this.viewPosition = viewPosition;
 	}
 

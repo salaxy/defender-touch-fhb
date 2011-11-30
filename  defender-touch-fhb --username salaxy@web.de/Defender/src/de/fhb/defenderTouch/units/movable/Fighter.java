@@ -2,10 +2,9 @@ package de.fhb.defenderTouch.units.movable;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Vector2f;
 
-import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
@@ -28,15 +27,15 @@ public class Fighter extends BaseUnit {
 		// this.entscheideLineFarbe(graphics);
 		graphics.scale(2, 2);
 		// graphics.triangle(-20,+20, 0, -20, +20, +20);
-		ArrayList<PVector> vektoren = new ArrayList<PVector>();
-		vektoren.add(new PVector(0, -8));
-		vektoren.add(new PVector(-8, 8));
-		vektoren.add(new PVector(-4, 6));
-		vektoren.add(new PVector(0, 8));
-		vektoren.add(new PVector(0, -8));
-		vektoren.add(new PVector(8, 8));
-		vektoren.add(new PVector(4, 6));
-		vektoren.add(new PVector(0, 8));
+		ArrayList<Vector2f> vektoren = new ArrayList<Vector2f>();
+		vektoren.add(new Vector2f(0, -8));
+		vektoren.add(new Vector2f(-8, 8));
+		vektoren.add(new Vector2f(-4, 6));
+		vektoren.add(new Vector2f(0, 8));
+		vektoren.add(new Vector2f(0, -8));
+		vektoren.add(new Vector2f(8, 8));
+		vektoren.add(new Vector2f(4, 6));
+		vektoren.add(new Vector2f(0, 8));
 
 		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
 
