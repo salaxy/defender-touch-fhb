@@ -656,42 +656,12 @@ public class BaseUnit {
 		active = false;
 	}
 
-	// /**
-	// * setzt Füll-Farbe zum Zeichen nach Status der einheit
-	// */
-	// protected void entscheideFillFarbe(Graphics graphics) {
-	//
-	// if (this.active) {
-	// graphics.setColor(this.activeColor);
-	// } else {
-	// graphics.setColor(this.passiveColor);
-	// }
-	// }
-
-	/**
-	 * // * setzt Linien-Farbe zum Zeichen nach Status der einheit //
-	 */
-	// protected void entscheideLineFarbe(Graphics graphics) {
-	//
-	// if (this.active) {
-	// graphics.setColor(this.activeColor);
-	// } else {
-	// graphics.setColor(this.passiveColor);
-	// }
-	// }
-
 	/**
 	 * Berechnet Blickrichtung der Einheit nach dem Bewegungsvektor
 	 */
 	protected void berechneNeueBlickrichtung() {
 		// berechne neue Blickrichtung
-		if (direction.x > 0) {
-			// rechts
-			actualAngle = VectorHelper.angleBetween(direction, new Vector2f(0, -1));
-		} else {
-			// links
-			actualAngle = VectorHelper.angleBetween(direction, new Vector2f(0, -1));
-		}
+		actualAngle = VectorHelper.angleBetween(direction, new Vector2f(0, -1));
 	}
 
 	/**
