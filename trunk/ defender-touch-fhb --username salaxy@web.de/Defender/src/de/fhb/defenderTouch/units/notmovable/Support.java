@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
@@ -28,29 +30,38 @@ public class Support extends Building {
 	}
 
 	public void drawFigure(Graphics graphics) {
-		graphics.scale(1.5f, 1.5f);
-		graphics.rotate(0, 0, 180);
+		graphics.scale(1.0f, 1.0f);
+//		graphics.rotate(0, 0, 180);
 
 		switch (this.level) {
 		case LEVEL_ONE:
-			size = 8;
+			size = 18;
 			break;
 		case LEVEL_TWO:
-			size = 9;
+			size = 20;
 			break;
 		case LEVEL_THREE:
-			size = 10;
+			size = 22;
 			break;
 		}
 
-		ArrayList<PVector> vektoren = new ArrayList<PVector>();
-		vektoren.add(new PVector(0, -size));
-		vektoren.add(new PVector(0, size));
-		vektoren.add(new PVector(0, 0));
-		vektoren.add(new PVector(size, 0));
-		vektoren.add(new PVector(-size, 0));
-		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
+//		ArrayList<PVector> vektoren = new ArrayList<PVector>();
+//		vektoren.add(new PVector(0, -size));
+//		vektoren.add(new PVector(0, size));
+//		vektoren.add(new PVector(0, 0));
+//		vektoren.add(new PVector(size, 0));
+//		vektoren.add(new PVector(-size, 0));
+//		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
 		graphics.drawOval(-15, -14 , 30 , 30);
+		
+		Image image = null;
+		try {
+			image = new Image("data/buildings/Support.png");
+			image = image.getScaledCopy(size, size);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
 	}
 
