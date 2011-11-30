@@ -10,11 +10,11 @@ import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.movable.Tank;
-import de.fhb.defenderTouch.units.notmovable.Building;
 import de.fhb.defenderTouch.units.notmovable.Defence;
 import de.fhb.defenderTouch.units.notmovable.Ground;
 import de.fhb.defenderTouch.units.notmovable.Support;
 import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Building;
 
 public class Menu {
 

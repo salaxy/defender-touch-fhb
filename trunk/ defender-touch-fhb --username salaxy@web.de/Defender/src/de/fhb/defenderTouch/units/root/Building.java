@@ -1,9 +1,8 @@
-package de.fhb.defenderTouch.units.notmovable;
+package de.fhb.defenderTouch.units.root;
 
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
-import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class Building extends BaseUnit {
 

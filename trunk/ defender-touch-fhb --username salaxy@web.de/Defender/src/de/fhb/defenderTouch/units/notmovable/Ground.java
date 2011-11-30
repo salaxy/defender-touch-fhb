@@ -9,11 +9,8 @@ import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Building;
 
-/**
- * 
- * @author Curtis Mosters, Andy Klay
- */
 public class Ground extends Building {
 
 	public static final int PRICE = 50;
