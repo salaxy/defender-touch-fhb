@@ -61,7 +61,6 @@ public class Support extends Building {
 			if (this.playerID == DefenderControl.PLAYER_ONE_ID) {
 				gamelogic.getPlayerOne().addCredits(this.creditsPerTime);
 			}
-
 			if (this.playerID == DefenderControl.PLAYER_TWO_ID) {
 				gamelogic.getPlayerTwo().addCredits(this.creditsPerTime);
 			}
