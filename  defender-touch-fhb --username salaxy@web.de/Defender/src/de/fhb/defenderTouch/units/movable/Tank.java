@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.amunition.RoundShoot;
+import de.fhb.defenderTouch.units.amunition.TankShoot;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class Tank extends BaseUnit {
@@ -18,22 +19,9 @@ public class Tank extends BaseUnit {
 
 	public void drawFigure(Graphics graphics) {
 
-		// this.entscheideLineFarbe(graphics);
-		graphics.scale(1.5f, 1.5f);
-		// graphics.noFill();
-		// graphics.strokeWeight(1);
+		graphics.scale(1.0f, 1.0f);
 		graphics.rotate(0, 0, 180);
-		// switch (this.level) {
-		// case LEVEL_ONE:
 		size = 8;
-		// break;
-		// case LEVEL_TWO:
-		// size = 10;
-		// break;
-		// case LEVEL_THREE:
-		// size = 12;
-		// break;
-		// }
 
 		// graphics.drawRect(0, size, size * 2, size * 3);
 		// graphics.drawOval(0, size, size, size);
@@ -51,12 +39,11 @@ public class Tank extends BaseUnit {
 		graphics.drawRect(-2, -8, 4, 30);
 
 		graphics.resetTransform();
-		// graphics.stroke(0);
 
 	}
 
 	protected void startShoot(BaseUnit destinationUnit) {
-		new RoundShoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
+		new TankShoot((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
 
 	}
 
