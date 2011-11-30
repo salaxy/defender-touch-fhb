@@ -36,10 +36,10 @@ public class Support extends Building {
 			size = 8;
 			break;
 		case LEVEL_TWO:
-			size = 10;
+			size = 9;
 			break;
 		case LEVEL_THREE:
-			size = 12;
+			size = 10;
 			break;
 		}
 
