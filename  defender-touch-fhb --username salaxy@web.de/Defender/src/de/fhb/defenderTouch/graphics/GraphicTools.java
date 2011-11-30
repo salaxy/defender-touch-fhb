@@ -14,7 +14,7 @@ public class GraphicTools {
 	 * hilfsmethode zum Zeichnen von Figuren nach einer collection Vektoren
 	 */
 	public static void zeicheFigurNachVektoren(List<Vector2f> liste, Graphics pa) {
-		Vector2f firstPoint = null;
+//		Vector2f firstPoint = null;
 		Vector2f actualPoint = null;
 		Vector2f leastPoint = null;
 		int num = 0;
@@ -28,7 +28,7 @@ public class GraphicTools {
 			if (num > 0) {
 				pa.drawLine(leastPoint.x, leastPoint.y, actualPoint.x, actualPoint.y);
 			} else {
-				firstPoint = actualPoint;
+//				firstPoint = actualPoint;
 			}
 			num++;
 
@@ -72,7 +72,7 @@ public class GraphicTools {
 		// Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
 		graphics.translate(drawPosition.x, drawPosition.y);
 		graphics.scale(player.getActualZoom(), player.getActualZoom());
-		graphics.rotate(0, 0, (float) (player.getGeneralAngle() / Math.PI * 180));
+		graphics.rotate(0, 0, player.getGeneralAngle());
 
 		// zeichne an Position im Verhältnis zu gesamt Transformation
 		graphics.translate(position.x, +position.y);
@@ -95,7 +95,8 @@ public class GraphicTools {
 		Vector2f realClickKoordinates = clickVector.copy();
 		System.out.println("originalclick on Screen at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);
 		realClickKoordinates.sub(player.getOriginPosition());
-		realClickKoordinates.setTheta(360 - player.getGeneralAngle());
+//		realClickKoordinates.setTheta(360 - player.getGeneralAngle());
+		realClickKoordinates.setTheta(360-player.getGeneralAngle());
 		realClickKoordinates.sub(player.getViewPosition());
 		realClickKoordinates.scale(1 / player.getActualZoom());
 		System.out.println("click on gamemap at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);

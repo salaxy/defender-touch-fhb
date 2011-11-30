@@ -668,7 +668,7 @@ public class Menu {
 	public void rotateAndCreateMenu(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menu[element] = new Vector2f(0, distanceANCE);
-		menu[element].setTheta((rotation / 180f) * (float) Math.PI);
+		menu[element].setTheta(rotation);
 		menu[element].add(position);
 	}
 
@@ -682,7 +682,7 @@ public class Menu {
 	public void rotateAndCreateMenuBuilding(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menuBuildings[element] = new Vector2f(0, distanceANCE);
-		menuBuildings[element].setTheta((rotation / 180f) * (float) Math.PI);
+		menuBuildings[element].setTheta(rotation);
 		menuBuildings[element].add(position);
 	}
 
