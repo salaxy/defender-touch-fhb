@@ -22,7 +22,7 @@ import de.fhb.defenderTouch.units.movable.Fighter;
 import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.notmovable.Defence;
 import de.fhb.defenderTouch.units.notmovable.Ground;
-import de.fhb.defenderTouch.units.notmovable.Navi;
+import de.fhb.defenderTouch.units.notmovable.Barracks;
 import de.fhb.defenderTouch.units.notmovable.Support;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
@@ -630,7 +630,7 @@ public class DefenderControl implements TuioListener {
 		new Tank(100, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
 		new Defence(200, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
 		new Ground(300, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-		new Navi(400, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+		new Barracks(400, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
 		new Support(500, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
 		new Fighter(600, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
 		new Fighter(700, 50, BaseUnit.MODE_PULSE_IF_ACTIVE, this.playerTwo, this);

@@ -14,7 +14,7 @@ import de.fhb.defenderTouch.units.root.Building;
 
 public class Support extends Building {
 
-	public static final int PRICE = 30;
+	public static final int PRICE = 50;
 	protected int size = 0;
 
 	private int timeTillNextIncome = 1000;

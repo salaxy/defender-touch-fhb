@@ -11,11 +11,11 @@ import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.root.Building;
 
-public class Navi extends Building {
+public class Barracks extends Building {
 
 	public static final int PRICE = 30;
 
-	public Navi(int x, int y, int mode, Player player, DefenderControl gamelogic) {
+	public Barracks(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
 	}
 
@@ -28,8 +28,6 @@ public class Navi extends Building {
 		vektoren.add(new PVector(0, -8));
 		vektoren.add(new PVector(-8, 0));
 		vektoren.add(new PVector(0, 0));
-		vektoren.add(new PVector(0, 4));
-		vektoren.add(new PVector(4, 4));
 		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
 		graphics.drawOval(-15, -16 , 30 , 30);
 		graphics.resetTransform();
