@@ -385,7 +385,7 @@ public class BaseUnit {
 	protected void drawRotateAppearance(Player player, Graphics graphics) {
 
 		// solange die skala noch nicht durchlaufen ist
-		if (rotatingAngle < (float)Math.PI*2) {
+		if (rotatingAngle < 360) {
 			rotatingAngle += this.rotationSpeed;
 		} else {
 			// sosnt wieder von vorne anfangen
@@ -687,10 +687,10 @@ public class BaseUnit {
 		// berechne neue Blickrichtung
 		if (direction.x > 0) {
 			// rechts
-			actualAngle = VectorHelper.angleBetween(direction, new Vector2f(0, -1)) / (float)Math.PI * 180;
+			actualAngle = VectorHelper.angleBetween(direction, new Vector2f(0, -1));
 		} else {
 			// links
-			actualAngle = (float) (((2*Math.PI) - VectorHelper.angleBetween(direction, new Vector2f(0, -1))) / Math.PI * 180);
+			actualAngle = VectorHelper.angleBetween(direction, new Vector2f(0, -1));
 		}
 	}
 
