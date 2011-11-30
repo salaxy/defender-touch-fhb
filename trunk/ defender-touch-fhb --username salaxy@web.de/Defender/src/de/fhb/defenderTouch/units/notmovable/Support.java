@@ -1,17 +1,13 @@
 package de.fhb.defenderTouch.units.notmovable;
 
-import java.util.ArrayList;
 import java.util.Date;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
-import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.root.Building;
 
 public class Support extends Building {
@@ -45,12 +41,12 @@ public class Support extends Building {
 			break;
 		}
 
-		// ArrayList<PVector> vektoren = new ArrayList<PVector>();
-		// vektoren.add(new PVector(0, -size));
-		// vektoren.add(new PVector(0, size));
-		// vektoren.add(new PVector(0, 0));
-		// vektoren.add(new PVector(size, 0));
-		// vektoren.add(new PVector(-size, 0));
+		// ArrayList<Vector2f> vektoren = new ArrayList<Vector2f>();
+		// vektoren.add(new Vector2f(0, -size));
+		// vektoren.add(new Vector2f(0, size));
+		// vektoren.add(new Vector2f(0, 0));
+		// vektoren.add(new Vector2f(size, 0));
+		// vektoren.add(new Vector2f(-size, 0));
 		// GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
 		graphics.drawOval(-15, -14, 30, 30);
 

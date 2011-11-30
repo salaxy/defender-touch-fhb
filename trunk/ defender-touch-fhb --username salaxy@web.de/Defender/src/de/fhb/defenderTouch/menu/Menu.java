@@ -2,21 +2,22 @@ package de.fhb.defenderTouch.menu;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 
-import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.Animations;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.movable.Tank;
+import de.fhb.defenderTouch.units.notmovable.Armory;
 import de.fhb.defenderTouch.units.notmovable.Barracks;
 import de.fhb.defenderTouch.units.notmovable.Defence;
-import de.fhb.defenderTouch.units.notmovable.Armory;
 import de.fhb.defenderTouch.units.notmovable.Support;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 import de.fhb.defenderTouch.units.root.Building;
@@ -28,23 +29,23 @@ public class Menu {
 	/**
 	 * recent position of the click
 	 */
-	protected PVector position;
+	protected Vector2f position;
 
 	/**
 	 * recent position of the actual chosen building
 	 */
-	protected PVector positionBuilding;
+	protected Vector2f positionBuilding;
 
 	/**
 	 * menu points, actual 6 points, 3 in use - Ground - Defence - Support -
 	 * Tank?
 	 */
-	protected PVector menu[] = new PVector[6];
+	protected Vector2f menu[] = new Vector2f[6];
 
 	/**
 	 * buildings menu point, 4 points, 2 in use - Upgrade - Destroy
 	 */
-	protected PVector menuBuildings[] = new PVector[2];
+	protected Vector2f menuBuildings[] = new Vector2f[2];
 
 	/**
 	 * saves if the menu is open
@@ -69,7 +70,7 @@ public class Menu {
 	/**
 	 * addation for the special text
 	 */
-	protected final int TEXTDISTANCE;
+	protected final int TEXTdistanceANCE;
 
 	/**
 	 * size of the menu text
@@ -77,9 +78,9 @@ public class Menu {
 	protected final int TEXTSIZE;
 
 	/**
-	 * activation distance of a menu point
+	 * activation distanceance of a menu point
 	 */
-	protected final int DISTANCE;
+	protected final int distanceANCE;
 
 	/**
 	 * size of Defence sign
@@ -176,27 +177,27 @@ public class Menu {
 	 * 
 	 */
 	public Menu(CopyOnWriteArrayList<BaseUnit> buildings, Player player) {
-		this.position = new PVector(0, 0);
+		this.position = new Vector2f(0, 0);
 		this.buildings = buildings;
 		this.player = player;
 		RADIUS = DIAMETER / 2;
 		TEXTSIZE = DIAMETER / 4;
-		DISTANCE = -(DIAMETER + 5);
-		TEXTDISTANCE = DIAMETER / 11;
-		SIZEOFTEXTALIGNMENT = DIAMETER + TEXTSIZE * 2 + TEXTDISTANCE * 2;
-		SIZEOFARMORY = TEXTDISTANCE * 3;
-		SIZEOFDEFENCE = TEXTDISTANCE * 2;
-		SIZEOFSUPPORT = TEXTDISTANCE * 3;
-		SIZEOFDESTROY = TEXTDISTANCE * 2;
-		SIZEOFUPGRADE = TEXTDISTANCE * 3;
-		SIZEOFBARRACKS = TEXTDISTANCE * 3;
+		distanceANCE = -(DIAMETER + 5);
+		TEXTdistanceANCE = DIAMETER / 11;
+		SIZEOFTEXTALIGNMENT = DIAMETER + TEXTSIZE * 2 + TEXTdistanceANCE * 2;
+		SIZEOFARMORY = TEXTdistanceANCE * 3;
+		SIZEOFDEFENCE = TEXTdistanceANCE * 2;
+		SIZEOFSUPPORT = TEXTdistanceANCE * 3;
+		SIZEOFDESTROY = TEXTdistanceANCE * 2;
+		SIZEOFUPGRADE = TEXTdistanceANCE * 3;
+		SIZEOFBARRACKS = TEXTdistanceANCE * 3;
 		ANIMATIONS = DIAMETER / 8;
 
 		for (int i = 0; i < menu.length; i++) {
-			menu[i] = new PVector(-100, -100);
+			menu[i] = new Vector2f(-100, -100);
 		}
 		for (int i = 0; i < menuBuildings.length; i++) {
-			menuBuildings[i] = new PVector(-100, -100);
+			menuBuildings[i] = new Vector2f(-100, -100);
 		}
 		gl = new Animations("small explosion", 17);
 		smallExplosion = gl.getAni();
@@ -332,7 +333,7 @@ public class Menu {
 			createSmallMenuCircle(graphics);
 			graphics.rotate(0, 0, rotation);
 			graphics.setColor(Color.white);
-			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) - TEXTDISTANCE);
+			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(distanceANCE) - TEXTdistanceANCE);
 			graphics.resetTransform();
 		}
 	}
@@ -343,9 +344,9 @@ public class Menu {
 	 *            (actual position of mouse click)
 	 * @return true (if click was in middle circle of menu)
 	 */
-	public boolean isInnerMainElement(PVector clickVector) {
+	public boolean isInnerMainElement(Vector2f clickVector) {
 
-		if (this.position.dist(clickVector) < this.RADIUS) {
+		if (this.position.distance(clickVector) < this.RADIUS) {
 			System.out.println("Menu close choosed");
 			setMenuOpen(false);
 			return true;
@@ -362,8 +363,8 @@ public class Menu {
 	 * 
 	 *         looking if a menu point was clicked
 	 */
-	public boolean isInnerMenuElement(PVector clickVector) {
-		if (this.menu[0].dist(clickVector) < this.RADIUS) {
+	public boolean isInnerMenuElement(Vector2f clickVector) {
+		if (this.menu[0].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 1");
 			if (isEnoughCredits(Armory.PRICE)) {
 				player.setCredits(player.getCredits() - Armory.PRICE);
@@ -372,7 +373,7 @@ public class Menu {
 				return true;
 			}
 		}
-		if (this.menu[1].dist(clickVector) < this.RADIUS) {
+		if (this.menu[1].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 2");
 			if (isEnoughCredits(Defence.PRICE)) {
 				player.setCredits(player.getCredits() - Defence.PRICE);
@@ -381,7 +382,7 @@ public class Menu {
 				return true;
 			}
 		}
-		if (this.menu[2].dist(clickVector) < this.RADIUS) {
+		if (this.menu[2].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 3");
 			if (isEnoughCredits(Support.PRICE)) {
 				player.setCredits(player.getCredits() - Support.PRICE);
@@ -390,7 +391,7 @@ public class Menu {
 				return true;
 			}
 		}
-		if (this.menu[3].dist(clickVector) < this.RADIUS) {
+		if (this.menu[3].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 4");
 			if (isEnoughCredits(Tank.PRICE)) {
 				player.setCredits(player.getCredits() - Tank.PRICE);
@@ -399,10 +400,10 @@ public class Menu {
 				return true;
 			}
 		}
-		if (this.menu[4].dist(clickVector) < this.RADIUS) {
+		if (this.menu[4].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 5");
 		}
-		if (this.menu[5].dist(clickVector) < this.RADIUS) {
+		if (this.menu[5].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 6");
 		}
 
@@ -418,15 +419,15 @@ public class Menu {
 	 * 
 	 *         looking if a specific building menu point was clicked
 	 */
-	public boolean isInnerBuildingElement(PVector clickVector) {
+	public boolean isInnerBuildingElement(Vector2f clickVector) {
 
-		if (this.menuBuildings[0].dist(clickVector) < this.RADIUS) {
+		if (this.menuBuildings[0].distance(clickVector) < this.RADIUS) {
 			setBuildingOpen(false, null);
 			upgradeBuilding();
 			setActualChosenBuilding(0);
 			return true;
 		}
-		if (this.menuBuildings[1].dist(clickVector) < this.RADIUS) {
+		if (this.menuBuildings[1].distance(clickVector) < this.RADIUS) {
 
 			setBuildingOpen(false, null);
 			setBuildingDestroyPrice();
@@ -476,7 +477,7 @@ public class Menu {
 	 *            changes the actual building, so that we know which building is
 	 *            active
 	 */
-	public void setBuildingOpen(boolean buildingOpen, PVector clickVector) {
+	public void setBuildingOpen(boolean buildingOpen, Vector2f clickVector) {
 
 		if (!buildingOpen) {
 			this.buildingOpen = false;
@@ -502,7 +503,7 @@ public class Menu {
 	 * 
 	 *         searching for the actual building level
 	 */
-	public int getActualBuildingLevel(PVector clickVector) {
+	public int getActualBuildingLevel(Vector2f clickVector) {
 		return actualBuilding.getLevel();
 	}
 
@@ -578,9 +579,9 @@ public class Menu {
 	 * @param clickVector
 	 * @return if place for the new building is free
 	 */
-	public boolean isPlaceTaken(PVector clickVector) {
+	public boolean isPlaceTaken(Vector2f clickVector) {
 		for (BaseUnit building : buildings) {
-			if (building.getPosition().dist(clickVector) < (building.getCollisionRadius())) {
+			if (building.getPosition().distance(clickVector) < (building.getCollisionRadius())) {
 				setPositionBuilding(building.getPosition());
 				return true;
 			}
@@ -645,15 +646,15 @@ public class Menu {
 		return position.y;
 	}
 
-	public void setPosition(PVector position) {
-		this.position = position.get();
+	public void setPosition(Vector2f position) {
+		this.position = position.copy();
 	}
 
 	public Building getActualBuilding() {
 		return actualBuilding;
 	}
 
-	public void setPositionBuilding(PVector positionBuilding) {
+	public void setPositionBuilding(Vector2f positionBuilding) {
 		this.positionBuilding = positionBuilding;
 	}
 
@@ -666,8 +667,8 @@ public class Menu {
 	 */
 	public void rotateAndCreateMenu(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
-		menu[element] = new PVector(0, DISTANCE);
-		menu[element].rotate((rotation / 180f) * (float) Math.PI);
+		menu[element] = new Vector2f(0, distanceANCE);
+		menu[element].setTheta((rotation / 180f) * (float) Math.PI);
 		menu[element].add(position);
 	}
 
@@ -680,8 +681,8 @@ public class Menu {
 	 */
 	public void rotateAndCreateMenuBuilding(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
-		menuBuildings[element] = new PVector(0, DISTANCE);
-		menuBuildings[element].rotate((rotation / 180f) * (float) Math.PI);
+		menuBuildings[element] = new Vector2f(0, distanceANCE);
+		menuBuildings[element].setTheta((rotation / 180f) * (float) Math.PI);
 		menuBuildings[element].add(position);
 	}
 
@@ -712,9 +713,9 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void createBigMenuCircle(Graphics graphics) {
-		graphics.fillOval(-DIAMETER / 2, DISTANCE - DIAMETER / 2, DIAMETER, DIAMETER);
+		graphics.fillOval(-DIAMETER / 2, distanceANCE - DIAMETER / 2, DIAMETER, DIAMETER);
 		graphics.setColor(Color.darkGray);
-		graphics.drawOval(-DIAMETER / 2, DISTANCE - DIAMETER / 2, DIAMETER, DIAMETER);
+		graphics.drawOval(-DIAMETER / 2, distanceANCE - DIAMETER / 2, DIAMETER, DIAMETER);
 	}
 
 	/**
@@ -723,9 +724,9 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void createSmallMenuCircle(Graphics graphics) {
-		graphics.fillOval(-RADIUS / 2, DISTANCE - RADIUS / 2, RADIUS, RADIUS);
+		graphics.fillOval(-RADIUS / 2, distanceANCE - RADIUS / 2, RADIUS, RADIUS);
 		graphics.setColor(Color.yellow);
-		graphics.drawOval(-RADIUS / 2, DISTANCE - RADIUS / 2, RADIUS, RADIUS);
+		graphics.drawOval(-RADIUS / 2, distanceANCE - RADIUS / 2, RADIUS, RADIUS);
 	}
 
 	/**
@@ -734,9 +735,9 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void createTinyMenuCircle(Graphics graphics) {
-		graphics.fillOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
+		graphics.fillOval(-RADIUS / 2, distanceANCE + distanceANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
 		graphics.setColor(Color.magenta);
-		graphics.drawOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
+		graphics.drawOval(-RADIUS / 2, distanceANCE + distanceANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
 	}
 
 	/**
@@ -746,9 +747,9 @@ public class Menu {
 	 */
 	public void showBuildingArmory(Graphics graphics) {
 		graphics.setColor(Color.black);
-		graphics.drawLine(-SIZEOFARMORY, SIZEOFARMORY + DISTANCE, 0, -SIZEOFARMORY + DISTANCE);
-		graphics.drawLine(0, -SIZEOFARMORY + DISTANCE, SIZEOFARMORY, SIZEOFARMORY + DISTANCE);
-		graphics.drawLine(+SIZEOFARMORY, +SIZEOFARMORY + DISTANCE, -SIZEOFARMORY, SIZEOFARMORY + DISTANCE);
+		graphics.drawLine(-SIZEOFARMORY, SIZEOFARMORY + distanceANCE, 0, -SIZEOFARMORY + distanceANCE);
+		graphics.drawLine(0, -SIZEOFARMORY + distanceANCE, SIZEOFARMORY, SIZEOFARMORY + distanceANCE);
+		graphics.drawLine(+SIZEOFARMORY, +SIZEOFARMORY + distanceANCE, -SIZEOFARMORY, SIZEOFARMORY + distanceANCE);
 	}
 
 	/**
@@ -758,15 +759,15 @@ public class Menu {
 	 */
 	public void showBuildingDefence(Graphics graphics) {
 //		graphics.setColor(Color.black);
-//		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
-//		vektoren1.add(new PVector(-SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE));
-//		vektoren1.add(new PVector(SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE));
-//		vektoren1.add(new PVector(0, DISTANCE - SIZEOFDEFENCE));
-//		vektoren1.add(new PVector(0, DISTANCE - SIZEOFDEFENCE * 2));
-//		vektoren1.add(new PVector(0, DISTANCE + SIZEOFDEFENCE));
-//		vektoren1.add(new PVector(SIZEOFDEFENCE, DISTANCE + SIZEOFDEFENCE));
-//		vektoren1.add(new PVector(-SIZEOFDEFENCE, DISTANCE + SIZEOFDEFENCE));
-//		graphics.drawOval(-SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2);
+//		ArrayList<Vector2f> vektoren1 = new ArrayList<Vector2f>();
+//		vektoren1.add(new Vector2f(-SIZEOFDEFENCE, distanceANCE - SIZEOFDEFENCE));
+//		vektoren1.add(new Vector2f(SIZEOFDEFENCE, distanceANCE - SIZEOFDEFENCE));
+//		vektoren1.add(new Vector2f(0, distanceANCE - SIZEOFDEFENCE));
+//		vektoren1.add(new Vector2f(0, distanceANCE - SIZEOFDEFENCE * 2));
+//		vektoren1.add(new Vector2f(0, distanceANCE + SIZEOFDEFENCE));
+//		vektoren1.add(new Vector2f(SIZEOFDEFENCE, distanceANCE + SIZEOFDEFENCE));
+//		vektoren1.add(new Vector2f(-SIZEOFDEFENCE, distanceANCE + SIZEOFDEFENCE));
+//		graphics.drawOval(-SIZEOFDEFENCE, distanceANCE - SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2);
 //		GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
 		
 		
@@ -778,7 +779,7 @@ public class Menu {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		graphics.drawImage(image, DISTANCE/2, DISTANCE - SIZEOFDEFENCE*2, 100, 100, 0f, 0f);
+		graphics.drawImage(image, distanceANCE/2, distanceANCE - SIZEOFDEFENCE*2, 100, 100, 0f, 0f);
 		graphics.resetTransform();
 	}
 
@@ -789,12 +790,12 @@ public class Menu {
 	 */
 	public void showBuildingSupport(Graphics graphics) {
 		graphics.setColor(Color.black);
-		ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
-		vektoren2.add(new PVector(0, DISTANCE - SIZEOFSUPPORT));
-		vektoren2.add(new PVector(0, DISTANCE + SIZEOFSUPPORT));
-		vektoren2.add(new PVector(0, DISTANCE));
-		vektoren2.add(new PVector(SIZEOFSUPPORT, DISTANCE));
-		vektoren2.add(new PVector(-SIZEOFSUPPORT, DISTANCE));
+		ArrayList<Vector2f> vektoren2 = new ArrayList<Vector2f>();
+		vektoren2.add(new Vector2f(0, distanceANCE - SIZEOFSUPPORT));
+		vektoren2.add(new Vector2f(0, distanceANCE + SIZEOFSUPPORT));
+		vektoren2.add(new Vector2f(0, distanceANCE));
+		vektoren2.add(new Vector2f(SIZEOFSUPPORT, distanceANCE));
+		vektoren2.add(new Vector2f(-SIZEOFSUPPORT, distanceANCE));
 		GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
 	}
 
@@ -806,10 +807,10 @@ public class Menu {
 	public void showBuildingBarracks(Graphics graphics) {
 		graphics.setColor(Color.black);
 		int difference = 10;
-		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0, -SIZEOFBARRACKS + DISTANCE + difference);
-		graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference, SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
-		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0, -SIZEOFBARRACKS + DISTANCE + difference * 3);
-		graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference * 3, SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
+		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + distanceANCE, 0, -SIZEOFBARRACKS + distanceANCE + difference);
+		graphics.drawLine(0, -SIZEOFBARRACKS + distanceANCE + difference, SIZEOFBARRACKS, SIZEOFBARRACKS + distanceANCE);
+		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + distanceANCE, 0, -SIZEOFBARRACKS + distanceANCE + difference * 3);
+		graphics.drawLine(0, -SIZEOFBARRACKS + distanceANCE + difference * 3, SIZEOFBARRACKS, SIZEOFBARRACKS + distanceANCE);
 	
 	}
 
@@ -820,13 +821,13 @@ public class Menu {
 	 */
 	public void showSignUpgrade(Graphics graphics) {
 		graphics.setColor(Color.black);
-		graphics.drawLine(-SIZEOFUPGRADE / 2, DISTANCE, 0, DISTANCE - SIZEOFUPGRADE);
-		graphics.drawLine(0, DISTANCE - SIZEOFUPGRADE, SIZEOFUPGRADE / 2, DISTANCE);
-		graphics.drawLine(SIZEOFUPGRADE / 2, DISTANCE, -SIZEOFUPGRADE / 2, DISTANCE);
+		graphics.drawLine(-SIZEOFUPGRADE / 2, distanceANCE, 0, distanceANCE - SIZEOFUPGRADE);
+		graphics.drawLine(0, distanceANCE - SIZEOFUPGRADE, SIZEOFUPGRADE / 2, distanceANCE);
+		graphics.drawLine(SIZEOFUPGRADE / 2, distanceANCE, -SIZEOFUPGRADE / 2, distanceANCE);
 
-		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
-		vektoren1.add(new PVector(0, DISTANCE));
-		vektoren1.add(new PVector(0, DISTANCE + SIZEOFUPGRADE));
+		ArrayList<Vector2f> vektoren1 = new ArrayList<Vector2f>();
+		vektoren1.add(new Vector2f(0, distanceANCE));
+		vektoren1.add(new Vector2f(0, distanceANCE + SIZEOFUPGRADE));
 		GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
 	}
 
@@ -837,12 +838,12 @@ public class Menu {
 	 */
 	public void showSignDestroy(Graphics graphics) {
 		graphics.setColor(Color.black);
-		ArrayList<PVector> vektoren2 = new ArrayList<PVector>();
-		vektoren2.add(new PVector(SIZEOFDESTROY, DISTANCE - SIZEOFDESTROY));
-		vektoren2.add(new PVector(-SIZEOFDESTROY, DISTANCE + SIZEOFDESTROY));
-		vektoren2.add(new PVector(0, DISTANCE));
-		vektoren2.add(new PVector(SIZEOFDESTROY, DISTANCE + SIZEOFDESTROY));
-		vektoren2.add(new PVector(-SIZEOFDESTROY, DISTANCE - SIZEOFDESTROY));
+		ArrayList<Vector2f> vektoren2 = new ArrayList<Vector2f>();
+		vektoren2.add(new Vector2f(SIZEOFDESTROY, distanceANCE - SIZEOFDESTROY));
+		vektoren2.add(new Vector2f(-SIZEOFDESTROY, distanceANCE + SIZEOFDESTROY));
+		vektoren2.add(new Vector2f(0, distanceANCE));
+		vektoren2.add(new Vector2f(SIZEOFDESTROY, distanceANCE + SIZEOFDESTROY));
+		vektoren2.add(new Vector2f(-SIZEOFDESTROY, distanceANCE - SIZEOFDESTROY));
 		GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
 	}
 
@@ -853,7 +854,7 @@ public class Menu {
 	 */
 	public void showPriceBuildings(Graphics graphics, int price) {
 		graphics.setColor(Color.white);
-		graphics.drawString(price + "", -TEXTDISTANCE, -SIZEOFTEXTALIGNMENT);
+		graphics.drawString(price + "", -TEXTdistanceANCE, -SIZEOFTEXTALIGNMENT);
 	}
 
 	/**

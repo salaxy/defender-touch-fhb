@@ -2,17 +2,15 @@ package de.fhb.defenderTouch.units.root;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 
-import processing.core.PApplet;
-import processing.core.PVector;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Gamemap;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.graphics.VectorHelper;
 import de.fhb.defenderTouch.units.amunition.ShootWithRange;
 
 /**
@@ -77,12 +75,12 @@ public class BaseUnit {
 	/**
 	 * aktuelle Position der Einheit
 	 */
-	protected PVector position;
+	protected Vector2f position;
 
 	/**
 	 * legt die erste Blickrichtungfest
 	 */
-	protected PVector direction = new PVector(0, 1);
+	protected Vector2f direction = new Vector2f(0, 1);
 
 	/**
 	 * aktueller rotationsgrad (aktuelle Drehung der Rotation)
@@ -145,7 +143,7 @@ public class BaseUnit {
 	/**
 	 * Zielvektor der Einheit
 	 */
-	protected PVector destinationVector;
+	protected Vector2f destinationVector;
 
 	/**
 	 * Aktivierungsradius um das Zentrum der Einheit, in dem diese angeklickt
@@ -192,8 +190,8 @@ public class BaseUnit {
 		this.mode = mode;
 		this.owner = player;
 		this.playerID = player.getId();
-		this.position = new PVector(x, y);
-		this.destinationVector = new PVector(x, y);
+		this.position = new Vector2f(x, y);
+		this.destinationVector = new Vector2f(x, y);
 		this.berechneNeueBlickrichtung();
 		this.initHaloSkala();
 		this.passiveColor = this.owner.getUnitColor();
@@ -387,7 +385,7 @@ public class BaseUnit {
 	protected void drawRotateAppearance(Player player, Graphics graphics) {
 
 		// solange die skala noch nicht durchlaufen ist
-		if (rotatingAngle < PApplet.TWO_PI) {
+		if (rotatingAngle < (float)Math.PI*2) {
 			rotatingAngle += this.rotationSpeed;
 		} else {
 			// sosnt wieder von vorne anfangen
@@ -413,7 +411,7 @@ public class BaseUnit {
 	protected void drawRotateAndPulseAppearance(Player player, Graphics graphics) {
 
 		// solange die skala noch nicht durchlaufen ist
-		if (rotatingAngle < PApplet.TWO_PI) {
+		if (rotatingAngle < (float)Math.PI*2) {
 			rotatingAngle += this.rotationSpeed;
 		} else {
 			// sosnt wieder von vorne anfangen
@@ -455,17 +453,17 @@ public class BaseUnit {
 	 * neues Ziel befehlen zu dem die Einheit sich versucht hinzubewegen
 	 * 
 	 * @param Ziel
-	 *            - PVector
+	 *            - Vector2f
 	 */
-	public void commandDestination(PVector dest) {
+	public void commandDestination(Vector2f dest) {
 
 		// neuen Zielvektor setzen
 		this.destinationVector = dest;
 
 		// Richtungsvektor berechnen
-		direction = PVector.sub(destinationVector, position);
+		direction = VectorHelper.sub(destinationVector, position);
 		// richtungsvektor normieren
-		direction.normalize();
+		direction.normalise();
 
 		// neue Blickrichtung berechnen
 		berechneNeueBlickrichtung();
@@ -476,7 +474,7 @@ public class BaseUnit {
 	 * 
 	 * @param dest
 	 */
-	public void commandTarget(PVector dest) {
+	public void commandTarget(Vector2f dest) {
 		// TODO coming soon
 		// setzen des Angroffsziels
 	}
@@ -486,14 +484,14 @@ public class BaseUnit {
 	 */
 	public void update() {
 
-		PVector newPosition;
+		Vector2f newPosition;
 
 		// wenn aktuelle position noch weit weg vom ziel, dann weiter bewegen
-		if (position.dist(destinationVector) > 3) {
+		if (position.distance(destinationVector) > 3) {
 
 			// neue Position erechnen, normierten Richtungsvector zur position
 			// hinzurechnen
-			newPosition = PVector.add(this.position, PVector.mult(direction, movementSpeed));
+			newPosition = VectorHelper.add(this.position, VectorHelper.mult(direction, movementSpeed));
 
 			// wenn keien kollision dann bewegen
 			if (!isCollision(newPosition)) {
@@ -525,7 +523,7 @@ public class BaseUnit {
 		for (BaseUnit u : this.gamelogic.getGlobalUnits()) {
 
 			// wenn eine unit aktiviert wird dann die anderen deaktiveren
-			if (u.getPosition().dist(this.position) > this.attackRange) {
+			if (u.getPosition().distance(this.position) > this.attackRange) {
 				// zu weit weg
 			} else {
 				// nah dran
@@ -545,19 +543,19 @@ public class BaseUnit {
 	 * @param newPosition
 	 * @return boolean
 	 */
-	private boolean isCollision(PVector newPosition) {
+	private boolean isCollision(Vector2f newPosition) {
 
 		for (BaseUnit unit : gamelogic.getGlobalUnits()) {
 			// wenn nicht diese Unit (die ist in der menge mit drin)
 			if (this.id != unit.id) {
 				// und wenn entfernung kleiner ist als die kollisionsradien der
 				// beiden einheiten zusammen
-				if (PVector.dist(unit.position, newPosition) < (unit.collisionRadius + this.collisionRadius)) {
+				if (VectorHelper.distance(unit.position, newPosition) < (unit.collisionRadius + this.collisionRadius)) {
 					System.out.println("UNIT " + this.id + " is in collision at " + newPosition + " with UNIT " + unit.id + " at " + unit.position);
 
 					// nur wenn die naechste position nicht weiter entfernt sein
 					// wird, soll sich unit nicht mehr weiter bewegen
-					if (!(PVector.dist(unit.position, newPosition) > PVector.dist(unit.position, this.position))) {
+					if (!(VectorHelper.distance(unit.position, newPosition) > VectorHelper.distance(unit.position, this.position))) {
 						// Kollision liegt vor, bewegung stoppen
 						// reset des zielvector (auf aktuelle position)
 						// this.destinationVector = this.position;
@@ -581,11 +579,11 @@ public class BaseUnit {
 
 		// Zielpunkt hinter der Einheit berechnen
 		// end Vektor fuer jeweiligen Spieler berechnen
-		PVector ende = direction.get();
+		Vector2f ende = direction.copy();
 		// Vektor auf laenge 1 kuerzen
-		ende.normalize();
+		ende.normalise();
 		// Richtungsvektor umkehren zum schweif
-		ende.mult(schweiflaenge * -2);
+		ende.scale(schweiflaenge * -2);
 
 		// Berechne Zeichnenposition und setzte
 		// Abblidungsmatrix(Transformationsmatix)
@@ -622,9 +620,9 @@ public class BaseUnit {
 	 * @param clickVector
 	 * @return
 	 */
-	public boolean isInner(PVector clickVector) {
+	public boolean isInner(Vector2f clickVector) {
 
-		if (position.dist(clickVector) < this.activateRadius) {
+		if (position.distance(clickVector) < this.activateRadius) {
 			return true;
 		} else {
 			return false;
@@ -689,10 +687,10 @@ public class BaseUnit {
 		// berechne neue Blickrichtung
 		if (direction.x > 0) {
 			// rechts
-			actualAngle = PVector.angleBetween(direction, new PVector(0, -1)) / PApplet.PI * 180;
+			actualAngle = VectorHelper.angleBetween(direction, new Vector2f(0, -1)) / (float)Math.PI * 180;
 		} else {
 			// links
-			actualAngle = (PApplet.TWO_PI - PVector.angleBetween(direction, new PVector(0, -1))) / PApplet.PI * 180;
+			actualAngle = (float) (((2*Math.PI) - VectorHelper.angleBetween(direction, new Vector2f(0, -1))) / Math.PI * 180);
 		}
 	}
 
@@ -744,9 +742,9 @@ public class BaseUnit {
 
 		// TODO verbessern
 		// wenn nicht in Angriffsreichweite dann hinfliegen bis in reichweite
-		if (this.position.dist(destinationUnit.getPosition()) > this.attackRange) {
+		if (this.position.distance(destinationUnit.getPosition()) > this.attackRange) {
 			this.commandDestination(destinationUnit.getPosition());
-			this.commandDestination(PVector.add(this.position, PVector.mult(direction, (float) (this.attackRange + 5))));
+			this.commandDestination(VectorHelper.add(this.position, VectorHelper.mult(direction, (float) (this.attackRange + 5))));
 		}
 
 	}
@@ -771,7 +769,7 @@ public class BaseUnit {
 		this.playerID = playerID;
 	}
 
-	public PVector getPosition() {
+	public Vector2f getPosition() {
 		return position;
 	}
 
