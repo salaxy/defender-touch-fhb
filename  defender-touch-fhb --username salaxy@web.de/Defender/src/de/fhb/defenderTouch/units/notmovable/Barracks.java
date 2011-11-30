@@ -19,40 +19,39 @@ public class Barracks extends Building {
 
 	public void drawFigure(Graphics graphics) {
 
-		graphics.scale(1.5f, 1.5f);
-		graphics.rotate(0, 0, 180);
+		graphics.scale(1.0f, 1.0f);
+//		graphics.rotate(0, 0, 180);
 
 		switch (this.level) {
 		case LEVEL_ONE:
-			size = 4;
+			size = 18;
 			break;
 		case LEVEL_TWO:
-			size = 5;
+			size = 20;
 			break;
 		case LEVEL_THREE:
-			size = 6;
+			size = 22;
 			break;
 		}
 
-//		int difference = 10;
-		
-//		graphics.drawLine(-size, size, difference, -size + difference);
-//		graphics.drawLine(0, -size + difference, size, size);
-//		graphics.drawLine(-size, size, 0, -size + difference * 3);
-//		graphics.drawLine(0, -size + difference * 3, size, size);
-//
-//		graphics.drawOval(-15, -16, 30, 30);
-//		graphics.drawImage(image, x, y);
-		
+		// int difference = 10;
+
+		// graphics.drawLine(-size, size, difference, -size + difference);
+		// graphics.drawLine(0, -size + difference, size, size);
+		// graphics.drawLine(-size, size, 0, -size + difference * 3);
+		// graphics.drawLine(0, -size + difference * 3, size, size);
+		//
+		 graphics.drawOval(-15, -16, 30, 30);
+		// graphics.drawImage(image, x, y);
+
 		Image image = null;
 		try {
-			 image = new Image("data/buildings/Barracks.png");
-//			 image.
+			image = new Image("data/buildings/Barracks.png");
+			image = image.getScaledCopy(size, size);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-//		graphics.
-		graphics.drawImage(image, -image.getHeight()/2, -image.getWidth()/2, 100f, 100f, 0f,0f);
+		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
 
 	}

@@ -1,12 +1,10 @@
 package de.fhb.defenderTouch.units.notmovable;
 
-import java.util.ArrayList;
-
 import org.newdawn.slick.Graphics;
-import processing.core.PVector;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
-import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.root.Building;
 
 public class Defence extends Building {
@@ -20,31 +18,42 @@ public class Defence extends Building {
 
 	public void drawFigure(Graphics graphics) {
 
-		graphics.scale(1.5f, 1.5f);
-		graphics.rotate(0, 0, 180);
+		graphics.scale(1.0f, 1.0f);
+		// graphics.rotate(0, 0, 180);
+
 		switch (this.level) {
 		case LEVEL_ONE:
-			size = 4;
+			size = 18;
 			break;
 		case LEVEL_TWO:
-			size = 5;
+			size = 20;
 			break;
 		case LEVEL_THREE:
-			size = 6;
+			size = 22;
 			break;
 		}
 
-		ArrayList<PVector> vektoren = new ArrayList<PVector>();
-		vektoren.add(new PVector(-size, -size));
-		vektoren.add(new PVector(size, -size));
-		vektoren.add(new PVector(0, -size));
-		vektoren.add(new PVector(0, -size * 2));
-		vektoren.add(new PVector(0, size));
-		vektoren.add(new PVector(size, size));
-		vektoren.add(new PVector(-size, size));
-		graphics.drawOval(-size, -size * 2, size * 2, size * 2);
-		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
-		graphics.drawOval(-15, -17 , 30 , 30);
+		// ArrayList<PVector> vektoren = new ArrayList<PVector>();
+		// vektoren.add(new PVector(-size, -size));
+		// vektoren.add(new PVector(size, -size));
+		// vektoren.add(new PVector(0, -size));
+		// vektoren.add(new PVector(0, -size * 2));
+		// vektoren.add(new PVector(0, size));
+		// vektoren.add(new PVector(size, size));
+		// vektoren.add(new PVector(-size, size));
+		// graphics.drawOval(-size, -size * 2, size * 2, size * 2);
+		// GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
+
+		graphics.drawOval(-15, -17, 30, 30);
+
+		Image image = null;
+		try {
+			image = new Image("data/buildings/Defence.png");
+			image = image.getScaledCopy(size, size);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
 
 	}
