@@ -13,7 +13,7 @@ import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 import de.fhb.defenderTouch.units.root.Building;
 
-public class Ground extends Building {
+public class Armory extends Building {
 
 	public static final int PRICE = 70;
 	protected int size = 0;
@@ -23,14 +23,14 @@ public class Ground extends Building {
 	private long startingTime = new Date().getTime();
 	private long tickerTime;
 
-	public Ground(int x, int y, int mode, Player player, DefenderControl gamelogic) {
+	public Armory(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
 	}
 
 	public void drawFigure(Graphics graphics) {
 
 		graphics.scale(1.0f, 1.0f);
-//		graphics.rotate(0, 0, 180);
+		// graphics.rotate(0, 0, 180);
 
 		switch (this.level) {
 		case LEVEL_ONE:
@@ -44,12 +44,12 @@ public class Ground extends Building {
 			break;
 		}
 
-//		graphics.drawLine(-size, +size, 0, -size);
-//		graphics.drawLine(0, -size, +size, +size);
-//		graphics.drawLine(+size, +size, -size, +size);
-		
-		graphics.drawOval(-15, -14 , 30 , 30);
-		
+		// graphics.drawLine(-size, +size, 0, -size);
+		// graphics.drawLine(0, -size, +size, +size);
+		// graphics.drawLine(+size, +size, -size, +size);
+
+		graphics.drawOval(-15, -14, 30, 30);
+
 		Image image = null;
 		try {
 			image = new Image("data/buildings/Armory.png");
@@ -59,7 +59,7 @@ public class Ground extends Building {
 		}
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
-		
+
 	}
 
 	public void update() {
