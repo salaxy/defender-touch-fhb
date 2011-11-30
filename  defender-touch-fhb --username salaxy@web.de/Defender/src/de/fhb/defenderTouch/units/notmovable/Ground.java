@@ -13,7 +13,7 @@ import de.fhb.defenderTouch.units.root.Building;
 
 public class Ground extends Building {
 
-	public static final int PRICE = 50;
+	public static final int PRICE = 70;
 	protected int size = 0;
 
 	private int timeTillNextSpawn = 6000;

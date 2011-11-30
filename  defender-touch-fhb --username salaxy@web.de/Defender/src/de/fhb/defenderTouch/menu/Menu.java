@@ -10,6 +10,7 @@ import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.movable.Tank;
+import de.fhb.defenderTouch.units.notmovable.Barracks;
 import de.fhb.defenderTouch.units.notmovable.Defence;
 import de.fhb.defenderTouch.units.notmovable.Ground;
 import de.fhb.defenderTouch.units.notmovable.Support;
@@ -94,7 +95,7 @@ public class Menu {
 	/**
 	 * size of Defence sign
 	 */
-	protected final int SIZEOFTANK;
+	protected final int SIZEOFBARRACKS;
 
 	/**
 	 * size of Destroy sign
@@ -164,7 +165,7 @@ public class Menu {
 	/**
 	 * GIFLOADER
 	 */
-	private GifLoader gl;
+	private Animations gl;
 
 	/**
 	 * Constructor of Menu
@@ -184,7 +185,7 @@ public class Menu {
 		SIZEOFSUPPORT = TEXTDISTANCE * 3;
 		SIZEOFDESTROY = TEXTDISTANCE * 2;
 		SIZEOFUPGRADE = TEXTDISTANCE * 3;
-		SIZEOFTANK = TEXTDISTANCE * 2;
+		SIZEOFBARRACKS = TEXTDISTANCE * 3;
 		ANIMATIONS = DIAMETER / 8;
 
 		for (int i = 0; i < menu.length; i++) {
@@ -193,7 +194,7 @@ public class Menu {
 		for (int i = 0; i < menuBuildings.length; i++) {
 			menuBuildings[i] = new PVector(-100, -100);
 		}
-		gl = new GifLoader("small explosion", 17);
+		gl = new Animations("small explosion", 17);
 		animation = gl.getAni();
 
 	}
@@ -201,20 +202,20 @@ public class Menu {
 	public void createBuilding(DefenderControl defenderControl) {
 		switch (getActualChosenBuilding()) {
 		case 0:
-			System.out.println("building a Ground unit");
+			System.out.println("building a Ground building");
 			new Ground((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		case 1:
-			System.out.println("building a Defence unit");
+			System.out.println("building a Defence building");
 			new Defence((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		case 2:
-			System.out.println("building a Support unit");
+			System.out.println("building a Support building");
 			new Support((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		case 3:
-			System.out.println("building a Tank unit");
-			new Tank((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
+			System.out.println("building a Barracks building");
+			new Barracks((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		default:
 			System.out.println();
@@ -276,7 +277,7 @@ public class Menu {
 			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.orange);
 			createBigMenuCircle(graphics);
-			showBuildingTank(graphics);
+			showBuildingBarracks(graphics);
 			createTinyMenuCircle(graphics);
 			showPriceBuildings(graphics, Tank.PRICE);
 			rotation += drehungProUntermenue;
@@ -517,10 +518,9 @@ public class Menu {
 		if (actualBuilding instanceof Support)
 			return Support.PRICE;
 
-		// if (actualBuilding instanceof Tank) {
-		// return Tank.PRICE;
-		// }
-		else
+		if (actualBuilding instanceof Barracks) {
+			return Barracks.PRICE;
+		} else
 			return 0;
 
 	}
@@ -539,9 +539,9 @@ public class Menu {
 		if (actualBuilding instanceof Support)
 			actualBuildingName = "Support";
 
-		// if (actualBuilding instanceof Tank) {
-		// actualBuildingName = "Tank";
-		// }
+		if (actualBuilding instanceof Barracks) {
+			actualBuildingName = "Barracks";
+		}
 
 		else
 			actualBuildingName = "Nichts gewählt";
@@ -563,10 +563,9 @@ public class Menu {
 		if (actualBuilding instanceof Support)
 			player.setCredits(player.getCredits() + (Support.PRICE * actualBuilding.getLevel()) / 2);
 
-		// if (actualBuilding instanceof Tank) {
-		// player.setCredits(player.getCredits() + (Tank.PRICE * bu.getLevel())
-		// / 2);
-		// }
+		if (actualBuilding instanceof Barracks) {
+			player.setCredits(player.getCredits() + (Barracks.PRICE * actualBuilding.getLevel()) / 2);
+		}
 
 	}
 
@@ -715,7 +714,7 @@ public class Menu {
 	}
 
 	/**
-	 * Creates a small Circle for the unused elements Destroy)
+	 * Creates a small Circle for the unused elements Destroy
 	 * 
 	 * @param graphics
 	 */
@@ -788,11 +787,22 @@ public class Menu {
 	 * 
 	 * @param graphics
 	 */
-	public void showBuildingTank(Graphics graphics) {
+	public void showBuildingBarracks(Graphics graphics) {
 		graphics.setColor(Color.black);
-		graphics.drawRect(-SIZEOFTANK, DISTANCE - SIZEOFTANK, SIZEOFTANK * 2, SIZEOFTANK * 3);
-		graphics.drawOval(-SIZEOFTANK / 2, DISTANCE + SIZEOFTANK - SIZEOFTANK / 4, SIZEOFTANK, SIZEOFTANK);
-		graphics.drawRect(-SIZEOFTANK / 4, DISTANCE - SIZEOFTANK - SIZEOFTANK / 4, SIZEOFTANK / 2, SIZEOFTANK * 2);
+		int difference = 10;
+		// graphics.drawRect(-SIZEOFBARRACKS, DISTANCE - SIZEOFBARRACKS,
+		// SIZEOFBARRACKS * 2, SIZEOFBARRACKS * 3);
+		// graphics.drawOval(-SIZEOFBARRACKS / 2, DISTANCE + SIZEOFBARRACKS -
+		// SIZEOFBARRACKS / 4, SIZEOFBARRACKS, SIZEOFBARRACKS);
+		// graphics.drawRect(-SIZEOFBARRACKS / 4, DISTANCE - SIZEOFBARRACKS -
+		// SIZEOFBARRACKS / 4, SIZEOFBARRACKS / 2, SIZEOFBARRACKS * 2);
+		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0, -SIZEOFBARRACKS + DISTANCE + difference);
+		graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference, SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
+		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0, -SIZEOFBARRACKS + DISTANCE + difference*3);
+		graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference*3, SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
+		// graphics.drawLine(+SIZEOFGROUND, +SIZEOFGROUND + DISTANCE,
+		// -SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
+
 	}
 
 	/**
@@ -846,7 +856,6 @@ public class Menu {
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
 		animation.draw(-animation.getHeight() / 2, -animation.getWidth() / 2, animation.getHeight() * player.getActualZoom(), animation.getWidth() * player.getActualZoom());
-
 		graphics.resetTransform();
 		if (animation.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;

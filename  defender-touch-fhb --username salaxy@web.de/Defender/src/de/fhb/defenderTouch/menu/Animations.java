@@ -2,13 +2,13 @@ package de.fhb.defenderTouch.menu;
 
 import org.newdawn.slick.*;
 
-public class GifLoader {
+public class Animations {
 
 	private Image[] images;
 	private Graphics graphics;
 	private Animation ani;
 
-	public GifLoader(String path, int number) {
+	public Animations(String path, int number) {
 		images = new Image[number];
 		for (int i = 0; i < images.length; i++) {
 			try {
