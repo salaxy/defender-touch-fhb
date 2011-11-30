@@ -3,7 +3,6 @@ package de.fhb.defenderTouch.units.notmovable;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.root.Building;
@@ -20,7 +19,7 @@ public class Barracks extends Building {
 	public void drawFigure(Graphics graphics) {
 
 		graphics.scale(1.0f, 1.0f);
-//		graphics.rotate(0, 0, 180);
+		// graphics.rotate(0, 0, 180);
 
 		switch (this.level) {
 		case LEVEL_ONE:
@@ -41,7 +40,7 @@ public class Barracks extends Building {
 		// graphics.drawLine(-size, size, 0, -size + difference * 3);
 		// graphics.drawLine(0, -size + difference * 3, size, size);
 		//
-		 graphics.drawOval(-15, -16, 30, 30);
+		graphics.drawOval(-15, -16, 30, 30);
 		// graphics.drawImage(image, x, y);
 
 		Image image = null;

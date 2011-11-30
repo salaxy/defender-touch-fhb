@@ -31,7 +31,7 @@ public class Support extends Building {
 
 	public void drawFigure(Graphics graphics) {
 		graphics.scale(1.0f, 1.0f);
-//		graphics.rotate(0, 0, 180);
+		// graphics.rotate(0, 0, 180);
 
 		switch (this.level) {
 		case LEVEL_ONE:
@@ -45,15 +45,15 @@ public class Support extends Building {
 			break;
 		}
 
-//		ArrayList<PVector> vektoren = new ArrayList<PVector>();
-//		vektoren.add(new PVector(0, -size));
-//		vektoren.add(new PVector(0, size));
-//		vektoren.add(new PVector(0, 0));
-//		vektoren.add(new PVector(size, 0));
-//		vektoren.add(new PVector(-size, 0));
-//		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
-		graphics.drawOval(-15, -14 , 30 , 30);
-		
+		// ArrayList<PVector> vektoren = new ArrayList<PVector>();
+		// vektoren.add(new PVector(0, -size));
+		// vektoren.add(new PVector(0, size));
+		// vektoren.add(new PVector(0, 0));
+		// vektoren.add(new PVector(size, 0));
+		// vektoren.add(new PVector(-size, 0));
+		// GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
+		graphics.drawOval(-15, -14, 30, 30);
+
 		Image image = null;
 		try {
 			image = new Image("data/buildings/Support.png");

@@ -5,6 +5,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
@@ -13,7 +16,7 @@ import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.notmovable.Barracks;
 import de.fhb.defenderTouch.units.notmovable.Defence;
-import de.fhb.defenderTouch.units.notmovable.Ground;
+import de.fhb.defenderTouch.units.notmovable.Armory;
 import de.fhb.defenderTouch.units.notmovable.Support;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 import de.fhb.defenderTouch.units.root.Building;
@@ -84,9 +87,9 @@ public class Menu {
 	protected final int SIZEOFDEFENCE;
 
 	/**
-	 * size of Ground sign
+	 * size of Armory sign
 	 */
-	protected final int SIZEOFGROUND;
+	protected final int SIZEOFARMORY;
 
 	/**
 	 * size of Support sign
@@ -181,7 +184,7 @@ public class Menu {
 		DISTANCE = -(DIAMETER + 5);
 		TEXTDISTANCE = DIAMETER / 11;
 		SIZEOFTEXTALIGNMENT = DIAMETER + TEXTSIZE * 2 + TEXTDISTANCE * 2;
-		SIZEOFGROUND = TEXTDISTANCE * 3;
+		SIZEOFARMORY = TEXTDISTANCE * 3;
 		SIZEOFDEFENCE = TEXTDISTANCE * 2;
 		SIZEOFSUPPORT = TEXTDISTANCE * 3;
 		SIZEOFDESTROY = TEXTDISTANCE * 2;
@@ -203,8 +206,8 @@ public class Menu {
 	public void createBuilding(DefenderControl defenderControl) {
 		switch (getActualChosenBuilding()) {
 		case 0:
-			System.out.println("building a Ground building");
-			new Ground((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
+			System.out.println("building a Armory building");
+			new Armory((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		case 1:
 			System.out.println("building a Defence building");
@@ -248,9 +251,9 @@ public class Menu {
 			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.cyan);
 			createBigMenuCircle(graphics);
-			showBuildingGround(graphics);
+			showBuildingArmory(graphics);
 			createTinyMenuCircle(graphics);
-			showPriceBuildings(graphics, Ground.PRICE);
+			showPriceBuildings(graphics, Armory.PRICE);
 			rotation += drehungProUntermenue;
 			graphics.resetTransform();
 
@@ -362,8 +365,8 @@ public class Menu {
 	public boolean isInnerMenuElement(PVector clickVector) {
 		if (this.menu[0].dist(clickVector) < this.RADIUS) {
 			System.out.println("Menue 1");
-			if (isEnoughCredits(Ground.PRICE)) {
-				player.setCredits(player.getCredits() - Ground.PRICE);
+			if (isEnoughCredits(Armory.PRICE)) {
+				player.setCredits(player.getCredits() - Armory.PRICE);
 				setActualChosenBuilding(0);
 				setMenuOpen(false);
 				return true;
@@ -510,8 +513,8 @@ public class Menu {
 	 *         searching for the actual price of a building
 	 */
 	public int getActualBuildingPrice() {
-		if (actualBuilding instanceof Ground)
-			return Ground.PRICE;
+		if (actualBuilding instanceof Armory)
+			return Armory.PRICE;
 
 		if (actualBuilding instanceof Defence)
 			return Defence.PRICE;
@@ -534,7 +537,7 @@ public class Menu {
 		if (actualBuilding instanceof Defence)
 			actualBuildingName = "Defence";
 
-		if (actualBuilding instanceof Ground)
+		if (actualBuilding instanceof Armory)
 			actualBuildingName = "Ground";
 
 		if (actualBuilding instanceof Support)
@@ -558,8 +561,8 @@ public class Menu {
 		if (actualBuilding instanceof Defence)
 			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
 
-		if (actualBuilding instanceof Ground)
-			player.setCredits(player.getCredits() + (Ground.PRICE * actualBuilding.getLevel()) / 2);
+		if (actualBuilding instanceof Armory)
+			player.setCredits(player.getCredits() + (Armory.PRICE * actualBuilding.getLevel()) / 2);
 
 		if (actualBuilding instanceof Support)
 			player.setCredits(player.getCredits() + (Support.PRICE * actualBuilding.getLevel()) / 2);
@@ -741,11 +744,11 @@ public class Menu {
 	 * 
 	 * @param graphics
 	 */
-	public void showBuildingGround(Graphics graphics) {
+	public void showBuildingArmory(Graphics graphics) {
 		graphics.setColor(Color.black);
-		graphics.drawLine(-SIZEOFGROUND, SIZEOFGROUND + DISTANCE, 0, -SIZEOFGROUND + DISTANCE);
-		graphics.drawLine(0, -SIZEOFGROUND + DISTANCE, SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
-		graphics.drawLine(+SIZEOFGROUND, +SIZEOFGROUND + DISTANCE, -SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
+		graphics.drawLine(-SIZEOFARMORY, SIZEOFARMORY + DISTANCE, 0, -SIZEOFARMORY + DISTANCE);
+		graphics.drawLine(0, -SIZEOFARMORY + DISTANCE, SIZEOFARMORY, SIZEOFARMORY + DISTANCE);
+		graphics.drawLine(+SIZEOFARMORY, +SIZEOFARMORY + DISTANCE, -SIZEOFARMORY, SIZEOFARMORY + DISTANCE);
 	}
 
 	/**
@@ -754,17 +757,29 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingDefence(Graphics graphics) {
-		graphics.setColor(Color.black);
-		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
-		vektoren1.add(new PVector(-SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE));
-		vektoren1.add(new PVector(SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE));
-		vektoren1.add(new PVector(0, DISTANCE - SIZEOFDEFENCE));
-		vektoren1.add(new PVector(0, DISTANCE - SIZEOFDEFENCE * 2));
-		vektoren1.add(new PVector(0, DISTANCE + SIZEOFDEFENCE));
-		vektoren1.add(new PVector(SIZEOFDEFENCE, DISTANCE + SIZEOFDEFENCE));
-		vektoren1.add(new PVector(-SIZEOFDEFENCE, DISTANCE + SIZEOFDEFENCE));
-		graphics.drawOval(-SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2);
-		GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
+//		graphics.setColor(Color.black);
+//		ArrayList<PVector> vektoren1 = new ArrayList<PVector>();
+//		vektoren1.add(new PVector(-SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE));
+//		vektoren1.add(new PVector(SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE));
+//		vektoren1.add(new PVector(0, DISTANCE - SIZEOFDEFENCE));
+//		vektoren1.add(new PVector(0, DISTANCE - SIZEOFDEFENCE * 2));
+//		vektoren1.add(new PVector(0, DISTANCE + SIZEOFDEFENCE));
+//		vektoren1.add(new PVector(SIZEOFDEFENCE, DISTANCE + SIZEOFDEFENCE));
+//		vektoren1.add(new PVector(-SIZEOFDEFENCE, DISTANCE + SIZEOFDEFENCE));
+//		graphics.drawOval(-SIZEOFDEFENCE, DISTANCE - SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2);
+//		GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
+		
+		
+
+		Image image = null;
+		try {
+			image = new Image("data/buildings/Armory.png");
+			image = image.getScaledCopy(100, 100);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		graphics.drawImage(image, DISTANCE/2, DISTANCE - SIZEOFDEFENCE*2, 100, 100, 0f, 0f);
+		graphics.resetTransform();
 	}
 
 	/**
@@ -791,19 +806,11 @@ public class Menu {
 	public void showBuildingBarracks(Graphics graphics) {
 		graphics.setColor(Color.black);
 		int difference = 10;
-		// graphics.drawRect(-SIZEOFBARRACKS, DISTANCE - SIZEOFBARRACKS,
-		// SIZEOFBARRACKS * 2, SIZEOFBARRACKS * 3);
-		// graphics.drawOval(-SIZEOFBARRACKS / 2, DISTANCE + SIZEOFBARRACKS -
-		// SIZEOFBARRACKS / 4, SIZEOFBARRACKS, SIZEOFBARRACKS);
-		// graphics.drawRect(-SIZEOFBARRACKS / 4, DISTANCE - SIZEOFBARRACKS -
-		// SIZEOFBARRACKS / 4, SIZEOFBARRACKS / 2, SIZEOFBARRACKS * 2);
 		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0, -SIZEOFBARRACKS + DISTANCE + difference);
 		graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference, SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
 		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0, -SIZEOFBARRACKS + DISTANCE + difference * 3);
 		graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference * 3, SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
-		// graphics.drawLine(+SIZEOFGROUND, +SIZEOFGROUND + DISTANCE,
-		// -SIZEOFGROUND, SIZEOFGROUND + DISTANCE);
-
+	
 	}
 
 	/**
