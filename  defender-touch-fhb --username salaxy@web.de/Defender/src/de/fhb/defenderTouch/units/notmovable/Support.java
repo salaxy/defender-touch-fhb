@@ -27,12 +27,7 @@ public class Support extends Building {
 	}
 
 	public void drawFigure(Graphics graphics) {
-		// farbewechsel bei Aktivierung
-		// this.entscheideLineFarbe( graphics);
-		// Skalieren
 		graphics.scale(1.5f, 1.5f);
-		// graphics.strokeWeight(1);
-		// Nach norden ausrichten
 		graphics.rotate(0, 0, 180);
 
 		switch (this.level) {
@@ -47,20 +42,15 @@ public class Support extends Building {
 			break;
 		}
 
-		// Punkte hinzufuegen
 		ArrayList<PVector> vektoren = new ArrayList<PVector>();
 		vektoren.add(new PVector(0, -size));
 		vektoren.add(new PVector(0, size));
 		vektoren.add(new PVector(0, 0));
 		vektoren.add(new PVector(size, 0));
 		vektoren.add(new PVector(-size, 0));
-
-		// zeichnen
 		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
-
-		// zurücksetzen der Umgebungseinstellungen
+		graphics.drawOval(-15, -15 , 30 , 30);
 		graphics.resetTransform();
-		// graphics.stroke(0);
 	}
 
 	public void update() {

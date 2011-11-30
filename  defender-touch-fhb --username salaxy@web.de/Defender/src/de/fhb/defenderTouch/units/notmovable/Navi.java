@@ -20,7 +20,6 @@ public class Navi extends Building {
 
 	public void drawFigure(Graphics graphics) {
 
-		// this.entscheideLineFarbe( graphics);
 		graphics.scale(1.5f, 1.5f);
 		graphics.rotate(0, 0, 180);
 		ArrayList<PVector> vektoren = new ArrayList<PVector>();
@@ -30,11 +29,9 @@ public class Navi extends Building {
 		vektoren.add(new PVector(0, 0));
 		vektoren.add(new PVector(0, 4));
 		vektoren.add(new PVector(4, 4));
-
 		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
-
+		graphics.drawOval(-15, -16 , 30 , 30);
 		graphics.resetTransform();
-		// graphics.stroke(0);
 
 	}
 

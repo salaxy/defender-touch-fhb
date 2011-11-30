@@ -38,17 +38,18 @@ public class Ground extends Building {
 			size = 5;
 			break;
 		case LEVEL_TWO:
-			size = 7;
+			size = 6;
 			break;
 		case LEVEL_THREE:
-			size = 9;
+			size = 7;
 			break;
 		}
 
 		graphics.drawLine(-size, +size, 0, -size);
 		graphics.drawLine(0, -size, +size, +size);
 		graphics.drawLine(+size, +size, -size, +size);
-
+		
+		graphics.drawOval(-15, -14 , 30 , 30);
 		graphics.resetTransform();
 	}
 
