@@ -22,6 +22,8 @@ public class DefenderViewSlick extends BasicGame{
 	 * Control des Gesamtprogramms
 	 */
 	private DefenderControl control;
+	
+	private int mouseButton=0;
 
 	/**
 	 * Konstruktor
@@ -79,6 +81,8 @@ public class DefenderViewSlick extends BasicGame{
      * What happens when mouse was clicked
      */
     public void mouseClicked(int button, int x, int y, int clickCount){
+    	mouseButton=button;
+    	
     	//Klickvektor holen
     	Vector2f clickVector=new Vector2f(x,y);
     	
@@ -102,8 +106,8 @@ public class DefenderViewSlick extends BasicGame{
 //											   "  System: " + control.getMap().isBuildable(new Vector2f(x-49, y-49), new Vector2f(x+50, y+50), DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
 //										   );
 						
-			this.control.startUnitControlForMouse(clickVector, button);	
-//			this.control.startMenueControlForMouse(clickVector, button);	
+//			this.control.startUnitControlForMouse(clickVector, button);	
+			this.control.startMenueControlForMouse(clickVector, button);	
 			
 		}
     }
@@ -117,20 +121,17 @@ public class DefenderViewSlick extends BasicGame{
     	//Klickvektor holen
     	Vector2f clickVector=new Vector2f(newx,newy);
     	
-		if(isInUsableInputarea(clickVector)){
-			
-			
-			
-	//    	if (mouseButton == LEFT) {
-	//    		control.schiebeInterface(oldx, oldy, newx, newy);
-	//    	}
-	   
-	//    	if (mouseButton == RIGHT) {
-	    		control.zoomInterface(oldx, oldy, newx, newy);
-	//    	}			
-
-		}
-		
+//    	if(true)
+//		if(isInUsableInputarea(clickVector)){
+//			
+//	    	if (mouseButton == 0) {
+//	    		control.schiebeInterface(oldx, oldy, newx, newy);
+//	    	}
+//	   
+//	    	if (mouseButton == 1) {
+//	    		control.zoomInterface(oldx, oldy, newx, newy);
+//	    	}			
+//		}	
     }
     
     /**
