@@ -8,7 +8,7 @@ import org.newdawn.slick.SlickException;
 import processing.core.PImage;
 import processing.core.PVector;
 import de.fhb.defenderTouch.graphics.GraphicTools;
-import de.fhb.defenderTouch.units.notmovable.Building;
+import de.fhb.defenderTouch.units.root.Building;
 
 public class Gamemap {
 

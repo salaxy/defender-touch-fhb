@@ -10,6 +10,7 @@ import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.units.root.Building;
 
 public class Support extends Building {
 
@@ -49,7 +50,7 @@ public class Support extends Building {
 		vektoren.add(new PVector(size, 0));
 		vektoren.add(new PVector(-size, 0));
 		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
-		graphics.drawOval(-15, -15 , 30 , 30);
+		graphics.drawOval(-15, -14 , 30 , 30);
 		graphics.resetTransform();
 	}
 
@@ -75,7 +76,6 @@ public class Support extends Building {
 			return true;
 		}
 		return false;
-
 	}
 
 }
