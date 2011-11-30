@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import processing.core.PVector;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
+import de.fhb.defenderTouch.graphics.Animations;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.notmovable.Barracks;

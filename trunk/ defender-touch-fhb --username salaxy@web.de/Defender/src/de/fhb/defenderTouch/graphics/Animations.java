@@ -1,4 +1,4 @@
-package de.fhb.defenderTouch.menu;
+package de.fhb.defenderTouch.graphics;
 
 import org.newdawn.slick.*;
 
@@ -12,7 +12,7 @@ public class Animations {
 		images = new Image[number];
 		for (int i = 0; i < images.length; i++) {
 			try {
-				images[i] = new Image("data/" + path + "/" + (i + 1) + ".png");
+				images[i] = new Image("data/animations/" + path + "/" + (i + 1) + ".png");
 
 			} catch (SlickException e) {
 				e.printStackTrace();
