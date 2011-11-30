@@ -96,7 +96,8 @@ public class GraphicTools {
 		System.out.println("originalclick on Screen at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);
 		realClickKoordinates.sub(player.getOriginPosition());
 //		realClickKoordinates.setTheta(360 - player.getGeneralAngle());
-		realClickKoordinates.setTheta(360-player.getGeneralAngle());
+		//herausrechnen von spielerdrehung(qausi zueuckdrehen)
+		realClickKoordinates.setTheta(realClickKoordinates.getTheta()-player.getGeneralAngle());
 		realClickKoordinates.sub(player.getViewPosition());
 		realClickKoordinates.scale(1 / player.getActualZoom());
 		System.out.println("click on gamemap at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);

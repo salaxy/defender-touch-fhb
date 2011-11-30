@@ -5,5 +5,5 @@ TODO ANDY
 - Angriff (UserInteraktion, hinfliegen, dann angreifen wenn in Range)
 
 (- Slicksoundsystem anbinden, altes system entfernen)
-(- PVector durch Vector2f ersetzen)
+
 (- Loesung fuer die Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition))
