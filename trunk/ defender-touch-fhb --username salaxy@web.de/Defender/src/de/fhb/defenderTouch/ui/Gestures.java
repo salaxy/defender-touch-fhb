@@ -1,19 +1,9 @@
 package de.fhb.defenderTouch.ui;
 //package uniteFollowLine;
 
-import java.util.ArrayList;
-import javax.swing.Timer;
 import java.util.Vector;
-import java.lang.Math;
 
-//import de.fhb.defenderTouch.units.movable.BaseUnit;
-import processing.core.PApplet;
-import processing.core.PFont;
-import processing.core.PVector;
 import TUIO.TuioCursor;
-import TUIO.TuioObject;
-import TUIO.TuioPoint;
-import TUIO.TuioProcessing;
 import TUIO.TuioTime;
 
 

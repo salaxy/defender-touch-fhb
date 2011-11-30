@@ -92,9 +92,9 @@ public class DefenderControl implements TuioListener {
 		map = new Gamemap();
 
 		// die beiden Spieler initialisieren
-		playerOne = new Player(this, (float) Math.PI / 2, 0.65f, ORIGIN_POSITION_LEFT, Color.blue, PLAYER_ONE_ID);
-		playerTwo = new Player(this, 3 * (float) Math.PI / 2, 0.65f, ORIGIN_POSITION_RIGHT, Color.green, PLAYER_TWO_ID);
-		playerSystem = new Player(this, 02, 1f, ORIGIN_POSITION_RIGHT, Color.black, PLAYER_SYSTEM_ID);
+		playerOne = new Player(this, 90, 0.65f, ORIGIN_POSITION_LEFT, Color.blue, PLAYER_ONE_ID);
+		playerTwo = new Player(this, 270, 0.65f, ORIGIN_POSITION_RIGHT, Color.green, PLAYER_TWO_ID);
+		playerSystem = new Player(this, 0, 1f, ORIGIN_POSITION_RIGHT, Color.black, PLAYER_SYSTEM_ID);
 
 		globalUnits = new CopyOnWriteArrayList<BaseUnit>();
 
