@@ -156,7 +156,7 @@ public class Menu {
 	/**
 	 * ANIMATION
 	 */
-	private Animation animation;
+	private Animation smallExplosion;
 
 	/**
 	 * ANIMATION playing?
@@ -196,7 +196,7 @@ public class Menu {
 			menuBuildings[i] = new PVector(-100, -100);
 		}
 		gl = new Animations("small explosion", 17);
-		animation = gl.getAni();
+		smallExplosion = gl.getAni();
 
 	}
 
@@ -554,7 +554,7 @@ public class Menu {
 	 */
 	public void setBuildingDestroyPrice() {
 		smallExplosionPlaying = true;
-		animation.restart();
+		smallExplosion.restart();
 		if (actualBuilding instanceof Defence)
 			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
 
@@ -856,11 +856,11 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		animation.draw(-animation.getHeight() / 2, -animation.getWidth() / 2, animation.getHeight() * player.getActualZoom(), animation.getWidth() * player.getActualZoom());
+		smallExplosion.draw(-smallExplosion.getHeight() / 2, -smallExplosion.getWidth() / 2, smallExplosion.getHeight() * player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
 		graphics.resetTransform();
-		if (animation.getFrame() == gl.getNumberPictures() - 1) {
+		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
-			animation.stop();
+			smallExplosion.stop();
 		}
 	}
 }

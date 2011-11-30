@@ -8,11 +8,11 @@ public class Animations {
 	private Graphics graphics;
 	private Animation ani;
 
-	public Animations(String path, int number) {
+	public Animations(String picName, int number) {
 		images = new Image[number];
 		for (int i = 0; i < images.length; i++) {
 			try {
-				images[i] = new Image("data/animations/" + path + "/" + (i + 1) + ".png");
+				images[i] = new Image("data/animations/" + picName + "/" + (i + 1) + ".png");
 
 			} catch (SlickException e) {
 				e.printStackTrace();
