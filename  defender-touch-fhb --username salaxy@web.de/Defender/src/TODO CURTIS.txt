@@ -3,8 +3,6 @@ TODO CURTIS
 
 
 
-- Menü nachbearbeiten und verbessern
+- Menü nachbearbeiten und verbessern!
 
-- Unitdarstellungen ancharbeiten
-
-- Anitmation testen bei ShootWithRange
+- Animationen einbauen bei den Units (menü geht aber vor)
