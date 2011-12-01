@@ -3,6 +3,7 @@ package de.fhb.defenderTouch.gamelogic;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
 import de.fhb.defenderTouch.graphics.GraphicTools;
@@ -17,7 +18,7 @@ public class Gamemap {
 
 //		try {
 //			//visibleMap = new Image("./maps/vtestmap.png");
-//			informationalMap = new Image("./maps/itestmap.png");
+//			//informationalMap = new Image("./maps/itestmap.png");
 //		} catch (SlickException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -31,11 +32,11 @@ public class Gamemap {
 		// für Spieler sichtbare Karte zeichnen
 		
 		// TODO Frank machen tun
-//		visibleMap.draw();
+		//visibleMap.draw();
 		
 		//Feldumrandung zeichnen
-		graphics.setColor(new Color(255, 255, 0,55));
-		graphics.fillRect(0f, 0f, 1024, 768);
+//		graphics.setColor(new Color(255, 255, 0,55));
+//		graphics.fillRect(0f, 0f, 1024, 768);
 		
 		graphics.resetTransform();		
 	}
