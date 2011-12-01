@@ -70,7 +70,7 @@ public class Menu {
 	/**
 	 * addation for the special text
 	 */
-	protected final int TEXTdistanceANCE;
+	protected final int TEXTDISTANCE;
 
 	/**
 	 * size of the menu text
@@ -182,15 +182,15 @@ public class Menu {
 		this.player = player;
 		RADIUS = DIAMETER / 2;
 		TEXTSIZE = DIAMETER / 4;
-		DISTANCE = -(DIAMETER + 5);
-		TEXTdistanceANCE = DIAMETER / 11;
-		SIZEOFTEXTALIGNMENT = DIAMETER + TEXTSIZE * 2 + TEXTdistanceANCE * 2;
-		SIZEOFARMORY = TEXTdistanceANCE * 3;
-		SIZEOFDEFENCE = TEXTdistanceANCE * 2;
-		SIZEOFSUPPORT = TEXTdistanceANCE * 3;
-		SIZEOFDESTROY = TEXTdistanceANCE * 2;
-		SIZEOFUPGRADE = TEXTdistanceANCE * 3;
-		SIZEOFBARRACKS = TEXTdistanceANCE * 3;
+		DISTANCE = -DIAMETER + 5;
+		TEXTDISTANCE = DIAMETER / 11;
+		SIZEOFTEXTALIGNMENT = DIAMETER + TEXTSIZE * 2 + TEXTDISTANCE * 2;
+		SIZEOFARMORY = TEXTDISTANCE * 3;
+		SIZEOFDEFENCE = TEXTDISTANCE * 2;
+		SIZEOFSUPPORT = TEXTDISTANCE * 3;
+		SIZEOFDESTROY = TEXTDISTANCE * 2;
+		SIZEOFUPGRADE = TEXTDISTANCE * 3;
+		SIZEOFBARRACKS = TEXTDISTANCE * 3;
 		ANIMATIONS = DIAMETER / 8;
 
 		for (int i = 0; i < menu.length; i++) {
@@ -332,7 +332,7 @@ public class Menu {
 			createSmallMenuCircle(graphics);
 			graphics.rotate(0, 0, rotation);
 			graphics.setColor(Color.white);
-			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) - TEXTdistanceANCE);
+			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) - TEXTDISTANCE);
 			graphics.resetTransform();
 		}
 	}
@@ -853,7 +853,7 @@ public class Menu {
 	 */
 	public void showPriceBuildings(Graphics graphics, int price) {
 		graphics.setColor(Color.white);
-		graphics.drawString(price + "", -TEXTdistanceANCE, -SIZEOFTEXTALIGNMENT);
+		graphics.drawString(price + "", -TEXTDISTANCE, -SIZEOFTEXTALIGNMENT);
 	}
 
 	/**
