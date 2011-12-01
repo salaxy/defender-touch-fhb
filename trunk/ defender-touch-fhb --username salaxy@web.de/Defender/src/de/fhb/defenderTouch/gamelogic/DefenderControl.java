@@ -99,9 +99,9 @@ public class DefenderControl implements TuioListener {
 
 	public DefenderControl() {
 		
-		tuioClient=new TuioClient();
-
-		gestures= new Gestures(tuioClient);
+//		tuioClient=new TuioClient();
+//
+//		gestures= new Gestures(tuioClient);
 
 		// map init
 		map = new Gamemap();
@@ -119,9 +119,9 @@ public class DefenderControl implements TuioListener {
 
 		// this.playBackgroundSound();
 		
-		tuioClient.addTuioListener(this);
-		
-		tuioClient.connect();
+//		tuioClient.addTuioListener(this);
+//		
+//		tuioClient.connect();
 	}
 
 	public Gamemap getMap() {
@@ -240,45 +240,45 @@ public class DefenderControl implements TuioListener {
 		
 		
 		
-		gestures.countFrames();
-		
-		
-		
-		Vector tuioObjectList = tuioClient.getTuioObjects(); //gets all objects which are currently on the screen
-		  for (int i=0;i<tuioObjectList.size();i++) {
-		     TuioObject tobj = (TuioObject)tuioObjectList.elementAt(i);
-		     graphics.setColor(Color.orange);
-		     graphics.pushTransform(); //save old coordinate system (bottom left is 0,0)
-		     graphics.translate(tobj.getScreenX(width),tobj.getScreenY(height)); //translate coordinate-system that 0,0 is at position of object (easier for drawing)
-		     graphics.rotate(0, 0, tobj.getAngle()); //rotate coordinate system in same angle than object is
-//		     rect(-obj_size/2,-obj_size/2,obj_size,obj_size); //draw rectangle
-		     graphics.popTransform(); //restore old coordinate system
-		     graphics.setColor(Color.white);
-		     graphics.drawString(""+tobj.getSymbolID(), tobj.getScreenX(width), tobj.getScreenY(height)); //draw objectID at position of object
-		   }
-		   
-		   Vector tuioCursorList = tuioClient.getTuioCursors(); //gets all cursors (fingers) which are currently on the screen
-		   for (int i=0;i<tuioCursorList.size();i++) {
-		      TuioCursor tcur = (TuioCursor)tuioCursorList.elementAt(i);
-		      Vector pointList = tcur.getPath(); // get path of cursors (the positions they have already been in the past)
-		      
-		    //if points exist (no points will exists when cursor not moved)
-		      if (pointList.size()>0) { //draw path
-				     graphics.setColor(Color.blue);
-		        TuioPoint start_point = (TuioPoint)pointList.firstElement();
-		        for (int j=0;j<pointList.size();j++) {
-		           TuioPoint end_point = (TuioPoint)pointList.elementAt(j);
-//		           line(start_point.getScreenX(width),start_point.getScreenY(height),end_point.getScreenX(width),end_point.getScreenY(height));
-		           start_point = end_point;
-		        }
-			     graphics.setColor(Color.gray);
-//		        ellipse( tcur.getScreenX(width), tcur.getScreenY(height),cur_size,cur_size); //draw ellipse at (current) position of cursor
-			     graphics.setColor(Color.gray);
-			     
-			     graphics.drawString(""+ tcur.getCursorID(),  tcur.getScreenX(width)-5,  tcur.getScreenY(height)+5); //draw id and position at current position of cursor
-		      }
-		   }
-		
+////		gestures.countFrames();
+//		
+//		
+//		
+//		Vector tuioObjectList = tuioClient.getTuioObjects(); //gets all objects which are currently on the screen
+//		  for (int i=0;i<tuioObjectList.size();i++) {
+//		     TuioObject tobj = (TuioObject)tuioObjectList.elementAt(i);
+//		     graphics.setColor(Color.orange);
+//		     graphics.pushTransform(); //save old coordinate system (bottom left is 0,0)
+//		     graphics.translate(tobj.getScreenX(width),tobj.getScreenY(height)); //translate coordinate-system that 0,0 is at position of object (easier for drawing)
+//		     graphics.rotate(0, 0, tobj.getAngle()); //rotate coordinate system in same angle than object is
+////		     rect(-obj_size/2,-obj_size/2,obj_size,obj_size); //draw rectangle
+//		     graphics.popTransform(); //restore old coordinate system
+//		     graphics.setColor(Color.white);
+//		     graphics.drawString(""+tobj.getSymbolID(), tobj.getScreenX(width), tobj.getScreenY(height)); //draw objectID at position of object
+//		   }
+//		   
+//		   Vector tuioCursorList = tuioClient.getTuioCursors(); //gets all cursors (fingers) which are currently on the screen
+//		   for (int i=0;i<tuioCursorList.size();i++) {
+//		      TuioCursor tcur = (TuioCursor)tuioCursorList.elementAt(i);
+//		      Vector pointList = tcur.getPath(); // get path of cursors (the positions they have already been in the past)
+//		      
+//		    //if points exist (no points will exists when cursor not moved)
+//		      if (pointList.size()>0) { //draw path
+//				     graphics.setColor(Color.blue);
+//		        TuioPoint start_point = (TuioPoint)pointList.firstElement();
+//		        for (int j=0;j<pointList.size();j++) {
+//		           TuioPoint end_point = (TuioPoint)pointList.elementAt(j);
+////		           line(start_point.getScreenX(width),start_point.getScreenY(height),end_point.getScreenX(width),end_point.getScreenY(height));
+//		           start_point = end_point;
+//		        }
+//			     graphics.setColor(Color.gray);
+////		        ellipse( tcur.getScreenX(width), tcur.getScreenY(height),cur_size,cur_size); //draw ellipse at (current) position of cursor
+//			     graphics.setColor(Color.gray);
+//			     
+//			     graphics.drawString(""+ tcur.getCursorID(),  tcur.getScreenX(width)-5,  tcur.getScreenY(height)+5); //draw id and position at current position of cursor
+//		      }
+//		   }
+//		
 
 	}
 
