@@ -184,7 +184,7 @@ public class Menu {
 		TEXTSIZE = DIAMETER / 4;
 		DISTANCE = -DIAMETER + 5;
 		TEXTDISTANCE = DIAMETER / 11;
-		SIZEOFTEXTALIGNMENT = DIAMETER + TEXTSIZE * 2 + TEXTDISTANCE * 2;
+		SIZEOFTEXTALIGNMENT = DIAMETER + TEXTDISTANCE * 6;
 		SIZEOFARMORY = TEXTDISTANCE * 3;
 		SIZEOFDEFENCE = TEXTDISTANCE * 2;
 		SIZEOFSUPPORT = TEXTDISTANCE * 3;
@@ -246,7 +246,7 @@ public class Menu {
 		if (menuOpen) {
 			int rotation = 0;
 			int counter = 0;
-			int drehungProUntermenue = 360 / 6;
+			int nextRotation = 360 / 6;
 
 			calcDrawTransformation(graphics);
 			rotateAndCreateMenu(counter++, rotation, graphics);
@@ -257,8 +257,8 @@ public class Menu {
 			showPriceBuildings(graphics, Armory.PRICE);
 			graphics.resetTransform();
 
-			calcDrawTransformation(graphics);			
-			rotation += drehungProUntermenue;
+			calcDrawTransformation(graphics);
+			rotation += nextRotation;
 			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.lightGray);
 			createBigMenuCircle(graphics);
@@ -267,8 +267,8 @@ public class Menu {
 			showPriceBuildings(graphics, Defence.PRICE);
 			graphics.resetTransform();
 
-			calcDrawTransformation(graphics);			
-			rotation += drehungProUntermenue;
+			calcDrawTransformation(graphics);
+			rotation += nextRotation;
 			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.magenta);
 			createBigMenuCircle(graphics);
@@ -277,8 +277,8 @@ public class Menu {
 			showPriceBuildings(graphics, Support.PRICE);
 			graphics.resetTransform();
 
-			calcDrawTransformation(graphics);			
-			rotation += drehungProUntermenue;
+			calcDrawTransformation(graphics);
+			rotation += nextRotation;
 			rotateAndCreateMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.orange);
 			createBigMenuCircle(graphics);
@@ -288,13 +288,13 @@ public class Menu {
 			graphics.resetTransform();
 
 			calcDrawTransformation(graphics);
-			rotation += drehungProUntermenue;
+			rotation += nextRotation;
 			rotateAndCreateMenu(counter++, rotation, graphics);
 			createSmallMenuCircle(graphics);
 			graphics.resetTransform();
 
-			calcDrawTransformation(graphics);			
-			rotation += drehungProUntermenue;
+			calcDrawTransformation(graphics);
+			rotation += nextRotation;
 			rotateAndCreateMenu(counter++, rotation, graphics);
 			createSmallMenuCircle(graphics);
 			graphics.resetTransform();
@@ -307,7 +307,7 @@ public class Menu {
 		if (buildingOpen) {
 			int rotation = 0;
 			int counter = 0;
-			int drehungProUntermenue = 360 / 4;
+			int nextRotation = 360 / 4;
 
 			calcDrawTransformationBuildings(graphics);
 			rotateAndCreateMenuBuilding(counter++, rotation, graphics);
@@ -316,7 +316,7 @@ public class Menu {
 			createTinyMenuCircle(graphics);
 			showSignUpgrade(graphics);
 			showPriceBuildings(graphics, getActualBuildingPrice());
-			rotation += drehungProUntermenue;
+			rotation += nextRotation;
 			graphics.resetTransform();
 
 			calcDrawTransformationBuildings(graphics);
@@ -324,7 +324,7 @@ public class Menu {
 			graphics.setColor(Color.red);
 			createBigMenuCircle(graphics);
 			showSignDestroy(graphics);
-			rotation += drehungProUntermenue;
+			rotation += nextRotation;
 			graphics.resetTransform();
 
 			calcDrawTransformationBuildings(graphics);
@@ -683,6 +683,7 @@ public class Menu {
 		menuBuildings[element] = new Vector2f(0, DISTANCE);
 		menuBuildings[element].setTheta(rotation);
 		menuBuildings[element].add(position);
+
 	}
 
 	/**
@@ -757,19 +758,22 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingDefence(Graphics graphics) {
-//		graphics.setColor(Color.black);
-//		ArrayList<Vector2f> vektoren1 = new ArrayList<Vector2f>();
-//		vektoren1.add(new Vector2f(-SIZEOFDEFENCE, distanceANCE - SIZEOFDEFENCE));
-//		vektoren1.add(new Vector2f(SIZEOFDEFENCE, distanceANCE - SIZEOFDEFENCE));
-//		vektoren1.add(new Vector2f(0, distanceANCE - SIZEOFDEFENCE));
-//		vektoren1.add(new Vector2f(0, distanceANCE - SIZEOFDEFENCE * 2));
-//		vektoren1.add(new Vector2f(0, distanceANCE + SIZEOFDEFENCE));
-//		vektoren1.add(new Vector2f(SIZEOFDEFENCE, distanceANCE + SIZEOFDEFENCE));
-//		vektoren1.add(new Vector2f(-SIZEOFDEFENCE, distanceANCE + SIZEOFDEFENCE));
-//		graphics.drawOval(-SIZEOFDEFENCE, distanceANCE - SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2);
-//		GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
-		
-		
+		// graphics.setColor(Color.black);
+		// ArrayList<Vector2f> vektoren1 = new ArrayList<Vector2f>();
+		// vektoren1.add(new Vector2f(-SIZEOFDEFENCE, distanceANCE -
+		// SIZEOFDEFENCE));
+		// vektoren1.add(new Vector2f(SIZEOFDEFENCE, distanceANCE -
+		// SIZEOFDEFENCE));
+		// vektoren1.add(new Vector2f(0, distanceANCE - SIZEOFDEFENCE));
+		// vektoren1.add(new Vector2f(0, distanceANCE - SIZEOFDEFENCE * 2));
+		// vektoren1.add(new Vector2f(0, distanceANCE + SIZEOFDEFENCE));
+		// vektoren1.add(new Vector2f(SIZEOFDEFENCE, distanceANCE +
+		// SIZEOFDEFENCE));
+		// vektoren1.add(new Vector2f(-SIZEOFDEFENCE, distanceANCE +
+		// SIZEOFDEFENCE));
+		// graphics.drawOval(-SIZEOFDEFENCE, distanceANCE - SIZEOFDEFENCE * 2,
+		// SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2);
+		// GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
 
 		Image image = null;
 		try {
@@ -778,7 +782,7 @@ public class Menu {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		graphics.drawImage(image, DISTANCE/2, DISTANCE - SIZEOFDEFENCE*2, 100, 100, 0f, 0f);
+		graphics.drawImage(image, DISTANCE / 2, DISTANCE - SIZEOFDEFENCE * 2, 100, 100, 0f, 0f);
 		graphics.resetTransform();
 	}
 
@@ -810,7 +814,7 @@ public class Menu {
 		graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference, SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
 		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0, -SIZEOFBARRACKS + DISTANCE + difference * 3);
 		graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference * 3, SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
-	
+
 	}
 
 	/**
@@ -863,7 +867,8 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		smallExplosion.draw(-smallExplosion.getHeight() / 2, -smallExplosion.getWidth() / 2, smallExplosion.getHeight() * player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
+		smallExplosion.draw(-smallExplosion.getHeight() / 2, -smallExplosion.getWidth() / 2, smallExplosion.getHeight()
+				* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
 		graphics.resetTransform();
 		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
