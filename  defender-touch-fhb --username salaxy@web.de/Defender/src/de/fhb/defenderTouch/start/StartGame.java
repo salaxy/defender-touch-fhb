@@ -1,4 +1,4 @@
-package de.fhb.defenderTouch.gamelogic;
+package de.fhb.defenderTouch.start;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
