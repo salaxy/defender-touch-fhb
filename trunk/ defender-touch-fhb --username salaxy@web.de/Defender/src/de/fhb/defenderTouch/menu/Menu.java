@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.transition.RotateTransition;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
@@ -60,7 +61,7 @@ public class Menu {
 	/**
 	 * activation raduis of a menupoint - just configure here! <----
 	 */
-	protected final int DIAMETER = 120;
+	protected final int MAINSIZE = 120;
 
 	/**
 	 * Radius of the circle Is always half its diameter
@@ -180,18 +181,18 @@ public class Menu {
 		this.position = new Vector2f(0, 0);
 		this.buildings = buildings;
 		this.player = player;
-		RADIUS = DIAMETER / 2;
-		TEXTSIZE = DIAMETER / 4;
-		DISTANCE = -DIAMETER + 5;
-		TEXTDISTANCE = DIAMETER / 11;
-		SIZEOFTEXTALIGNMENT = DIAMETER + TEXTDISTANCE * 6;
+		RADIUS = MAINSIZE / 2;
+		TEXTSIZE = MAINSIZE / 4;
+		DISTANCE = -MAINSIZE + 5;
+		TEXTDISTANCE = MAINSIZE / 11;
+		SIZEOFTEXTALIGNMENT = MAINSIZE + TEXTDISTANCE * 6;
 		SIZEOFARMORY = TEXTDISTANCE * 3;
 		SIZEOFDEFENCE = TEXTDISTANCE * 2;
 		SIZEOFSUPPORT = TEXTDISTANCE * 3;
 		SIZEOFDESTROY = TEXTDISTANCE * 2;
 		SIZEOFUPGRADE = TEXTDISTANCE * 3;
 		SIZEOFBARRACKS = TEXTDISTANCE * 3;
-		ANIMATIONS = DIAMETER / 8;
+		ANIMATIONS = MAINSIZE / 8;
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new Vector2f(-100, -100);
@@ -249,53 +250,53 @@ public class Menu {
 			int nextRotation = 360 / 6;
 
 			calcDrawTransformation(graphics);
-			rotateAndCreateMenu(counter++, rotation, graphics);
+			createClickablePointMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.cyan);
 			createBigMenuCircle(graphics);
 			showBuildingArmory(graphics);
 			createTinyMenuCircle(graphics);
 			showPriceBuildings(graphics, Armory.PRICE);
 			graphics.resetTransform();
+			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
-			rotation += nextRotation;
-			rotateAndCreateMenu(counter++, rotation, graphics);
+			createClickablePointMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.lightGray);
 			createBigMenuCircle(graphics);
 			showBuildingDefence(graphics);
 			createTinyMenuCircle(graphics);
 			showPriceBuildings(graphics, Defence.PRICE);
 			graphics.resetTransform();
+			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
-			rotation += nextRotation;
-			rotateAndCreateMenu(counter++, rotation, graphics);
+			createClickablePointMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.magenta);
 			createBigMenuCircle(graphics);
 			showBuildingSupport(graphics);
 			createTinyMenuCircle(graphics);
 			showPriceBuildings(graphics, Support.PRICE);
 			graphics.resetTransform();
+			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
-			rotation += nextRotation;
-			rotateAndCreateMenu(counter++, rotation, graphics);
+			createClickablePointMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.orange);
 			createBigMenuCircle(graphics);
 			showBuildingBarracks(graphics);
 			createTinyMenuCircle(graphics);
 			showPriceBuildings(graphics, Tank.PRICE);
 			graphics.resetTransform();
+			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
-			rotation += nextRotation;
-			rotateAndCreateMenu(counter++, rotation, graphics);
+			createClickablePointMenu(counter++, rotation, graphics);
 			createSmallMenuCircle(graphics);
 			graphics.resetTransform();
+			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
-			rotation += nextRotation;
-			rotateAndCreateMenu(counter++, rotation, graphics);
+			createClickablePointMenu(counter++, rotation, graphics);
 			createSmallMenuCircle(graphics);
 			graphics.resetTransform();
 		}
@@ -310,22 +311,22 @@ public class Menu {
 			int nextRotation = 360 / 4;
 
 			calcDrawTransformationBuildings(graphics);
-			rotateAndCreateMenuBuilding(counter++, rotation, graphics);
+			createClickablePointBuilding(counter++, rotation, graphics);
 			graphics.setColor(Color.green);
 			createBigMenuCircle(graphics);
 			createTinyMenuCircle(graphics);
 			showSignUpgrade(graphics);
 			showPriceBuildings(graphics, getActualBuildingPrice());
-			rotation += nextRotation;
 			graphics.resetTransform();
+			rotation += nextRotation;
 
 			calcDrawTransformationBuildings(graphics);
-			rotateAndCreateMenuBuilding(counter++, rotation, graphics);
+			createClickablePointBuilding(counter++, rotation, graphics);
 			graphics.setColor(Color.red);
 			createBigMenuCircle(graphics);
 			showSignDestroy(graphics);
-			rotation += nextRotation;
 			graphics.resetTransform();
+			rotation += nextRotation;
 
 			calcDrawTransformationBuildings(graphics);
 			graphics.rotate(0, 0, rotation);
@@ -427,13 +428,11 @@ public class Menu {
 			return true;
 		}
 		if (this.menuBuildings[1].distance(clickVector) < this.RADIUS) {
-
 			setBuildingOpen(false, null);
 			setBuildingDestroyPrice();
 			setActualChosenBuilding(1);
 			return true;
 		}
-
 		return false;
 	}
 
@@ -664,11 +663,23 @@ public class Menu {
 	 * @param rotation
 	 * @param graphics
 	 */
-	public void rotateAndCreateMenu(int element, int rotation, Graphics graphics) {
+	public void createClickablePointMenu(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
+		System.out.println(rotation);
 		menu[element] = new Vector2f(0, DISTANCE);
-		menu[element].setTheta(rotation);
+		menu[element].setTheta(rotation-60);
 		menu[element].add(position);
+		red(graphics, rotation);
+	}
+
+	public void red(Graphics graphics, int rotation) {
+		graphics.setColor(Color.red);
+		graphics.drawOval(5, 0, 2, 2);
+	}
+
+	public void blue(Graphics graphics, int rotation) {
+		graphics.setColor(Color.blue);
+		graphics.drawOval(5, 0, 2, 2);
 	}
 
 	/**
@@ -678,12 +689,12 @@ public class Menu {
 	 * @param rotation
 	 * @param graphics
 	 */
-	public void rotateAndCreateMenuBuilding(int element, int rotation, Graphics graphics) {
+	public void createClickablePointBuilding(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menuBuildings[element] = new Vector2f(0, DISTANCE);
-		menuBuildings[element].setTheta(rotation);
+		menuBuildings[element].setTheta(rotation-90);
 		menuBuildings[element].add(position);
-
+		blue(graphics, rotation);
 	}
 
 	/**
@@ -713,9 +724,9 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void createBigMenuCircle(Graphics graphics) {
-		graphics.fillOval(-DIAMETER / 2, DISTANCE - DIAMETER / 2, DIAMETER, DIAMETER);
+		graphics.fillOval(-MAINSIZE / 2, DISTANCE - MAINSIZE / 2, MAINSIZE, MAINSIZE);
 		graphics.setColor(Color.darkGray);
-		graphics.drawOval(-DIAMETER / 2, DISTANCE - DIAMETER / 2, DIAMETER, DIAMETER);
+		graphics.drawOval(-MAINSIZE / 2, DISTANCE - MAINSIZE / 2, MAINSIZE, MAINSIZE);
 	}
 
 	/**
@@ -746,10 +757,23 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingArmory(Graphics graphics) {
-		graphics.setColor(Color.black);
-		graphics.drawLine(-SIZEOFARMORY, SIZEOFARMORY + DISTANCE, 0, -SIZEOFARMORY + DISTANCE);
-		graphics.drawLine(0, -SIZEOFARMORY + DISTANCE, SIZEOFARMORY, SIZEOFARMORY + DISTANCE);
-		graphics.drawLine(+SIZEOFARMORY, +SIZEOFARMORY + DISTANCE, -SIZEOFARMORY, SIZEOFARMORY + DISTANCE);
+		// graphics.setColor(Color.black);
+		// graphics.drawLine(-SIZEOFARMORY, SIZEOFARMORY + DISTANCE, 0,
+		// -SIZEOFARMORY + DISTANCE);
+		// graphics.drawLine(0, -SIZEOFARMORY + DISTANCE, SIZEOFARMORY,
+		// SIZEOFARMORY + DISTANCE);
+		// graphics.drawLine(+SIZEOFARMORY, +SIZEOFARMORY + DISTANCE,
+		// -SIZEOFARMORY, SIZEOFARMORY + DISTANCE);
+
+		Image image = null;
+		try {
+			image = new Image("data/buildings/Armory.png");
+			image = image.getScaledCopy(100, 100);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		graphics.drawImage(image, DISTANCE / 2, DISTANCE - MAINSIZE / 2, 100, 100, 0f, 0f);
+		graphics.resetTransform();
 	}
 
 	/**
@@ -777,7 +801,7 @@ public class Menu {
 
 		Image image = null;
 		try {
-			image = new Image("data/buildings/Armory.png");
+			image = new Image("data/buildings/Defence.png");
 			image = image.getScaledCopy(100, 100);
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -792,14 +816,24 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingSupport(Graphics graphics) {
-		graphics.setColor(Color.black);
-		ArrayList<Vector2f> vektoren2 = new ArrayList<Vector2f>();
-		vektoren2.add(new Vector2f(0, DISTANCE - SIZEOFSUPPORT));
-		vektoren2.add(new Vector2f(0, DISTANCE + SIZEOFSUPPORT));
-		vektoren2.add(new Vector2f(0, DISTANCE));
-		vektoren2.add(new Vector2f(SIZEOFSUPPORT, DISTANCE));
-		vektoren2.add(new Vector2f(-SIZEOFSUPPORT, DISTANCE));
-		GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
+		// graphics.setColor(Color.black);
+		// ArrayList<Vector2f> vektoren2 = new ArrayList<Vector2f>();
+		// vektoren2.add(new Vector2f(0, DISTANCE - SIZEOFSUPPORT));
+		// vektoren2.add(new Vector2f(0, DISTANCE + SIZEOFSUPPORT));
+		// vektoren2.add(new Vector2f(0, DISTANCE));
+		// vektoren2.add(new Vector2f(SIZEOFSUPPORT, DISTANCE));
+		// vektoren2.add(new Vector2f(-SIZEOFSUPPORT, DISTANCE));
+		// GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
+
+		Image image = null;
+		try {
+			image = new Image("data/buildings/Support.png");
+			image = image.getScaledCopy(100, 100);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		graphics.drawImage(image, DISTANCE / 2, DISTANCE - SIZEOFDEFENCE * 2, 100, 100, 0f, 0f);
+		graphics.resetTransform();
 	}
 
 	/**
@@ -808,12 +842,26 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingBarracks(Graphics graphics) {
-		graphics.setColor(Color.black);
-		int difference = 10;
-		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0, -SIZEOFBARRACKS + DISTANCE + difference);
-		graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference, SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
-		graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0, -SIZEOFBARRACKS + DISTANCE + difference * 3);
-		graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference * 3, SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
+		// graphics.setColor(Color.black);
+		// int difference = 10;
+		// graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0,
+		// -SIZEOFBARRACKS + DISTANCE + difference);
+		// graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference,
+		// SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
+		// graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0,
+		// -SIZEOFBARRACKS + DISTANCE + difference * 3);
+		// graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference * 3,
+		// SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
+
+		Image image = null;
+		try {
+			image = new Image("data/buildings/Barracks.png");
+			image = image.getScaledCopy(100, 100);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		graphics.drawImage(image, DISTANCE / 2, DISTANCE - SIZEOFDEFENCE * 2, 100, 100, 0f, 0f);
+		graphics.resetTransform();
 
 	}
 
