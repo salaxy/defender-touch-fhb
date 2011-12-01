@@ -16,13 +16,13 @@ public class Gamemap {
 	
 	public Gamemap() {
 
-//		try {
-//			//visibleMap = new Image("./maps/vtestmap.png");
-//			//informationalMap = new Image("./maps/itestmap.png");
-//		} catch (SlickException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			visibleMap = new Image("./maps/vtestmap_small.png");
+			informationalMap = new Image("./maps/itestmap_small.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}	
 	
 	public void zeichne(Graphics graphics, Player player){
@@ -32,7 +32,7 @@ public class Gamemap {
 		// für Spieler sichtbare Karte zeichnen
 		
 		// TODO Frank machen tun
-		//visibleMap.draw();
+		visibleMap.draw();
 		
 		//Feldumrandung zeichnen
 //		graphics.setColor(new Color(255, 255, 0,55));
@@ -43,10 +43,10 @@ public class Gamemap {
 	
 	public boolean isFlyable(Vector2f position) {
 	
-		return (position.x > 1f &&
-				position.y < informationalMap.getHeight() - 1f &&
-				position.y > 1f &&
-				position.y < informationalMap.getWidth() - 1f) ?
+		return (position.x > 10f &&
+				position.y < informationalMap.getHeight() - 10f &&
+				position.y > 10f &&
+				position.y < informationalMap.getWidth() - 10f) ?
 				true :
 				false;
 	

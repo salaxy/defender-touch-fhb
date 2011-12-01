@@ -9,10 +9,16 @@ import de.fhb.defenderTouch.display.DefenderViewSlick;
 
 public class StartGame extends StateBasedGame {
 
+	/**
+	 *  Konstruktor
+	 */
 	public StartGame() {
 		super("DEFENDER ALPHA");
 	}
 
+	/**
+	 * Hier werden die GameStates bekannt gemacht.
+	 */
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
 		addState(new DefenderViewSlick());
@@ -20,6 +26,8 @@ public class StartGame extends StateBasedGame {
 	}
 
 	/**
+	 * Main-Methode
+	 * 
 	 * @param args
 	 * @throws SlickException 
 	 */
