@@ -227,9 +227,9 @@ public class Menu {
 			System.out.println();
 		}
 	}
-	
-	public void showMenuTest(Vector2f menu[]){
-		System.out.println(menu[0].getX());
+
+	public void showMenuTest(Vector2f menu[]) {
+//		System.out.println(menu[0].getX());
 	}
 
 	/**
@@ -684,13 +684,13 @@ public class Menu {
 	public void red(Graphics graphics, int rotation, String element) {
 		graphics.setColor(Color.red);
 		graphics.drawOval(5, 0, 2, 2);
-		graphics.drawString(element, MAINSIZE+MAINSIZE/2, MAINSIZE+MAINSIZE/2);
+		graphics.drawString(element, MAINSIZE + MAINSIZE / 2, MAINSIZE + MAINSIZE / 2);
 	}
 
 	public void blue(Graphics graphics, int rotation, String element) {
 		graphics.setColor(Color.blue);
 		graphics.drawOval(5, 0, 2, 2);
-		graphics.drawString(element, MAINSIZE+MAINSIZE/2, MAINSIZE+MAINSIZE/2);
+		graphics.drawString(element, MAINSIZE + MAINSIZE / 2, MAINSIZE + MAINSIZE / 2);
 	}
 
 	/**
@@ -886,8 +886,8 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		smallExplosion.draw(-smallExplosion.getHeight() / 2, -smallExplosion.getWidth() / 2, smallExplosion.getHeight()
-				* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
+		smallExplosion.draw(-smallExplosion.getHeight() / 2, (-smallExplosion.getWidth() / 2)* player.getActualZoom(), smallExplosion.getHeight() * player.getActualZoom(), smallExplosion.getWidth()
+				* player.getActualZoom());
 		graphics.resetTransform();
 		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
