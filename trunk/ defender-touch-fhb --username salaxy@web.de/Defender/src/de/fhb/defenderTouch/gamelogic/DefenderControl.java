@@ -1,14 +1,17 @@
 package de.fhb.defenderTouch.gamelogic;
 
+import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
+import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
+import TUIO.TuioPoint;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
@@ -36,7 +39,11 @@ public class DefenderControl implements TuioListener {
 	/**
 	 * Gestenerkennung
 	 */
-	private Gestures gestures = new Gestures();
+	private Gestures gestures;
+	
+	int width = 1024;
+	int height = 768;
+	//TODO gehört wo anders hin....kommt eigentlich aus der view her
 
 	// Spielkonstanten
 	public static final int MOUSE_LEFT = 0;
@@ -85,8 +92,16 @@ public class DefenderControl implements TuioListener {
 	 * Menue Spieler Zwei
 	 */
 	private Menu menuePlayerTwo;
+	
+	
+	TuioClient tuioClient;
+	
 
 	public DefenderControl() {
+		
+		tuioClient=new TuioClient();
+
+		gestures= new Gestures(tuioClient);
 
 		// map init
 		map = new Gamemap();
@@ -103,6 +118,10 @@ public class DefenderControl implements TuioListener {
 		menuePlayerTwo = new Menu(this.globalUnits, playerTwo);
 
 		// this.playBackgroundSound();
+		
+		tuioClient.addTuioListener(this);
+		
+		tuioClient.connect();
 	}
 
 	public Gamemap getMap() {
@@ -122,6 +141,7 @@ public class DefenderControl implements TuioListener {
 	 * Zeichnet beide Spielfelder und Inhalte
 	 */
 	public void drawAll(Graphics graphics) {
+
 
 		// Berechnen der Positionen aller Units
 		for (BaseUnit unit : globalUnits) {
@@ -205,6 +225,60 @@ public class DefenderControl implements TuioListener {
 		graphics.drawLine(511f, 0f, 511f, 768f);
 		graphics.drawLine(512f, 0f, 512f, 768f);
 		graphics.drawLine(513f, 0f, 513f, 768f);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		gestures.countFrames();
+		
+		
+		
+		Vector tuioObjectList = tuioClient.getTuioObjects(); //gets all objects which are currently on the screen
+		  for (int i=0;i<tuioObjectList.size();i++) {
+		     TuioObject tobj = (TuioObject)tuioObjectList.elementAt(i);
+		     graphics.setColor(Color.orange);
+		     graphics.pushTransform(); //save old coordinate system (bottom left is 0,0)
+		     graphics.translate(tobj.getScreenX(width),tobj.getScreenY(height)); //translate coordinate-system that 0,0 is at position of object (easier for drawing)
+		     graphics.rotate(0, 0, tobj.getAngle()); //rotate coordinate system in same angle than object is
+//		     rect(-obj_size/2,-obj_size/2,obj_size,obj_size); //draw rectangle
+		     graphics.popTransform(); //restore old coordinate system
+		     graphics.setColor(Color.white);
+		     graphics.drawString(""+tobj.getSymbolID(), tobj.getScreenX(width), tobj.getScreenY(height)); //draw objectID at position of object
+		   }
+		   
+		   Vector tuioCursorList = tuioClient.getTuioCursors(); //gets all cursors (fingers) which are currently on the screen
+		   for (int i=0;i<tuioCursorList.size();i++) {
+		      TuioCursor tcur = (TuioCursor)tuioCursorList.elementAt(i);
+		      Vector pointList = tcur.getPath(); // get path of cursors (the positions they have already been in the past)
+		      
+		    //if points exist (no points will exists when cursor not moved)
+		      if (pointList.size()>0) { //draw path
+				     graphics.setColor(Color.blue);
+		        TuioPoint start_point = (TuioPoint)pointList.firstElement();
+		        for (int j=0;j<pointList.size();j++) {
+		           TuioPoint end_point = (TuioPoint)pointList.elementAt(j);
+//		           line(start_point.getScreenX(width),start_point.getScreenY(height),end_point.getScreenX(width),end_point.getScreenY(height));
+		           start_point = end_point;
+		        }
+			     graphics.setColor(Color.gray);
+//		        ellipse( tcur.getScreenX(width), tcur.getScreenY(height),cur_size,cur_size); //draw ellipse at (current) position of cursor
+			     graphics.setColor(Color.gray);
+			     
+			     graphics.drawString(""+ tcur.getCursorID(),  tcur.getScreenX(width)-5,  tcur.getScreenY(height)+5); //draw id and position at current position of cursor
+		      }
+		   }
+		
 
 	}
 
@@ -511,41 +585,41 @@ public class DefenderControl implements TuioListener {
 		// TODO MINKE
 		System.out.println("add cursor " + arg0.getCursorID() + " (" + arg0.getSessionID() + ") " + arg0.getX() + " " + arg0.getY());
 
-		Vector2f vector = new Vector2f(arg0.getScreenX(DefenderViewSlick.HEIGHT), arg0.getScreenY(DefenderViewSlick.WIDTH));
+		Vector2f clickVector = new Vector2f(arg0.getScreenX(DefenderViewSlick.HEIGHT), arg0.getScreenY(DefenderViewSlick.WIDTH));
 		boolean wurdeEbendAktiviert = false;
 		boolean warSchonAktiv = false;
 
-		for (BaseUnit u : this.getGlobalUnits()) {
-
-			// wenn eine unit aktiviert wird dann die anderen deaktiveren
-			if (!wurdeEbendAktiviert) {
-
-				// wenn bereits aktiv dann deaktivieren
-				warSchonAktiv = u.isActive();
-				wurdeEbendAktiviert = u.isInner(vector);
-
-				if (wurdeEbendAktiviert && warSchonAktiv) {
-					u.deactivate();
-				}
-
-			} else {
-				u.deactivate();
-			}
-		}
-
-		// neues Ziel setzen wenn unit aktiv
-		for (BaseUnit u : this.getGlobalUnits()) {
-			if (u.isActive()) {
-				u.commandDestination(vector);
-			}
-		}
+//		for (BaseUnit u : this.getGlobalUnits()) {
+//
+//			// wenn eine unit aktiviert wird dann die anderen deaktiveren
+//			if (!wurdeEbendAktiviert) {
+//
+//				// wenn bereits aktiv dann deaktivieren
+//				warSchonAktiv = u.isActive();
+//				wurdeEbendAktiviert = u.isInner(vector);
+//
+//				if (wurdeEbendAktiviert && warSchonAktiv) {
+//					u.deactivate();
+//				}
+//
+//			} else {
+//				u.deactivate();
+//			}
+//		}
+//
+//		// neues Ziel setzen wenn unit aktiv
+//		for (BaseUnit u : this.getGlobalUnits()) {
+//			if (u.isActive()) {
+//				u.commandDestination(vector);
+//			}
+//		}
+		
+		this.startUnitControlForMouse(clickVector, 0);
 	}
 
 	@Override
-	public void addTuioObject(TuioObject arg0) {
-		// TODO MINKE
-		// gestures.methode
-
+	public void addTuioObject(TuioObject tobj) {
+		  System.out.println("add object "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle());
 	}
 
 	@Override
@@ -555,28 +629,29 @@ public class DefenderControl implements TuioListener {
 	}
 
 	@Override
-	public void removeTuioCursor(TuioCursor arg0) {
-		// TODO MINKE
+	public void removeTuioCursor(TuioCursor tcur) {
+		gestures.cleanUpTheList(tcur.getCursorID());
+//		System.out.println("remove cursor " + tcur.getCursorID() + " ("
+//				+ tcur.getSessionID() + ")");
+	}
+
+	@Override
+	public void removeTuioObject(TuioObject tobj) {
+		System.out.println("remove object "+tobj.getSymbolID()+" ("+tobj.getSessionID()+")");
 
 	}
 
 	@Override
-	public void removeTuioObject(TuioObject arg0) {
-		// TODO MINKE
-		System.out.println("remove object " + arg0.getSymbolID() + " (" + arg0.getSessionID() + ")");
-
+	public void updateTuioCursor(TuioCursor tcur) {
+//		println("update cursor " + tcur.getCursorID() + " ("
+//		+ tcur.getSessionID() + ") " + tcur.getX() + " " + tcur.getY()
+//		+ " " + tcur.getMotionSpeed() + " " + tcur.getMotionAccel());
 	}
 
 	@Override
-	public void updateTuioCursor(TuioCursor arg0) {
-		// TODO MINKE
-
-	}
-
-	@Override
-	public void updateTuioObject(TuioObject arg0) {
-		// TODO MINKE
-
+	public void updateTuioObject(TuioObject tobj) {
+		  System.out.println("update object "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle()
+		          +" "+tobj.getMotionSpeed()+" "+tobj.getRotationSpeed()+" "+tobj.getMotionAccel()+" "+tobj.getRotationAccel());
 	}
 
 	/**
