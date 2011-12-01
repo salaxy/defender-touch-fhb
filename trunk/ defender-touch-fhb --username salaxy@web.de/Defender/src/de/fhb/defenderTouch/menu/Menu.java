@@ -195,10 +195,10 @@ public class Menu {
 		ANIMATIONS = MAINSIZE / 8;
 
 		for (int i = 0; i < menu.length; i++) {
-			menu[i] = new Vector2f(-100, -100);
+			menu[i] = new Vector2f(0, 0);
 		}
 		for (int i = 0; i < menuBuildings.length; i++) {
-			menuBuildings[i] = new Vector2f(-100, -100);
+			menuBuildings[i] = new Vector2f(0,0);
 		}
 		gl = new Animations("small explosion", 17);
 		smallExplosion = gl.getAni();
@@ -228,14 +228,18 @@ public class Menu {
 		}
 	}
 
-	public void showMenuTest(Vector2f menu[]) {
-		// System.out.println(menu[0].getX());
+	public void showMenuTest(Vector2f menu[], Graphics graphics) {
+//		System.out.println(menu[0].getX());System.out.println(menu[0].getY());
+//		graphics.fillOval(menu[0].getX(), menu[0].getY(), MAINSIZE, MAINSIZE);
 	}
 
 	/**
 	 * is always been done
 	 */
 	public void drawMenu(Graphics graphics, Player player) {
+		/**
+		 * needed for saying the animation which grphics should be taken
+		 */
 		gl.setGraphics(graphics);
 
 		/**
@@ -306,7 +310,7 @@ public class Menu {
 		}
 		// TODO
 
-		showMenuTest(menu);
+		showMenuTest(menu,graphics);
 		/**
 		 * here is the complete menu for a specific building Upgrade Destroy
 		 * Actual Level
@@ -671,28 +675,11 @@ public class Menu {
 	 */
 	public void createClickablePointMenu(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
-		menu[element] = new Vector2f(0, MAINSIZE);
-		// TODO
-		menu[element].setTheta(rotation);
+		menu[element] = new Vector2f(MAINSIZE, MAINSIZE);
+		menu[element].setTheta(rotation-90);
 		menu[element].add(position);
-		red(graphics, rotation, String.valueOf(element));
-
-		// graphics.setColor(Color.darkGray);
-		// graphics.drawOval(-MAINSIZE / 2, DISTANCE - MAINSIZE / 2, MAINSIZE,
-		// MAINSIZE);
 	}
 
-	public void red(Graphics graphics, int rotation, String element) {
-		graphics.setColor(Color.red);
-		graphics.drawOval(5, 0, 2, 2);
-		graphics.drawString(element, MAINSIZE + MAINSIZE / 2, MAINSIZE + MAINSIZE / 2);
-	}
-
-	public void blue(Graphics graphics, int rotation, String element) {
-		graphics.setColor(Color.blue);
-		graphics.drawOval(5, 0, 2, 2);
-		graphics.drawString(element, MAINSIZE + MAINSIZE / 2, MAINSIZE + MAINSIZE / 2);
-	}
 
 	/**
 	 * Create a circle for a specific building (Upgrade, Destroy)
@@ -703,11 +690,9 @@ public class Menu {
 	 */
 	public void createClickablePointBuilding(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
-		menuBuildings[element] = new Vector2f(0, MAINSIZE);
-		// TODO
-		menuBuildings[element].setTheta(rotation - 90);
+		menuBuildings[element] = new Vector2f(MAINSIZE, MAINSIZE);
+		menuBuildings[element].setTheta(rotation);
 		menuBuildings[element].add(position);
-		blue(graphics, rotation, String.valueOf(element));
 	}
 
 	/**
@@ -770,7 +755,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingArmory(Graphics graphics) {
-
 		Image image = null;
 		try {
 			image = new Image("data/buildings/Armory.png");
@@ -788,7 +772,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingDefence(Graphics graphics) {
-
 		Image image = null;
 		try {
 			image = new Image("data/buildings/Defence.png");
@@ -806,7 +789,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingSupport(Graphics graphics) {
-
 		Image image = null;
 		try {
 			image = new Image("data/buildings/Support.png");
@@ -824,7 +806,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingBarracks(Graphics graphics) {
-
 		Image image = null;
 		try {
 			image = new Image("data/buildings/Barracks.png");
