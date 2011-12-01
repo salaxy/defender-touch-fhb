@@ -1,14 +1,9 @@
 TODO MINKE
 ***********
 
-- Integration der TUIO-Steuerung in DefenderControl!!
+- Integration der TUIO-Steuerung weiter optimieren ( nur wenn nötig)
 
 - neue Schüsse anlegen und gestalten(ganz ganz simpel, nur kreis etc.) (mind zwei), also von Shoot als Oberklasse ableiten
 
 - linearen Schuss machen der dem Ziel nicht folgt, Klasse hab ik schon angelegt
 (guck dir dazu am besten BaseUnit an und versuche das zu verstehen...)
-
-
-	Hinweise:
-	Steuerung ist jetzt in der DefenderControl, hier hast du zugriff auf deine Gestenklasse "gestures"
-	sie ist Attribut von DefenderControl

@@ -1,9 +1,13 @@
 TODO ANDY
 **********
 
+- update methode nutzen
+- Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
 
+
+
+*******************************************
+Erstmal unwichtig:
+
+- Slicksoundsystem anbinden, altes system entfernen
 - Angriff (UserInteraktion, hinfliegen, dann angreifen wenn in Range)
-
-(- Slicksoundsystem anbinden, altes system entfernen)
-
-(- Loesung fuer die Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition))
