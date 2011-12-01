@@ -61,7 +61,7 @@ public class Menu {
 	/**
 	 * activation raduis of a menupoint - just configure here! <----
 	 */
-	protected final int MAINSIZE = 120;
+	protected final int MAINSIZE = 180;
 
 	/**
 	 * Radius of the circle Is always half its diameter
@@ -227,6 +227,10 @@ public class Menu {
 			System.out.println();
 		}
 	}
+	
+	public void showMenuTest(Vector2f menu[]){
+		System.out.println(menu[0].getX());
+	}
 
 	/**
 	 * is always been done
@@ -254,8 +258,8 @@ public class Menu {
 			graphics.setColor(Color.cyan);
 			createBigMenuCircle(graphics);
 			showBuildingArmory(graphics);
-			createTinyMenuCircle(graphics);
-			showPriceBuildings(graphics, Armory.PRICE);
+			// createTinyMenuCircle(graphics);
+			// showPriceBuildings(graphics, Armory.PRICE);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
@@ -264,8 +268,8 @@ public class Menu {
 			graphics.setColor(Color.lightGray);
 			createBigMenuCircle(graphics);
 			showBuildingDefence(graphics);
-			createTinyMenuCircle(graphics);
-			showPriceBuildings(graphics, Defence.PRICE);
+			// createTinyMenuCircle(graphics);
+			// showPriceBuildings(graphics, Defence.PRICE);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
@@ -274,8 +278,8 @@ public class Menu {
 			graphics.setColor(Color.magenta);
 			createBigMenuCircle(graphics);
 			showBuildingSupport(graphics);
-			createTinyMenuCircle(graphics);
-			showPriceBuildings(graphics, Support.PRICE);
+			// createTinyMenuCircle(graphics);
+			// showPriceBuildings(graphics, Support.PRICE);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
@@ -284,8 +288,8 @@ public class Menu {
 			graphics.setColor(Color.orange);
 			createBigMenuCircle(graphics);
 			showBuildingBarracks(graphics);
-			createTinyMenuCircle(graphics);
-			showPriceBuildings(graphics, Tank.PRICE);
+			// createTinyMenuCircle(graphics);
+			// showPriceBuildings(graphics, Tank.PRICE);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
@@ -301,6 +305,7 @@ public class Menu {
 			graphics.resetTransform();
 		}
 
+		showMenuTest(menu);
 		/**
 		 * here is the complete menu for a specific building Upgrade Destroy
 		 * Actual Level
@@ -665,21 +670,27 @@ public class Menu {
 	 */
 	public void createClickablePointMenu(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
-		System.out.println(rotation);
-		menu[element] = new Vector2f(0, DISTANCE);
-		menu[element].setTheta(rotation-60);
+		menu[element] = new Vector2f(0, MAINSIZE);
+		// TODO
+		menu[element].setTheta(rotation);
 		menu[element].add(position);
-		red(graphics, rotation);
+		red(graphics, rotation, String.valueOf(element));
+
+		// graphics.setColor(Color.darkGray);
+		// graphics.drawOval(-MAINSIZE / 2, DISTANCE - MAINSIZE / 2, MAINSIZE,
+		// MAINSIZE);
 	}
 
-	public void red(Graphics graphics, int rotation) {
+	public void red(Graphics graphics, int rotation, String element) {
 		graphics.setColor(Color.red);
 		graphics.drawOval(5, 0, 2, 2);
+		graphics.drawString(element, MAINSIZE+MAINSIZE/2, MAINSIZE+MAINSIZE/2);
 	}
 
-	public void blue(Graphics graphics, int rotation) {
+	public void blue(Graphics graphics, int rotation, String element) {
 		graphics.setColor(Color.blue);
 		graphics.drawOval(5, 0, 2, 2);
+		graphics.drawString(element, MAINSIZE+MAINSIZE/2, MAINSIZE+MAINSIZE/2);
 	}
 
 	/**
@@ -691,10 +702,11 @@ public class Menu {
 	 */
 	public void createClickablePointBuilding(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
-		menuBuildings[element] = new Vector2f(0, DISTANCE);
-		menuBuildings[element].setTheta(rotation-90);
+		menuBuildings[element] = new Vector2f(0, MAINSIZE);
+		// TODO
+		menuBuildings[element].setTheta(rotation - 90);
 		menuBuildings[element].add(position);
-		blue(graphics, rotation);
+		blue(graphics, rotation, String.valueOf(element));
 	}
 
 	/**
@@ -757,13 +769,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingArmory(Graphics graphics) {
-		// graphics.setColor(Color.black);
-		// graphics.drawLine(-SIZEOFARMORY, SIZEOFARMORY + DISTANCE, 0,
-		// -SIZEOFARMORY + DISTANCE);
-		// graphics.drawLine(0, -SIZEOFARMORY + DISTANCE, SIZEOFARMORY,
-		// SIZEOFARMORY + DISTANCE);
-		// graphics.drawLine(+SIZEOFARMORY, +SIZEOFARMORY + DISTANCE,
-		// -SIZEOFARMORY, SIZEOFARMORY + DISTANCE);
 
 		Image image = null;
 		try {
@@ -782,22 +787,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingDefence(Graphics graphics) {
-		// graphics.setColor(Color.black);
-		// ArrayList<Vector2f> vektoren1 = new ArrayList<Vector2f>();
-		// vektoren1.add(new Vector2f(-SIZEOFDEFENCE, distanceANCE -
-		// SIZEOFDEFENCE));
-		// vektoren1.add(new Vector2f(SIZEOFDEFENCE, distanceANCE -
-		// SIZEOFDEFENCE));
-		// vektoren1.add(new Vector2f(0, distanceANCE - SIZEOFDEFENCE));
-		// vektoren1.add(new Vector2f(0, distanceANCE - SIZEOFDEFENCE * 2));
-		// vektoren1.add(new Vector2f(0, distanceANCE + SIZEOFDEFENCE));
-		// vektoren1.add(new Vector2f(SIZEOFDEFENCE, distanceANCE +
-		// SIZEOFDEFENCE));
-		// vektoren1.add(new Vector2f(-SIZEOFDEFENCE, distanceANCE +
-		// SIZEOFDEFENCE));
-		// graphics.drawOval(-SIZEOFDEFENCE, distanceANCE - SIZEOFDEFENCE * 2,
-		// SIZEOFDEFENCE * 2, SIZEOFDEFENCE * 2);
-		// GraphicTools.zeicheFigurNachVektoren(vektoren1, graphics);
 
 		Image image = null;
 		try {
@@ -816,14 +805,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingSupport(Graphics graphics) {
-		// graphics.setColor(Color.black);
-		// ArrayList<Vector2f> vektoren2 = new ArrayList<Vector2f>();
-		// vektoren2.add(new Vector2f(0, DISTANCE - SIZEOFSUPPORT));
-		// vektoren2.add(new Vector2f(0, DISTANCE + SIZEOFSUPPORT));
-		// vektoren2.add(new Vector2f(0, DISTANCE));
-		// vektoren2.add(new Vector2f(SIZEOFSUPPORT, DISTANCE));
-		// vektoren2.add(new Vector2f(-SIZEOFSUPPORT, DISTANCE));
-		// GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
 
 		Image image = null;
 		try {
@@ -842,16 +823,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showBuildingBarracks(Graphics graphics) {
-		// graphics.setColor(Color.black);
-		// int difference = 10;
-		// graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0,
-		// -SIZEOFBARRACKS + DISTANCE + difference);
-		// graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference,
-		// SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
-		// graphics.drawLine(-SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE, 0,
-		// -SIZEOFBARRACKS + DISTANCE + difference * 3);
-		// graphics.drawLine(0, -SIZEOFBARRACKS + DISTANCE + difference * 3,
-		// SIZEOFBARRACKS, SIZEOFBARRACKS + DISTANCE);
 
 		Image image = null;
 		try {
