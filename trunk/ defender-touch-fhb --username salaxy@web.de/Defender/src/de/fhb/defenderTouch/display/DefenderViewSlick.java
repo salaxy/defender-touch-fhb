@@ -8,14 +8,20 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 
-public class DefenderViewSlick extends BasicGame{
+public class DefenderViewSlick extends BasicGameState{
 
     public static final int WIDTH = 1024;
 
     public static final int HEIGHT = 768;
+    
+    public static final int ID = 0; 
+    
+    private StateBasedGame game; 
     
 
 	/**
@@ -23,20 +29,13 @@ public class DefenderViewSlick extends BasicGame{
 	 */
 	private DefenderControl control;
 	
-	private int mouseButton=0;
-
-	/**
-	 * Konstruktor
-	 */
-    public DefenderViewSlick() {
-          super("DEFENDER ALPHA");
-    }
- 
+	private int mouseButton=0; 
 
     /**
      * initialisierung
      */
-    public void init(GameContainer gc) throws SlickException {
+    public void init(GameContainer gc, StateBasedGame game) throws SlickException {
+    	this.game = game;
     	 
     //gamelogic initialisieren  
   	  control= new DefenderControl();
@@ -48,14 +47,12 @@ public class DefenderViewSlick extends BasicGame{
 
 
 
-    public void update(GameContainer gc, int delta) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
           // Abfangen der Eingabegarät
           Input input = gc.getInput();
     }
 
-
-
-    public void render(GameContainer gc, Graphics g) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
     	
     	g.setAntiAlias(true);
     	g.setBackground(Color.white);
@@ -63,18 +60,6 @@ public class DefenderViewSlick extends BasicGame{
     	//alles zeichnen
     	this.control.drawAll(g);
     	
-    }
-
-   
-
-    public static void main(String[] args) throws SlickException {
-
-          AppGameContainer defender = new AppGameContainer(new DefenderViewSlick());
-          defender.setDisplayMode(WIDTH, HEIGHT, false);
-          defender.setVSync(true);
-          defender.setShowFPS(false);
-          defender.start();
-
     }
 
     /**
@@ -106,8 +91,8 @@ public class DefenderViewSlick extends BasicGame{
 //											   "  System: " + control.getMap().isBuildable(new Vector2f(x-49, y-49), new Vector2f(x+50, y+50), DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
 //										   );
 						
-//			this.control.startUnitControlForMouse(clickVector, button);	
-			this.control.startMenueControlForMouse(clickVector, button);	
+			this.control.startUnitControlForMouse(clickVector, button);	
+//			this.control.startMenueControlForMouse(clickVector, button);	
 			
 		}
     }
@@ -129,7 +114,7 @@ public class DefenderViewSlick extends BasicGame{
 //	    	}
 //	   
 //	    	if (mouseButton == 1) {
-//	    		control.zoomInterface(oldx, oldy, newx, newy);
+	    		control.zoomInterface(oldx, oldy, newx, newy);
 //	    	}			
 //		}	
     }
@@ -150,6 +135,14 @@ public class DefenderViewSlick extends BasicGame{
 	private boolean isInUsableInputarea(Vector2f clickVector){
 		
 		return clickVector.x > 522|| clickVector.x < 502;
+	}
+
+
+
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return ID;
 	}
 
 
