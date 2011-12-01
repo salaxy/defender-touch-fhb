@@ -229,7 +229,7 @@ public class Menu {
 	}
 
 	public void showMenuTest(Vector2f menu[]) {
-//		System.out.println(menu[0].getX());
+		// System.out.println(menu[0].getX());
 	}
 
 	/**
@@ -304,6 +304,7 @@ public class Menu {
 			createSmallMenuCircle(graphics);
 			graphics.resetTransform();
 		}
+		// TODO
 
 		showMenuTest(menu);
 		/**
@@ -886,8 +887,8 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		smallExplosion.draw(-smallExplosion.getHeight() / 2, (-smallExplosion.getWidth() / 2)* player.getActualZoom(), smallExplosion.getHeight() * player.getActualZoom(), smallExplosion.getWidth()
-				* player.getActualZoom());
+		smallExplosion.draw(-smallExplosion.getHeight() / 2, (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight() * player.getActualZoom(),
+				smallExplosion.getWidth() * player.getActualZoom());
 		graphics.resetTransform();
 		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
