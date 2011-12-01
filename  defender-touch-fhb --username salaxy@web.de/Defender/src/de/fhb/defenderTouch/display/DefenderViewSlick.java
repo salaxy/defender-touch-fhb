@@ -1,27 +1,32 @@
 package de.fhb.defenderTouch.display;
 
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.graphics.GraphicTools;
 
 public class DefenderViewSlick extends BasicGameState{
 
+	/**
+	 * Bildschirmbreite
+	 */
     public static final int WIDTH = 1024;
 
+    /**
+     * Bildschirmhöhe
+     */
     public static final int HEIGHT = 768;
     
+    /**
+     * GameState ID (nicht verändern!)
+     */
     public static final int ID = 0; 
-    
-    private StateBasedGame game; 
     
 
 	/**
@@ -29,29 +34,34 @@ public class DefenderViewSlick extends BasicGameState{
 	 */
 	private DefenderControl control;
 	
-	private int mouseButton=0; 
+	
+	//private int mouseButton=0; 
 
     /**
      * initialisierung
      */
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
-    	this.game = game;
     	 
     //gamelogic initialisieren  
-  	  control= new DefenderControl();
+  	  control = new DefenderControl();
   	  control.createTestUnits();
   	  
   	  gc.setShowFPS(true);
   	  gc.setTargetFrameRate(25);
+  	  
     }
 
-
-
+    /**
+     * Berechnung, die jeden Frame gemacht werden müssen.
+     */
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
           // Abfangen der Eingabegarät
-          Input input = gc.getInput();
+          //Input input = gc.getInput();
     }
 
+    /**
+     * Rendern eines Frames
+     */
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
     	
     	g.setAntiAlias(true);
@@ -66,19 +76,20 @@ public class DefenderViewSlick extends BasicGameState{
      * What happens when mouse was clicked
      */
     public void mouseClicked(int button, int x, int y, int clickCount){
-    	mouseButton=button;
+    	//mouseButton=button;
     	
     	//Klickvektor holen
     	Vector2f clickVector=new Vector2f(x,y);
+    	Vector2f mapCoords = GraphicTools.calcInputVector(clickVector, control.getPlayerOne());
     	
 		//wenn aktion im steuerbarenbereich
 		if(isInUsableInputarea(clickVector)){
 			
 			// Test der Mapeigenschaften:
-//						System.out.println("Map Properties:");
-//						System.out.println("Coordinates: " + clickVector.toString());
-//						System.out.println("isWalkable:  " + control.getMap().isWalkable(clickVector));
-//						System.out.println("isFlyable:   " + control.getMap().isFlyable(clickVector));
+						System.out.println("Map Properties:");
+						System.out.println("Coordinates: " + mapCoords.toString());
+						System.out.println("isWalkable:  " + control.getMap().isWalkable(mapCoords));
+						System.out.println("isFlyable:   " + control.getMap().isFlyable(mapCoords));
 //						System.out.println("isBuildable: (click at center of building)\n" +
 //											   "\t[10x10]   Player 1: " + control.getMap().isBuildable(new Vector2f(x-4, y-4), new Vector2f(x+5, y+5), DefenderControl.PLAYER_ONE_ID) +
 //											   "  Player 2: " + control.getMap().isBuildable(new Vector2f(x-4, y-4), new Vector2f(x+5, y+5), DefenderControl.PLAYER_TWO_ID) +
@@ -104,7 +115,7 @@ public class DefenderViewSlick extends BasicGameState{
     public void mouseDragged(int oldx, int oldy, int newx, int newy) {
     	
     	//Klickvektor holen
-    	Vector2f clickVector=new Vector2f(newx,newy);
+    	//Vector2f clickVector=new Vector2f(newx,newy);
     	
 //    	if(true)
 //		if(isInUsableInputarea(clickVector)){
