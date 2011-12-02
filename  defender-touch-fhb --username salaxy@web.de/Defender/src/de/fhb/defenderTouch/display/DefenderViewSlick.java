@@ -1,12 +1,8 @@
 package de.fhb.defenderTouch.display;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
@@ -55,10 +51,6 @@ public class DefenderViewSlick extends BasicGameState{
   	  gc.setShowFPS(true);
   	  gc.setTargetFrameRate(25);
   	  
-//      Input input = gc.getInput();
-//      
-//      input.addMouseListener(this);
-  	  
     }
 
     /**
@@ -71,6 +63,8 @@ public class DefenderViewSlick extends BasicGameState{
     	
     	//aktualisieren der Units
     	control.updateGame();
+    	
+
     	
     }
 
@@ -136,13 +130,13 @@ public class DefenderViewSlick extends BasicGameState{
     	if(isMouseUsingOn)
 		if(isInUsableInputarea(new Vector2f(newx,newy))){
 			
-//	    	if (mouseButton == 0) {
-	    		control.schiebeInterface(oldx, oldy,newx, newy);
-//	    	}
+	    	if (mouseButton == 0) {
+	    		control.schiebeInterface(oldx, oldy,newx, newy);		
+	    	}
 	   
-//	    	if (mouseButton == 1) {
-//	    		control.zoomInterface(oldx, oldy, newx, newy);
-//	    	}			
+	    	if (mouseButton == 1) {		
+	    		control.zoomInterface(oldx, oldy, newx, newy);
+	    	}			
 		}	
     }
     

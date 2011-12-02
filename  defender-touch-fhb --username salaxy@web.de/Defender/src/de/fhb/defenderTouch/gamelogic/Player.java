@@ -125,7 +125,7 @@ public class Player {
 	 * setzt den Sichtvektor
 	 * @param viewPosition
 	 */
-	public void setViewPosition(Vector2f viewPosition) {
+	public void setOriginOffset(Vector2f viewPosition) {
 		this.originOffset = viewPosition;
 	}
 
