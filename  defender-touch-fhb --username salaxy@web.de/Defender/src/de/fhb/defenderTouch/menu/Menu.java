@@ -61,7 +61,7 @@ public class Menu {
 	/**
 	 * activation raduis of a menupoint - just configure here! <----
 	 */
-	protected final int DOUBLERADIUS = 180;
+	protected final int DOUBLERADIUS = 120;
 
 	/**
 	 * Radius of the circle Is always half its diameter
@@ -254,59 +254,59 @@ public class Menu {
 		 * 
 		 */
 		if (menuOpen) {
-			int rotation = -90;
+			int rotation = -30;
 			int counter = 0;
 			int nextRotation = 360 / 6;
 
 			calcDrawTransformation(graphics);
-			createClickablePointMenu(counter++, rotation, graphics);
+			createClickablePointMenu(counter++, rotation, graphics, "data/buildings/Armory.png");
 			graphics.setColor(Color.cyan);
 			// createBigMenuCircle(graphics);
-			showBuilding(graphics, "data/buildings/Armory.png");
-//			 createTinyMenuCircle(graphics);
-//			 showPriceBuildings(graphics, Armory.PRICE);
+			// showBuilding(graphics, "data/buildings/Armory.png");
+			// createTinyMenuCircle(graphics);
+			// showPriceBuildings(graphics, Armory.PRICE);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
-			createClickablePointMenu(counter++, rotation, graphics);
+			createClickablePointMenu(counter++, rotation, graphics, "data/buildings/Defence.png");
 			graphics.setColor(Color.lightGray);
 			// createBigMenuCircle(graphics);
-			showBuilding(graphics, "data/buildings/Defence.png");
-//			 createTinyMenuCircle(graphics);
-//			 showPriceBuildings(graphics, Defence.PRICE);
+			// showBuilding(graphics, "data/buildings/Defence.png");
+			// createTinyMenuCircle(graphics);
+			// showPriceBuildings(graphics, Defence.PRICE);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
-			createClickablePointMenu(counter++, rotation, graphics);
+			createClickablePointMenu(counter++, rotation, graphics, "data/buildings/Support.png");
 			graphics.setColor(Color.magenta);
 			// createBigMenuCircle(graphics);
-			showBuilding(graphics, "data/buildings/Support.png");
+			// showBuilding(graphics, "data/buildings/Support.png");
 			// createTinyMenuCircle(graphics);
 			// showPriceBuildings(graphics, Support.PRICE);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
-			createClickablePointMenu(counter++, rotation, graphics);
+			createClickablePointMenu(counter++, rotation, graphics, "data/buildings/Barracks.png");
 			graphics.setColor(Color.orange);
 			// createBigMenuCircle(graphics);
-			showBuilding(graphics, "data/buildings/Barracks.png");
+			// showBuilding(graphics, "data/buildings/Barracks.png");
 			// createTinyMenuCircle(graphics);
 			// showPriceBuildings(graphics, Tank.PRICE);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
-			createClickablePointMenu(counter++, rotation, graphics);
-			createSmallMenuCircle(graphics);
+			createClickablePointMenu(counter++, rotation, graphics, actualBuildingName);
+			// emptyMenuCircle(graphics,rotation);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
-			createClickablePointMenu(counter++, rotation, graphics);
-			createSmallMenuCircle(graphics);
+			createClickablePointMenu(counter++, rotation, graphics, actualBuildingName);
+			// emptyMenuCircle(graphics,rotation);
 			graphics.resetTransform();
 		}
 		// TODO
@@ -317,14 +317,14 @@ public class Menu {
 		 * Actual Level
 		 */
 		if (buildingOpen) {
-			int rotation = -90;
+			int rotation = 0;
 			int counter = 0;
 			int nextRotation = 360 / 4;
 
 			calcDrawTransformationBuildings(graphics);
 			createClickablePointBuilding(counter++, rotation, graphics);
 			graphics.setColor(Color.green);
-			createBigMenuCircle(graphics);
+			// createBigMenuCircle(graphics);
 			createTinyMenuCircle(graphics);
 			showSignUpgrade(graphics);
 			showPriceBuildings(graphics, getActualBuildingPrice());
@@ -334,14 +334,14 @@ public class Menu {
 			calcDrawTransformationBuildings(graphics);
 			createClickablePointBuilding(counter++, rotation, graphics);
 			graphics.setColor(Color.red);
-			createBigMenuCircle(graphics);
+			// createBigMenuCircle(graphics);
 			showSignDestroy(graphics);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformationBuildings(graphics);
 			graphics.rotate(0, 0, rotation);
-			createSmallMenuCircle(graphics);
+			// emptyMenuCircle(graphics,rotation);
 			graphics.rotate(0, 0, rotation);
 			graphics.setColor(Color.white);
 			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) - TEXTDISTANCE);
@@ -675,17 +675,23 @@ public class Menu {
 	 * @param element
 	 * @param rotation
 	 * @param graphics
+	 * @param string
 	 */
-	public void createClickablePointMenu(int element, int rotation, Graphics graphics) {
+	public void createClickablePointMenu(int element, int rotation, Graphics graphics, String pathName) {
 		graphics.rotate(0, 0, rotation - 90);
 		menu[element] = new Vector2f(DOUBLERADIUS, DOUBLERADIUS);
-		menu[element].setTheta(rotation);
+		menu[element].setTheta(rotation - 60);
 		menu[element].add(position);
 
-		int eins = DOUBLERADIUS - 49; // links, rechts
-		int zwei = DOUBLERADIUS / 2 - 54; // hoch, runter
-		graphics.drawOval(eins, zwei, DOUBLERADIUS, DOUBLERADIUS);
-		graphics.drawOval(DOUBLERADIUS / 2 + eins, DOUBLERADIUS / 2 + zwei, 1, 1);
+		int x = DOUBLERADIUS - 49; // links, rechts
+		int y = DOUBLERADIUS / 2 - 54; // hoch, runter
+		if (element >= 0 && element <= 3) {
+			graphics.setColor(Color.darkGray);
+			graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
+			showBuilding(graphics, pathName, rotation - 90);
+		}
+		graphics.resetTransform();
+		// graphics.drawOval(DOUBLERADIUS / 2 + x, DOUBLERADIUS / 2 + y, 1, 1);
 	}
 
 	/**
@@ -700,6 +706,13 @@ public class Menu {
 		menuBuildings[element] = new Vector2f(DOUBLERADIUS, DOUBLERADIUS);
 		menuBuildings[element].setTheta(rotation);
 		menuBuildings[element].add(position);
+
+		int x = DOUBLERADIUS - 49; // links, rechts
+		int y = DOUBLERADIUS / 2 - 54; // hoch, runter
+		graphics.setColor(Color.darkGray);
+		graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
+		graphics.resetTransform();
+
 	}
 
 	/**
@@ -728,22 +741,29 @@ public class Menu {
 	 * 
 	 * @param graphics
 	 */
-	public void createBigMenuCircle(Graphics graphics) {
-		graphics.fillOval(-DOUBLERADIUS / 2, DISTANCE - DOUBLERADIUS / 2, DOUBLERADIUS, DOUBLERADIUS);
-		graphics.setColor(Color.darkGray);
-		graphics.drawOval(-DOUBLERADIUS / 2, DISTANCE - DOUBLERADIUS / 2, DOUBLERADIUS, DOUBLERADIUS);
-	}
+	// public void createBigMenuCircle(Graphics graphics) {
+	// int x = DOUBLERADIUS - 49; // links, rechts
+	// int y = DOUBLERADIUS / 2 - 54; // hoch, runter
+	// graphics.setColor(Color.darkGray);
+	// graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
+	// // graphics.fillOval(-DOUBLERADIUS / 2, DISTANCE - DOUBLERADIUS / 2,
+	// // DOUBLERADIUS, DOUBLERADIUS);
+	// // graphics.setColor(Color.darkGray);
+	// // graphics.drawOval(-DOUBLERADIUS / 2, DISTANCE - DOUBLERADIUS / 2,
+	// // DOUBLERADIUS, DOUBLERADIUS);
+	// }
 
 	/**
 	 * Creates a small Circle for the unused elements (Destroy)
 	 * 
 	 * @param graphics
 	 */
-	public void createSmallMenuCircle(Graphics graphics) {
-		graphics.fillOval(-RADIUS / 2, DISTANCE - RADIUS / 2, RADIUS, RADIUS);
-		graphics.setColor(Color.yellow);
-		graphics.drawOval(-RADIUS / 2, DISTANCE - RADIUS / 2, RADIUS, RADIUS);
-	}
+	// public void emptyMenuCircle(Graphics graphics,int rotation) {
+	// graphics.rotate(0, 0, rotation);
+	// graphics.fillOval(-RADIUS / 4, DISTANCE - RADIUS / 4, RADIUS, RADIUS);
+	// graphics.setColor(Color.yellow);
+	// graphics.drawOval(-RADIUS / 2, DISTANCE - RADIUS / 2, RADIUS, RADIUS);
+	// }
 
 	/**
 	 * Creates a very small Circle for the costs of the buildings
@@ -761,7 +781,9 @@ public class Menu {
 	 * 
 	 * @param graphics
 	 */
-	public void showBuilding(Graphics graphics, String pathName) {
+	public void showBuilding(Graphics graphics, String pathName, int rotation) {
+		
+		graphics.rotate(0, 0, 135);System.out.println(rotation);
 		Image image = null;
 		try {
 			image = new Image(pathName);
