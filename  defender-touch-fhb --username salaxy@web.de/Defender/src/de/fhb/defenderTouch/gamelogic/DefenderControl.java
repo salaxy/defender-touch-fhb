@@ -160,7 +160,7 @@ public class DefenderControl implements TuioListener {
 		}
 
 		// menue zeichen fuer player one
-//		this.menuePlayerOne.drawMenu(graphics, this.playerOne);
+		this.menuePlayerOne.drawMenu(graphics, this.playerOne);
 
 		// info zeichnen
 		graphics.setColor(Color.black);
@@ -195,7 +195,7 @@ public class DefenderControl implements TuioListener {
 		}
 
 		// menue zeichen fuer playerTwo
-//		this.menuePlayerTwo.drawMenu(graphics, this.playerTwo);
+		this.menuePlayerTwo.drawMenu(graphics, this.playerTwo);
 
 		// info zeichnen
 		graphics.setColor(Color.black);
