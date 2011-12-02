@@ -487,7 +487,7 @@ public class DefenderControl implements TuioListener {
 						} else {
 							// falls angriff dann Angriff anweisen
 							for (BaseUnit activeUnit : this.getPlayerTwo().getActiveUnits()) {
-								activeUnit.attack(destinationUnit);
+								activeUnit.attack(destinationUnit,false);
 							}
 						}
 					}
@@ -567,7 +567,7 @@ public class DefenderControl implements TuioListener {
 						} else {
 							// falls angriff dann Angriff anweisen
 							for (BaseUnit activeUnit : this.getPlayerOne().getActiveUnits()) {
-								activeUnit.attack(destinationUnit);
+								activeUnit.attack(destinationUnit,false);
 							}
 						}
 					}

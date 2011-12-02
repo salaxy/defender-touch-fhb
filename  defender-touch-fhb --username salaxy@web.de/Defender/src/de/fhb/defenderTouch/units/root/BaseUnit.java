@@ -14,7 +14,7 @@ import de.fhb.defenderTouch.graphics.VectorHelper;
 import de.fhb.defenderTouch.units.amunition.ShootWithRange;
 
 /**
- * BaseUnit Version 0.8 vom 24.11.2011
+ * BaseUnit Version 0.9 vom 02.12.2011
  * 
  * @author Andy Klay <klay@fh-brandenburg.de>
  * 
@@ -26,9 +26,9 @@ public class BaseUnit {
 	protected int healthpointsMax = 250;
 	protected int healthpointsStat = 250;
 	protected int damagePerHit = 50;
-	protected int attackRange = 200;
+	protected int attackRange = 300;
 
-	protected boolean isAutoAttackOn = false;
+	protected boolean isAutoAttackOn = true;
 
 	/**
 	 * Spielerzugehoerigkeit der Unit
@@ -48,7 +48,7 @@ public class BaseUnit {
 	/**
 	 * Zeit bis zum naechsten Schuss
 	 */
-	protected long shootMinTime = 3000;
+	protected long shootMinTime = 2000;
 
 	/**
 	 * beinhaltet alle Einheiten die existent sind
@@ -170,6 +170,10 @@ public class BaseUnit {
 	 * sagt aus ob sich die Unit gerade in Bewegung befindet
 	 */
 	protected boolean isMoving = false;
+	
+	
+//	protected BaseUnit targetUnit=null;
+//	
 
 	/**
 	 * Besitzer der Unit
@@ -513,6 +517,16 @@ public class BaseUnit {
 		if (isAutoAttackOn && isAttackPossible()) {
 			autoAttack();
 		}
+		
+//		if (!isAutoAttackOn) {
+//			if(this.isDestinationInRange()){
+//				if(this.targetUnit!=null){
+//					this.attack(this.targetUnit);				
+//				}else{
+//					isAutoAttackOn=true;
+//				}
+//			}
+//		}
 	}
 
 	/**
@@ -523,14 +537,14 @@ public class BaseUnit {
 		for (BaseUnit u : this.gamelogic.getGlobalUnits()) {
 
 			// wenn eine unit aktiviert wird dann die anderen deaktiveren
-			if (u.getPosition().distance(this.position) > this.attackRange) {
+			if (u.getPosition().distance(this.position) > this.attackRange+1) {
 				// zu weit weg
 			} else {
 				// nah dran
 				if (this.getPlayerID() != u.getPlayerID() && u.getPlayerID() != DefenderControl.PLAYER_SYSTEM_ID) {
 					// Feind erkannt
 					// angriff
-					this.attack(u);
+					this.attack(u,true);
 				}
 			}
 		}
@@ -547,7 +561,7 @@ public class BaseUnit {
 
 		for (BaseUnit unit : gamelogic.getGlobalUnits()) {
 			// wenn nicht diese Unit (die ist in der menge mit drin)
-			if (this.id != unit.id) {
+			if (this.id != unit.id&&unit.getPlayerID()!=DefenderControl.PLAYER_SYSTEM_ID) {
 				// und wenn entfernung kleiner ist als die kollisionsradien der
 				// beiden einheiten zusammen
 				if (VectorHelper.distance(unit.position, newPosition) < (unit.collisionRadius + this.collisionRadius)) {
@@ -678,13 +692,15 @@ public class BaseUnit {
 	 * 
 	 * @param destinationUnit
 	 */
-	public void attack(BaseUnit destinationUnit) {
+	public void attack(BaseUnit destinationUnit,boolean wasAutoAttack) {
 		System.out.println("UNIT " + this.id + " is attacking UNIT " + destinationUnit.id);
 
-		// if(!this.isAutoAttackOn){
-		// moveToAttackDestination(destinationUnit);
-		// }
+		
+//		 if(!wasAutoAttack){
+//			 moveToAttackDestination(destinationUnit);
+//		 }
 
+		 //TODO wieder aktivieren
 		if (isAttackPossible()) {
 			this.lastShootTime = System.currentTimeMillis();
 			this.startShoot(destinationUnit);
@@ -714,7 +730,7 @@ public class BaseUnit {
 		// wenn nicht in Angriffsreichweite dann hinfliegen bis in reichweite
 		if (this.position.distance(destinationUnit.getPosition()) > this.attackRange) {
 			this.commandDestination(destinationUnit.getPosition());
-			this.commandDestination(VectorHelper.add(this.position, VectorHelper.mult(direction, (float) (this.attackRange + 5))));
+			this.commandDestination(VectorHelper.add(this.position, VectorHelper.mult(direction, (float) this.attackRange+1)));
 		}
 
 	}
@@ -723,6 +739,11 @@ public class BaseUnit {
 		return (System.currentTimeMillis() - lastShootTime) > this.shootMinTime;
 	}
 
+	
+	protected boolean isDestinationInRange() {
+		return this.destinationVector.distance(this.position)<this.attackRange+10;
+	}
+	
 	public void getDamage(int damage) {
 		this.healthpointsStat = this.healthpointsStat - damage;
 
@@ -767,6 +788,7 @@ public class BaseUnit {
 
 		// eigendrehung hinzurechnen
 		graphics.rotate(0, 0, this.actualAngle);
+		
 	}
 
 }

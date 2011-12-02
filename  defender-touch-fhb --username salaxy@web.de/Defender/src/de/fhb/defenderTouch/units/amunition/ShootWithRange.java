@@ -8,7 +8,7 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class ShootWithRange extends Shoot {
 
-	protected int maxRange=400;
+	protected int maxRange=300;
 	protected Vector2f startPostion;
 	
 	public ShootWithRange(int x, int y, int mode, Player player,BaseUnit destinationUnit, int damage, DefenderControl gamelogic) {
