@@ -15,6 +15,7 @@ import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.display.DefenderViewSlick;
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.graphics.VectorHelper;
 import de.fhb.defenderTouch.menu.Menu;
 import de.fhb.defenderTouch.ui.Gestures;
 import de.fhb.defenderTouch.units.movable.Fighter;
@@ -159,7 +160,7 @@ public class DefenderControl implements TuioListener {
 		}
 
 		// menue zeichen fuer player one
-		this.menuePlayerOne.drawMenu(graphics, this.playerOne);
+//		this.menuePlayerOne.drawMenu(graphics, this.playerOne);
 
 		// info zeichnen
 		graphics.setColor(Color.black);
@@ -194,7 +195,7 @@ public class DefenderControl implements TuioListener {
 		}
 
 		// menue zeichen fuer playerTwo
-		this.menuePlayerTwo.drawMenu(graphics, this.playerTwo);
+//		this.menuePlayerTwo.drawMenu(graphics, this.playerTwo);
 
 		// info zeichnen
 		graphics.setColor(Color.black);
@@ -668,11 +669,20 @@ public class DefenderControl implements TuioListener {
 	 * @param newy
 	 */
 	public void zoomInterface(int oldx, int oldy, int newx, int newy) {
-		if (newx < 512) {
-			this.getPlayerOne().setActualZoom(this.getPlayerOne().getActualZoom() + (newy - oldy) * 0.01f);
-			this.getPlayerOne().getOriginOffset().scale(1 +(( oldy - newy ) * 0.01f));
+		if (newx < 512) {			
+			
+//			Vector2f old=GraphicTools.calcInputVector(new Vector2f(newx, newy), this.playerOne);
+			
+			this.getPlayerOne().setActualZoom(this.getPlayerOne().getActualZoom() + (newy - oldy) * 0.001f);
+			
+//			Vector2f neu=GraphicTools.calcInputVector(new Vector2f(newx, newy), this.playerOne);
+			//Experiment Zoompunkt setzen			
+//			Vector2f difference=VectorHelper.sub(old,neu);
+//			this.getPlayerOne().setOriginOffset(this.getPlayerOne().getOriginOffset().sub(difference));
+//			this.getPlayerOne().getOriginOffset().scale(1 +(( oldy - newy ) * 0.01f));
+
 		} else {
-			this.getPlayerTwo().setActualZoom(this.getPlayerTwo().getActualZoom() + (newy - oldy) * 0.01f);
+			this.getPlayerTwo().setActualZoom(this.getPlayerTwo().getActualZoom() + (newy - oldy) * 0.001f);
 		}
 	}
 
@@ -727,11 +737,4 @@ public class DefenderControl implements TuioListener {
 		new BaseUnit(800, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
 
 	}
-
-//	public void setAbsoluteViewPoints() {
-//
-//		playerOne.setAbsolutViewPoint(absolutViewPoint);
-//		playerTwo.setAbsolutViewPoint(absolutViewPoint);
-//		
-//	}
 }
