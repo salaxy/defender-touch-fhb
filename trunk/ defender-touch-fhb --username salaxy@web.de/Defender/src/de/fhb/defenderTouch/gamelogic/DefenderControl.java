@@ -383,7 +383,7 @@ public class DefenderControl implements TuioListener {
 				}
 			}
 		} else if (menu.isMenuOpen()) {
-			if (menu.isInnerMenuElement(realClickKoordinates)) {
+			if (menu.isMenuBuildingClicked(realClickKoordinates)) {
 				System.out.println("choosing a building");
 				menu.createBuilding(this);
 			}

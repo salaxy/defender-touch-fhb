@@ -198,7 +198,7 @@ public class Menu {
 			menu[i] = new Vector2f(0, 0);
 		}
 		for (int i = 0; i < menuBuildings.length; i++) {
-			menuBuildings[i] = new Vector2f(0,0);
+			menuBuildings[i] = new Vector2f(0, 0);
 		}
 		gl = new Animations("small explosion", 17);
 		smallExplosion = gl.getAni();
@@ -229,8 +229,9 @@ public class Menu {
 	}
 
 	public void showMenuTest(Vector2f menu[], Graphics graphics) {
-//		System.out.println(menu[0].getX());System.out.println(menu[0].getY());
-//		graphics.fillOval(menu[0].getX(), menu[0].getY(), MAINSIZE, MAINSIZE);
+		System.out.println(menu[0].getX());
+		System.out.println(menu[0].getY());
+		graphics.fillOval(menu[0].x, menu[0].y, 3, 3);
 	}
 
 	/**
@@ -260,8 +261,8 @@ public class Menu {
 			calcDrawTransformation(graphics);
 			createClickablePointMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.cyan);
-			createBigMenuCircle(graphics);
-			showBuildingArmory(graphics);
+			// createBigMenuCircle(graphics);
+			showBuilding(graphics, "data/buildings/Armory.png");
 			// createTinyMenuCircle(graphics);
 			// showPriceBuildings(graphics, Armory.PRICE);
 			graphics.resetTransform();
@@ -270,8 +271,8 @@ public class Menu {
 			calcDrawTransformation(graphics);
 			createClickablePointMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.lightGray);
-			createBigMenuCircle(graphics);
-			showBuildingDefence(graphics);
+			// createBigMenuCircle(graphics);
+			showBuilding(graphics, "data/buildings/Defence.png");
 			// createTinyMenuCircle(graphics);
 			// showPriceBuildings(graphics, Defence.PRICE);
 			graphics.resetTransform();
@@ -280,8 +281,8 @@ public class Menu {
 			calcDrawTransformation(graphics);
 			createClickablePointMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.magenta);
-			createBigMenuCircle(graphics);
-			showBuildingSupport(graphics);
+			// createBigMenuCircle(graphics);
+			showBuilding(graphics, "data/buildings/Support.png");
 			// createTinyMenuCircle(graphics);
 			// showPriceBuildings(graphics, Support.PRICE);
 			graphics.resetTransform();
@@ -290,8 +291,8 @@ public class Menu {
 			calcDrawTransformation(graphics);
 			createClickablePointMenu(counter++, rotation, graphics);
 			graphics.setColor(Color.orange);
-			createBigMenuCircle(graphics);
-			showBuildingBarracks(graphics);
+			// createBigMenuCircle(graphics);
+			showBuilding(graphics, "data/buildings/Barracks.png");
 			// createTinyMenuCircle(graphics);
 			// showPriceBuildings(graphics, Tank.PRICE);
 			graphics.resetTransform();
@@ -310,7 +311,7 @@ public class Menu {
 		}
 		// TODO
 
-		showMenuTest(menu,graphics);
+		showMenuTest(menu, graphics);
 		/**
 		 * here is the complete menu for a specific building Upgrade Destroy
 		 * Actual Level
@@ -373,7 +374,7 @@ public class Menu {
 	 * 
 	 *         looking if a menu point was clicked
 	 */
-	public boolean isInnerMenuElement(Vector2f clickVector) {
+	public boolean isMenuBuildingClicked(Vector2f clickVector) {
 		if (this.menu[0].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 1");
 			if (isEnoughCredits(Armory.PRICE)) {
@@ -655,7 +656,7 @@ public class Menu {
 	}
 
 	public void setPosition(Vector2f position) {
-		this.position = position.copy();
+		this.position = position;
 	}
 
 	public Building getActualBuilding() {
@@ -676,10 +677,10 @@ public class Menu {
 	public void createClickablePointMenu(int element, int rotation, Graphics graphics) {
 		graphics.rotate(0, 0, rotation);
 		menu[element] = new Vector2f(MAINSIZE, MAINSIZE);
-		menu[element].setTheta(rotation-90);
+		menu[element].setTheta(rotation);
 		menu[element].add(position);
+		graphics.drawOval(MAINSIZE / 2, MAINSIZE / 2, MAINSIZE, MAINSIZE);
 	}
-
 
 	/**
 	 * Create a circle for a specific building (Upgrade, Destroy)
@@ -728,7 +729,7 @@ public class Menu {
 	}
 
 	/**
-	 * Creates a small Circle for the unused elements Destroy
+	 * Creates a small Circle for the unused elements (Destroy)
 	 * 
 	 * @param graphics
 	 */
@@ -750,14 +751,14 @@ public class Menu {
 	}
 
 	/**
-	 * Showing the sign of the ground building
+	 * Showing the sign of a building
 	 * 
 	 * @param graphics
 	 */
-	public void showBuildingArmory(Graphics graphics) {
+	public void showBuilding(Graphics graphics, String pathName) {
 		Image image = null;
 		try {
-			image = new Image("data/buildings/Armory.png");
+			image = new Image(pathName);
 			image = image.getScaledCopy(100, 100);
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -766,57 +767,6 @@ public class Menu {
 		graphics.resetTransform();
 	}
 
-	/**
-	 * Showing the sign of the defence building
-	 * 
-	 * @param graphics
-	 */
-	public void showBuildingDefence(Graphics graphics) {
-		Image image = null;
-		try {
-			image = new Image("data/buildings/Defence.png");
-			image = image.getScaledCopy(100, 100);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-		graphics.drawImage(image, DISTANCE / 2, DISTANCE - SIZEOFDEFENCE * 2, 100, 100, 0f, 0f);
-		graphics.resetTransform();
-	}
-
-	/**
-	 * Showing the sign of the support building
-	 * 
-	 * @param graphics
-	 */
-	public void showBuildingSupport(Graphics graphics) {
-		Image image = null;
-		try {
-			image = new Image("data/buildings/Support.png");
-			image = image.getScaledCopy(100, 100);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-		graphics.drawImage(image, DISTANCE / 2, DISTANCE - SIZEOFDEFENCE * 2, 100, 100, 0f, 0f);
-		graphics.resetTransform();
-	}
-
-	/**
-	 * Showing the sign of the tank building
-	 * 
-	 * @param graphics
-	 */
-	public void showBuildingBarracks(Graphics graphics) {
-		Image image = null;
-		try {
-			image = new Image("data/buildings/Barracks.png");
-			image = image.getScaledCopy(100, 100);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-		graphics.drawImage(image, DISTANCE / 2, DISTANCE - SIZEOFDEFENCE * 2, 100, 100, 0f, 0f);
-		graphics.resetTransform();
-
-	}
 
 	/**
 	 * Showing the sign for the upgrade of the building
