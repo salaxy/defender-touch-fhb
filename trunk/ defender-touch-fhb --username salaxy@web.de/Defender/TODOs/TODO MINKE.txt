@@ -4,7 +4,7 @@ TODO MINKE
 - Integration der TUIO-Steuerung weiter optimieren ( nur wenn nötig)
 	(bitte bis nächste Woche den 08.12)
 	
-	Methoden die du anbinden musst: (is mir egal wie, quick and dirty XD)(bentz das was de schon ahst..nicht zwingend was neues ausdenken)
+	Methoden die du anbinden musst: (is mir egal wie, quick and dirty XD)(benutz das was de schon hast..nicht zwingend was neues ausdenken)
 	- schiebeInterface(float oldx, float oldy, float newx, float newy)-> drei finger ziehen oder sowas....
 	- zoomInterface(int oldx, int oldy, int newx, int newy)->finger zusamm ziehen->finger auseinader ziehen
 	
