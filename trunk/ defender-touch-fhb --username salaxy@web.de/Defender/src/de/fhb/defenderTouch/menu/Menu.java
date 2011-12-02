@@ -254,7 +254,7 @@ public class Menu {
 		 * 
 		 */
 		if (menuOpen) {
-			int rotation = 0;
+			int rotation = -90;
 			int counter = 0;
 			int nextRotation = 360 / 6;
 
@@ -263,8 +263,8 @@ public class Menu {
 			graphics.setColor(Color.cyan);
 			// createBigMenuCircle(graphics);
 			showBuilding(graphics, "data/buildings/Armory.png");
-			// createTinyMenuCircle(graphics);
-			// showPriceBuildings(graphics, Armory.PRICE);
+//			 createTinyMenuCircle(graphics);
+//			 showPriceBuildings(graphics, Armory.PRICE);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
@@ -273,8 +273,8 @@ public class Menu {
 			graphics.setColor(Color.lightGray);
 			// createBigMenuCircle(graphics);
 			showBuilding(graphics, "data/buildings/Defence.png");
-			// createTinyMenuCircle(graphics);
-			// showPriceBuildings(graphics, Defence.PRICE);
+//			 createTinyMenuCircle(graphics);
+//			 showPriceBuildings(graphics, Defence.PRICE);
 			graphics.resetTransform();
 			rotation += nextRotation;
 
@@ -317,7 +317,7 @@ public class Menu {
 		 * Actual Level
 		 */
 		if (buildingOpen) {
-			int rotation = 0;
+			int rotation = -90;
 			int counter = 0;
 			int nextRotation = 360 / 4;
 
@@ -377,23 +377,23 @@ public class Menu {
 	public boolean isMenuBuildingClicked(Vector2f clickVector) {
 		if (this.menu[0].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 1");
-			System.out.println(menu[0].distance(clickVector));
-			// if (isEnoughCredits(Armory.PRICE)) {
-			// player.setCredits(player.getCredits() - Armory.PRICE);
-			// setActualChosenBuilding(0);
-			// setMenuOpen(false);
-			// return true;
-			// }
+			// System.out.println(menu[0].distance(clickVector));
+			if (isEnoughCredits(Armory.PRICE)) {
+				player.setCredits(player.getCredits() - Armory.PRICE);
+				setActualChosenBuilding(0);
+				setMenuOpen(false);
+				return true;
+			}
 		}
 		if (this.menu[1].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 2");
-			System.out.println(menu[1].distance(clickVector));
-//			if (isEnoughCredits(Defence.PRICE)) {
-//				player.setCredits(player.getCredits() - Defence.PRICE);
-//				setActualChosenBuilding(1);
-//				setMenuOpen(false);
-//				return true;
-//			}
+			// System.out.println(menu[1].distance(clickVector));
+			if (isEnoughCredits(Defence.PRICE)) {
+				player.setCredits(player.getCredits() - Defence.PRICE);
+				setActualChosenBuilding(1);
+				setMenuOpen(false);
+				return true;
+			}
 		}
 		if (this.menu[2].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 3");
@@ -677,14 +677,13 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void createClickablePointMenu(int element, int rotation, Graphics graphics) {
-		graphics.rotate(0, 0, rotation - 180);
+		graphics.rotate(0, 0, rotation - 90);
 		menu[element] = new Vector2f(DOUBLERADIUS, DOUBLERADIUS);
-		menu[element].setTheta(rotation - 90);
+		menu[element].setTheta(rotation);
 		menu[element].add(position);
-		// if (element==1)
 
-		int eins = DOUBLERADIUS - 50;		// links, rechts
-		int zwei = DOUBLERADIUS / 2 - 60;	// hoch, runter
+		int eins = DOUBLERADIUS - 49; // links, rechts
+		int zwei = DOUBLERADIUS / 2 - 54; // hoch, runter
 		graphics.drawOval(eins, zwei, DOUBLERADIUS, DOUBLERADIUS);
 		graphics.drawOval(DOUBLERADIUS / 2 + eins, DOUBLERADIUS / 2 + zwei, 1, 1);
 	}
@@ -770,7 +769,7 @@ public class Menu {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		graphics.drawImage(image, DISTANCE / 2, DISTANCE/2 - DOUBLERADIUS / 2, 100, 100, 0f, 0f);
+		graphics.drawImage(image, DISTANCE / 2, DISTANCE / 2 - DOUBLERADIUS / 2, 100, 100, 0f, 0f);
 		graphics.resetTransform();
 	}
 
