@@ -176,7 +176,7 @@ public class Gestures {
 	 *         Sekunden, nah beieinander liegen)
 	 * 
 	 */
-	protected boolean twoFingersInRange(Vector tuioCursorList,
+	public boolean twoFingersInRange(Vector tuioCursorList,
 			int secondsTwoWait) {
 		TuioCursor tcur1, tcur2;
 		TuioCursor tcur[] = new TuioCursor[2];
@@ -209,7 +209,7 @@ public class Gestures {
 	 *         Sekunden, nah beieinander liegen)
 	 * 
 	 */
-	protected void threeFingersInRange(Vector tuioCursorList) {
+	public void threeFingersInRange(Vector tuioCursorList) {
 		TuioCursor tcur1, tcur2, tcur3;
 		double range1, range2, range3;
 		// Die Entfernung von 3 Cursor zueinander vergleichen
@@ -244,7 +244,7 @@ public class Gestures {
 	 *         return negativen Wert, wenn 2 Cursor ihren Abstand verringern )
 	 * 
 	 */
-	protected double rangeDifferent(Vector tuioCursorList) {
+	public double rangeDifferent(Vector tuioCursorList) {
 		TuioCursor tcur1, tcur2;
 		double startRange = 0;
 		double endRange = 0;
