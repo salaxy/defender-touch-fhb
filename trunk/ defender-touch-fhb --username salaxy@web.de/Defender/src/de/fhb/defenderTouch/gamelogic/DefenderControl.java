@@ -1,6 +1,5 @@
 package de.fhb.defenderTouch.gamelogic;
 
-import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.newdawn.slick.Color;
@@ -11,7 +10,6 @@ import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
-import TUIO.TuioPoint;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
@@ -678,15 +676,17 @@ public class DefenderControl implements TuioListener {
 	 * @param newx
 	 * @param newy
 	 */
-	public void schiebeInterface(int oldx, int oldy, int newx, int newy) {
+	public void schiebeInterface(float oldx, float oldy, float newx, float newy) {
+		
 		if (newx < 512) {
 			Vector2f tempVec = this.getPlayerOne().getViewPosition();
-			tempVec.y = tempVec.y + oldx - newx;
-			tempVec.x = tempVec.x + newy - oldy;
+			tempVec.y = tempVec.y + newy - oldy;
+			tempVec.x = tempVec.x + newx - oldx;
 		} else {
 			Vector2f tempVec = this.getPlayerTwo().getViewPosition();
-			tempVec.y = tempVec.y + newx - oldx;
-			tempVec.x = tempVec.x + oldy - newy;
+
+			tempVec.y = tempVec.y + newy - oldy;
+			tempVec.x = tempVec.x + newx - oldx;
 		}
 	}
 

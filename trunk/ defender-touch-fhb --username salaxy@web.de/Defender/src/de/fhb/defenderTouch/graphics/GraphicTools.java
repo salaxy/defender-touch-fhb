@@ -65,17 +65,19 @@ public class GraphicTools {
 //		graphics.translate(position.x, +position.y);
 		
 		// Berechnung des neuen Koordinaten Ursprungs Vektors
-		Vector2f drawPosition = new Vector2f(player.getViewPosition().x, player.getViewPosition().y);
+		Vector2f drawPosition = new Vector2f(0,0);		
 		drawPosition.setTheta(player.getGeneralAngle());
 		drawPosition.add(player.getOriginPosition());
+		drawPosition.add(player.getViewPosition());
 
+		
 		// Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
 		graphics.translate(drawPosition.x, drawPosition.y);
 		graphics.scale(player.getActualZoom(), player.getActualZoom());
 		graphics.rotate(0, 0, player.getGeneralAngle());
 
 		// zeichne an Position im Verhältnis zu gesamt Transformation
-		graphics.translate(position.x, +position.y);
+		graphics.translate(position.x, +position.y);		
 	}
 
 	public static Vector2f calcInputVector(Vector2f clickVector, Player player) {

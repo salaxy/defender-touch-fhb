@@ -79,6 +79,10 @@ public class DefenderViewSlick extends BasicGameState{
 
     	//alles zeichnen
     	this.control.drawAll(g);
+//    	g.setColor(Color.black);
+//    	g.rotate(0, 0, 27);
+//    g.drawLine(100, 100, 0, -100);
+    	
     	
     }
 
@@ -112,7 +116,7 @@ public class DefenderViewSlick extends BasicGameState{
 //											   "  System: " + control.getMap().isBuildable(new Vector2f(x-49, y-49), new Vector2f(x+50, y+50), DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
 //										   );
 						
-//			this.control.startUnitControlForMouse(clickVector, button);	
+			this.control.startUnitControlForMouse(clickVector, button);	
 //			this.control.startMenueControlForMouse(clickVector, button);	
 			
 		}
@@ -124,14 +128,11 @@ public class DefenderViewSlick extends BasicGameState{
      */
     public void mouseDragged(int oldx, int oldy, int newx, int newy) {
     	
-    	//Klickvektor holen
-    	Vector2f clickVector=new Vector2f(newx,newy);
-    	
     	if(isMouseUsingOn)
-		if(isInUsableInputarea(clickVector)){
+		if(isInUsableInputarea(new Vector2f(newx,newy))){
 			
 //	    	if (mouseButton == 0) {
-	    		control.schiebeInterface(oldx, oldy, newx, newy);
+	    		control.schiebeInterface(oldx, oldy,newx, newy);
 //	    	}
 	   
 //	    	if (mouseButton == 1) {
