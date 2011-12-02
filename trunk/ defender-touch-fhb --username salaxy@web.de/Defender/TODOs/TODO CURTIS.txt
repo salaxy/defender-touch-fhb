@@ -1,0 +1,10 @@
+TODO CURTIS
+***********
+
+
+
+- Menü nachbearbeiten und verbessern!
+
+- Animationen einbauen bei den Units (menü geht aber vor)
+
+- das komplete Game animieren
