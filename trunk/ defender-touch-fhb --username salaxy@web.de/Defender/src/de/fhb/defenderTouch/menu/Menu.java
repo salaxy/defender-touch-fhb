@@ -234,12 +234,6 @@ public class Menu {
 		}
 	}
 
-	public void showMenuTest(Vector2f menu[], Graphics graphics) {
-		// System.out.println(menu[0].getX());
-		// System.out.println(menu[0].getY());
-		// graphics.fillOval(menu[0].x, menu[0].y, 3, 3);
-	}
-
 	/**
 	 * is always been done
 	 */
@@ -266,60 +260,22 @@ public class Menu {
 
 			calcDrawTransformation(graphics);
 			createClickablePointMenu(counter++, rotation, graphics, "data/buildings/Armory.png", Armory.PRICE);
-			// graphics.setColor(Color.cyan);
-			// createBigMenuCircle(graphics);
-			// showBuilding(graphics, "data/buildings/Armory.png");
-			// createTinyMenuCircle(graphics);
-			// showPriceBuildings(graphics, Armory.PRICE);
-			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
 			createClickablePointMenu(counter++, rotation, graphics, "data/buildings/Defence.png", Defence.PRICE);
-			// graphics.setColor(Color.lightGray);
-			// createBigMenuCircle(graphics);
-			// showBuilding(graphics, "data/buildings/Defence.png");
-			// createTinyMenuCircle(graphics);
-			// showPriceBuildings(graphics, Defence.PRICE);
-			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
 			createClickablePointMenu(counter++, rotation, graphics, "data/buildings/Support.png", Support.PRICE);
-			// graphics.setColor(Color.magenta);
-			// createBigMenuCircle(graphics);
-			// showBuilding(graphics, "data/buildings/Support.png");
-			// createTinyMenuCircle(graphics);
-			// showPriceBuildings(graphics, Support.PRICE);
-			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformation(graphics);
 			createClickablePointMenu(counter++, rotation, graphics, "data/buildings/Barracks.png", Barracks.PRICE);
-			// graphics.setColor(Color.orange);
-			// createBigMenuCircle(graphics);
-			// showBuilding(graphics, "data/buildings/Barracks.png");
-			// createTinyMenuCircle(graphics);
-			// showPriceBuildings(graphics, Tank.PRICE);
-			graphics.resetTransform();
 			rotation += nextRotation;
 
-			// calcDrawTransformation(graphics);
-			// createClickablePointMenu(counter++, rotation, graphics,
-			// actualBuildingName, 0);
-			// // emptyMenuCircle(graphics,rotation);
-			// graphics.resetTransform();
-			// rotation += nextRotation;
-			//
-			// calcDrawTransformation(graphics);
-			// createClickablePointMenu(counter++, rotation, graphics,
-			// actualBuildingName, 0);
-			// // emptyMenuCircle(graphics,rotation);
-			// graphics.resetTransform();
 		}
-		// TODO
 
-		showMenuTest(menu, graphics);
 		/**
 		 * here is the complete menu for a specific building Upgrade Destroy
 		 * Actual Level
@@ -331,28 +287,16 @@ public class Menu {
 
 			calcDrawTransformationBuildings(graphics);
 			createClickablePointBuilding(counter++, rotation, graphics, "data/signs/Upgrade.png", getActualBuildingPrice());
-			// graphics.setColor(Color.green);
-			// createBigMenuCircle(graphics);
-			// createTinyMenuCircle(graphics);
-			// showSignUpgrade(graphics);
-			// showPriceBuildings(graphics, getActualBuildingPrice(),0);
-			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformationBuildings(graphics);
 			createClickablePointBuilding(counter++, rotation, graphics, "data/signs/Destroy.png", 0);
-			// graphics.setColor(Color.red);
-			// createBigMenuCircle(graphics);
-			// showSignDestroy(graphics);
-			graphics.resetTransform();
 			rotation += nextRotation;
 
 			calcDrawTransformationBuildings(graphics);
 			graphics.rotate(0, 0, rotation);
-			// emptyMenuCircle(graphics,rotation);graphics.setColor(Color.black);
 			graphics.fillOval(-RADIUS / 2, DISTANCE - RADIUS / 2, RADIUS, RADIUS);
 			graphics.rotate(0, 0, rotation);
-
 			graphics.setColor(Color.white);
 			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) - TEXTDISTANCE);
 			graphics.resetTransform();
@@ -713,18 +657,15 @@ public class Menu {
 	public void createClickablePointMenu(int element, int rotation, Graphics graphics, String pathName, int price) {
 		graphics.rotate(0, 0, rotation - 30);
 		menu[element] = new Vector2f(DOUBLERADIUS, DOUBLERADIUS);
-		menu[element].setTheta(rotation );
+		menu[element].setTheta(rotation);
 		menu[element].add(position);
 
 		int x = DOUBLERADIUS - 32; // +rechts, -links
 		int y = DOUBLERADIUS / 2 - 37; // -hoch, +runter
 		// graphics.drawOval(DOUBLERADIUS / 2 + x, DOUBLERADIUS / 2 + y, 1, 1);
 		if (element >= 0 && element <= 3) {
-			graphics.setColor(Color.darkGray);
-			graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
-			graphics.setColor(Color.lightGray);
-			graphics.fillOval(x, y, DOUBLERADIUS - 1, DOUBLERADIUS - 1);
-			showBuilding(graphics, pathName, rotation , x, y);
+			createBigMenuCircle(graphics, x, y);
+			showBuilding(graphics, pathName, rotation, x, y);
 			graphics.setColor(Color.black);
 			createTinyMenuCircle(graphics, rotation, x, y);
 			showPriceBuildings(graphics, price);
@@ -740,7 +681,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void createClickablePointBuilding(int element, int rotation, Graphics graphics, String pathName, int price) {
-
 		graphics.rotate(0, 0, rotation - 120);
 		menuBuildings[element] = new Vector2f(DOUBLERADIUS, DOUBLERADIUS);
 		menuBuildings[element].setTheta(rotation - 90);
@@ -748,12 +688,9 @@ public class Menu {
 
 		int x = DOUBLERADIUS - 22; // +rechts, -links
 		int y = DOUBLERADIUS / 2 - 32; // -hoch, +runter
+		// graphics.drawOval(DOUBLERADIUS / 2 + x, DOUBLERADIUS / 2 + y, 1,1);
 		if (element >= 0 && element <= 1) {
-			graphics.drawOval(DOUBLERADIUS / 2 + x, DOUBLERADIUS / 2 + y, 1, 1);
-			graphics.setColor(Color.darkGray);
-			graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
-			graphics.setColor(Color.lightGray);
-			graphics.fillOval(x, y, DOUBLERADIUS - 1, DOUBLERADIUS - 1);
+			createBigMenuCircle(graphics, x, y);
 			showBuilding(graphics, pathName, rotation - 90, x, y);
 			if (element == 0) {
 				graphics.setColor(Color.black);
@@ -773,17 +710,12 @@ public class Menu {
 	 * 
 	 * @param graphics
 	 */
-	// public void createBigMenuCircle(Graphics graphics) {
-	// int x = DOUBLERADIUS - 49; // links, rechts
-	// int y = DOUBLERADIUS / 2 - 54; // hoch, runter
-	// graphics.setColor(Color.darkGray);
-	// graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
-	// // graphics.fillOval(-DOUBLERADIUS / 2, DISTANCE - DOUBLERADIUS / 2,
-	// // DOUBLERADIUS, DOUBLERADIUS);
-	// // graphics.setColor(Color.darkGray);
-	// // graphics.drawOval(-DOUBLERADIUS / 2, DISTANCE - DOUBLERADIUS / 2,
-	// // DOUBLERADIUS, DOUBLERADIUS);
-	// }
+	public void createBigMenuCircle(Graphics graphics, int x, int y) {
+		graphics.setColor(Color.darkGray);
+		graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
+		graphics.setColor(Color.lightGray);
+		graphics.fillOval(x, y, DOUBLERADIUS - 1, DOUBLERADIUS - 1);
+	}
 
 	/**
 	 * Creates a very small Circle for the costs of the buildings
