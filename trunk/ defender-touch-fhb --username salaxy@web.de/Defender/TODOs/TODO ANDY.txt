@@ -1,8 +1,7 @@
 TODO ANDY
 **********
 
-- Zoomverbesserung implementieren (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
-	(bitte bis nächste Woche den 08.12)
+
 	
 	- Angriff (UserInteraktion, hinfliegen, dann angreifen wenn in Range)
 	(bitte bis nächste Woche den 08.12)
@@ -11,3 +10,4 @@ TODO ANDY
 *******************************************
 verschoben auf unbestimmt:
 - Slicksoundsystem anbinden, altes system entfernen
+- Zoomverbesserung implementieren (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
