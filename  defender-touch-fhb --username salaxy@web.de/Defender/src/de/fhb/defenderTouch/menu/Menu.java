@@ -330,7 +330,7 @@ public class Menu {
 			int nextRotation = 360 / 4;
 
 			calcDrawTransformationBuildings(graphics);
-			createClickablePointBuilding(counter++, rotation, graphics, "data/signs/Upgrade.png",getActualBuildingPrice());
+			createClickablePointBuilding(counter++, rotation, graphics, "data/signs/Upgrade.png", getActualBuildingPrice());
 			// graphics.setColor(Color.green);
 			// createBigMenuCircle(graphics);
 			// createTinyMenuCircle(graphics);
@@ -340,7 +340,7 @@ public class Menu {
 			rotation += nextRotation;
 
 			calcDrawTransformationBuildings(graphics);
-			createClickablePointBuilding(counter++, rotation, graphics, "data/signs/Destroy.png",0);
+			createClickablePointBuilding(counter++, rotation, graphics, "data/signs/Destroy.png", 0);
 			// graphics.setColor(Color.red);
 			// createBigMenuCircle(graphics);
 			// showSignDestroy(graphics);
@@ -350,9 +350,9 @@ public class Menu {
 			calcDrawTransformationBuildings(graphics);
 			graphics.rotate(0, 0, rotation);
 			// emptyMenuCircle(graphics,rotation);graphics.setColor(Color.black);
-			graphics.fillOval(-RADIUS / 2,  DISTANCE - RADIUS / 2, RADIUS, RADIUS);
+			graphics.fillOval(-RADIUS / 2, DISTANCE - RADIUS / 2, RADIUS, RADIUS);
 			graphics.rotate(0, 0, rotation);
-			
+
 			graphics.setColor(Color.white);
 			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) - TEXTDISTANCE);
 			graphics.resetTransform();
@@ -729,8 +729,7 @@ public class Menu {
 			showBuilding(graphics, pathName, rotation - 90, x, y);
 			graphics.setColor(Color.black);
 			createTinyMenuCircle(graphics, rotation, x, y);
-			graphics.setColor(Color.white);
-			graphics.drawString(price + "", -RADIUS / 4, DISTANCE + DISTANCE - RADIUS / 4);
+			showPriceBuildings(graphics, price);
 		}
 		graphics.resetTransform();
 	}
@@ -772,8 +771,7 @@ public class Menu {
 			if (element == 0) {
 				graphics.setColor(Color.black);
 				createTinyMenuCircle(graphics, rotation, x, y);
-				graphics.setColor(Color.white);
-				graphics.drawString(price + "", -RADIUS / 4, DISTANCE + DISTANCE - RADIUS / 4);
+				showPriceBuildings(graphics, price);
 			}
 			// graphics.fillOval(x, y, DOUBLERADIUS-1, DOUBLERADIUS-1);
 			// showBuilding(graphics, pathName, rotation - 90, x, y);
@@ -887,11 +885,10 @@ public class Menu {
 	 * 
 	 * @param graphics
 	 */
-	// public void showPriceBuildings(Graphics graphics, int price) {
-	// graphics.setColor(Color.white);
-	// graphics.drawString(price + "", -RADIUS / 2, DISTANCE + DISTANCE - RADIUS
-	// / 2);
-	// }
+	public void showPriceBuildings(Graphics graphics, int price) {
+		graphics.setColor(Color.white);
+		graphics.drawString(price + "", -RADIUS / 4, DISTANCE + DISTANCE - RADIUS / 4);
+	}
 
 	/**
 	 * Playing the animation for the explosion when a building is destroyed
