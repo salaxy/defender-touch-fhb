@@ -4,6 +4,20 @@ TODO FRANK
 
 - weiter an der Gamemap arbeiten
 
+- Endpräsentation entwerfen .. schon mal anfangen...
+	- Inhalt...wie haben wir angefangen was war die Idee
+	- Kurzer zwischen satnd....
+	- Projektstand gegen ende des Projekts...noch frei lassen 
+	(->Resümee, was wollten wir, was haben wir geschafft davon)
+	- evtl. ein Spiele logo entwerfen
+
+
+
+
+
+
 - Map in Tiles teilen
+(erstmal unnötig....., wofür brauchen wir das nochmal....,
+fang lieber mal die präse an bevor du das machst)
 
 
