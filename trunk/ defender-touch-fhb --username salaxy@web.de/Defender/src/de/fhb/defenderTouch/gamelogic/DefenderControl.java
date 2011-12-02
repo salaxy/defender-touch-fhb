@@ -670,6 +670,7 @@ public class DefenderControl implements TuioListener {
 	public void zoomInterface(int oldx, int oldy, int newx, int newy) {
 		if (newx < 512) {
 			this.getPlayerOne().setActualZoom(this.getPlayerOne().getActualZoom() + (newy - oldy) * 0.01f);
+			this.getPlayerOne().getOriginOffset().scale(1 +(( oldy - newy ) * 0.01f));
 		} else {
 			this.getPlayerTwo().setActualZoom(this.getPlayerTwo().getActualZoom() + (newy - oldy) * 0.01f);
 		}
@@ -726,4 +727,11 @@ public class DefenderControl implements TuioListener {
 		new BaseUnit(800, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
 
 	}
+
+//	public void setAbsoluteViewPoints() {
+//
+//		playerOne.setAbsolutViewPoint(absolutViewPoint);
+//		playerTwo.setAbsolutViewPoint(absolutViewPoint);
+//		
+//	}
 }
