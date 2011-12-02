@@ -260,7 +260,7 @@ public class Menu {
 		 * 
 		 */
 		if (menuOpen) {
-			int rotation = 0;
+			int rotation = -90;
 			int counter = 0;
 			int nextRotation = 360 / 6;
 
@@ -691,7 +691,6 @@ public class Menu {
 	 * @param x
 	 */
 	public void showBuilding(Graphics graphics, String pathName, int rotation, int x, int y) {
-
 		Image image = null;
 		try {
 			image = new Image(pathName);
@@ -701,7 +700,6 @@ public class Menu {
 			e.printStackTrace();
 		}
 		graphics.drawImage(image, x + 20, y + 20, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
-		// graphics.resetTransform();
 	}
 
 	/**
@@ -713,9 +711,9 @@ public class Menu {
 	 * @param string
 	 */
 	public void createClickablePointMenu(int element, int rotation, Graphics graphics, String pathName, int price) {
-		graphics.rotate(0, 0, rotation - 120);
+		graphics.rotate(0, 0, rotation - 30);
 		menu[element] = new Vector2f(DOUBLERADIUS, DOUBLERADIUS);
-		menu[element].setTheta(rotation - 90);
+		menu[element].setTheta(rotation );
 		menu[element].add(position);
 
 		int x = DOUBLERADIUS - 32; // +rechts, -links
@@ -726,7 +724,7 @@ public class Menu {
 			graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
 			graphics.setColor(Color.lightGray);
 			graphics.fillOval(x, y, DOUBLERADIUS - 1, DOUBLERADIUS - 1);
-			showBuilding(graphics, pathName, rotation - 90, x, y);
+			showBuilding(graphics, pathName, rotation , x, y);
 			graphics.setColor(Color.black);
 			createTinyMenuCircle(graphics, rotation, x, y);
 			showPriceBuildings(graphics, price);
@@ -742,25 +740,14 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void createClickablePointBuilding(int element, int rotation, Graphics graphics, String pathName, int price) {
-		// graphics.rotate(0, 0, rotation);
-		// menuBuildings[element] = new Vector2f(DOUBLERADIUS, DOUBLERADIUS);
-		// menuBuildings[element].setTheta(rotation);
-		// menuBuildings[element].add(position);
 
 		graphics.rotate(0, 0, rotation - 120);
 		menuBuildings[element] = new Vector2f(DOUBLERADIUS, DOUBLERADIUS);
 		menuBuildings[element].setTheta(rotation - 90);
 		menuBuildings[element].add(position);
 
-		// int x = DOUBLERADIUS - 40; // links, rechts
-		// int y = DOUBLERADIUS / 2 - 54; // hoch, runter
-		// graphics.setColor(Color.darkGray);
-		// graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
-		// graphics.resetTransform();
-
 		int x = DOUBLERADIUS - 22; // +rechts, -links
 		int y = DOUBLERADIUS / 2 - 32; // -hoch, +runter
-
 		if (element >= 0 && element <= 1) {
 			graphics.drawOval(DOUBLERADIUS / 2 + x, DOUBLERADIUS / 2 + y, 1, 1);
 			graphics.setColor(Color.darkGray);
@@ -778,26 +765,6 @@ public class Menu {
 		}
 		graphics.resetTransform();
 
-	}
-
-	/**
-	 * Calculating the actual position of the click with coordinates
-	 * 
-	 * @param graphics
-	 */
-	public void calcDrawTransformation(Graphics graphics) {
-		graphics.setColor(Color.darkGray);
-		GraphicTools.calcDrawTransformationForSlick(player, graphics, position);
-	}
-
-	/**
-	 * Calculating the actual position of the building with coordinates
-	 * 
-	 * @param graphics
-	 */
-	public void calcDrawTransformationBuildings(Graphics graphics) {
-		graphics.setColor(Color.darkGray);
-		GraphicTools.calcDrawTransformationForSlick(player, graphics, positionBuilding);
 	}
 
 	/**
@@ -819,18 +786,6 @@ public class Menu {
 	// }
 
 	/**
-	 * Creates a small Circle for the unused elements (Destroy)
-	 * 
-	 * @param graphics
-	 */
-	// public void emptyMenuCircle(Graphics graphics,int rotation) {
-	// graphics.rotate(0, 0, rotation);
-	// graphics.fillOval(-RADIUS / 4, DISTANCE - RADIUS / 4, RADIUS, RADIUS);
-	// graphics.setColor(Color.yellow);
-	// graphics.drawOval(-RADIUS / 2, DISTANCE - RADIUS / 2, RADIUS, RADIUS);
-	// }
-
-	/**
 	 * Creates a very small Circle for the costs of the buildings
 	 * 
 	 * @param graphics
@@ -842,42 +797,6 @@ public class Menu {
 		graphics.rotate(0, 0, 120);
 		graphics.fillOval(-RADIUS / 2, DISTANCE + DISTANCE - RADIUS / 2, RADIUS, RADIUS);
 		graphics.setColor(Color.magenta);
-		// graphics.drawOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2,
-		// RADIUS, RADIUS);
-		// graphics.resetTransform();
-	}
-
-	/**
-	 * Showing the sign for the upgrade of the building
-	 * 
-	 * @param graphics
-	 */
-	public void showSignUpgrade(Graphics graphics, String pathName) {
-		Image image = null;
-		try {
-			image = new Image(pathName);
-			image = image.getScaledCopy(SIZEOFIMAGE, SIZEOFIMAGE);
-			image.rotate(-60);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-		graphics.drawImage(image, 20, 20, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
-	}
-
-	/**
-	 * Showing the sign for destroying the building
-	 * 
-	 * @param graphics
-	 */
-	public void showSignDestroy(Graphics graphics) {
-		graphics.setColor(Color.black);
-		ArrayList<Vector2f> vektoren2 = new ArrayList<Vector2f>();
-		vektoren2.add(new Vector2f(SIZEOFDESTROY, DISTANCE - SIZEOFDESTROY));
-		vektoren2.add(new Vector2f(-SIZEOFDESTROY, DISTANCE + SIZEOFDESTROY));
-		vektoren2.add(new Vector2f(0, DISTANCE));
-		vektoren2.add(new Vector2f(SIZEOFDESTROY, DISTANCE + SIZEOFDESTROY));
-		vektoren2.add(new Vector2f(-SIZEOFDESTROY, DISTANCE - SIZEOFDESTROY));
-		GraphicTools.zeicheFigurNachVektoren(vektoren2, graphics);
 	}
 
 	/**
@@ -897,12 +816,32 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		smallExplosion.draw(-smallExplosion.getHeight() / 2, (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight() * player.getActualZoom(),
-				smallExplosion.getWidth() * player.getActualZoom());
+		smallExplosion.draw((-smallExplosion.getHeight() / 2) * player.getActualZoom(), (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight()
+				* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
 		graphics.resetTransform();
 		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
 			smallExplosion.stop();
 		}
+	}
+
+	/**
+	 * Calculating the actual position of the click with coordinates
+	 * 
+	 * @param graphics
+	 */
+	public void calcDrawTransformation(Graphics graphics) {
+		graphics.setColor(Color.darkGray);
+		GraphicTools.calcDrawTransformationForSlick(player, graphics, position);
+	}
+
+	/**
+	 * Calculating the actual position of the building with coordinates
+	 * 
+	 * @param graphics
+	 */
+	public void calcDrawTransformationBuildings(Graphics graphics) {
+		graphics.setColor(Color.darkGray);
+		GraphicTools.calcDrawTransformationForSlick(player, graphics, positionBuilding);
 	}
 }
