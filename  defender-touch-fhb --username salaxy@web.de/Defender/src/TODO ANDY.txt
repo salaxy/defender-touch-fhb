@@ -1,7 +1,6 @@
 TODO ANDY
 **********
 
-- update methode nutzen
 - Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
 
 
