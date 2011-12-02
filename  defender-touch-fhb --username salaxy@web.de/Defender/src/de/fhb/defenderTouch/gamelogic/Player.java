@@ -32,8 +32,21 @@ public class Player {
 	 * Relative Position der Sicht im Verhältnis zum Ursprung (originPosition) des Spielers
 	 * als Vektor
 	 */
-	private Vector2f viewPosition= new Vector2f(0,0);
+	private Vector2f originOffset= new Vector2f(0,0);
 	
+	/**
+	 * Absoluter Sichtpunkt auf der karte
+	 */
+	private Vector2f absolutViewPoint= new Vector2f(0,0);
+	
+	public Vector2f getAbsolutViewPoint() {
+		return absolutViewPoint;
+	}
+
+	public void setAbsolutViewPoint(Vector2f absolutViewPoint) {
+		this.absolutViewPoint = absolutViewPoint;
+	}
+
 	/**
 	 * Zoomfaktor der aktuellen Spielersicht
 	 */
@@ -62,7 +75,7 @@ public class Player {
 		this.generalAngle=generalAngle;
 		this.actualZoom=actualZoom;
 		this.originPosition=originPosition;		
-		this.viewPosition=new Vector2f(0,0);
+		this.originOffset=new Vector2f(0,0);
 		this.activeUnits= new CopyOnWriteArrayList<BaseUnit>();
 		this.unitColor=unitColor;
 	}
@@ -104,8 +117,8 @@ public class Player {
 	 * Gibt den Sichtvektor zureuck
 	 * @return Vector2f
 	 */
-	public Vector2f getViewPosition() {
-		return viewPosition;
+	public Vector2f getOriginOffset() {
+		return originOffset;
 	}
 
 	/**
@@ -113,7 +126,7 @@ public class Player {
 	 * @param viewPosition
 	 */
 	public void setViewPosition(Vector2f viewPosition) {
-		this.viewPosition = viewPosition;
+		this.originOffset = viewPosition;
 	}
 
 	public float getActualZoom() {

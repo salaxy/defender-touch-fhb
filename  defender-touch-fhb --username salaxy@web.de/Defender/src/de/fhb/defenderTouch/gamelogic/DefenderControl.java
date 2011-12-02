@@ -686,11 +686,11 @@ public class DefenderControl implements TuioListener {
 	public void schiebeInterface(float oldx, float oldy, float newx, float newy) {
 		
 		if (newx < 512) {
-			Vector2f tempVec = this.getPlayerOne().getViewPosition();
+			Vector2f tempVec = this.getPlayerOne().getOriginOffset();
 			tempVec.y = tempVec.y + newy - oldy;
 			tempVec.x = tempVec.x + newx - oldx;
 		} else {
-			Vector2f tempVec = this.getPlayerTwo().getViewPosition();
+			Vector2f tempVec = this.getPlayerTwo().getOriginOffset();
 
 			tempVec.y = tempVec.y + newy - oldy;
 			tempVec.x = tempVec.x + newx - oldx;
