@@ -115,8 +115,8 @@ public class DefenderViewSlick extends BasicGameState{
 //											   "  System: " + control.getMap().isBuildable(new Vector2f(x-49, y-49), new Vector2f(x+50, y+50), DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
 //										   );
 						
-			this.control.startUnitControlForMouse(clickVector, button);	
-//			this.control.startMenueControlForMouse(clickVector, button);	
+//			this.control.startUnitControlForMouse(clickVector, button);	
+			this.control.startMenueControlForMouse(clickVector, button);	
 			
 		}
     }
