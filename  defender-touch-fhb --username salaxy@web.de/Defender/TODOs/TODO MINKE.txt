@@ -2,6 +2,8 @@ TODO MINKE
 ***********
 
 - Integration der TUIO-Steuerung weiter optimieren ( nur wenn nötig)
+	(bitte bis nächste Woche den 08.12)
 
 - linearen Schuss machen der dem Ziel nicht folgt, Klasse hab ik schon angelegt
 (guck dir dazu am besten BaseUnit an und versuche das zu verstehen...)
+	(bitte bis nächste Woche den 08.12)
