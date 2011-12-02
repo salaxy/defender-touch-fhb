@@ -140,12 +140,6 @@ public class DefenderControl implements TuioListener {
 	 */
 	public void drawAll(Graphics graphics) {
 
-
-		// Berechnen der Positionen aller Units
-		for (BaseUnit unit : globalUnits) {
-			unit.update();
-		}
-
 		// Linke Seite zeichnen
 		// zeichenbereich setzen
 		graphics.setClip(0, 0, 510, 768);
@@ -279,6 +273,19 @@ public class DefenderControl implements TuioListener {
 //		
 
 	}
+	
+	
+	
+	public void updateGame(){
+		
+		// Berechnen der Positionen aller Units
+		for (BaseUnit unit : globalUnits) {
+			unit.update();
+		}
+	}
+	
+	
+	
 
 	public Menu getMenuePlayerOne() {
 		return menuePlayerOne;

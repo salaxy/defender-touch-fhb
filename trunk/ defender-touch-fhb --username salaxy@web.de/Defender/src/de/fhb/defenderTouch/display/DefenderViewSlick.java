@@ -65,8 +65,13 @@ public class DefenderViewSlick extends BasicGameState{
      * Berechnung, die jeden Frame gemacht werden müssen.
      */
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
+    	
           // Abfangen der Eingabegarät
-          Input input = gc.getInput();
+//          Input input = gc.getInput();
+    	
+    	//aktualisieren der Units
+    	control.updateGame();
+    	
     }
 
     /**
