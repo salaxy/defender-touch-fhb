@@ -119,6 +119,11 @@ public class Menu {
 	protected final int SIZEOFTEXTALIGNMENT;
 
 	/**
+	 * size of the images
+	 */
+	protected final int SIZEOFIMAGE;
+
+	/**
 	 * size the animations must be dragged
 	 */
 	protected final int ANIMATIONS;
@@ -193,6 +198,7 @@ public class Menu {
 		SIZEOFUPGRADE = TEXTDISTANCE * 3;
 		SIZEOFBARRACKS = TEXTDISTANCE * 3;
 		ANIMATIONS = DOUBLERADIUS / 8;
+		SIZEOFIMAGE = 80;
 
 		for (int i = 0; i < menu.length; i++) {
 			menu[i] = new Vector2f(0, 0);
@@ -322,7 +328,7 @@ public class Menu {
 			int nextRotation = 360 / 4;
 
 			calcDrawTransformationBuildings(graphics);
-			createClickablePointBuilding(counter++, rotation, graphics);
+			createClickablePointBuilding(counter++, rotation, graphics, actualBuildingName);
 			graphics.setColor(Color.green);
 			// createBigMenuCircle(graphics);
 			createTinyMenuCircle(graphics);
@@ -332,7 +338,7 @@ public class Menu {
 			rotation += nextRotation;
 
 			calcDrawTransformationBuildings(graphics);
-			createClickablePointBuilding(counter++, rotation, graphics);
+			createClickablePointBuilding(counter++, rotation, graphics, actualBuildingName);
 			graphics.setColor(Color.red);
 			// createBigMenuCircle(graphics);
 			showSignDestroy(graphics);
@@ -377,13 +383,13 @@ public class Menu {
 	public boolean isMenuBuildingClicked(Vector2f clickVector) {
 		if (this.menu[0].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 1");
-			// System.out.println(menu[0].distance(clickVector));
-			if (isEnoughCredits(Armory.PRICE)) {
-				player.setCredits(player.getCredits() - Armory.PRICE);
-				setActualChosenBuilding(0);
-				setMenuOpen(false);
-				return true;
-			}
+//			System.out.println(menu[0].distance(clickVector));
+			 if (isEnoughCredits(Armory.PRICE)) {
+			 player.setCredits(player.getCredits() - Armory.PRICE);
+			 setActualChosenBuilding(0);
+			 setMenuOpen(false);
+			 return true;
+			 }
 		}
 		if (this.menu[1].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 2");
@@ -435,12 +441,16 @@ public class Menu {
 	public boolean isInnerBuildingElement(Vector2f clickVector) {
 
 		if (this.menuBuildings[0].distance(clickVector) < this.RADIUS) {
+			System.out.println("Menue Building 1 - Upgrade");
+			// System.out.println(menuBuildings[0].distance(clickVector));
 			setBuildingOpen(false, null);
 			upgradeBuilding();
 			setActualChosenBuilding(0);
 			return true;
 		}
 		if (this.menuBuildings[1].distance(clickVector) < this.RADIUS) {
+			System.out.println("Menue Building 2 - Destroy");
+			// System.out.println(menuBuildings[1].distance(clickVector));
 			setBuildingOpen(false, null);
 			setBuildingDestroyPrice();
 			setActualChosenBuilding(1);
@@ -670,6 +680,27 @@ public class Menu {
 	}
 
 	/**
+	 * Showing the sign of a building
+	 * 
+	 * @param graphics
+	 * @param y
+	 * @param x
+	 */
+	public void showBuilding(Graphics graphics, String pathName, int rotation, int x, int y) {
+
+		Image image = null;
+		try {
+			image = new Image(pathName);
+			image = image.getScaledCopy(SIZEOFIMAGE, SIZEOFIMAGE);
+			image.rotate(-60);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		graphics.drawImage(image, x + 20, y + 20, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
+		graphics.resetTransform();
+	}
+
+	/**
 	 * Create a circle for one menu element (Ground, Defence...)
 	 * 
 	 * @param element
@@ -683,15 +714,17 @@ public class Menu {
 		menu[element].setTheta(rotation - 60);
 		menu[element].add(position);
 
-		int x = DOUBLERADIUS - 49; // links, rechts
-		int y = DOUBLERADIUS / 2 - 54; // hoch, runter
+		int x = DOUBLERADIUS - 32; // +rechts, -links
+		int y = DOUBLERADIUS / 2 - 37; // -hoch, +runter
+		// graphics.drawOval(DOUBLERADIUS / 2 + x, DOUBLERADIUS / 2 + y, 1, 1);
 		if (element >= 0 && element <= 3) {
 			graphics.setColor(Color.darkGray);
 			graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
-			showBuilding(graphics, pathName, rotation - 90);
+			graphics.setColor(Color.lightGray);
+			graphics.fillOval(x, y, DOUBLERADIUS - 1, DOUBLERADIUS - 1);
+			showBuilding(graphics, pathName, rotation - 90, x, y);
 		}
 		graphics.resetTransform();
-		// graphics.drawOval(DOUBLERADIUS / 2 + x, DOUBLERADIUS / 2 + y, 1, 1);
 	}
 
 	/**
@@ -701,16 +734,33 @@ public class Menu {
 	 * @param rotation
 	 * @param graphics
 	 */
-	public void createClickablePointBuilding(int element, int rotation, Graphics graphics) {
-		graphics.rotate(0, 0, rotation);
+	public void createClickablePointBuilding(int element, int rotation, Graphics graphics, String pathName) {
+		// graphics.rotate(0, 0, rotation);
+		// menuBuildings[element] = new Vector2f(DOUBLERADIUS, DOUBLERADIUS);
+		// menuBuildings[element].setTheta(rotation);
+		// menuBuildings[element].add(position);
+
+		graphics.rotate(0, 0, rotation - 120);
 		menuBuildings[element] = new Vector2f(DOUBLERADIUS, DOUBLERADIUS);
-		menuBuildings[element].setTheta(rotation);
+		menuBuildings[element].setTheta(rotation - 90);
 		menuBuildings[element].add(position);
 
-		int x = DOUBLERADIUS - 49; // links, rechts
-		int y = DOUBLERADIUS / 2 - 54; // hoch, runter
-		graphics.setColor(Color.darkGray);
-		graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
+		// int x = DOUBLERADIUS - 40; // links, rechts
+		// int y = DOUBLERADIUS / 2 - 54; // hoch, runter
+		// graphics.setColor(Color.darkGray);
+		// graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
+		// graphics.resetTransform();
+
+		int x = DOUBLERADIUS - 22; // +rechts, -links
+		int y = DOUBLERADIUS / 2 - 32; // -hoch, +runter
+		graphics.drawOval(DOUBLERADIUS / 2 + x, DOUBLERADIUS / 2 + y, 1, 1);
+		if (element >= 0 && element <= 1) {
+			graphics.setColor(Color.darkGray);
+			graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
+			graphics.setColor(Color.lightGray);
+			// graphics.fillOval(x, y, DOUBLERADIUS-1, DOUBLERADIUS-1);
+			// showBuilding(graphics, pathName, rotation - 90, x, y);
+		}
 		graphics.resetTransform();
 
 	}
@@ -774,25 +824,6 @@ public class Menu {
 		graphics.fillOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
 		graphics.setColor(Color.magenta);
 		graphics.drawOval(-RADIUS / 2, DISTANCE + DISTANCE / 2 - RADIUS / 2, RADIUS, RADIUS);
-	}
-
-	/**
-	 * Showing the sign of a building
-	 * 
-	 * @param graphics
-	 */
-	public void showBuilding(Graphics graphics, String pathName, int rotation) {
-		
-		graphics.rotate(0, 0, 135);System.out.println(rotation);
-		Image image = null;
-		try {
-			image = new Image(pathName);
-			image = image.getScaledCopy(100, 100);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-		graphics.drawImage(image, DISTANCE / 2, DISTANCE / 2 - DOUBLERADIUS / 2, 100, 100, 0f, 0f);
-		graphics.resetTransform();
 	}
 
 	/**
