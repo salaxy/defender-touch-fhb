@@ -3,8 +3,13 @@ TODO CURTIS
 
 
 
-- Menü nachbearbeiten und verbessern!
+- Menü nachbearbeiten, so das es erstmal passt....!
+	(bitte bis nächste Woche den 08.12)
 
 - Animationen einbauen bei den Units (menü geht aber vor)
+	(bitte bis nächste Woche den 08.12)
 
-- das komplete Game animieren
+- das komplete Game animieren und zeichnungen nachjustieren....!
+	(Units, Gebäude, Schüsse)
+	(bitte bis nächste Woche den 08.12)
+	
