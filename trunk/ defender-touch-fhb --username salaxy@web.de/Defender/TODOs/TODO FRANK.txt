@@ -20,6 +20,8 @@ TODO FRANK
 
 
 
+verschoben auf unbestimmte Zeit:
+********************************
 (- Map in Tiles teilen)->>lass erstmal weg...wir muessen zum Ende kommen
 (erstmal unnötig....., wofür brauchen wir das nochmal....,
 fang lieber mal die präse und das Hauptmenü an bevor du das machst)

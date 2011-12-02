@@ -1,13 +1,10 @@
 TODO ANDY
 **********
 
+- ausgestaltung der units mit Curtis zusammen
 
-	
-	- Angriff (UserInteraktion, hinfliegen, dann angreifen wenn in Range)
-	(bitte bis nächste Woche den 08.12)
-
-
-*******************************************
-verschoben auf unbestimmt:
+verschoben auf unbestimmte Zeit:
+********************************
 - Slicksoundsystem anbinden, altes system entfernen
 - Zoomverbesserung implementieren (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
+- Angriff (UserInteraktion, hinfliegen, dann angreifen wenn in Range)
