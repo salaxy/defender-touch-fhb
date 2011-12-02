@@ -34,18 +34,18 @@ public class Player {
 	 */
 	private Vector2f originOffset= new Vector2f(0,0);
 	
-	/**
-	 * Absoluter Sichtpunkt auf der karte
-	 */
-	private Vector2f absolutViewPoint= new Vector2f(0,0);
-	
-	public Vector2f getAbsolutViewPoint() {
-		return absolutViewPoint;
-	}
+//	/**
+//	 * Absoluter Sichtpunkt auf der karte
+//	 */
+//	private Vector2f absolutViewPoint= new Vector2f(0,0);
+//	
+//	public Vector2f getAbsolutViewPoint() {
+//		return absolutViewPoint;
+//	}
 
-	public void setAbsolutViewPoint(Vector2f absolutViewPoint) {
-		this.absolutViewPoint = absolutViewPoint;
-	}
+//	public void setAbsolutViewPoint(Vector2f absolutViewPoint) {
+//		this.absolutViewPoint = absolutViewPoint;
+//	}
 
 	/**
 	 * Zoomfaktor der aktuellen Spielersicht
