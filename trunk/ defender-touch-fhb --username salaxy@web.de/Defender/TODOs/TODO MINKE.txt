@@ -3,7 +3,25 @@ TODO MINKE
 
 - Integration der TUIO-Steuerung weiter optimieren ( nur wenn nötig)
 	(bitte bis nächste Woche den 08.12)
+	
+	Methoden die du anbinden musst: (is mir egal wie, quick and dirty XD)(bentz das was de schon ahst..nicht zwingend was neues ausdenken)
+	- schiebeInterface(float oldx, float oldy, float newx, float newy)-> drei finger ziehen oder sowas....
+	- zoomInterface(int oldx, int oldy, int newx, int newy)->finger zusamm ziehen->finger auseinader ziehen
+	
+	- startMenueControlForMouse(Vector2f clickVector, int mouseButton) 	->zweifinger länger halten 1 sec fuer beides..nochmal rauf tippen..dann weg
+	mouseButton ... 0 fuer aktivieren 1 fuer deaktivieren
+	- startUnitControlForMouse(Vector2f clickVector, int mouseButton) -> ein finger....drei finger länger ..dann deaktivieren
+	ebenso..einfach 0 fuer aktivieren und 1 fuer deaktiveren der Units
+	(Spieler auswertung machen diese methoden schon, sind also immer schon fuer beide Spieler)
+	
+	- 
+	- 
+	
+	
+	
+	
 
+verschoben auf unbestimmte Zeit:
+********************************
 - linearen Schuss machen der dem Ziel nicht folgt, Klasse hab ik schon angelegt
 (guck dir dazu am besten BaseUnit an und versuche das zu verstehen...)
-	(bitte bis nächste Woche den 08.12)
