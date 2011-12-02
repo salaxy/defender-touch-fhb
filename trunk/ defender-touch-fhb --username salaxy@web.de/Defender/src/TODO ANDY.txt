@@ -1,7 +1,7 @@
 TODO ANDY
 **********
 
-- Zoomverbesserung finden (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
+- Zoomverbesserung implementieren (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
 
 
 

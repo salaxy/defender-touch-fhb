@@ -3,8 +3,9 @@ TODO CURTIS
 
 
 
-- Menü nachbearbeiten und verbessern!
+- Menü nachbearbeiten, so das es erstmal passt....!
 
 - Animationen einbauen bei den Units (menü geht aber vor)
 
-- das komplete Game animieren
+- das komplete Game animieren und zeichnungen nachjustieren....!
+	(Units, Gebäude, Schüsse)

@@ -55,7 +55,7 @@ public class GraphicTools {
 		Vector2f drawPosition = new Vector2f(0,0);		
 		drawPosition.setTheta(player.getGeneralAngle());
 		drawPosition.add(player.getOriginPosition());
-		drawPosition.add(player.getViewPosition());
+		drawPosition.add(player.getOriginOffset());
 
 		
 		// Transformationen im Verhältnis zum Ursprung (Zoom, Genereller Winkel)
@@ -74,7 +74,7 @@ public class GraphicTools {
 		System.out.println("originalclick on Screen at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);
 		realClickKoordinates.sub(player.getOriginPosition());
 		//herausrechnen von spielerdrehung(qausi zueuckdrehen)
-		realClickKoordinates.sub(player.getViewPosition());
+		realClickKoordinates.sub(player.getOriginOffset());
 		realClickKoordinates.setTheta(realClickKoordinates.getTheta()-player.getGeneralAngle());
 		realClickKoordinates.scale(1 / player.getActualZoom());
 		System.out.println("click on gamemap at: " + realClickKoordinates.x + ", " + realClickKoordinates.y);
