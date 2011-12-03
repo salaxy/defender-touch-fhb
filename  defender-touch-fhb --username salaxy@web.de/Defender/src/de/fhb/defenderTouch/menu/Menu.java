@@ -173,8 +173,6 @@ public class Menu {
 	 * GIFLOADER
 	 */
 	private Animations gl;
-	
-	
 
 	/**
 	 * Constructor of Menu
@@ -206,8 +204,6 @@ public class Menu {
 		}
 		gl = new Animations("small explosion", 17);
 		smallExplosion = gl.getAni();
-		
-		
 
 	}
 
@@ -344,7 +340,6 @@ public class Menu {
 		if (smallExplosionPlaying)
 			animationSmallExplosion(gl.getGraphics());
 
-		
 		/**
 		 * here is the complete normal menu Ground Defence Support
 		 * 
@@ -560,20 +555,24 @@ public class Menu {
 	 * searching for the actual name of a building
 	 */
 	public void setActualBuildingName() {
-
 		if (actualBuilding instanceof Defence)
 			actualBuildingName = "Defence";
 
 		if (actualBuilding instanceof Armory)
-			actualBuildingName = "Ground";
+			actualBuildingName = "Armory";
 
 		if (actualBuilding instanceof Support)
 			actualBuildingName = "Support";
 
-		if (actualBuilding instanceof Barracks) {
+		if (actualBuilding instanceof Barracks)
 			actualBuildingName = "Barracks";
-		} else
-			actualBuildingName = "Nichts gewählt";
+	}
+
+	/**
+	 * searching for the actual name of a building
+	 */
+	public void resetActualBuildingName() {
+		actualBuildingName = "Nichts gewählt";
 	}
 
 	/**

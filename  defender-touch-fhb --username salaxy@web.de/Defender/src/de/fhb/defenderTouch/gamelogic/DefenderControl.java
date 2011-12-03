@@ -40,10 +40,10 @@ public class DefenderControl implements TuioListener {
 	 * Gestenerkennung
 	 */
 	private Gestures gestures;
-	
+
 	int width = 1024;
 	int height = 768;
-	//TODO gehört wo anders hin....kommt eigentlich aus der view her
+	// TODO gehört wo anders hin....kommt eigentlich aus der view her
 
 	// Spielkonstanten
 	public static final int MOUSE_LEFT = 0;
@@ -92,21 +92,19 @@ public class DefenderControl implements TuioListener {
 	 * Menue Spieler Zwei
 	 */
 	private Menu menuePlayerTwo;
-	
-//	/**
-//	 * Gamemap
-//	 */
-//	private Gamemap gameMap;
-	
-	
+
+	// /**
+	// * Gamemap
+	// */
+	// private Gamemap gameMap;
+
 	TuioClient tuioClient;
-	
 
 	public DefenderControl() {
-		
-		tuioClient=new TuioClient();
 
-		gestures= new Gestures(tuioClient);
+		tuioClient = new TuioClient();
+
+		gestures = new Gestures(tuioClient);
 
 		// map init
 		map = new Gamemap();
@@ -123,10 +121,10 @@ public class DefenderControl implements TuioListener {
 		menuePlayerTwo = new Menu(this.globalUnits, playerTwo);
 
 		// TODO mucka an
-//		 this.playBackgroundSound();
-		
+		// this.playBackgroundSound();
+
 		tuioClient.addTuioListener(this);
-		
+
 		tuioClient.connect();
 	}
 
@@ -175,6 +173,7 @@ public class DefenderControl implements TuioListener {
 		graphics.scale(1.2f, 1.2f);
 		graphics.drawString("Credits: " + playerOne.getCredits(), 10, -18);
 		graphics.drawString("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(PLAYER_ONE_ID), 180, -18);
+		graphics.drawString("Gebäude: " + menuePlayerOne.getActualBuildingName(), 350, -18);
 		// display.drawString("Aktuelles Gebäude: " +
 		// menuePlayerOne.getActualBuildingName(), 100, -15);
 
@@ -225,68 +224,95 @@ public class DefenderControl implements TuioListener {
 		graphics.drawLine(511f, 0f, 511f, 768f);
 		graphics.drawLine(512f, 0f, 512f, 768f);
 		graphics.drawLine(513f, 0f, 513f, 768f);
-		
-		
-		
-		
-		//Gesten Frames zaehlen
+
+		// Gesten Frames zaehlen
 		gestures.countFrames();
-		
-		
-		//************************************
-		//Debug fuer Touchsteuerung
-		
-		
-		Vector tuioObjectList = tuioClient.getTuioObjects(); //gets all objects which are currently on the screen
-		  for (int i=0;i<tuioObjectList.size();i++) {
-		     TuioObject tobj = (TuioObject)tuioObjectList.elementAt(i);
-		     graphics.setColor(Color.orange);
-		     graphics.pushTransform(); //save old coordinate system (bottom left is 0,0)
-		     graphics.translate(tobj.getScreenX(width),tobj.getScreenY(height)); //translate coordinate-system that 0,0 is at position of object (easier for drawing)
-		     graphics.rotate(0, 0, tobj.getAngle()); //rotate coordinate system in same angle than object is
-//		     rect(-obj_size/2,-obj_size/2,obj_size,obj_size); //draw rectangle
-		     graphics.popTransform(); //restore old coordinate system
-		     graphics.setColor(Color.white);
-		     graphics.drawString(""+tobj.getSymbolID(), tobj.getScreenX(width), tobj.getScreenY(height)); //draw objectID at position of object
-		   }
-		   
-		   Vector tuioCursorList = tuioClient.getTuioCursors(); //gets all cursors (fingers) which are currently on the screen
-		   for (int i=0;i<tuioCursorList.size();i++) {
-		      TuioCursor tcur = (TuioCursor)tuioCursorList.elementAt(i);
-		      Vector pointList = tcur.getPath(); // get path of cursors (the positions they have already been in the past)
-		      
-		    //if points exist (no points will exists when cursor not moved)
-		      if (pointList.size()>0) { //draw path
-				     graphics.setColor(Color.blue);
-		        TuioPoint start_point = (TuioPoint)pointList.firstElement();
-		        for (int j=0;j<pointList.size();j++) {
-		           TuioPoint end_point = (TuioPoint)pointList.elementAt(j);
-//		           line(start_point.getScreenX(width),start_point.getScreenY(height),end_point.getScreenX(width),end_point.getScreenY(height));
-		           start_point = end_point;
-		        }
-			     graphics.setColor(Color.gray);
-//		        ellipse( tcur.getScreenX(width), tcur.getScreenY(height),cur_size,cur_size); //draw ellipse at (current) position of cursor
-			     graphics.setColor(Color.gray);
-			     
-			     graphics.drawString(""+ tcur.getCursorID(),  tcur.getScreenX(width)-5,  tcur.getScreenY(height)+5); //draw id and position at current position of cursor
-		      }
-		   }
-		
+
+		// ************************************
+		// Debug fuer Touchsteuerung
+
+		Vector tuioObjectList = tuioClient.getTuioObjects(); // gets all objects
+																// which are
+																// currently on
+																// the screen
+		for (int i = 0; i < tuioObjectList.size(); i++) {
+			TuioObject tobj = (TuioObject) tuioObjectList.elementAt(i);
+			graphics.setColor(Color.orange);
+			graphics.pushTransform(); // save old coordinate system (bottom left
+										// is 0,0)
+			graphics.translate(tobj.getScreenX(width), tobj.getScreenY(height)); // translate
+																					// coordinate-system
+																					// that
+																					// 0,0
+																					// is
+																					// at
+																					// position
+																					// of
+																					// object
+																					// (easier
+																					// for
+																					// drawing)
+			graphics.rotate(0, 0, tobj.getAngle()); // rotate coordinate system
+													// in same angle than object
+													// is
+			// rect(-obj_size/2,-obj_size/2,obj_size,obj_size); //draw rectangle
+			graphics.popTransform(); // restore old coordinate system
+			graphics.setColor(Color.white);
+			graphics.drawString("" + tobj.getSymbolID(), tobj.getScreenX(width), tobj.getScreenY(height)); // draw
+																											// objectID
+																											// at
+																											// position
+																											// of
+																											// object
+		}
+
+		Vector tuioCursorList = tuioClient.getTuioCursors(); // gets all cursors
+																// (fingers)
+																// which are
+																// currently on
+																// the screen
+		for (int i = 0; i < tuioCursorList.size(); i++) {
+			TuioCursor tcur = (TuioCursor) tuioCursorList.elementAt(i);
+			Vector pointList = tcur.getPath(); // get path of cursors (the
+												// positions they have already
+												// been in the past)
+
+			// if points exist (no points will exists when cursor not moved)
+			if (pointList.size() > 0) { // draw path
+				graphics.setColor(Color.blue);
+				TuioPoint start_point = (TuioPoint) pointList.firstElement();
+				for (int j = 0; j < pointList.size(); j++) {
+					TuioPoint end_point = (TuioPoint) pointList.elementAt(j);
+					// line(start_point.getScreenX(width),start_point.getScreenY(height),end_point.getScreenX(width),end_point.getScreenY(height));
+					start_point = end_point;
+				}
+				graphics.setColor(Color.gray);
+				// ellipse( tcur.getScreenX(width),
+				// tcur.getScreenY(height),cur_size,cur_size); //draw ellipse at
+				// (current) position of cursor
+				graphics.setColor(Color.gray);
+
+				graphics.drawString("" + tcur.getCursorID(), tcur.getScreenX(width) - 5, tcur.getScreenY(height) + 5); // draw
+																														// id
+																														// and
+																														// position
+																														// at
+																														// current
+																														// position
+																														// of
+																														// cursor
+			}
+		}
 
 	}
-	
-	
-	
-	public void updateGame(){
-		
+
+	public void updateGame() {
+
 		// Berechnen der Positionen aller Units
 		for (BaseUnit unit : globalUnits) {
 			unit.update();
 		}
 	}
-	
-	
-	
 
 	public Menu getMenuePlayerOne() {
 		return menuePlayerOne;
@@ -358,9 +384,9 @@ public class DefenderControl implements TuioListener {
 	 *            - menu welches geoeffnet werden soll
 	 */
 	private void openMenue(Vector2f realClickKoordinates, Menu menu) {
-		
-		//TODO entweder 2 karten oder gg
-		if (!menu.isMenuOpen() && !menu.isBuildingOpen()&& map.isBuildable(realClickKoordinates,  0)) {
+
+		// TODO entweder 2 karten oder gg
+		if (!menu.isMenuOpen() && !menu.isBuildingOpen() && map.isBuildable(realClickKoordinates, 0)) {
 			menu.setPosition(realClickKoordinates);
 			if (menu.isPlaceTaken(realClickKoordinates)) {
 				System.out.println("open building menu");
@@ -384,6 +410,7 @@ public class DefenderControl implements TuioListener {
 				default:
 				}
 			}
+			menu.resetActualBuildingName();
 		} else if (menu.isMenuOpen()) {
 			if (menu.isMenuElementClicked(realClickKoordinates)) {
 				System.out.println("choosing a building");
@@ -410,6 +437,7 @@ public class DefenderControl implements TuioListener {
 
 		if (menu.isBuildingOpen() && menu.isPlaceTaken(realClickKoordinates)) {
 			System.out.println("close building menu");
+			menu.resetActualBuildingName();
 			menu.setBuildingOpen(false, null);
 		}
 	}
@@ -488,7 +516,7 @@ public class DefenderControl implements TuioListener {
 						} else {
 							// falls angriff dann Angriff anweisen
 							for (BaseUnit activeUnit : this.getPlayerTwo().getActiveUnits()) {
-								activeUnit.attack(destinationUnit,false);
+								activeUnit.attack(destinationUnit, false);
 							}
 						}
 					}
@@ -568,7 +596,7 @@ public class DefenderControl implements TuioListener {
 						} else {
 							// falls angriff dann Angriff anweisen
 							for (BaseUnit activeUnit : this.getPlayerOne().getActiveUnits()) {
-								activeUnit.attack(destinationUnit,false);
+								activeUnit.attack(destinationUnit, false);
 							}
 						}
 					}
@@ -593,13 +621,13 @@ public class DefenderControl implements TuioListener {
 		System.out.println("add cursor " + arg0.getCursorID() + " (" + arg0.getSessionID() + ") " + arg0.getX() + " " + arg0.getY());
 
 		Vector2f clickVector = new Vector2f(arg0.getScreenX(DefenderViewSlick.HEIGHT), arg0.getScreenY(DefenderViewSlick.WIDTH));
-		
+
 		this.startUnitControlForMouse(clickVector, 0);
 	}
 
 	@Override
 	public void addTuioObject(TuioObject tobj) {
-		  System.out.println("add object "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle());
+		System.out.println("add object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " " + tobj.getY() + " " + tobj.getAngle());
 	}
 
 	@Override
@@ -612,35 +640,35 @@ public class DefenderControl implements TuioListener {
 	public void removeTuioCursor(TuioCursor tcur) {
 		// XXX MINKE
 		gestures.cleanUpTheList(tcur.getCursorID());
-//		System.out.println("remove cursor " + tcur.getCursorID() + " ("
-//				+ tcur.getSessionID() + ")");
+		// System.out.println("remove cursor " + tcur.getCursorID() + " ("
+		// + tcur.getSessionID() + ")");
 	}
 
 	@Override
 	public void removeTuioObject(TuioObject tobj) {
 		// XXX MINKE
-		System.out.println("remove object "+tobj.getSymbolID()+" ("+tobj.getSessionID()+")");
+		System.out.println("remove object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ")");
 
 	}
 
 	@Override
 	public void updateTuioCursor(TuioCursor tcur) {
-//		println("update cursor " + tcur.getCursorID() + " ("
-//		+ tcur.getSessionID() + ") " + tcur.getX() + " " + tcur.getY()
-//		+ " " + tcur.getMotionSpeed() + " " + tcur.getMotionAccel());
-		
+		// println("update cursor " + tcur.getCursorID() + " ("
+		// + tcur.getSessionID() + ") " + tcur.getX() + " " + tcur.getY()
+		// + " " + tcur.getMotionSpeed() + " " + tcur.getMotionAccel());
+
 		// XXX MINKE
-		
-		if(gestures.twoFingersInRange(tuioClient.getTuioCursors(), 2)){
+
+		if (gestures.twoFingersInRange(tuioClient.getTuioCursors(), 2)) {
 			// XXX MINKE
 		}
-		
+
 	}
 
 	@Override
 	public void updateTuioObject(TuioObject tobj) {
-		  System.out.println("update object "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getAngle()
-		          +" "+tobj.getMotionSpeed()+" "+tobj.getRotationSpeed()+" "+tobj.getMotionAccel()+" "+tobj.getRotationAccel());
+		System.out.println("update object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " " + tobj.getY() + " " + tobj.getAngle() + " "
+				+ tobj.getMotionSpeed() + " " + tobj.getRotationSpeed() + " " + tobj.getMotionAccel() + " " + tobj.getRotationAccel());
 	}
 
 	/**
@@ -652,17 +680,20 @@ public class DefenderControl implements TuioListener {
 	 * @param newy
 	 */
 	public void zoomInterface(int oldx, int oldy, int newx, int newy) {
-		if (newx < 512) {			
-			
-//			Vector2f old=GraphicTools.calcInputVector(new Vector2f(newx, newy), this.playerOne);
-			
+		if (newx < 512) {
+
+			// Vector2f old=GraphicTools.calcInputVector(new Vector2f(newx,
+			// newy), this.playerOne);
+
 			this.getPlayerOne().setActualZoom(this.getPlayerOne().getActualZoom() + (newy - oldy) * 0.001f);
-			
-//			Vector2f neu=GraphicTools.calcInputVector(new Vector2f(newx, newy), this.playerOne);
-			//Experiment Zoompunkt setzen			
-//			Vector2f difference=VectorHelper.sub(old,neu);
-//			this.getPlayerOne().setOriginOffset(this.getPlayerOne().getOriginOffset().sub(difference));
-//			this.getPlayerOne().getOriginOffset().scale(1 +(( oldy - newy ) * 0.01f));
+
+			// Vector2f neu=GraphicTools.calcInputVector(new Vector2f(newx,
+			// newy), this.playerOne);
+			// Experiment Zoompunkt setzen
+			// Vector2f difference=VectorHelper.sub(old,neu);
+			// this.getPlayerOne().setOriginOffset(this.getPlayerOne().getOriginOffset().sub(difference));
+			// this.getPlayerOne().getOriginOffset().scale(1 +(( oldy - newy ) *
+			// 0.01f));
 
 		} else {
 			this.getPlayerTwo().setActualZoom(this.getPlayerTwo().getActualZoom() + (newy - oldy) * 0.001f);
@@ -678,7 +709,7 @@ public class DefenderControl implements TuioListener {
 	 * @param newy
 	 */
 	public void schiebeInterface(float oldx, float oldy, float newx, float newy) {
-		
+
 		if (newx < 512) {
 			Vector2f tempVec = this.getPlayerOne().getOriginOffset();
 			tempVec.y = tempVec.y + newy - oldy;
@@ -696,28 +727,31 @@ public class DefenderControl implements TuioListener {
 	 */
 	public void createTestUnits() {
 
-//		// TestUnitBetas schaffen
-//		//BaseUnit test = new BaseUnit(100, 200, BaseUnit.MODE_ROTATE, this.playerOne, this);
-//		//test.commandDestination(new Vector2f(1000, 700));
-//
-//		// Testflugstaffel
-//		new Tank(100, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-//		new Defence(200, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-//		new Armory(300, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-//		new Barracks(400, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-//		new Support(500, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-//		new Fighter(600, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-//		new Fighter(700, 50, BaseUnit.MODE_PULSE_IF_ACTIVE, this.playerTwo, this);
-//
-//		// Testflugstaffel playerOne
-//		new Fighter(100, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
-//		new Fighter(200, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
-//		new Fighter(300, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
-//		new Fighter(400, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
-//		new Fighter(500, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
-//		new BaseUnit(600, 700, BaseUnit.MODE_PULSE, this.playerOne, this);
-//		new BaseUnit(700, 700, BaseUnit.MODE_ROTATE_AND_PULSE, this.playerOne, this);
-//		new BaseUnit(800, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+		// // TestUnitBetas schaffen
+		// //BaseUnit test = new BaseUnit(100, 200, BaseUnit.MODE_ROTATE,
+		// this.playerOne, this);
+		// //test.commandDestination(new Vector2f(1000, 700));
+		//
+		// // Testflugstaffel
+		// new Tank(100, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+		// new Defence(200, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+		// new Armory(300, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+		// new Barracks(400, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+		// new Support(500, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+		// new Fighter(600, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+		// new Fighter(700, 50, BaseUnit.MODE_PULSE_IF_ACTIVE, this.playerTwo,
+		// this);
+		//
+		// // Testflugstaffel playerOne
+		// new Fighter(100, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+		// new Fighter(200, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+		// new Fighter(300, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+		// new Fighter(400, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+		// new Fighter(500, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+		// new BaseUnit(600, 700, BaseUnit.MODE_PULSE, this.playerOne, this);
+		// new BaseUnit(700, 700, BaseUnit.MODE_ROTATE_AND_PULSE,
+		// this.playerOne, this);
+		// new BaseUnit(800, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
 
 	}
 }
