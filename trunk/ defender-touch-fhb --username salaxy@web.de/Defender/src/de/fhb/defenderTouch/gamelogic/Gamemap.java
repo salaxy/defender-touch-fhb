@@ -30,11 +30,11 @@ public class Gamemap {
 
 		try {
 			// Alte Testmap:
-			//visibleMap = new Image("./maps/vtestmap_small.png");
-			//informationalMap = new Image("./maps/itestmal_small.png");
+			visibleMap = new Image("./maps/vtestmap_small.png");
+			informationalMap = new Image("./maps/itestmap_small.png");
 			
-			visibleMap = new Image("./maps/vdebug.png");
-			informationalMap = new Image("./maps/idebug.png");
+//			visibleMap = new Image("./maps/vdebug.png");
+//			informationalMap = new Image("./maps/idebug.png");
 			
 		} catch (SlickException e) {
 			e.printStackTrace();
