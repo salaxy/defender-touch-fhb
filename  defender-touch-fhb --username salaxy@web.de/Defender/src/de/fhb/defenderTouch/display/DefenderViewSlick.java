@@ -94,7 +94,7 @@ public class DefenderViewSlick extends BasicGameState{
 						System.out.println("isWalkable:  " + control.getMap().isWalkable(mapCoords));
 						System.out.println("isFlyable:   " + control.getMap().isFlyable(mapCoords));
 						System.out.println("isBuildable: (click at center of building)\n" +
-											   "\t[50x50]   Player 1: " + control.getMap().isBuildable(mapCoords, DefenderControl.PLAYER_ONE_ID) +
+											   "[50x50]   Player 1: " + control.getMap().isBuildable(mapCoords, DefenderControl.PLAYER_ONE_ID) +
 											   "  Player 2: " +           control.getMap().isBuildable(mapCoords, DefenderControl.PLAYER_TWO_ID) +
 											   "  System: " +             control.getMap().isBuildable(mapCoords, DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
 										   );

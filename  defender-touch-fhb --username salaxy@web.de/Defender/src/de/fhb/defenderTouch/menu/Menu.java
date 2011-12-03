@@ -353,7 +353,7 @@ public class Menu {
 		 * 
 		 */
 		if (menuOpen) {
-			System.out.println(gameMap.isBuildable(position,  0));
+//			System.out.println(gameMap.isBuildable(position,  0));
 			int rotation = -90;
 			int counter = 0;
 			int nextRotation = 360 / 6;
