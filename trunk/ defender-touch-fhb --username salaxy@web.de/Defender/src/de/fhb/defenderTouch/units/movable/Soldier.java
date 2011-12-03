@@ -6,22 +6,22 @@ import org.newdawn.slick.SlickException;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
-import de.fhb.defenderTouch.units.amunition.RoundShoot;
 import de.fhb.defenderTouch.units.amunition.ShootWithRange;
-import de.fhb.defenderTouch.units.amunition.TankShoot;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
-public class Tank extends BaseUnit {
+public class Soldier extends BaseUnit {
 
 	protected int size = 0;
 
 
-	public Tank(int x, int y, int mode, Player player, DefenderControl gamelogic) {
+
+	public Soldier(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);	
-		damagePerHit = 60;
+		
+		damagePerHit = 40;
 		attackRange = 250;
-		healthpointsMax = 120;
-		healthpointsStat = 120;
+		healthpointsMax = 50;
+		healthpointsStat = 50;
 	}
 
 	public void drawFigure(Graphics graphics) {
@@ -34,7 +34,7 @@ public class Tank extends BaseUnit {
 		
 		Image image = null;
 		try {
-			image = new Image("data/units/Tank.png");
+			image = new Image("data/buildings/Barracks.png");
 			image = image.getScaledCopy(size, size);
 			image.rotate(90);
 		} catch (SlickException e) {

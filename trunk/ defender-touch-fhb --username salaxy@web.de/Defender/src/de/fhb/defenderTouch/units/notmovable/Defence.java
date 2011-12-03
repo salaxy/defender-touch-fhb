@@ -10,11 +10,17 @@ import de.fhb.defenderTouch.units.root.Building;
 
 public class Defence extends Building {
 
+
+	
 	public static final int PRICE = 40;
 	protected int size = 0;
 
 	public Defence(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
+		healthpointsMax = 250;
+		healthpointsStat = 250;
+		damagePerHit = 80;
+		attackRange = 350;
 	}
 
 	public void drawFigure(Graphics graphics) {
