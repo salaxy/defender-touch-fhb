@@ -661,7 +661,6 @@ public class Menu {
 
 		int x = 25;
 		int y = 25;
-		// graphics.drawOval(DOUBLERADIUS / 2 + x, DOUBLERADIUS / 2 + y, 1,1);
 		if (element >= 0 && element <= 1) {
 			createBigMenuCircle(graphics, x, y);
 			showBuilding(graphics, pathName, rotation, x, y);
@@ -703,28 +702,16 @@ public class Menu {
 	}
 
 	/**
-	 * Creates a very small Circle for the costs of the buildings
-	 * 
-	 * @param graphics
-	 * @param rotation
-	 * @param y
-	 * @param x
-	 */
-//	public void createTinyMenuCircle(Graphics graphics, int x, int y) {
-//		graphics.setColor(Color.gray);
-//		graphics.fillOval(x * 4, y * 4, RADIUS, RADIUS);
-//	}
-
-	/**
 	 * Showing the price of the specific building
 	 * 
 	 * @param graphics
 	 */
 	public void showPriceBuildings(Graphics graphics, int price, int x, int y) {
-		graphics.setColor(Color.gray);
-		graphics.fillOval(x * 4, y * 4, RADIUS, RADIUS);
 		graphics.setColor(Color.white);
 		graphics.drawString(price + "", x * 5, y * 5);
+		graphics.setColor(Color.gray);
+		graphics.drawOval(x * 4, y * 4, RADIUS, RADIUS);
+		
 	}
 
 	/**
