@@ -29,6 +29,10 @@ public class Gamemap {
 	public Gamemap() {
 
 		try {
+			// Alte Testmap:
+			//visibleMap = new Image("./maps/vtestmap_small.png");
+			//informationalMap = new Image("./maps/itestmal_small.png");
+			
 			visibleMap = new Image("./maps/vdebug.png");
 			informationalMap = new Image("./maps/idebug.png");
 			
@@ -102,30 +106,30 @@ public class Gamemap {
 		for (int x = (int) x1; x < (int) x2; x++)
 			for (int y = (int) y1; y < (int) y2; y++) {
 				
-				if (player == DefenderControl.PLAYER_ONE_ID)
+				if (player == DefenderControl.PLAYER_ONE_ID) {
 					
 					temp = informationalMap.getColor(x, y).r;
 				
 					if (informationalMap.getColor(x, y).r < 0.5f) {
 						return false;
 					}
-					
-				if (player == DefenderControl.PLAYER_TWO_ID)
+				}
+				if (player == DefenderControl.PLAYER_TWO_ID) {
 					
 					temp = informationalMap.getColor(x, y).g;
 				
 					if (informationalMap.getColor(x, y).g < 0.5f) {
 						return false;
 					}
-					
-				if (player == DefenderControl.PLAYER_SYSTEM_ID)
+				}	
+				if (player == DefenderControl.PLAYER_SYSTEM_ID) {
 					
 					temp = informationalMap.getColor(x, y).b;
 				
 					if (informationalMap.getColor(x, y).b < 0.5f) {
 						return false;
 					}
-				
+				}
 			}				
 		
 		return true;
