@@ -461,16 +461,20 @@ public class BaseUnit {
 	 */
 	public void commandDestination(Vector2f dest) {
 
-		// neuen Zielvektor setzen
-		this.destinationVector = dest;
+		if(this.gamelogic.getMap().isFlyable(dest)){
+			
+			// neuen Zielvektor setzen
+			this.destinationVector = dest;
+	
+			// Richtungsvektor berechnen
+			direction = VectorHelper.sub(destinationVector, position);
+			// richtungsvektor normieren
+			direction.normalise();
+	
+			// neue Blickrichtung berechnen
+			berechneNeueBlickrichtung();	
+		}
 
-		// Richtungsvektor berechnen
-		direction = VectorHelper.sub(destinationVector, position);
-		// richtungsvektor normieren
-		direction.normalise();
-
-		// neue Blickrichtung berechnen
-		berechneNeueBlickrichtung();
 	}
 
 	/**
