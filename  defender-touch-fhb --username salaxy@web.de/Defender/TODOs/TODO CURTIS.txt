@@ -3,20 +3,22 @@ TODO CURTIS
 
 - Bugfix Feindgebäude können gelöscht werden->Menü sollte erst gar nciht erscheinen
 
-- Menü nachbearbeiten, so das es erstmal passt....!
-	(bitte bis nächste Woche den 08.12)
+- neue unit die in Barracks spawnt
 
-- Animationen einbauen bei den Units (menü geht aber vor)
-	(bitte bis nächste Woche den 08.12)
+- Explosionen größer 2x überall ...ShootWithRange vorallem
 
-- das komplete Game animieren und zeichnungen nachjustieren....!
-	(Units, Gebäude, Schüsse)
-	(bitte bis nächste Woche den 08.12)
+- Menue zahlen verbessern
+
+(ALLES bitte bis nächste Woche den 08.12)
+
+- beim nächsten Treffen ist deine Aufgabe das ding auf den Computer zu portieren
 	
 	
 	
+	
+	egal jetzt--->
 verschoben auf unbestimmte Zeit:
 ********************************
 
-- UnitSapwnstatus an ezigen bei gebäüden mit sich füllenden Kreis
+- UnitSapwn-status anzeigen bei gebäuden mit sich füllenden Kreis
 - Lebensbalken fuer Units...
