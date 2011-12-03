@@ -635,13 +635,12 @@ public class Menu {
 		menu[element].setTheta(rotation);
 		menu[element].add(position);
 
-		int x = 25;
-		int y = 25;
+		int difference = 25;
 		// graphics.drawOval(DOUBLERADIUS / 2, DOUBLERADIUS / 2, 1, 1);
 		if (element >= 0 && element <= 3) {
-			createBigMenuCircle(graphics, x, y);
-			showBuilding(graphics, pathName, rotation, x, y);
-			showPriceBuildings(graphics, price, x, y);
+			createBigMenuCircle(graphics, difference);
+			showBuilding(graphics, pathName, rotation, difference);
+			showPriceBuildings(graphics, price, difference);
 		}
 		graphics.resetTransform();
 	}
@@ -659,13 +658,12 @@ public class Menu {
 		menuBuildings[element].setTheta(rotation - 90);
 		menuBuildings[element].add(position);
 
-		int x = 25;
-		int y = 25;
+		int difference = 25;
 		if (element >= 0 && element <= 1) {
-			createBigMenuCircle(graphics, x, y);
-			showBuilding(graphics, pathName, rotation, x, y);
+			createBigMenuCircle(graphics, difference);
+			showBuilding(graphics, pathName, rotation, difference);
 			if (element == 0) {
-				showPriceBuildings(graphics, price, x, y);
+				showPriceBuildings(graphics, price, difference);
 			}
 		}
 		graphics.resetTransform();
@@ -678,7 +676,7 @@ public class Menu {
 	 * @param y
 	 * @param x
 	 */
-	public void showBuilding(Graphics graphics, String pathName, int rotation, int x, int y) {
+	public void showBuilding(Graphics graphics, String pathName, int rotation, int x) {
 		Image image = null;
 		try {
 			image = new Image(pathName);
@@ -687,7 +685,7 @@ public class Menu {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		graphics.drawImage(image, x + SIZEOFIMAGE / 4, y + SIZEOFIMAGE / 4, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
+		graphics.drawImage(image, x + SIZEOFIMAGE / 4, x + SIZEOFIMAGE / 4, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
 	}
 
 	/**
@@ -696,9 +694,9 @@ public class Menu {
 	 * 
 	 * @param graphics
 	 */
-	public void createBigMenuCircle(Graphics graphics, int x, int y) {
+	public void createBigMenuCircle(Graphics graphics, int x) {
 		graphics.setColor(Color.darkGray);
-		graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
+		graphics.drawOval(x, x, DOUBLERADIUS, DOUBLERADIUS);
 	}
 
 	/**
@@ -706,15 +704,14 @@ public class Menu {
 	 * 
 	 * @param graphics
 	 */
-	public void showPriceBuildings(Graphics graphics, int price, int x, int y) {
+	public void showPriceBuildings(Graphics graphics, int price, int x) {
 		graphics.setColor(Color.black);
-		graphics.fillOval(x * 4, y * 4, RADIUS, RADIUS);
+		graphics.fillOval(x * 4, x * 4, RADIUS, RADIUS);
 		graphics.setColor(Color.gray);
-		graphics.drawOval(x * 4, y * 4, RADIUS, RADIUS);
+		graphics.drawOval(x * 4, x * 4, RADIUS, RADIUS);
 		graphics.setColor(Color.white);		
-		graphics.translate(x * 5.4f, y * 5.4f);
+		graphics.translate(x * 5.4f, x * 5.4f);
 		graphics.rotate(0, 0, 132);
-//		graphics.drawString(price + "", x * 5, y * 5);
 		graphics.drawString(price + "", -7, -7);
 		
 	}
