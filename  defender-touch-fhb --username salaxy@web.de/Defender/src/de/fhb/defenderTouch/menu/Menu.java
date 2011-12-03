@@ -367,9 +367,7 @@ public class Menu {
 		if (this.menu[5].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 6");
 		}
-
 		return false;
-
 	}
 
 	/**
@@ -490,7 +488,6 @@ public class Menu {
 			return Barracks.PRICE;
 		} else
 			return 0;
-
 	}
 
 	/**
@@ -513,7 +510,6 @@ public class Menu {
 
 		else
 			actualBuildingName = "Nichts gewählt";
-
 	}
 
 	/**
@@ -634,9 +630,8 @@ public class Menu {
 		menu[element] = new Vector2f(0, DOUBLERADIUS);
 		menu[element].setTheta(rotation);
 		menu[element].add(position);
-
-		int difference = 25;
 		// graphics.drawOval(DOUBLERADIUS / 2, DOUBLERADIUS / 2, 1, 1);
+		int difference = 25;
 		if (element >= 0 && element <= 3) {
 			createBigMenuCircle(graphics, difference);
 			showBuilding(graphics, pathName, rotation, difference);
@@ -657,7 +652,6 @@ public class Menu {
 		menuBuildings[element] = new Vector2f(0, DOUBLERADIUS);
 		menuBuildings[element].setTheta(rotation - 90);
 		menuBuildings[element].add(position);
-
 		int difference = 25;
 		if (element >= 0 && element <= 1) {
 			createBigMenuCircle(graphics, difference);
@@ -673,10 +667,9 @@ public class Menu {
 	 * Showing the sign of a building
 	 * 
 	 * @param graphics
-	 * @param y
-	 * @param x
+	 * @param difference
 	 */
-	public void showBuilding(Graphics graphics, String pathName, int rotation, int x) {
+	public void showBuilding(Graphics graphics, String pathName, int rotation, int difference) {
 		Image image = null;
 		try {
 			image = new Image(pathName);
@@ -685,18 +678,17 @@ public class Menu {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		graphics.drawImage(image, x + SIZEOFIMAGE / 4, x + SIZEOFIMAGE / 4, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
+		graphics.drawImage(image, difference + SIZEOFIMAGE / 4, difference + SIZEOFIMAGE / 4, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
 	}
 
 	/**
-	 * Creates a big Circle for the Elements (Ground, Defence... Upgrade
-	 * Destroy)
+	 * Creates a big Circle for the Elements
 	 * 
 	 * @param graphics
 	 */
-	public void createBigMenuCircle(Graphics graphics, int x) {
+	public void createBigMenuCircle(Graphics graphics, int difference) {
 		graphics.setColor(Color.darkGray);
-		graphics.drawOval(x, x, DOUBLERADIUS, DOUBLERADIUS);
+		graphics.drawOval(difference, difference, DOUBLERADIUS, DOUBLERADIUS);
 	}
 
 	/**
@@ -709,11 +701,11 @@ public class Menu {
 		graphics.fillOval(x * 4, x * 4, RADIUS, RADIUS);
 		graphics.setColor(Color.gray);
 		graphics.drawOval(x * 4, x * 4, RADIUS, RADIUS);
-		graphics.setColor(Color.white);		
+		graphics.setColor(Color.white);
 		graphics.translate(x * 5.4f, x * 5.4f);
 		graphics.rotate(0, 0, 132);
 		graphics.drawString(price + "", -7, -7);
-		
+
 	}
 
 	/**
