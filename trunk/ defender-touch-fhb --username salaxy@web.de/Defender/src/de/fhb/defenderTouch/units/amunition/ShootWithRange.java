@@ -57,8 +57,18 @@ public class ShootWithRange extends Shoot {
 			//XXX hier die Explosion einbauen rotes Quasdrat ersetzen
 			
 //			GraphicTools.calcDrawTransformationForSlick(player, graphics, position);//nciht benutzen
-			graphics.setColor(Color.orange); //ersetzen
-			graphics.drawRect(0, 0, 10, 10);//ersetzen
+//			graphics.setColor(Color.orange); //ersetzen
+//			graphics.drawRect(0, 0, 10, 10);//ersetzen
+			
+			smallExplosion.draw((-smallExplosion.getHeight() / 2) * player.getActualZoom(), (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight()
+					* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
+			graphics.resetTransform();
+			System.out.println(1234);
+			if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
+//				smallExplosionPlaying = false;
+				
+//				smallExplosion.stop();
+			}
 			
 			
 			graphics.resetTransform();
