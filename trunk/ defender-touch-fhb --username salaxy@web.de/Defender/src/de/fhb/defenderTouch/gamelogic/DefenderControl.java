@@ -690,8 +690,8 @@ public class DefenderControl implements TuioListener {
 	public void createTestUnits() {
 
 		// TestUnitBetas schaffen
-		BaseUnit test = new BaseUnit(100, 200, BaseUnit.MODE_ROTATE, this.playerOne, this);
-		test.commandDestination(new Vector2f(1000, 700));
+		//BaseUnit test = new BaseUnit(100, 200, BaseUnit.MODE_ROTATE, this.playerOne, this);
+		//test.commandDestination(new Vector2f(1000, 700));
 
 		// Testflugstaffel
 		new Tank(100, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
