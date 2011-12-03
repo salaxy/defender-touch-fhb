@@ -25,6 +25,8 @@ public class Tank extends BaseUnit {
 		graphics.rotate(0, 0, 180);
 		size = 20;
 		
+		graphics.drawOval(-15, -17, 30, 30);
+		
 		Image image = null;
 		try {
 			image = new Image("data/units/Tank.png");
