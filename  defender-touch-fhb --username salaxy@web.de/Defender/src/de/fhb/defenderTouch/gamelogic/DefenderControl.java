@@ -283,13 +283,14 @@ public class DefenderControl implements TuioListener {
 				TuioPoint start_point = (TuioPoint) pointList.firstElement();
 				for (int j = 0; j < pointList.size(); j++) {
 					TuioPoint end_point = (TuioPoint) pointList.elementAt(j);
-					// line(start_point.getScreenX(width),start_point.getScreenY(height),end_point.getScreenX(width),end_point.getScreenY(height));
+					 graphics.drawLine(start_point.getScreenX(width),start_point.getScreenY(height),end_point.getScreenX(width),end_point.getScreenY(height));
 					start_point = end_point;
 				}
 				graphics.setColor(Color.gray);
-				// ellipse( tcur.getScreenX(width),
-				// tcur.getScreenY(height),cur_size,cur_size); //draw ellipse at
-				// (current) position of cursor
+				graphics.fillOval( tcur.getScreenX(width),
+				 tcur.getScreenY(height),10,10); //draw ellipse at
+//				 tcur.getScreenY(height),cur_size,cur_size); //draw ellipse at
+//				 (current) position of cursor
 				graphics.setColor(Color.gray);
 
 				graphics.drawString("" + tcur.getCursorID(), tcur.getScreenX(width) - 5, tcur.getScreenY(height) + 5); // draw
