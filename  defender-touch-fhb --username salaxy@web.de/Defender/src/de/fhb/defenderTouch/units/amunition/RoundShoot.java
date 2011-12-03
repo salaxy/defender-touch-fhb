@@ -5,11 +5,11 @@ import org.newdawn.slick.Graphics;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
-import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Unit;
 
 public class RoundShoot extends ShootWithRange{
 
-	public RoundShoot(int x, int y, int mode, Player player,BaseUnit destinationUnit, int damage, DefenderControl gamelogic) {
+	public RoundShoot(int x, int y, int mode, Player player,Unit destinationUnit, int damage, DefenderControl gamelogic) {
 		super(x, y, mode, player, destinationUnit, damage, gamelogic);
 	}
 

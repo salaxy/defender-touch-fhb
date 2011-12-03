@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.movable.Tank;
-import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Unit;
 import de.fhb.defenderTouch.units.root.Building;
 
 public class Armory extends Building {
@@ -55,7 +55,7 @@ public class Armory extends Building {
 	public void update() {
 		tickerTime = new Date().getTime();
 		if (createNewUnit(startingTime, tickerTime)) {
-			new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL, this.owner, gamelogic);
+			new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), Unit.MODE_NORMAL, this.owner, gamelogic);
 		}
 	}
 

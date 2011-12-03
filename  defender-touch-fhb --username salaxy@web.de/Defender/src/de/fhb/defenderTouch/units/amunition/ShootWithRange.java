@@ -10,7 +10,7 @@ import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.Animations;
 import de.fhb.defenderTouch.graphics.GraphicTools;
-import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Unit;
 import org.newdawn.slick.Graphics;
 public class ShootWithRange extends Shoot {
 
@@ -23,7 +23,7 @@ public class ShootWithRange extends Shoot {
 	protected boolean shouldBeDelete=false;
 	protected int nochXFramesZeichnen=10;
 
-	public ShootWithRange(int x, int y, int mode, Player player, BaseUnit destinationUnit, int damage, DefenderControl gamelogic) {
+	public ShootWithRange(int x, int y, int mode, Player player, Unit destinationUnit, int damage, DefenderControl gamelogic) {
 
 		super(x, y, mode, player, destinationUnit, damage, gamelogic);
 		this.startPostion = new Vector2f(x, y);

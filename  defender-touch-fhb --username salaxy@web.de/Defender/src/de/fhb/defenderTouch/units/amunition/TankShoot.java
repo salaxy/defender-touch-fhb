@@ -7,11 +7,11 @@ import org.newdawn.slick.SlickException;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
-import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Unit;
 
 public class TankShoot extends Shoot {
 
-	public TankShoot(int x, int y, int modeNormal, Player playerSystem, BaseUnit destinationUnit, int damagePerHit, DefenderControl gamelogic) {
+	public TankShoot(int x, int y, int modeNormal, Player playerSystem, Unit destinationUnit, int damagePerHit, DefenderControl gamelogic) {
 		super(x, y, modeNormal, playerSystem, destinationUnit, damagePerHit, gamelogic);
 	}
 

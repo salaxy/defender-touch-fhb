@@ -6,9 +6,9 @@ import org.newdawn.slick.SlickException;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.units.amunition.ShootWithRange;
-import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Unit;
 
-public class Tank extends BaseUnit {
+public class Tank extends Unit {
 
 	protected int size = 0;
 
@@ -38,8 +38,8 @@ public class Tank extends BaseUnit {
 		graphics.resetTransform();
 	}
 
-	protected void startShoot(BaseUnit destinationUnit) {
-		new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
+	protected void startShoot(Unit destinationUnit) {
+		new ShootWithRange((int) this.position.x, (int) this.position.y, Unit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
 	}
 	
 	protected void drawTail(Player player, Graphics graphics){

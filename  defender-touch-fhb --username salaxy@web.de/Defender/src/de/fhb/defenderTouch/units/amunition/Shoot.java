@@ -9,7 +9,7 @@ import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.VectorHelper;
-import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Unit;
 
 /**
  * Stellt eine Einfache Animation eines Schusses einer Einheit dar
@@ -19,15 +19,15 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
  * @author Salaxy
  *
  */
-public class Shoot extends BaseUnit {
+public class Shoot extends Unit {
 	
 	
 	//	private float movementSpeed=5f;
-	protected  BaseUnit destinationUnit;
+	protected  Unit destinationUnit;
 	protected int damage;
 	
 	
-	public Shoot(int x, int y, int mode, Player player, BaseUnit destinationUnit, int damage, DefenderControl gamelogic){
+	public Shoot(int x, int y, int mode, Player player, Unit destinationUnit, int damage, DefenderControl gamelogic){
 		super(x, y, mode, player, gamelogic);
 		
 		//Einheit ist sehr schnell

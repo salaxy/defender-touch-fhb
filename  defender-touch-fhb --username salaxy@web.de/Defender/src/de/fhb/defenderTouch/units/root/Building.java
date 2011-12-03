@@ -5,7 +5,7 @@ import org.newdawn.slick.geom.Vector2f;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 
-public class Building extends BaseUnit {
+public class Building extends Unit {
 
 	// private float movementSpeed=0.5f;
 	// eindeutige konstanten für die levels

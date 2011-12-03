@@ -25,7 +25,7 @@ import de.fhb.defenderTouch.units.notmovable.Armory;
 import de.fhb.defenderTouch.units.notmovable.Barracks;
 import de.fhb.defenderTouch.units.notmovable.Defence;
 import de.fhb.defenderTouch.units.notmovable.Support;
-import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Unit;
 
 /**
  * Diese Klasse stellt die Verbindung zwischen Anzeige, also dem PApplet dar und
@@ -61,7 +61,7 @@ public class DefenderControl implements TuioListener {
 	/**
 	 * Globale Liste an zu zeichnende Objekte/Units
 	 */
-	private CopyOnWriteArrayList<BaseUnit> globalUnits;
+	private CopyOnWriteArrayList<Unit> globalUnits;
 
 	/**
 	 * Spielerobjekt Spieler Eins
@@ -114,7 +114,7 @@ public class DefenderControl implements TuioListener {
 		playerTwo = new Player(this, 270, 0.65f, ORIGIN_POSITION_RIGHT, Color.green, PLAYER_TWO_ID);
 		playerSystem = new Player(this, 0, 1f, ORIGIN_POSITION_RIGHT, Color.black, PLAYER_SYSTEM_ID);
 
-		globalUnits = new CopyOnWriteArrayList<BaseUnit>();
+		globalUnits = new CopyOnWriteArrayList<Unit>();
 
 		// Menue init
 		menuePlayerOne = new Menu(this.globalUnits, playerOne);
@@ -132,7 +132,7 @@ public class DefenderControl implements TuioListener {
 		return map;
 	}
 
-	public CopyOnWriteArrayList<BaseUnit> getGlobalUnits() {
+	public CopyOnWriteArrayList<Unit> getGlobalUnits() {
 		return globalUnits;
 
 	}
@@ -154,7 +154,7 @@ public class DefenderControl implements TuioListener {
 		this.map.zeichne(graphics, playerOne);
 
 		// units playerOne zeichen
-		for (BaseUnit unit : globalUnits) {
+		for (Unit unit : globalUnits) {
 			if (unit.isActive() && unit.getPlayerID() == PLAYER_ONE_ID) {
 				// zeichne Aktiviert
 				unit.paint(this.playerOne, graphics, true);
@@ -190,7 +190,7 @@ public class DefenderControl implements TuioListener {
 		graphics.resetTransform();
 
 		// units playerTwo zeichen
-		for (BaseUnit unit : globalUnits) {
+		for (Unit unit : globalUnits) {
 			if (unit.isActive() && unit.getPlayerID() == PLAYER_TWO_ID) {
 				// zeichne Aktiviert
 				unit.paint(this.playerTwo, graphics, true);
@@ -309,7 +309,7 @@ public class DefenderControl implements TuioListener {
 	public void updateGame() {
 
 		// Berechnen der Positionen aller Units
-		for (BaseUnit unit : globalUnits) {
+		for (Unit unit : globalUnits) {
 			unit.update();
 		}
 	}
@@ -467,13 +467,13 @@ public class DefenderControl implements TuioListener {
 	public void unitControlRightSide(Vector2f clickVector, int mouseButton) {
 		boolean weitereAktivierung = false;
 		boolean istAngriff = false;
-		BaseUnit destinationUnit = null;
+		Unit destinationUnit = null;
 
 		// Klickvektor zurück rechnen auf spielkoordinaten
 		Vector2f realClickKoordinates = GraphicTools.calcInputVector(clickVector, this.getPlayerTwo());
 
 		if (mouseButton == MOUSE_LEFT) {
-			for (BaseUnit u : this.getGlobalUnits()) {
+			for (Unit u : this.getGlobalUnits()) {
 
 				// wenn eine unit aktiviert wird dann die anderen deaktiveren
 				if (u.getPlayerID() == DefenderControl.PLAYER_TWO_ID && u.isInner(realClickKoordinates)) {
@@ -484,11 +484,11 @@ public class DefenderControl implements TuioListener {
 			}
 
 			// neues Ziel setzen wenn unit aktiv
-			for (BaseUnit u : this.getGlobalUnits()) {
+			for (Unit u : this.getGlobalUnits()) {
 
 				if (u.isActive()) {
 					// wenn klick auf eine gegnerische Unit dann angriff
-					for (BaseUnit bu : this.getGlobalUnits()) {
+					for (Unit bu : this.getGlobalUnits()) {
 
 						// auf gegnerische einheit geklickt??
 						if (bu.getPlayerID() == DefenderControl.PLAYER_ONE_ID && bu.isInner(realClickKoordinates)) {
@@ -509,13 +509,13 @@ public class DefenderControl implements TuioListener {
 					if (!weitereAktivierung) {
 						// bewegung anweisen wenn kein angriff
 						if (!istAngriff) {
-							for (BaseUnit activeUnit : this.getPlayerTwo().getActiveUnits()) {
+							for (Unit activeUnit : this.getPlayerTwo().getActiveUnits()) {
 								activeUnit.commandDestination(realClickKoordinates);
 							}
 
 						} else {
 							// falls angriff dann Angriff anweisen
-							for (BaseUnit activeUnit : this.getPlayerTwo().getActiveUnits()) {
+							for (Unit activeUnit : this.getPlayerTwo().getActiveUnits()) {
 								activeUnit.attack(destinationUnit, false);
 							}
 						}
@@ -527,7 +527,7 @@ public class DefenderControl implements TuioListener {
 
 		if (mouseButton == MOUSE_RIGHT) {
 
-			for (BaseUnit u : this.getPlayerTwo().getActiveUnits()) {
+			for (Unit u : this.getPlayerTwo().getActiveUnits()) {
 				u.deactivate();
 				this.getPlayerTwo().getActiveUnits().remove(u);
 			}
@@ -545,14 +545,14 @@ public class DefenderControl implements TuioListener {
 
 		boolean weitereAktivierung = false;
 		boolean istAngriff = false;
-		BaseUnit destinationUnit = null;
+		Unit destinationUnit = null;
 
 		// Klickvektor zurück rechnen auf spielkoordinaten
 		Vector2f realClickKoordinates = GraphicTools.calcInputVector(clickVector, this.getPlayerOne());
 
 		if (mouseButton == MOUSE_LEFT) {
 
-			for (BaseUnit u : this.getGlobalUnits()) {
+			for (Unit u : this.getGlobalUnits()) {
 
 				// wenn eine unit aktiviert wird dann die anderen deaktiveren
 				if (u.getPlayerID() == DefenderControl.PLAYER_ONE_ID && u.isInner(realClickKoordinates)) {
@@ -563,11 +563,11 @@ public class DefenderControl implements TuioListener {
 			}
 
 			// neues Ziel setzen wenn unit aktiv
-			for (BaseUnit u : this.getGlobalUnits()) {
+			for (Unit u : this.getGlobalUnits()) {
 
 				if (u.isActive()) {
 					// wenn klick auf eine gegnerische Unit dann angriff
-					for (BaseUnit bu : this.getGlobalUnits()) {
+					for (Unit bu : this.getGlobalUnits()) {
 
 						// auf gegnerische einheit geklickt??
 						if (bu.getPlayerID() == DefenderControl.PLAYER_TWO_ID && bu.isInner(realClickKoordinates)) {
@@ -589,13 +589,13 @@ public class DefenderControl implements TuioListener {
 					if (!weitereAktivierung) {
 						// bewegung anweisen wenn kein angriff
 						if (!istAngriff) {
-							for (BaseUnit activeUnit : this.getPlayerOne().getActiveUnits()) {
+							for (Unit activeUnit : this.getPlayerOne().getActiveUnits()) {
 								activeUnit.commandDestination(realClickKoordinates);
 							}
 
 						} else {
 							// falls angriff dann Angriff anweisen
-							for (BaseUnit activeUnit : this.getPlayerOne().getActiveUnits()) {
+							for (Unit activeUnit : this.getPlayerOne().getActiveUnits()) {
 								activeUnit.attack(destinationUnit, false);
 							}
 						}
@@ -607,7 +607,7 @@ public class DefenderControl implements TuioListener {
 
 		if (mouseButton == MOUSE_RIGHT) {
 
-			for (BaseUnit u : this.getPlayerOne().getActiveUnits()) {
+			for (Unit u : this.getPlayerOne().getActiveUnits()) {
 				u.deactivate();
 				this.getPlayerOne().getActiveUnits().remove(u);
 			}
