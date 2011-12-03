@@ -13,7 +13,6 @@ public class Soldier extends BaseUnit {
 
 	protected int size = 0;
 
-
 	public Soldier(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);	
 		damagePerHit = 40;
@@ -28,7 +27,6 @@ public class Soldier extends BaseUnit {
 		size = 20;
 		
 		graphics.drawOval(-15, -17, 30, 30);
-		
 		Image image = null;
 		try {
 			image = new Image("data/units/Soldier.png");
