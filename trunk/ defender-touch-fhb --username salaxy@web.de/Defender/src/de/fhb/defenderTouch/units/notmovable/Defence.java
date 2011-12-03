@@ -23,10 +23,7 @@ public class Defence extends Building {
 	}
 
 	public void drawFigure(Graphics graphics) {
-
 		graphics.scale(1.0f, 1.0f);
-		// graphics.rotate(0, 0, 180);
-
 		switch (this.level) {
 		case LEVEL_ONE:
 			size = 18;
@@ -38,20 +35,7 @@ public class Defence extends Building {
 			size = 22;
 			break;
 		}
-
-		// ArrayList<Vector2f> vektoren = new ArrayList<Vector2f>();
-		// vektoren.add(new Vector2f(-size, -size));
-		// vektoren.add(new Vector2f(size, -size));
-		// vektoren.add(new Vector2f(0, -size));
-		// vektoren.add(new Vector2f(0, -size * 2));
-		// vektoren.add(new Vector2f(0, size));
-		// vektoren.add(new Vector2f(size, size));
-		// vektoren.add(new Vector2f(-size, size));
-		// graphics.drawOval(-size, -size * 2, size * 2, size * 2);
-		// GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
-
 		graphics.drawRect(-15, -17, 30, 30);
-
 		Image image = null;
 		try {
 			image = new Image("data/buildings/Defence.png");
@@ -61,7 +45,6 @@ public class Defence extends Building {
 		}
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
-
 	}
 	
 	
@@ -72,6 +55,4 @@ public class Defence extends Building {
 		}
 
 	}
-	
-
 }

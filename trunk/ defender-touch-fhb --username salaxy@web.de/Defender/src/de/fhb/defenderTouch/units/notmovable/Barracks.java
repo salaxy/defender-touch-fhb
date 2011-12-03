@@ -29,10 +29,7 @@ public class Barracks extends Building {
 	}
 
 	public void drawFigure(Graphics graphics) {
-
 		graphics.scale(1.0f, 1.0f);
-		// graphics.rotate(0, 0, 180);
-
 		switch (this.level) {
 		case LEVEL_ONE:
 			size = 18;
@@ -45,16 +42,7 @@ public class Barracks extends Building {
 			break;
 		}
 
-		// int difference = 10;
-
-		// graphics.drawLine(-size, size, difference, -size + difference);
-		// graphics.drawLine(0, -size + difference, size, size);
-		// graphics.drawLine(-size, size, 0, -size + difference * 3);
-		// graphics.drawLine(0, -size + difference * 3, size, size);
-		//
 		graphics.drawRect(-15, -16, 30, 30);
-		// graphics.drawImage(image, x, y);
-
 		Image image = null;
 		try {
 			image = new Image("data/buildings/Barracks.png");
@@ -64,17 +52,13 @@ public class Barracks extends Building {
 		}
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
-
 	}
-	
 	
 	public void update() {
 		tickerTime = new Date().getTime();
-
 		if (createNewUnit(startingTime, tickerTime)) {
 			new Soldier(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL, this.owner, gamelogic);
 		}
-
 	}
 
 	public boolean createNewUnit(long startingTime, long tickerTime) {
@@ -84,18 +68,14 @@ public class Barracks extends Building {
 			return true;
 		}
 		return false;
-
 	}
 
 	public int generateRandomNumber(int x) {
-
 		int help;
-
 		if (Math.random() > 0.5)
 			help = (int) (this.activateRadius * 2);
 		else
 			help = (int) -(this.activateRadius * 2);
 		return x + help;
 	}
-
 }
