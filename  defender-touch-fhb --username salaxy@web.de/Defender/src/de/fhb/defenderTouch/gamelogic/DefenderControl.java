@@ -365,7 +365,7 @@ public class DefenderControl implements TuioListener {
 			}
 			menu.setActualBuildingName();
 		} else if (menu.isBuildingOpen()) {
-			if (menu.isInnerBuildingElement(realClickKoordinates)) {
+			if (menu.isBuildingElementClicked(realClickKoordinates)) {
 				switch (menu.getActualChosenBuilding()) {
 				case 0:
 					System.out.println("do Building upgrade");
@@ -379,7 +379,7 @@ public class DefenderControl implements TuioListener {
 				}
 			}
 		} else if (menu.isMenuOpen()) {
-			if (menu.isMenuBuildingClicked(realClickKoordinates)) {
+			if (menu.isMenuElementClicked(realClickKoordinates)) {
 				System.out.println("choosing a building");
 				menu.createBuilding(this);
 			}
