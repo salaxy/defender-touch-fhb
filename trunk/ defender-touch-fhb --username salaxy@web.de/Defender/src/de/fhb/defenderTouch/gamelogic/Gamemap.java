@@ -107,7 +107,6 @@ public class Gamemap {
 
 		for (int x = (int) x1; x < (int) x2; x++)
 			for (int y = (int) y1; y < (int) y2; y++) {
-
 				if (player == DefenderControl.PLAYER_ONE_ID) {
 					temp = informationalMap.getColor(x, y).r;
 					if (informationalMap.getColor(x, y).r < 0.5f) {
@@ -127,7 +126,6 @@ public class Gamemap {
 					}
 				}
 			}
-
 		return true;
 	}
 
@@ -141,8 +139,6 @@ public class Gamemap {
 	 * @return
 	 */
 	public boolean isBuildable(Vector2f position, int player) {
-		System.out.println(position.x - 24);
-		System.out.println(position.y - 24);
-		return isBuildable(position.x - 24, position.y - 24, position.x + 25, position.y + 25, player);
+		return isBuildable(position.x - 20, position.y - 20, position.x + 20, position.y + 20, player);
 	}
 }
