@@ -798,7 +798,7 @@ public class BaseUnit {
 	
 	public void playExplosionSound() {
 		try {
-			new SampleThread("/sounds/Explosion.mp3", 5.0f, true).start();
+			new SampleThread("/sounds/Explosion.mp3", 0.0f, true).start();
 		} catch (FormatProblemException e) {
 			e.printStackTrace();
 		}
