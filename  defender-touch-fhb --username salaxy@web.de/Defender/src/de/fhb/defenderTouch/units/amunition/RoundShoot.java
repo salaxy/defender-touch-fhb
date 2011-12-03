@@ -13,7 +13,7 @@ public class RoundShoot extends ShootWithRange{
 		super(x, y, mode, player, destinationUnit, damage, gamelogic);
 	}
 
-	public void drawFigure(Graphics graphics){
+	public void zeichneKugel(Graphics graphics){
 		
 		
 		graphics.setColor(Color.black);
@@ -24,6 +24,36 @@ public class RoundShoot extends ShootWithRange{
 		graphics.resetTransform();
 		
 	}
+	
+	
+	public void drawFigure(Graphics graphics){
+
+		if(!shouldBeDelete){
+			zeichneKugel(graphics);
+		}
+		
+		if(shouldBeDelete&&nochXFramesZeichnen>0){
+			
+			smallExplosion.draw((-smallExplosion.getHeight() / 2) * player.getActualZoom(), (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight()
+					* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
+			graphics.resetTransform();
+			System.out.println(1234);
+			if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
+//				smallExplosionPlaying = false;
+				
+//				smallExplosion.stop();
+			}
+			
+			
+			graphics.resetTransform();
+			this.nochXFramesZeichnen--;
+		}
+		
+		if(shouldBeDelete&&nochXFramesZeichnen==0){
+			this.deleteWirklich();
+		}
+
+	}	
 	
 	protected void drawTail(Player player,Graphics graphics){
 		
