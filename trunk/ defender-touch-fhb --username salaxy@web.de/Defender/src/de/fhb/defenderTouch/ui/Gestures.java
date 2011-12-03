@@ -13,7 +13,7 @@ import TUIO.TuioTime;
 public class Gestures {
 
 	// Variablen zum überprüfen von Zeiteinheiten
-	private boolean timeFlag = false;
+//	private boolean timeFlag = false;
 	private ArrayList<double[]> tuioCursorListOld = new ArrayList<double[]>();
 	private ArrayList<int[]> tuioCursorListForSecondsToWait = new ArrayList<int[]>();
 	private int zaehler = 15;
