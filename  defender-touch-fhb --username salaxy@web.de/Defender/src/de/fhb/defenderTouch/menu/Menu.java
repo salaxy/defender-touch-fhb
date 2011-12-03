@@ -273,7 +273,6 @@ public class Menu {
 			calcDrawTransformation(graphics);
 			createClickablePointMenu(counter++, rotation, graphics, "data/buildings/Barracks.png", Barracks.PRICE);
 			rotation += nextRotation;
-
 		}
 
 		/**
@@ -331,13 +330,13 @@ public class Menu {
 	public boolean isMenuBuildingClicked(Vector2f clickVector) {
 		if (this.menu[0].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 1");
-//			System.out.println(menu[0].distance(clickVector));
-			 if (isEnoughCredits(Armory.PRICE)) {
-			 player.setCredits(player.getCredits() - Armory.PRICE);
-			 setActualChosenBuilding(0);
-			 setMenuOpen(false);
-			 return true;
-			 }
+			// System.out.println(menu[0].distance(clickVector));
+			if (isEnoughCredits(Armory.PRICE)) {
+				player.setCredits(player.getCredits() - Armory.PRICE);
+				setActualChosenBuilding(0);
+				setMenuOpen(false);
+				return true;
+			}
 		}
 		if (this.menu[1].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 2");
@@ -390,11 +389,11 @@ public class Menu {
 
 		if (this.menuBuildings[0].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue Building 1 - Upgrade");
-//			System.out.println(menuBuildings[0].distance(clickVector));
-			 setBuildingOpen(false, null);
-			 upgradeBuilding();
-			 setActualChosenBuilding(0);
-			 return true;
+			// System.out.println(menuBuildings[0].distance(clickVector));
+			setBuildingOpen(false, null);
+			upgradeBuilding();
+			setActualChosenBuilding(0);
+			return true;
 		}
 		if (this.menuBuildings[1].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue Building 2 - Destroy");
@@ -641,8 +640,8 @@ public class Menu {
 		menu[element].setTheta(rotation);
 		menu[element].add(position);
 
-		int x = 25; // +rechts, -links
-		int y = 25; // -hoch, +runter
+		int x = 25;
+		int y = 25;
 		// graphics.drawOval(DOUBLERADIUS / 2, DOUBLERADIUS / 2, 1, 1);
 		if (element >= 0 && element <= 3) {
 			createBigMenuCircle(graphics, x, y);
@@ -664,15 +663,15 @@ public class Menu {
 	public void createClickablePointBuilding(int element, int rotation, Graphics graphics, String pathName, int price) {
 		graphics.rotate(0, 0, rotation - 135);
 		menuBuildings[element] = new Vector2f(0, DOUBLERADIUS);
-		menuBuildings[element].setTheta(rotation-90);
+		menuBuildings[element].setTheta(rotation - 90);
 		menuBuildings[element].add(position);
 
-		int x = 25; // +rechts, -links
-		int y = 25; // -hoch, +runter
+		int x = 25;
+		int y = 25;
 		// graphics.drawOval(DOUBLERADIUS / 2 + x, DOUBLERADIUS / 2 + y, 1,1);
 		if (element >= 0 && element <= 1) {
 			createBigMenuCircle(graphics, x, y);
-			showBuilding(graphics, pathName, rotation , x, y);
+			showBuilding(graphics, pathName, rotation, x, y);
 			if (element == 0) {
 				graphics.setColor(Color.black);
 				createTinyMenuCircle(graphics, x, y);
@@ -680,7 +679,6 @@ public class Menu {
 			}
 		}
 		graphics.resetTransform();
-
 	}
 
 	/**
@@ -699,7 +697,7 @@ public class Menu {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		graphics.drawImage(image, x + 20, y + 20, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
+		graphics.drawImage(image, x + SIZEOFIMAGE / 4, y + SIZEOFIMAGE / 4, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
 	}
 
 	/**
@@ -711,8 +709,6 @@ public class Menu {
 	public void createBigMenuCircle(Graphics graphics, int x, int y) {
 		graphics.setColor(Color.darkGray);
 		graphics.drawOval(x, y, DOUBLERADIUS, DOUBLERADIUS);
-		// graphics.setColor(Color.lightGray);
-		// graphics.fillOval(x, y, DOUBLERADIUS - 1, DOUBLERADIUS - 1);
 	}
 
 	/**
@@ -760,7 +756,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void calcDrawTransformation(Graphics graphics) {
-		// graphics.setColor(Color.darkGray);
 		GraphicTools.calcDrawTransformationForSlick(player, graphics, position);
 	}
 
@@ -770,7 +765,6 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void calcDrawTransformationBuildings(Graphics graphics) {
-		// graphics.setColor(Color.darkGray);
 		GraphicTools.calcDrawTransformationForSlick(player, graphics, positionBuilding);
 	}
 }
