@@ -36,7 +36,7 @@ public class Soldier extends BaseUnit {
 		try {
 			image = new Image("data/buildings/Barracks.png");
 			image = image.getScaledCopy(size, size);
-			image.rotate(90);
+			image.rotate(180);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
