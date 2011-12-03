@@ -13,14 +13,11 @@ public class Animations {
 		for (int i = 0; i < images.length; i++) {
 			try {
 				images[i] = new Image("data/animations/" + picName + "/" + (i + 1) + ".png");
-
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
 		}
-
 		ani = new Animation(images, 50);
-
 	}
 
 	public Animation getAni() {
