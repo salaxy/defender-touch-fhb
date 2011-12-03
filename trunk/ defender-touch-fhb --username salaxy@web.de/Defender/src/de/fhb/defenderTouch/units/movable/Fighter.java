@@ -3,39 +3,49 @@ package de.fhb.defenderTouch.units.movable;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.units.amunition.ShootWithRange;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class Fighter extends BaseUnit {
 
-	// private float movementSpeed=5f;
+	protected int size = 0;
 
 	public Fighter(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
-		this.movementSpeed = 5f;
+		damagePerHit = 40;
+		attackRange = 250;
+		healthpointsMax = 50;
+		healthpointsStat = 50;
 	}
 
 	public void drawFigure(Graphics graphics) {
 
-		graphics.scale(2, 2);
-		ArrayList<Vector2f> vektoren = new ArrayList<Vector2f>();
-		vektoren.add(new Vector2f(0, -8));
-		vektoren.add(new Vector2f(-8, 8));
-		vektoren.add(new Vector2f(-4, 6));
-		vektoren.add(new Vector2f(0, 8));
-		vektoren.add(new Vector2f(0, -8));
-		vektoren.add(new Vector2f(8, 8));
-		vektoren.add(new Vector2f(4, 6));
-		vektoren.add(new Vector2f(0, 8));
-
-		GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
-
+		graphics.scale(1.0f, 1.0f);
+		size = 20;
+		
+		graphics.drawOval(-15, -17, 30, 30);
+		
+		Image image = null;
+		try {
+			image = new Image("data/units/Fighter.png");
+			image = image.getScaledCopy(size, size);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
-
 	}
+
+	protected void startShoot(BaseUnit destinationUnit) {
+		new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
+	}
+
 
 }
