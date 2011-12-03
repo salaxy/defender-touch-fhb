@@ -1,21 +1,16 @@
 package de.fhb.defenderTouch.menu;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.state.transition.RotateTransition;
-
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.Animations;
 import de.fhb.defenderTouch.graphics.GraphicTools;
-import de.fhb.defenderTouch.units.movable.Tank;
 import de.fhb.defenderTouch.units.notmovable.Armory;
 import de.fhb.defenderTouch.units.notmovable.Barracks;
 import de.fhb.defenderTouch.units.notmovable.Defence;
@@ -646,8 +641,6 @@ public class Menu {
 		if (element >= 0 && element <= 3) {
 			createBigMenuCircle(graphics, x, y);
 			showBuilding(graphics, pathName, rotation, x, y);
-			graphics.setColor(Color.black);
-			createTinyMenuCircle(graphics, x, y);
 			showPriceBuildings(graphics, price, x, y);
 		}
 		graphics.resetTransform();
@@ -673,8 +666,6 @@ public class Menu {
 			createBigMenuCircle(graphics, x, y);
 			showBuilding(graphics, pathName, rotation, x, y);
 			if (element == 0) {
-				graphics.setColor(Color.black);
-				createTinyMenuCircle(graphics, x, y);
 				showPriceBuildings(graphics, price, x, y);
 			}
 		}
@@ -719,10 +710,10 @@ public class Menu {
 	 * @param y
 	 * @param x
 	 */
-	public void createTinyMenuCircle(Graphics graphics, int x, int y) {
-		graphics.setColor(Color.gray);
-		graphics.fillOval(x * 4, y * 4, RADIUS, RADIUS);
-	}
+//	public void createTinyMenuCircle(Graphics graphics, int x, int y) {
+//		graphics.setColor(Color.gray);
+//		graphics.fillOval(x * 4, y * 4, RADIUS, RADIUS);
+//	}
 
 	/**
 	 * Showing the price of the specific building
@@ -730,6 +721,8 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showPriceBuildings(Graphics graphics, int price, int x, int y) {
+		graphics.setColor(Color.gray);
+		graphics.fillOval(x * 4, y * 4, RADIUS, RADIUS);
 		graphics.setColor(Color.white);
 		graphics.drawString(price + "", x * 5, y * 5);
 	}
