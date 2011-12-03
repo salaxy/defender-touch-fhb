@@ -18,6 +18,7 @@ public class Tank extends BaseUnit {
 		attackRange = 250;
 		healthpointsMax = 120;
 		healthpointsStat = 120;
+		movementSpeed = 1.5f;
 	}
 
 	public void drawFigure(Graphics graphics) {
@@ -39,5 +40,9 @@ public class Tank extends BaseUnit {
 
 	protected void startShoot(BaseUnit destinationUnit) {
 		new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
+	}
+	
+	protected void drawTail(Player player, Graphics graphics){
+		//tail aus
 	}
 }

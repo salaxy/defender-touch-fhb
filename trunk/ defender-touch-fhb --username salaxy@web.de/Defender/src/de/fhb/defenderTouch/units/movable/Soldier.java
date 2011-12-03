@@ -19,6 +19,7 @@ public class Soldier extends BaseUnit {
 		attackRange = 250;
 		healthpointsMax = 50;
 		healthpointsStat = 50;
+		movementSpeed = 0.8f;
 	}
 
 	public void drawFigure(Graphics graphics) {
@@ -40,6 +41,10 @@ public class Soldier extends BaseUnit {
 
 	protected void startShoot(BaseUnit destinationUnit) {
 		new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
+	}
+	
+	protected void drawTail(Player player, Graphics graphics){
+		//tail aus
 	}
 
 }
