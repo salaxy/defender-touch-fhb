@@ -37,6 +37,7 @@ public class StartGame extends StateBasedGame {
         defender.setDisplayMode(DefenderViewSlick.WIDTH, DefenderViewSlick.HEIGHT, false);
         defender.setVSync(true);
         defender.setShowFPS(false);
+        defender.setAlwaysRender(true);
         defender.start();
 
 	}
