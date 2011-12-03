@@ -707,10 +707,15 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void showPriceBuildings(Graphics graphics, int price, int x, int y) {
-		graphics.setColor(Color.white);
-		graphics.drawString(price + "", x * 5, y * 5);
+		graphics.setColor(Color.black);
+		graphics.fillOval(x * 4, y * 4, RADIUS, RADIUS);
 		graphics.setColor(Color.gray);
 		graphics.drawOval(x * 4, y * 4, RADIUS, RADIUS);
+		graphics.setColor(Color.white);		
+		graphics.translate(x * 5.4f, y * 5.4f);
+		graphics.rotate(0, 0, 132);
+//		graphics.drawString(price + "", x * 5, y * 5);
+		graphics.drawString(price + "", -7, -7);
 		
 	}
 
