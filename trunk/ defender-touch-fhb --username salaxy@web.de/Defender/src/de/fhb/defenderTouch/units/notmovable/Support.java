@@ -48,7 +48,7 @@ public class Support extends Building {
 		// vektoren.add(new Vector2f(size, 0));
 		// vektoren.add(new Vector2f(-size, 0));
 		// GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
-		graphics.drawOval(-15, -14, 30, 30);
+		graphics.drawRect(-15, -14, 30, 30);
 
 		Image image = null;
 		try {

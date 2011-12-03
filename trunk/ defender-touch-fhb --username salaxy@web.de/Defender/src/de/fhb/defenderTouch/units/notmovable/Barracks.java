@@ -41,7 +41,7 @@ public class Barracks extends Building {
 		// graphics.drawLine(-size, size, 0, -size + difference * 3);
 		// graphics.drawLine(0, -size + difference * 3, size, size);
 		//
-		graphics.drawOval(-15, -16, 30, 30);
+		graphics.drawRect(-15, -16, 30, 30);
 		// graphics.drawImage(image, x, y);
 
 		Image image = null;

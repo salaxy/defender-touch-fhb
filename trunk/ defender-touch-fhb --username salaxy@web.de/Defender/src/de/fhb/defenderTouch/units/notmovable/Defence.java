@@ -45,7 +45,7 @@ public class Defence extends Building {
 		// graphics.drawOval(-size, -size * 2, size * 2, size * 2);
 		// GraphicTools.zeicheFigurNachVektoren(vektoren, graphics);
 
-		graphics.drawOval(-15, -17, 30, 30);
+		graphics.drawRect(-15, -17, 30, 30);
 
 		Image image = null;
 		try {
