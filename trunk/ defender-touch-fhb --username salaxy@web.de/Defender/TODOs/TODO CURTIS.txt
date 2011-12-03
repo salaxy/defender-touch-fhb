@@ -1,7 +1,7 @@
 TODO CURTIS
 ***********
 
-
+- Bugfix Feindgebäude können gelöscht werden->Menü sollte erst gar nciht erscheinen
 
 - Menü nachbearbeiten, so das es erstmal passt....!
 	(bitte bis nächste Woche den 08.12)
@@ -19,3 +19,4 @@ verschoben auf unbestimmte Zeit:
 ********************************
 
 - UnitSapwnstatus an ezigen bei gebäüden mit sich füllenden Kreis
+- Lebensbalken fuer Units...
