@@ -1,18 +1,18 @@
 TODO CURTIS
 ***********
 
-- Bugfix Feindgebäude können gelöscht werden->Menü sollte erst gar nciht erscheinen
-
-- Explosionen größer 2x überall ...ShootWithRange vorallem
-- neuen Explosions sound finde, evtl auch nen backgroundmusik..ansosnten nehm ich das von letztens..das is funny XD
-
-
+- Endpräsentation anfangen...soll aber schon sooo fast fertig sein ...
+	- Inhalt...wie haben wir angefangen was war die Idee..anfangspräse nutzen
+	- Welche Technologien nutzne wir
+	- Projektstand gegen ende des Projekts...noch frei lassen, aber dummymäßig freilassen
+	(->Resümee, was wollten wir, was haben wir geschafft davon)
+	- evtl. ein Spiele logo entwerfen (simpel..bitte nicht zulange dran aufhalten)
 (ALLES bitte bis nächste Woche den 08.12)
 
-- beim nächsten Treffen ist deine Aufgabe das ding auf den Computer zu portieren
+
+- deine Aufgabe ist es beim nächsten Treffen die Präsentation fertig zu stellen mit mir zusammen
 	
-	
-	
+
 	
 	egal jetzt--->
 verschoben auf unbestimmte Zeit:

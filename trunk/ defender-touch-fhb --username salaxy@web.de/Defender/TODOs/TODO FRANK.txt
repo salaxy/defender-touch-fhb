@@ -2,20 +2,17 @@ TODO FRANK
 ***********
 
 
-- Endpräsentation anfangen...soll aber schon sooo fast fertig sein ...
-	- Inhalt...wie haben wir angefangen was war die Idee
-	- Kurzer zwischen stand....
-	- Projektstand gegen ende des Projekts...noch frei lassen, aber dummymäßig freilassen
-	(->Resümee, was wollten wir, was haben wir geschafft davon)
-	- evtl. ein Spiele logo entwerfen (simpel..bitte nicht zulange dran aufhalten)
+->>>nimm die quadrate da raus...verdammt..der rest kann so bleiben
 
 - ein simples...SpielMenü machen mit deinen GameStates..ganz simpel... mit Spiele logo als startzeichen
  (Esc-Taste ...um das spiel zu verlassen, spiel pausiert...beenden button und weiter button)
+ einfach weisse Schriftzuege...Comic Sans MS oder sowas
+ ..... bei Spielbegin logo des Spiels anzeigen..das bekommst du von Curtis
  
  
 (ALLES bitte bis nächste Woche den 08.12)
-
-- deine Aufgabe ist es beim nächsten Treffen die Präsentation fertig zu stellen mit mir zusammen
+- beim nächsten Treffen ist deine Aufgabe das ding auf den Computer zu portieren
+	
 
 
 
