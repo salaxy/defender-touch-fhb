@@ -206,6 +206,55 @@ public class Menu {
 
 	}
 
+	/**
+	 * Playing the animation for the explosion when a building is destroyed
+	 * 
+	 * @param graphics
+	 */
+	public void animationSmallExplosion(Graphics graphics) {
+		calcDrawTransformation(graphics);
+		smallExplosion.draw((-smallExplosion.getHeight() / 2) * player.getActualZoom(), (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight()
+				* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
+		graphics.resetTransform();
+		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
+			smallExplosionPlaying = false;
+			smallExplosion.stop();
+		}
+	}
+
+	/**
+	 * Calculating the actual position of the click with coordinates
+	 * 
+	 * @param graphics
+	 */
+	public void calcDrawTransformation(Graphics graphics) {
+		GraphicTools.calcDrawTransformationForSlick(player, graphics, position);
+	}
+
+	/**
+	 * Calculating the actual position of the building with coordinates
+	 * 
+	 * @param graphics
+	 */
+	public void calcDrawTransformationBuildings(Graphics graphics) {
+		GraphicTools.calcDrawTransformationForSlick(player, graphics, positionBuilding);
+	}
+
+	/**
+	 * Creates a big circle
+	 * 
+	 * @param graphics
+	 */
+	public void createBigMenuCircle(Graphics graphics, int difference) {
+		graphics.setColor(Color.darkGray);
+		graphics.drawOval(difference, difference, DOUBLERADIUS, DOUBLERADIUS);
+	}
+
+	/**
+	 * Creates a complete Menu Point
+	 * 
+	 * @param defenderControl
+	 */
 	public void createBuilding(DefenderControl defenderControl) {
 		switch (getActualChosenBuilding()) {
 		case 0:
@@ -230,7 +279,53 @@ public class Menu {
 	}
 
 	/**
-	 * is always been done
+	 * Creates a complete Menu Point
+	 * 
+	 * @param element
+	 * @param rotation
+	 * @param graphics
+	 * @param string
+	 */
+	public void createClickablePointMenu(int element, int rotation, Graphics graphics, String pathName, int price) {
+		graphics.rotate(0, 0, rotation - 45);
+		menu[element] = new Vector2f(0, DOUBLERADIUS);
+		menu[element].setTheta(rotation);
+		menu[element].add(position);
+		// graphics.drawOval(DOUBLERADIUS / 2, DOUBLERADIUS / 2, 1, 1);
+		int difference = 25;
+		if (element >= 0 && element <= 3) {
+			createBigMenuCircle(graphics, difference);
+			showBuilding(graphics, pathName, rotation, difference);
+			showPriceBuildings(graphics, price, difference);
+		}
+		graphics.resetTransform();
+	}
+
+	/**
+	 * Creates a complete Menu Point for a specific building
+	 * 
+	 * @param element
+	 * @param rotation
+	 * @param graphics
+	 */
+	public void createClickablePointBuilding(int element, int rotation, Graphics graphics, String pathName, int price) {
+		graphics.rotate(0, 0, rotation - 135);
+		menuBuildings[element] = new Vector2f(0, DOUBLERADIUS);
+		menuBuildings[element].setTheta(rotation - 90);
+		menuBuildings[element].add(position);
+		int difference = 25;
+		if (element >= 0 && element <= 1) {
+			createBigMenuCircle(graphics, difference);
+			showBuilding(graphics, pathName, rotation, difference);
+			if (element == 0) {
+				showPriceBuildings(graphics, price, difference);
+			}
+		}
+		graphics.resetTransform();
+	}
+
+	/**
+	 * doing the draw
 	 */
 	public void drawMenu(Graphics graphics, Player player) {
 		/**
@@ -300,6 +395,30 @@ public class Menu {
 
 	/**
 	 * 
+	 * @return if building is shows
+	 */
+	public boolean isBuildingOpen() {
+		return buildingOpen;
+	}
+
+	/**
+	 * 
+	 * @param credits
+	 *            (credits of a player)
+	 * @return true (if enough credits is there)
+	 * 
+	 *         looking if enough credits are there
+	 */
+	public boolean isEnoughCredits(int credits) {
+		if (player.getCredits() - credits >= 0) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Watching if the click was in the Circle
+	 * 
 	 * @param clickVector
 	 *            (actual position of mouse click)
 	 * @return true (if click was in middle circle of menu)
@@ -316,6 +435,35 @@ public class Menu {
 	}
 
 	/**
+	 * Watching if a building Menu point was clicked
+	 * 
+	 * @param clickVector
+	 *            (actual position of mouse click)
+	 * @return true (if click was in a specific circle of menu)
+	 * 
+	 *         looking if a specific building menu point was clicked
+	 */
+	public boolean isBuildingElementClicked(Vector2f clickVector) {
+
+		if (this.menuBuildings[0].distance(clickVector) < this.RADIUS) {
+			System.out.println("Menue Building 1 - Upgrade");
+			setBuildingOpen(false, null);
+			upgradeBuilding();
+			setActualChosenBuilding(0);
+			return true;
+		}
+		if (this.menuBuildings[1].distance(clickVector) < this.RADIUS) {
+			System.out.println("Menue Building 2 - Destroy");
+			setBuildingOpen(false, null);
+			setBuildingDestroyPrice();
+			setActualChosenBuilding(1);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Watching if a Menu point was clicked
 	 * 
 	 * @param clickVector
 	 *            (actual position of mouse click)
@@ -323,10 +471,9 @@ public class Menu {
 	 * 
 	 *         looking if a menu point was clicked
 	 */
-	public boolean isMenuBuildingClicked(Vector2f clickVector) {
+	public boolean isMenuElementClicked(Vector2f clickVector) {
 		if (this.menu[0].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 1");
-			// System.out.println(menu[0].distance(clickVector));
 			if (isEnoughCredits(Armory.PRICE)) {
 				player.setCredits(player.getCredits() - Armory.PRICE);
 				setActualChosenBuilding(0);
@@ -336,7 +483,6 @@ public class Menu {
 		}
 		if (this.menu[1].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 2");
-			// System.out.println(menu[1].distance(clickVector));
 			if (isEnoughCredits(Defence.PRICE)) {
 				player.setCredits(player.getCredits() - Defence.PRICE);
 				setActualChosenBuilding(1);
@@ -373,59 +519,80 @@ public class Menu {
 
 	/**
 	 * 
+	 * @return tell you wheater the menu is open or not
+	 */
+	public boolean isMenuOpen() {
+		return menuOpen;
+	}
+
+	/**
+	 * Watching if the Place is already take by another building
+	 * 
 	 * @param clickVector
-	 *            (actual position of mouse click)
-	 * @return true (if click was in a specific circle of menu)
-	 * 
-	 *         looking if a specific building menu point was clicked
+	 * @return if place for the new building is free
 	 */
-	public boolean isInnerBuildingElement(Vector2f clickVector) {
-
-		if (this.menuBuildings[0].distance(clickVector) < this.RADIUS) {
-			System.out.println("Menue Building 1 - Upgrade");
-			// System.out.println(menuBuildings[0].distance(clickVector));
-			setBuildingOpen(false, null);
-			upgradeBuilding();
-			setActualChosenBuilding(0);
-			return true;
-		}
-		if (this.menuBuildings[1].distance(clickVector) < this.RADIUS) {
-			System.out.println("Menue Building 2 - Destroy");
-			// System.out.println(menuBuildings[1].distance(clickVector));
-			setBuildingOpen(false, null);
-			setBuildingDestroyPrice();
-			setActualChosenBuilding(1);
-			return true;
+	public boolean isPlaceTaken(Vector2f clickVector) {
+		for (BaseUnit building : buildings) {
+			if (building.getPosition().distance(clickVector) < (building.getCollisionRadius())) {
+				setPositionBuilding(building.getPosition());
+				return true;
+			}
 		}
 		return false;
 	}
 
 	/**
-	 * 
-	 * @param credits
-	 *            (credits of a player)
-	 * @return true (if enough credits is there)
-	 * 
-	 *         looking if enough credits are there
-	 */
-	public boolean isEnoughCredits(int credits) {
-		if (player.getCredits() - credits >= 0) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param credits
-	 *            (credits of a player)
-	 * @return true (if enough credits is there)
-	 * 
-	 *         looking if enough credits are there
+	 * looking if there are enough credits
 	 */
 	public void upgradeBuilding() {
 		if (player.getCredits() - getActualBuildingPrice() >= 0 && actualBuilding.getLevel() != 3) {
 			player.setCredits(player.getCredits() - getActualBuildingPrice());
+		}
+	}
+
+	/**
+	 * searching for the actual name of a building
+	 */
+	public void setActualBuildingName() {
+
+		if (actualBuilding instanceof Defence)
+			actualBuildingName = "Defence";
+
+		if (actualBuilding instanceof Armory)
+			actualBuildingName = "Ground";
+
+		if (actualBuilding instanceof Support)
+			actualBuildingName = "Support";
+
+		if (actualBuilding instanceof Barracks) {
+			actualBuildingName = "Barracks";
+		} else
+			actualBuildingName = "Nichts gewählt";
+	}
+
+	/**
+	 * Setting the actual building
+	 * 
+	 * @param actualChosenBuilding
+	 */
+	public void setActualChosenBuilding(int actualChosenBuilding) {
+		this.actualChosenBuilding = actualChosenBuilding;
+	}
+
+	/**
+	 * calculate the credits u get from destroying a building
+	 */
+	public void setBuildingDestroyPrice() {
+		smallExplosionPlaying = true;
+		smallExplosion.restart();
+		if (actualBuilding instanceof Defence)
+			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
+		if (actualBuilding instanceof Armory)
+			player.setCredits(player.getCredits() + (Armory.PRICE * actualBuilding.getLevel()) / 2);
+		if (actualBuilding instanceof Support)
+			player.setCredits(player.getCredits() + (Support.PRICE * actualBuilding.getLevel()) / 2);
+		if (actualBuilding instanceof Barracks) {
+			player.setCredits(player.getCredits() + (Barracks.PRICE * actualBuilding.getLevel()) / 2);
 		}
 	}
 
@@ -459,94 +626,69 @@ public class Menu {
 
 	/**
 	 * 
-	 * @param clickVector
-	 *            (actual position of mouse click)
-	 * @return level (level of the specific building)
-	 * 
-	 *         searching for the actual building level
+	 * @param menuOpen
 	 */
-	public int getActualBuildingLevel(Vector2f clickVector) {
-		return actualBuilding.getLevel();
+	public void setMenuOpen(boolean menuOpen) {
+		this.menuOpen = menuOpen;
 	}
 
 	/**
 	 * 
-	 * @return PRICE (price of the specific building)
-	 * 
-	 *         searching for the actual price of a building
+	 * @param position
 	 */
-	public int getActualBuildingPrice() {
-		if (actualBuilding instanceof Armory)
-			return Armory.PRICE;
-
-		if (actualBuilding instanceof Defence)
-			return Defence.PRICE;
-
-		if (actualBuilding instanceof Support)
-			return Support.PRICE;
-
-		if (actualBuilding instanceof Barracks) {
-			return Barracks.PRICE;
-		} else
-			return 0;
+	public void setPosition(Vector2f position) {
+		this.position = position;
 	}
 
 	/**
-	 * searching for the actual name of a building
+	 * 
+	 * @param positionBuilding
 	 */
-	public void setActualBuildingName() {
+	public void setPositionBuilding(Vector2f positionBuilding) {
+		this.positionBuilding = positionBuilding;
+	}
 
-		if (actualBuilding instanceof Defence)
-			actualBuildingName = "Defence";
-
-		if (actualBuilding instanceof Armory)
-			actualBuildingName = "Ground";
-
-		if (actualBuilding instanceof Support)
-			actualBuildingName = "Support";
-
-		if (actualBuilding instanceof Barracks) {
-			actualBuildingName = "Barracks";
+	/**
+	 * Showing the sign of a building
+	 * 
+	 * @param graphics
+	 * @param difference
+	 */
+	public void showBuilding(Graphics graphics, String pathName, int rotation, int difference) {
+		Image image = null;
+		try {
+			image = new Image(pathName);
+			image = image.getScaledCopy(SIZEOFIMAGE, SIZEOFIMAGE);
+			image.rotate(-45);
+		} catch (SlickException e) {
+			e.printStackTrace();
 		}
-
-		else
-			actualBuildingName = "Nichts gewählt";
+		graphics.drawImage(image, difference + SIZEOFIMAGE / 4, difference + SIZEOFIMAGE / 4, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
 	}
 
 	/**
-	 * calculate the credits u get from destroying a building
+	 * Showing the price of the specific building
+	 * 
+	 * @param graphics
 	 */
-	public void setBuildingDestroyPrice() {
-		smallExplosionPlaying = true;
-		smallExplosion.restart();
-		if (actualBuilding instanceof Defence)
-			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
-
-		if (actualBuilding instanceof Armory)
-			player.setCredits(player.getCredits() + (Armory.PRICE * actualBuilding.getLevel()) / 2);
-
-		if (actualBuilding instanceof Support)
-			player.setCredits(player.getCredits() + (Support.PRICE * actualBuilding.getLevel()) / 2);
-
-		if (actualBuilding instanceof Barracks) {
-			player.setCredits(player.getCredits() + (Barracks.PRICE * actualBuilding.getLevel()) / 2);
-		}
+	public void showPriceBuildings(Graphics graphics, int price, int x) {
+		graphics.setColor(Color.black);
+		graphics.fillOval(x * 4, x * 4, RADIUS, RADIUS);
+		graphics.setColor(Color.gray);
+		graphics.drawOval(x * 4, x * 4, RADIUS, RADIUS);
+		graphics.setColor(Color.white);
+		graphics.translate(x * 5.4f, x * 5.4f);
+		graphics.rotate(0, 0, 132);
+		graphics.drawString(price + "", -7, -7);
 
 	}
 
 	/**
 	 * 
-	 * @param clickVector
-	 * @return if place for the new building is free
+	 * @return
 	 */
-	public boolean isPlaceTaken(Vector2f clickVector) {
-		for (BaseUnit building : buildings) {
-			if (building.getPosition().distance(clickVector) < (building.getCollisionRadius())) {
-				setPositionBuilding(building.getPosition());
-				return true;
-			}
-		}
-		return false;
+	public Building getActualBuilding() {
+		return actualBuilding;
 	}
 
 	/**
@@ -574,24 +716,43 @@ public class Menu {
 			return 0;
 	}
 
+	/**
+	 * 
+	 * @param clickVector
+	 * @return actual level of the building
+	 */
+	public int getActualBuildingLevel(Vector2f clickVector) {
+		return actualBuilding.getLevel();
+	}
+
 	public String getActualBuildingName() {
 		return actualBuildingName;
 	}
 
-	public boolean isBuildingOpen() {
-		return buildingOpen;
+	public int getActualBuildingPlayerID() {
+		return actualBuilding.getPlayerID();
 	}
 
-	public void setActualChosenBuilding(int actualChosenBuilding) {
-		this.actualChosenBuilding = actualChosenBuilding;
-	}
+	/**
+	 * 
+	 * @return PRICE (price of the specific building)
+	 * 
+	 *         searching for the actual price of a building
+	 */
+	public int getActualBuildingPrice() {
+		if (actualBuilding instanceof Armory)
+			return Armory.PRICE;
 
-	public void setMenuOpen(boolean menuOpen) {
-		this.menuOpen = menuOpen;
-	}
+		if (actualBuilding instanceof Defence)
+			return Defence.PRICE;
 
-	public boolean isMenuOpen() {
-		return menuOpen;
+		if (actualBuilding instanceof Support)
+			return Support.PRICE;
+
+		if (actualBuilding instanceof Barracks) {
+			return Barracks.PRICE;
+		} else
+			return 0;
 	}
 
 	public int getActualChosenBuilding() {
@@ -606,144 +767,4 @@ public class Menu {
 		return position.y;
 	}
 
-	public void setPosition(Vector2f position) {
-		this.position = position;
-	}
-
-	public Building getActualBuilding() {
-		return actualBuilding;
-	}
-
-	public int getActualBuildingPlayerID() {
-		return actualBuilding.getPlayerID();
-	}
-
-	public void setPositionBuilding(Vector2f positionBuilding) {
-		this.positionBuilding = positionBuilding;
-	}
-
-	/**
-	 * Create a circle for one menu element (Ground, Defence...)
-	 * 
-	 * @param element
-	 * @param rotation
-	 * @param graphics
-	 * @param string
-	 */
-	public void createClickablePointMenu(int element, int rotation, Graphics graphics, String pathName, int price) {
-		graphics.rotate(0, 0, rotation - 45);
-		menu[element] = new Vector2f(0, DOUBLERADIUS);
-		menu[element].setTheta(rotation);
-		menu[element].add(position);
-		// graphics.drawOval(DOUBLERADIUS / 2, DOUBLERADIUS / 2, 1, 1);
-		int difference = 25;
-		if (element >= 0 && element <= 3) {
-			createBigMenuCircle(graphics, difference);
-			showBuilding(graphics, pathName, rotation, difference);
-			showPriceBuildings(graphics, price, difference);
-		}
-		graphics.resetTransform();
-	}
-
-	/**
-	 * Create a circle for a specific building (Upgrade, Destroy)
-	 * 
-	 * @param element
-	 * @param rotation
-	 * @param graphics
-	 */
-	public void createClickablePointBuilding(int element, int rotation, Graphics graphics, String pathName, int price) {
-		graphics.rotate(0, 0, rotation - 135);
-		menuBuildings[element] = new Vector2f(0, DOUBLERADIUS);
-		menuBuildings[element].setTheta(rotation - 90);
-		menuBuildings[element].add(position);
-		int difference = 25;
-		if (element >= 0 && element <= 1) {
-			createBigMenuCircle(graphics, difference);
-			showBuilding(graphics, pathName, rotation, difference);
-			if (element == 0) {
-				showPriceBuildings(graphics, price, difference);
-			}
-		}
-		graphics.resetTransform();
-	}
-
-	/**
-	 * Showing the sign of a building
-	 * 
-	 * @param graphics
-	 * @param difference
-	 */
-	public void showBuilding(Graphics graphics, String pathName, int rotation, int difference) {
-		Image image = null;
-		try {
-			image = new Image(pathName);
-			image = image.getScaledCopy(SIZEOFIMAGE, SIZEOFIMAGE);
-			image.rotate(-45);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-		graphics.drawImage(image, difference + SIZEOFIMAGE / 4, difference + SIZEOFIMAGE / 4, SIZEOFIMAGE, SIZEOFIMAGE, 0f, 0f);
-	}
-
-	/**
-	 * Creates a big Circle for the Elements
-	 * 
-	 * @param graphics
-	 */
-	public void createBigMenuCircle(Graphics graphics, int difference) {
-		graphics.setColor(Color.darkGray);
-		graphics.drawOval(difference, difference, DOUBLERADIUS, DOUBLERADIUS);
-	}
-
-	/**
-	 * Showing the price of the specific building
-	 * 
-	 * @param graphics
-	 */
-	public void showPriceBuildings(Graphics graphics, int price, int x) {
-		graphics.setColor(Color.black);
-		graphics.fillOval(x * 4, x * 4, RADIUS, RADIUS);
-		graphics.setColor(Color.gray);
-		graphics.drawOval(x * 4, x * 4, RADIUS, RADIUS);
-		graphics.setColor(Color.white);
-		graphics.translate(x * 5.4f, x * 5.4f);
-		graphics.rotate(0, 0, 132);
-		graphics.drawString(price + "", -7, -7);
-
-	}
-
-	/**
-	 * Playing the animation for the explosion when a building is destroyed
-	 * 
-	 * @param graphics
-	 */
-	public void animationSmallExplosion(Graphics graphics) {
-		calcDrawTransformation(graphics);
-		smallExplosion.draw((-smallExplosion.getHeight() / 2) * player.getActualZoom(), (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight()
-				* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
-		graphics.resetTransform();
-		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
-			smallExplosionPlaying = false;
-			smallExplosion.stop();
-		}
-	}
-
-	/**
-	 * Calculating the actual position of the click with coordinates
-	 * 
-	 * @param graphics
-	 */
-	public void calcDrawTransformation(Graphics graphics) {
-		GraphicTools.calcDrawTransformationForSlick(player, graphics, position);
-	}
-
-	/**
-	 * Calculating the actual position of the building with coordinates
-	 * 
-	 * @param graphics
-	 */
-	public void calcDrawTransformationBuildings(Graphics graphics) {
-		GraphicTools.calcDrawTransformationForSlick(player, graphics, positionBuilding);
-	}
 }
