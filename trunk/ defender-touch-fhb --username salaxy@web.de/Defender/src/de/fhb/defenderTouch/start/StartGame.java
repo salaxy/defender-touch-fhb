@@ -13,7 +13,7 @@ public class StartGame extends StateBasedGame {
 	 *  Konstruktor
 	 */
 	public StartGame() {
-		super("DEFENDER ALPHA v.0.0.0.0.0.0.1");
+		super("Defender Touch Deluxe ALPHA v.0.0.1");
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class StartGame extends StateBasedGame {
         defender.setVSync(true);
         defender.setShowFPS(false);
         defender.setAlwaysRender(true);
-        defender.setIcon("logos/DefenderTouchDeluxe.png");
+        defender.setIcon("logos/DefenderTouchDeluxe32.png");
         defender.start();
 
 	}
