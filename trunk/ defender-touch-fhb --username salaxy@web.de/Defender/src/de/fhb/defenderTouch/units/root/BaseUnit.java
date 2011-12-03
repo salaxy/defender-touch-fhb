@@ -561,7 +561,7 @@ public class BaseUnit {
 	 * @param newPosition
 	 * @return boolean
 	 */
-	private boolean isCollision(Vector2f newPosition) {
+	protected boolean isCollision(Vector2f newPosition) {
 
 		for (BaseUnit unit : gamelogic.getGlobalUnits()) {
 			// wenn nicht diese Unit (die ist in der menge mit drin)
@@ -798,7 +798,7 @@ public class BaseUnit {
 	
 	public void playExplosionSound() {
 		try {
-			new SampleThread("/sounds/boom_kurz.mp3", 10.0f, true).start();
+			new SampleThread("/sounds/boom_kurz.mp3", 5.0f, true).start();
 		} catch (FormatProblemException e) {
 			e.printStackTrace();
 		}
