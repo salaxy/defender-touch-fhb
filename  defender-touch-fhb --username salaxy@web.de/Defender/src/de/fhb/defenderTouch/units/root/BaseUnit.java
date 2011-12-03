@@ -569,7 +569,7 @@ public class BaseUnit {
 				// und wenn entfernung kleiner ist als die kollisionsradien der
 				// beiden einheiten zusammen
 				if (VectorHelper.distance(unit.position, newPosition) < (unit.collisionRadius + this.collisionRadius)) {
-					System.out.println("UNIT " + this.id + " is in collision at " + newPosition + " with UNIT " + unit.id + " at " + unit.position);
+//					System.out.println("UNIT " + this.id + " is in collision at " + newPosition + " with UNIT " + unit.id + " at " + unit.position);
 
 					// nur wenn die naechste position nicht weiter entfernt sein
 					// wird, soll sich unit nicht mehr weiter bewegen
@@ -793,6 +793,15 @@ public class BaseUnit {
 		// eigendrehung hinzurechnen
 		graphics.rotate(0, 0, this.actualAngle);
 		
+	}
+	
+	
+	public void playExplosionSound() {
+		try {
+			new SampleThread("/sounds/boom_kurzer.mp3", 10.0f, true).start();
+		} catch (FormatProblemException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

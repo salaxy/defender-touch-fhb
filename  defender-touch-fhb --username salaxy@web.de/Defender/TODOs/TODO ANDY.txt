@@ -5,6 +5,8 @@ TODO ANDY
 - Units duerfen nicht ausshalb der Map fliegen. (erledigt..wenn isFlyable korrekt funktioniert)
 - ausgestaltung der units mit Curtis zusammen
 
+- explosionsound an...und hintergrundmusik an..zuletzt
+
 
 
 
@@ -15,3 +17,4 @@ verschoben auf unbestimmte Zeit:
 - Zoomverbesserung implementieren (Zoom dort wo er gemacht wurde, Stichwort ViewPosition)
 - Angriff (UserInteraktion, hinfliegen, dann angreifen wenn in Range)
 - Einbau verschiedener Unittypen mit Grenzen beachtung der Map
+- vertonung verschiedner sachen

@@ -11,7 +11,6 @@ import de.fhb.defenderTouch.units.root.Building;
 public class Defence extends Building {
 
 
-	
 	public static final int PRICE = 40;
 	protected int size = 0;
 
@@ -64,5 +63,15 @@ public class Defence extends Building {
 		graphics.resetTransform();
 
 	}
+	
+	
+	public void update() {
+		// AutoAngriffs Algorithmus aufrufen wenn moeglich
+		if (isAutoAttackOn && isAttackPossible()) {
+			autoAttack();
+		}
+
+	}
+	
 
 }

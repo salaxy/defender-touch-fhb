@@ -4,6 +4,8 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Vector2f;
 
+import de.fhb.defenderTouch.audio.FormatProblemException;
+import de.fhb.defenderTouch.audio.SampleThread;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.Animations;
@@ -94,6 +96,7 @@ public class ShootWithRange extends Shoot {
 	}		
 	
 	public void deleteWirklich(){
+		this.playExplosionSound();
 		super.delete();
 	}
 	
