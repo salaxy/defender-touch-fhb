@@ -58,14 +58,8 @@ public class DefenderViewSlick extends BasicGameState{
      */
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
     	
-          // Abfangen der Eingabegarät
-//          Input input = gc.getInput();
-    	
-    	//aktualisieren der Units
-    	control.updateGame();
-    	
-
-    	
+	 // Abfangen der Eingabegarät
+//    	Input input = gc.getInput();
     }
 
     /**
@@ -77,12 +71,8 @@ public class DefenderViewSlick extends BasicGameState{
     	g.setBackground(Color.white);
 
     	//alles zeichnen
-    	this.control.drawAll(g);
-//    	g.setColor(Color.black);
-//    	g.rotate(0, 0, 27);
-//    g.drawLine(100, 100, 0, -100);
-    	
-    	
+    	this.control.drawAll(g);  
+    	this.control.updateGame();
     }
 
     /**
@@ -115,9 +105,10 @@ public class DefenderViewSlick extends BasicGameState{
 											   "  System: " +             control.getMap().isBuildable(mapCoords.x - 49, mapCoords.y - 49, mapCoords.x + 50, mapCoords.y + 50, DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
 										   );
 						
-			this.control.startUnitControlForMouse(clickVector, button);	
-//			this.control.startMenueControlForMouse(clickVector, button);	
-			
+	    	if(isMouseUsingOn){
+//				this.control.startUnitControlForMouse(clickVector, button);	
+				this.control.startMenueControlForMouse(clickVector, button);		    		
+	    	}	
 		}
     }
 	
@@ -165,7 +156,6 @@ public class DefenderViewSlick extends BasicGameState{
 	
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return ID;
 	}
 
