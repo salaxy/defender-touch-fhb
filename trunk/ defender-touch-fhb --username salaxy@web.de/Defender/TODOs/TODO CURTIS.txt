@@ -3,11 +3,9 @@ TODO CURTIS
 
 - Bugfix Feindgebäude können gelöscht werden->Menü sollte erst gar nciht erscheinen
 
-- neue unit die in Barracks spawnt
-
 - Explosionen größer 2x überall ...ShootWithRange vorallem
+- neuen Explosions sound finde, evtl auch nen backgroundmusik..ansosnten nehm ich das von letztens..das is funny XD
 
-- Menue zahlen verbessern
 
 (ALLES bitte bis nächste Woche den 08.12)
 

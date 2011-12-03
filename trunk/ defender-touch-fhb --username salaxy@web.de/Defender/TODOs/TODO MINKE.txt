@@ -13,7 +13,7 @@ TODO MINKE
 	- startUnitControlForMouse(Vector2f clickVector, int mouseButton) -> ein finger....drei finger länger ..dann deaktivieren
 	ebenso..einfach 0 fuer aktivieren und 1 fuer deaktiveren der Units
 	(Spieler auswertung machen diese methoden schon, sind also immer schon fuer beide Spieler)
-	(bitte alles bis nächste Woche den 08.12)
+	(bitte alles UNBEDINGT bis nächste Woche den 08.12)
 	
 	
 	- deine Aufgabe ist es beim nächsten treffen deine Gesten auszuprobieren, praktisch mit dem Spiel und so zu konfigurieren das es funktioniert.

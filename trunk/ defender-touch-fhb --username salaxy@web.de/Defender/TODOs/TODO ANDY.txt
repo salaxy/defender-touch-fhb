@@ -1,11 +1,10 @@
 TODO ANDY
 **********
 
-- updtes von den units..wieder in draw der View rein schieben...is doof wenns spiel minimiert weiter läuft
-- Units duerfen nicht ausshalb der Map fliegen. (erledigt..wenn isFlyable korrekt funktioniert)
-- ausgestaltung der units mit Curtis zusammen
+alles schon erledigt
 
-- explosionsound an...und hintergrundmusik an..zuletzt
+noch
+-  hintergrundmusik an..zuletzt
 
 
 
