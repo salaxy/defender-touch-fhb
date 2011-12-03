@@ -1,10 +1,6 @@
 TODO FRANK
 ***********
 
-- karte drehen (aus Sicht der Spieler Quer) und ...nich ganz so klein bitte, 50% von der ursprungskarte, nicht 25%
-	(bitte bis nächste Woche den 08.12)
-	
-- weiter an der Gamemap arbeiten ->> bist du wirklich fertig dann loesche diesen punkt aus dem TODO
 
 - Endpräsentation entwerfen .. anfangen...soll aber schon sooo fast fertig sein ...
 	- Inhalt...wie haben wir angefangen was war die Idee
@@ -12,14 +8,19 @@ TODO FRANK
 	- Projektstand gegen ende des Projekts...noch frei lassen, aber dummymäßig freilassen
 	(->Resümee, was wollten wir, was haben wir geschafft davon)
 	- evtl. ein Spiele logo entwerfen (simpel..bitte nicht zulange dran aufhalten)
-	(bitte bis nächste Woche den 08.12)
 
 - ein simples...SpielMenü machen mit deinen GameStates..ganz simpel... mit Spiele logo als startzeichen
  (Esc-Taste ...um das spiel zu verlassen, spiel pausiert...beenden button und weiter button)
-	(bitte bis nächste Woche den 08.12)
+ 
+ 
+(ALLES bitte bis nächste Woche den 08.12)
+
+- deine Aufgabe ist es beim nächsten Treffen die Präsentation fertig zu stellen mit mir zusammen
 
 
 
+
+egal jetzt--->
 verschoben auf unbestimmte Zeit:
 ********************************
 (- Map in Tiles teilen)->>lass erstmal weg...wir muessen zum Ende kommen

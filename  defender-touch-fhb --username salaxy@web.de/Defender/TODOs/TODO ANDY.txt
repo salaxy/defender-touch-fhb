@@ -5,6 +5,10 @@ TODO ANDY
 - Units duerfen nicht ausshalb der Map fliegen. (erledigt..wenn isFlyable korrekt funktioniert)
 - ausgestaltung der units mit Curtis zusammen
 
+
+
+
+egal jetzt--->
 verschoben auf unbestimmte Zeit:
 ********************************
 - Slicksoundsystem anbinden, altes system entfernen
