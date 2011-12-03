@@ -117,7 +117,8 @@ public class DefenderControl implements TuioListener {
 		menuePlayerOne = new Menu(this.globalUnits, playerOne);
 		menuePlayerTwo = new Menu(this.globalUnits, playerTwo);
 
-		 this.playBackgroundSound();
+		// TODO mucka an
+//		 this.playBackgroundSound();
 		
 		tuioClient.addTuioListener(this);
 		
