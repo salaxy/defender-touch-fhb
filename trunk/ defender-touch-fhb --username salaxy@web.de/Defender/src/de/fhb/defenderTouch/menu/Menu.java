@@ -8,6 +8,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
+import de.fhb.defenderTouch.gamelogic.Gamemap;
 import de.fhb.defenderTouch.gamelogic.Player;
 import de.fhb.defenderTouch.graphics.Animations;
 import de.fhb.defenderTouch.graphics.GraphicTools;
@@ -172,6 +173,11 @@ public class Menu {
 	 * GIFLOADER
 	 */
 	private Animations gl;
+	
+	/**
+	 * GIFLOADER
+	 */
+	private Gamemap gameMap;
 
 	/**
 	 * Constructor of Menu
@@ -203,6 +209,8 @@ public class Menu {
 		}
 		gl = new Animations("small explosion", 17);
 		smallExplosion = gl.getAni();
+		
+		gameMap = new Gamemap();
 
 	}
 
@@ -339,11 +347,13 @@ public class Menu {
 		if (smallExplosionPlaying)
 			animationSmallExplosion(gl.getGraphics());
 
+		
 		/**
 		 * here is the complete normal menu Ground Defence Support
 		 * 
 		 */
 		if (menuOpen) {
+			System.out.println(gameMap.isBuildable(position,  0));
 			int rotation = -90;
 			int counter = 0;
 			int nextRotation = 360 / 6;
