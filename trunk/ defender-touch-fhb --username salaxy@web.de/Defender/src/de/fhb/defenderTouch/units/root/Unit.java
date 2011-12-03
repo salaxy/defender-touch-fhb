@@ -19,7 +19,7 @@ import de.fhb.defenderTouch.units.amunition.ShootWithRange;
  * @author Andy Klay <klay@fh-brandenburg.de>
  * 
  */
-public class BaseUnit {
+public class Unit {
 
 	protected DefenderControl gamelogic;
 
@@ -189,7 +189,7 @@ public class BaseUnit {
 	 * @param gamelogic
 	 * @param unitColor
 	 */
-	public BaseUnit(int x, int y, int mode, Player player, DefenderControl gamelogic) {
+	public Unit(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 
 		this.mode = mode;
 		this.owner = player;
@@ -203,9 +203,9 @@ public class BaseUnit {
 		this.map = gamelogic.getMap();
 
 		// Id verpassen
-		this.id = BaseUnit.idCounter;
+		this.id = Unit.idCounter;
 		// und ids weiter zählen
-		BaseUnit.idCounter++;
+		Unit.idCounter++;
 
 		// fuegt sich selbst zur globalen Menge der Einheiten hinzu
 		this.gamelogic.getGlobalUnits().add(this);
@@ -538,7 +538,7 @@ public class BaseUnit {
 	 */
 	protected void autoAttack() {
 
-		for (BaseUnit u : this.gamelogic.getGlobalUnits()) {
+		for (Unit u : this.gamelogic.getGlobalUnits()) {
 
 			// wenn eine unit aktiviert wird dann die anderen deaktiveren
 			if (u.getPosition().distance(this.position) > this.attackRange+1) {
@@ -563,7 +563,7 @@ public class BaseUnit {
 	 */
 	protected boolean isCollision(Vector2f newPosition) {
 
-		for (BaseUnit unit : gamelogic.getGlobalUnits()) {
+		for (Unit unit : gamelogic.getGlobalUnits()) {
 			// wenn nicht diese Unit (die ist in der menge mit drin)
 			if (this.id != unit.id&&unit.getPlayerID()!=DefenderControl.PLAYER_SYSTEM_ID) {
 				// und wenn entfernung kleiner ist als die kollisionsradien der
@@ -696,7 +696,7 @@ public class BaseUnit {
 	 * 
 	 * @param destinationUnit
 	 */
-	public void attack(BaseUnit destinationUnit,boolean wasAutoAttack) {
+	public void attack(Unit destinationUnit,boolean wasAutoAttack) {
 		System.out.println("UNIT " + this.id + " is attacking UNIT " + destinationUnit.id);
 
 		
@@ -719,8 +719,8 @@ public class BaseUnit {
 	 * 
 	 * @param destinationUnit
 	 */
-	protected void startShoot(BaseUnit destinationUnit) {
-		new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
+	protected void startShoot(Unit destinationUnit) {
+		new ShootWithRange((int) this.position.x, (int) this.position.y, Unit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
 	}
 
 	/**
@@ -728,7 +728,7 @@ public class BaseUnit {
 	 * 
 	 * @param destinationUnit
 	 */
-	public void moveToAttackDestination(BaseUnit destinationUnit) {
+	public void moveToAttackDestination(Unit destinationUnit) {
 
 		// TODO verbessern
 		// wenn nicht in Angriffsreichweite dann hinfliegen bis in reichweite

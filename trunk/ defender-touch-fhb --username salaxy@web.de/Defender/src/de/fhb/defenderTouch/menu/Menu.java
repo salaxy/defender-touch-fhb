@@ -16,7 +16,7 @@ import de.fhb.defenderTouch.units.notmovable.Armory;
 import de.fhb.defenderTouch.units.notmovable.Barracks;
 import de.fhb.defenderTouch.units.notmovable.Defence;
 import de.fhb.defenderTouch.units.notmovable.Support;
-import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Unit;
 import de.fhb.defenderTouch.units.root.Building;
 
 public class Menu {
@@ -137,7 +137,7 @@ public class Menu {
 	/**
 	 * array list with all its buildings
 	 */
-	protected CopyOnWriteArrayList<BaseUnit> buildings;
+	protected CopyOnWriteArrayList<Unit> buildings;
 
 	/**
 	 * array list with all its buildings
@@ -178,7 +178,7 @@ public class Menu {
 	 * Constructor of Menu
 	 * 
 	 */
-	public Menu(CopyOnWriteArrayList<BaseUnit> buildings, Player player) {
+	public Menu(CopyOnWriteArrayList<Unit> buildings, Player player) {
 		this.position = new Vector2f(0, 0);
 		this.buildings = buildings;
 		this.player = player;
@@ -260,19 +260,19 @@ public class Menu {
 		switch (getActualChosenBuilding()) {
 		case 0:
 			System.out.println("building a Armory building");
-			new Armory((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
+			new Armory((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		case 1:
 			System.out.println("building a Defence building");
-			new Defence((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
+			new Defence((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		case 2:
 			System.out.println("building a Support building");
-			new Support((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
+			new Support((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		case 3:
 			System.out.println("building a Barracks building");
-			new Barracks((int) getPositionX(), (int) getPositionY(), BaseUnit.MODE_NORMAL, this.player, defenderControl);
+			new Barracks((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.player, defenderControl);
 			break;
 		default:
 			System.out.println();
@@ -533,7 +533,7 @@ public class Menu {
 	 * @return if place for the new building is free
 	 */
 	public boolean isPlaceTaken(Vector2f clickVector) {
-		for (BaseUnit building : buildings) {
+		for (Unit building : buildings) {
 			if (building.getPosition().distance(clickVector) < (building.getCollisionRadius())) {
 				setPositionBuilding(building.getPosition());
 				return true;
@@ -617,7 +617,7 @@ public class Menu {
 			this.buildingOpen = false;
 		} else {
 			if (clickVector != null) {
-				for (BaseUnit bu : buildings) {
+				for (Unit bu : buildings) {
 					if (bu.isInner(clickVector)) {
 						if (bu instanceof Building) {
 							actualBuilding = (Building) bu;
@@ -704,7 +704,7 @@ public class Menu {
 		actualBuildingCountPlayerZERO = 0;
 		actualBuildingCountPlayerONE = 0;
 
-		for (BaseUnit building : buildings) {
+		for (Unit building : buildings) {
 			if (building.getPlayerID() == 0)
 				if (building instanceof Building)
 					actualBuildingCountPlayerZERO++;

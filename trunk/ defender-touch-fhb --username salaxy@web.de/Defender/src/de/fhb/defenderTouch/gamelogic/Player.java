@@ -5,7 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Vector2f;
 
-import de.fhb.defenderTouch.units.root.BaseUnit;
+import de.fhb.defenderTouch.units.root.Unit;
 /**
  * Dies Klasse beinhaltet einstellungen und Positionen 
  * eines Spielers 
@@ -65,7 +65,7 @@ public class Player {
 	/**
 	 * Liste der aktivierten Units des Spielers
 	 */
-	private CopyOnWriteArrayList<BaseUnit> activeUnits;
+	private CopyOnWriteArrayList<Unit> activeUnits;
 	
 	private int id;
 
@@ -76,7 +76,7 @@ public class Player {
 		this.actualZoom=actualZoom;
 		this.originPosition=originPosition;		
 		this.originOffset=new Vector2f(0,0);
-		this.activeUnits= new CopyOnWriteArrayList<BaseUnit>();
+		this.activeUnits= new CopyOnWriteArrayList<Unit>();
 		this.unitColor=unitColor;
 	}
 
@@ -85,7 +85,7 @@ public class Player {
 	}
 
 
-	public CopyOnWriteArrayList<BaseUnit> getActiveUnits() {
+	public CopyOnWriteArrayList<Unit> getActiveUnits() {
 		return activeUnits;
 	}
 
