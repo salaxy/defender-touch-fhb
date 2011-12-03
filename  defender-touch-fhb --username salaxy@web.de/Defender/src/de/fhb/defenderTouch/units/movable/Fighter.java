@@ -18,6 +18,7 @@ public class Fighter extends BaseUnit {
 		attackRange = 250;
 		healthpointsMax = 50;
 		healthpointsStat = 50;
+		movementSpeed = 2f;
 	}
 
 	public void drawFigure(Graphics graphics) {
@@ -34,6 +35,7 @@ public class Fighter extends BaseUnit {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		image.rotate(180);
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
 	}
