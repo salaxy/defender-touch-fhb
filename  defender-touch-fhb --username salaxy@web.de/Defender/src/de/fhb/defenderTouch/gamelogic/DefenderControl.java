@@ -117,7 +117,7 @@ public class DefenderControl implements TuioListener {
 		menuePlayerOne = new Menu(this.globalUnits, playerOne);
 		menuePlayerTwo = new Menu(this.globalUnits, playerTwo);
 
-		// this.playBackgroundSound();
+		 this.playBackgroundSound();
 		
 		tuioClient.addTuioListener(this);
 		
@@ -689,28 +689,28 @@ public class DefenderControl implements TuioListener {
 	 */
 	public void createTestUnits() {
 
-		// TestUnitBetas schaffen
-		//BaseUnit test = new BaseUnit(100, 200, BaseUnit.MODE_ROTATE, this.playerOne, this);
-		//test.commandDestination(new Vector2f(1000, 700));
-
-		// Testflugstaffel
-		new Tank(100, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-		new Defence(200, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-		new Armory(300, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-		new Barracks(400, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-		new Support(500, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-		new Fighter(600, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
-		new Fighter(700, 50, BaseUnit.MODE_PULSE_IF_ACTIVE, this.playerTwo, this);
-
-		// Testflugstaffel playerOne
-		new Fighter(100, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
-		new Fighter(200, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
-		new Fighter(300, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
-		new Fighter(400, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
-		new Fighter(500, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
-		new BaseUnit(600, 700, BaseUnit.MODE_PULSE, this.playerOne, this);
-		new BaseUnit(700, 700, BaseUnit.MODE_ROTATE_AND_PULSE, this.playerOne, this);
-		new BaseUnit(800, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+//		// TestUnitBetas schaffen
+//		//BaseUnit test = new BaseUnit(100, 200, BaseUnit.MODE_ROTATE, this.playerOne, this);
+//		//test.commandDestination(new Vector2f(1000, 700));
+//
+//		// Testflugstaffel
+//		new Tank(100, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+//		new Defence(200, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+//		new Armory(300, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+//		new Barracks(400, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+//		new Support(500, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+//		new Fighter(600, 50, BaseUnit.MODE_NORMAL, this.playerTwo, this);
+//		new Fighter(700, 50, BaseUnit.MODE_PULSE_IF_ACTIVE, this.playerTwo, this);
+//
+//		// Testflugstaffel playerOne
+//		new Fighter(100, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+//		new Fighter(200, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+//		new Fighter(300, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+//		new Fighter(400, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+//		new Fighter(500, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
+//		new BaseUnit(600, 700, BaseUnit.MODE_PULSE, this.playerOne, this);
+//		new BaseUnit(700, 700, BaseUnit.MODE_ROTATE_AND_PULSE, this.playerOne, this);
+//		new BaseUnit(800, 700, BaseUnit.MODE_NORMAL, this.playerOne, this);
 
 	}
 }
