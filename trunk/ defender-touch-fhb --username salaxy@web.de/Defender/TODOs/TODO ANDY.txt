@@ -1,6 +1,7 @@
 TODO ANDY
 **********
 
+- updtes von den units..wieder in draw der View rein schieben...is doof wenns spiel minimiert weiter läuft
 - Units duerfen nicht ausshalb der Map fliegen.
 - ausgestaltung der units mit Curtis zusammen
 
