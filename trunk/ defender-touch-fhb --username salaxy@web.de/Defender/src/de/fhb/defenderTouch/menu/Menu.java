@@ -244,11 +244,6 @@ public class Menu {
 		if (smallExplosionPlaying)
 			animationSmallExplosion(gl.getGraphics());
 
-		// if (buildingOpen) {
-		// System.out.println("PLAYER:"+player.getId());
-		// System.out.println("Build:"+getActualBuildingPlayerID());
-		// }
-
 		/**
 		 * here is the complete normal menu Ground Defence Support
 		 * 
