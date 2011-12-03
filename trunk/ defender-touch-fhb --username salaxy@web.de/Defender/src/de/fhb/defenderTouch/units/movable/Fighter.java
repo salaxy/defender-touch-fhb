@@ -1,15 +1,10 @@
 package de.fhb.defenderTouch.units.movable;
 
-import java.util.ArrayList;
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Vector2f;
-
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
-import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.amunition.ShootWithRange;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
@@ -46,6 +41,4 @@ public class Fighter extends BaseUnit {
 	protected void startShoot(BaseUnit destinationUnit) {
 		new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
 	}
-
-
 }

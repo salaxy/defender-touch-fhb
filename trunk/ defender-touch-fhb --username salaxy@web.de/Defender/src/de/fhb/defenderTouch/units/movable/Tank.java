@@ -3,18 +3,14 @@ package de.fhb.defenderTouch.units.movable;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-
 import de.fhb.defenderTouch.gamelogic.DefenderControl;
 import de.fhb.defenderTouch.gamelogic.Player;
-import de.fhb.defenderTouch.units.amunition.RoundShoot;
 import de.fhb.defenderTouch.units.amunition.ShootWithRange;
-import de.fhb.defenderTouch.units.amunition.TankShoot;
 import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class Tank extends BaseUnit {
 
 	protected int size = 0;
-
 
 	public Tank(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);	
@@ -30,7 +26,6 @@ public class Tank extends BaseUnit {
 		size = 20;
 		
 		graphics.drawOval(-15, -17, 30, 30);
-		
 		Image image = null;
 		try {
 			image = new Image("data/units/Tank.png");
@@ -45,5 +40,4 @@ public class Tank extends BaseUnit {
 	protected void startShoot(BaseUnit destinationUnit) {
 		new ShootWithRange((int) this.position.x, (int) this.position.y, BaseUnit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
 	}
-
 }
