@@ -38,6 +38,7 @@ public class StartGame extends StateBasedGame {
         defender.setVSync(true);
         defender.setShowFPS(false);
         defender.setAlwaysRender(true);
+        defender.setIcon("logos/DefenderTouchDeluxe.png");
         defender.start();
 
 	}
