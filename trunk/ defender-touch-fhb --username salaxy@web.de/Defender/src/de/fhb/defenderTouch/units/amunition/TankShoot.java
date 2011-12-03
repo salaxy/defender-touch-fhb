@@ -11,7 +11,6 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
 
 public class TankShoot extends Shoot {
 
-	
 	public TankShoot(int x, int y, int modeNormal, Player playerSystem, BaseUnit destinationUnit, int damagePerHit, DefenderControl gamelogic) {
 		super(x, y, modeNormal, playerSystem, destinationUnit, damagePerHit, gamelogic);
 	}
@@ -23,12 +22,12 @@ public class TankShoot extends Shoot {
 		int size = 5;
 		try {
 			image = new Image("data/shots/Tank.png");
-//			image = image.getScaledCopy(size, size);
-			image.setRotation(actualAngle+90);
+			// image = image.getScaledCopy(size, size);
+			image.setRotation(actualAngle + 90);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		graphics.drawImage(image, -image.getHeight()-20 , -image.getWidth() / 2, size, size, 0f, 0f);
+		graphics.drawImage(image, -image.getHeight() - 20, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
 
 	}
