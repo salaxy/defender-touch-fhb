@@ -94,15 +94,9 @@ public class DefenderViewSlick extends BasicGameState{
 						System.out.println("isWalkable:  " + control.getMap().isWalkable(mapCoords));
 						System.out.println("isFlyable:   " + control.getMap().isFlyable(mapCoords));
 						System.out.println("isBuildable: (click at center of building)\n" +
-											   "\t[10x10]   Player 1: " + control.getMap().isBuildable(mapCoords.x - 4, mapCoords.y - 4, mapCoords.x + 5, mapCoords.y + 5, DefenderControl.PLAYER_ONE_ID) +
-											   "  Player 2: " +           control.getMap().isBuildable(mapCoords.x - 4, mapCoords.y - 4, mapCoords.x + 5, mapCoords.y + 5, DefenderControl.PLAYER_TWO_ID) +
-											   "  System: " +             control.getMap().isBuildable(mapCoords.x - 4, mapCoords.y - 4, mapCoords.x + 5, mapCoords.y + 5, DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
-											   "\t[25x25]   Player 1: " + control.getMap().isBuildable(mapCoords.x - 24, mapCoords.y - 24, mapCoords.x + 25, mapCoords.y + 25, DefenderControl.PLAYER_ONE_ID) +
-											   "  Player 2: " +           control.getMap().isBuildable(mapCoords.x - 24, mapCoords.y - 24, mapCoords.x + 25, mapCoords.y + 25, DefenderControl.PLAYER_TWO_ID) +
-											   "  System: " +             control.getMap().isBuildable(mapCoords.x - 24, mapCoords.y - 24, mapCoords.x + 25, mapCoords.y + 25, DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
-											   "\t[100x100] Player 1: " + control.getMap().isBuildable(mapCoords.x - 49, mapCoords.y - 49, mapCoords.x + 50, mapCoords.y + 50, DefenderControl.PLAYER_ONE_ID) +
-											   "  Player 2: " +           control.getMap().isBuildable(mapCoords.x - 49, mapCoords.y - 49, mapCoords.x + 50, mapCoords.y + 50, DefenderControl.PLAYER_TWO_ID) +
-											   "  System: " +             control.getMap().isBuildable(mapCoords.x - 49, mapCoords.y - 49, mapCoords.x + 50, mapCoords.y + 50, DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
+											   "\t[50x50]   Player 1: " + control.getMap().isBuildable(mapCoords, DefenderControl.PLAYER_ONE_ID) +
+											   "  Player 2: " +           control.getMap().isBuildable(mapCoords, DefenderControl.PLAYER_TWO_ID) +
+											   "  System: " +             control.getMap().isBuildable(mapCoords, DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
 										   );
 						
 	    	if(isMouseUsingOn){
