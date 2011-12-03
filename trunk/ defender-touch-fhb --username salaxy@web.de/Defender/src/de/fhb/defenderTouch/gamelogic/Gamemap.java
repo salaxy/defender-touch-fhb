@@ -30,12 +30,12 @@ public class Gamemap {
 
 		try {
 			// Kleine Testmap:
-			visibleMap = new Image("./maps/vtestmap_small.png");
-			informationalMap = new Image("./maps/itestmap_small.png");
+//			visibleMap = new Image("./maps/vtestmap_small.png");
+//			informationalMap = new Image("./maps/itestmap_small.png");
 
 			// Große Testmap:
-//			visibleMap = new Image("./maps/vtestmap.png");
-//			informationalMap = new Image("./maps/itestmap.png");			
+			visibleMap = new Image("./maps/vtestmap.png");
+			informationalMap = new Image("./maps/itestmap.png");			
 			
 			// Debug-Map:
 //			visibleMap = new Image("./maps/vdebug.png");
@@ -97,7 +97,17 @@ public class Gamemap {
 	
 	}
 	
-	public boolean isBuildable(float x1, float y1, float x2, float y2, int player) {
+	/**
+	 * Überprüft, ob in diesem Rechteck ein Gebäude für den angegeben Spieler gebaut werden darf. Es wird dabei nur die Karte beachtet, nicht andere Einheiten oder Gebäude. 
+	 * 
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @param player
+	 * @return
+	 */
+	private boolean isBuildable(float x1, float y1, float x2, float y2, int player) {
 		float temp = 0f;
 
 		if (x1 < 0 || x2 < 0 || y1 < 0 || y2 < 0 ||
@@ -140,7 +150,13 @@ public class Gamemap {
 		return true;
 	}
 	
-	public boolean isBuildable(Vector2f position, Building unit, int player) {
-		return isBuildable(position.x - (1 + unit.LEVEL_THREE), position.y - (1 + unit.LEVEL_THREE), position.x + unit.LEVEL_THREE, position.x + unit.LEVEL_THREE, player);
+	/**
+	 * Überprüft, ob in diesem Rechteck ein Gebäude für den angegeben Spieler gebaut werden darf. Es wird dabei nur die Karte beachtet, nicht andere Einheiten oder Gebäude.
+	 * @param position
+	 * @param player
+	 * @return
+	 */
+	public boolean isBuildable(Vector2f position, int player) {
+		return isBuildable(position.x - 24, position.y - 24, position.x + 25, position.x + 25, player);
 	}
 }
