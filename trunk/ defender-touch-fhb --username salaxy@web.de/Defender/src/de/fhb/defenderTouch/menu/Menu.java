@@ -359,8 +359,8 @@ public class Menu {
 		}
 		if (this.menu[3].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 4");
-			if (isEnoughCredits(Tank.PRICE)) {
-				player.setCredits(player.getCredits() - Tank.PRICE);
+			if (isEnoughCredits(Barracks.PRICE)) {
+				player.setCredits(player.getCredits() - Barracks.PRICE);
 				setActualChosenBuilding(3);
 				setMenuOpen(false);
 				return true;
