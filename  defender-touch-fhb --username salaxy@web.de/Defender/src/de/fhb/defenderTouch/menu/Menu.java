@@ -254,7 +254,6 @@ public class Menu {
 		 * 
 		 */
 		if (menuOpen) {
-			System.out.println(1234);
 			int rotation = -90;
 			int counter = 0;
 			int nextRotation = 360 / 6;
