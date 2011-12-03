@@ -36,7 +36,7 @@ public class Tank extends BaseUnit {
 		try {
 			image = new Image("data/units/Tank.png");
 			image = image.getScaledCopy(size, size);
-			image.rotate(90);
+			image.rotate(180);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
