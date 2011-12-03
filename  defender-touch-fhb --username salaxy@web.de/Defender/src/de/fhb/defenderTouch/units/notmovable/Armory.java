@@ -48,7 +48,7 @@ public class Armory extends Building {
 		// graphics.drawLine(0, -size, +size, +size);
 		// graphics.drawLine(+size, +size, -size, +size);
 
-		graphics.drawOval(-15, -14, 30, 30);
+		graphics.drawRect(-15, -14, 30, 30);
 
 		Image image = null;
 		try {
