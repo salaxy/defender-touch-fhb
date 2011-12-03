@@ -12,9 +12,6 @@ import de.fhb.defenderTouch.units.root.Building;
 
 public class Support extends Building {
 
-	protected int healthpointsMax = 100;
-	protected int healthpointsStat = 100;
-	
 	public static final int PRICE = 50;
 	protected int size = 0;
 
@@ -26,6 +23,8 @@ public class Support extends Building {
 
 	public Support(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
+		healthpointsMax = 150;
+		healthpointsStat = 150;
 	}
 
 	public void drawFigure(Graphics graphics) {
