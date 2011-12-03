@@ -37,16 +37,16 @@ public class ShootWithRange extends Shoot {
 	}
 
 	public void delete() {
-		GraphicTools.calcDrawTransformationForSlick(player, graphics, position);
-		smallExplosion.draw((-smallExplosion.getHeight() / 2) * player.getActualZoom(), (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight()
-				* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
-//		graphics.resetTransform();
-		System.out.println(1234);
-		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
-//			smallExplosionPlaying = false;
-			
-//			smallExplosion.stop();
-		}
+//		GraphicTools.calcDrawTransformationForSlick(player, graphics, position);
+//		smallExplosion.draw((-smallExplosion.getHeight() / 2) * player.getActualZoom(), (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight()
+//				* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
+////		graphics.resetTransform();
+//		System.out.println(1234);
+//		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
+////			smallExplosionPlaying = false;
+//			
+////			smallExplosion.stop();
+//		}
 		// TODO hier Explosion einbauen
 		// *************************
 
