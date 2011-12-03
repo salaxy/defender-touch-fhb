@@ -244,11 +244,17 @@ public class Menu {
 		if (smallExplosionPlaying)
 			animationSmallExplosion(gl.getGraphics());
 
+		// if (buildingOpen) {
+		// System.out.println("PLAYER:"+player.getId());
+		// System.out.println("Build:"+getActualBuildingPlayerID());
+		// }
+
 		/**
 		 * here is the complete normal menu Ground Defence Support
 		 * 
 		 */
 		if (menuOpen) {
+			System.out.println(1234);
 			int rotation = -90;
 			int counter = 0;
 			int nextRotation = 360 / 6;
@@ -274,7 +280,7 @@ public class Menu {
 		 * here is the complete menu for a specific building Upgrade Destroy
 		 * Actual Level
 		 */
-		if (buildingOpen) {
+		if (buildingOpen && player.getId() == getActualBuildingPlayerID()) {
 			int rotation = 0;
 			int counter = 0;
 			int nextRotation = 360 / 4;
@@ -294,7 +300,8 @@ public class Menu {
 			graphics.setColor(Color.white);
 			graphics.drawString(getActualBuildingLevel(positionBuilding) + "", 0, Math.abs(DISTANCE) - TEXTDISTANCE);
 			graphics.resetTransform();
-		}
+		} else
+			buildingOpen = false;
 	}
 
 	/**
@@ -611,6 +618,10 @@ public class Menu {
 
 	public Building getActualBuilding() {
 		return actualBuilding;
+	}
+
+	public int getActualBuildingPlayerID() {
+		return actualBuilding.getPlayerID();
 	}
 
 	public void setPositionBuilding(Vector2f positionBuilding) {
