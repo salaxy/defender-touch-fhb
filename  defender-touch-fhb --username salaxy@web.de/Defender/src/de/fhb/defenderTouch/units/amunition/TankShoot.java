@@ -20,15 +20,15 @@ public class TankShoot extends Shoot {
 
 		graphics.setColor(Color.black);
 		Image image = null;
-		int size = 10;
+		int size = 5;
 		try {
 			image = new Image("data/shots/Tank.png");
 //			image = image.getScaledCopy(size, size);
-			image.setRotation(actualAngle);
+			image.setRotation(actualAngle+90);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
+		graphics.drawImage(image, -image.getHeight()-20 , -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
 
 	}
