@@ -13,3 +13,9 @@ TODO CURTIS
 	(Units, Gebäude, Schüsse)
 	(bitte bis nächste Woche den 08.12)
 	
+	
+	
+verschoben auf unbestimmte Zeit:
+********************************
+
+- UnitSapwnstatus an ezigen bei gebäüden mit sich füllenden Kreis
