@@ -174,10 +174,7 @@ public class Menu {
 	 */
 	private Animations gl;
 	
-	/**
-	 * GIFLOADER
-	 */
-	private Gamemap gameMap;
+	
 
 	/**
 	 * Constructor of Menu
@@ -210,7 +207,7 @@ public class Menu {
 		gl = new Animations("small explosion", 17);
 		smallExplosion = gl.getAni();
 		
-		gameMap = new Gamemap();
+		
 
 	}
 
@@ -353,7 +350,6 @@ public class Menu {
 		 * 
 		 */
 		if (menuOpen) {
-//			System.out.println(gameMap.isBuildable(position,  0));
 			int rotation = -90;
 			int counter = 0;
 			int nextRotation = 360 / 6;

@@ -93,6 +93,11 @@ public class DefenderControl implements TuioListener {
 	 */
 	private Menu menuePlayerTwo;
 	
+//	/**
+//	 * Gamemap
+//	 */
+//	private Gamemap gameMap;
+	
 	
 	TuioClient tuioClient;
 	
@@ -353,8 +358,9 @@ public class DefenderControl implements TuioListener {
 	 *            - menu welches geoeffnet werden soll
 	 */
 	private void openMenue(Vector2f realClickKoordinates, Menu menu) {
-
-		if (!menu.isMenuOpen() && !menu.isBuildingOpen()) {
+		
+		//TODO entweder 2 karten oder gg
+		if (!menu.isMenuOpen() && !menu.isBuildingOpen()&& map.isBuildable(realClickKoordinates,  0)) {
 			menu.setPosition(realClickKoordinates);
 			if (menu.isPlaceTaken(realClickKoordinates)) {
 				System.out.println("open building menu");
