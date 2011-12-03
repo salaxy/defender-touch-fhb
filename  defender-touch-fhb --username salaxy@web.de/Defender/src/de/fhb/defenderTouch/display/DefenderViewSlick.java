@@ -99,24 +99,24 @@ public class DefenderViewSlick extends BasicGameState{
 		if(isInUsableInputarea(clickVector)){
 			
 			// Test der Mapeigenschaften:
-//						System.out.println("Map Properties:");
-//						System.out.println("Coordinates: " + mapCoords.toString());
-//						System.out.println("isWalkable:  " + control.getMap().isWalkable(mapCoords));
-//						System.out.println("isFlyable:   " + control.getMap().isFlyable(mapCoords));
-//						System.out.println("isBuildable: (click at center of building)\n" +
-//											   "\t[10x10]   Player 1: " + control.getMap().isBuildable(new Vector2f(x-4, y-4), new Vector2f(x+5, y+5), DefenderControl.PLAYER_ONE_ID) +
-//											   "  Player 2: " + control.getMap().isBuildable(new Vector2f(x-4, y-4), new Vector2f(x+5, y+5), DefenderControl.PLAYER_TWO_ID) +
-//											   "  System: " + control.getMap().isBuildable(new Vector2f(x-4, y-4), new Vector2f(x+5, y+5), DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
-//											   "\t[25x25]   Player 1: " + control.getMap().isBuildable(new Vector2f(x-12, y-12), new Vector2f(x+13, y+13), DefenderControl.PLAYER_ONE_ID) +
-//											   "  Player 2: " + control.getMap().isBuildable(new Vector2f(x-12, y-12), new Vector2f(x+13, y+13), DefenderControl.PLAYER_TWO_ID) +
-//											   "  System: " + control.getMap().isBuildable(new Vector2f(x-12, y-12), new Vector2f(x+13, y+13), DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
-//											   "\t[100x100] Player 1: " + control.getMap().isBuildable(new Vector2f(x-49, y-49), new Vector2f(x+50, y+50), DefenderControl.PLAYER_ONE_ID) +
-//											   "  Player 2: " + control.getMap().isBuildable(new Vector2f(x-49, y-49), new Vector2f(x+50, y+50), DefenderControl.PLAYER_TWO_ID) +
-//											   "  System: " + control.getMap().isBuildable(new Vector2f(x-49, y-49), new Vector2f(x+50, y+50), DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
-//										   );
+						System.out.println("Map Properties:");
+						System.out.println("Coordinates: " + mapCoords.toString());
+						System.out.println("isWalkable:  " + control.getMap().isWalkable(mapCoords));
+						System.out.println("isFlyable:   " + control.getMap().isFlyable(mapCoords));
+						System.out.println("isBuildable: (click at center of building)\n" +
+											   "\t[10x10]   Player 1: " + control.getMap().isBuildable(mapCoords.x - 4, mapCoords.y - 4, mapCoords.x + 5, mapCoords.y + 5, DefenderControl.PLAYER_ONE_ID) +
+											   "  Player 2: " +           control.getMap().isBuildable(mapCoords.x - 4, mapCoords.y - 4, mapCoords.x + 5, mapCoords.y + 5, DefenderControl.PLAYER_TWO_ID) +
+											   "  System: " +             control.getMap().isBuildable(mapCoords.x - 4, mapCoords.y - 4, mapCoords.x + 5, mapCoords.y + 5, DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
+											   "\t[25x25]   Player 1: " + control.getMap().isBuildable(mapCoords.x - 24, mapCoords.y - 24, mapCoords.x + 25, mapCoords.y + 25, DefenderControl.PLAYER_ONE_ID) +
+											   "  Player 2: " +           control.getMap().isBuildable(mapCoords.x - 24, mapCoords.y - 24, mapCoords.x + 25, mapCoords.y + 25, DefenderControl.PLAYER_TWO_ID) +
+											   "  System: " +             control.getMap().isBuildable(mapCoords.x - 24, mapCoords.y - 24, mapCoords.x + 25, mapCoords.y + 25, DefenderControl.PLAYER_SYSTEM_ID) + "\n" + 
+											   "\t[100x100] Player 1: " + control.getMap().isBuildable(mapCoords.x - 49, mapCoords.y - 49, mapCoords.x + 50, mapCoords.y + 50, DefenderControl.PLAYER_ONE_ID) +
+											   "  Player 2: " +           control.getMap().isBuildable(mapCoords.x - 49, mapCoords.y - 49, mapCoords.x + 50, mapCoords.y + 50, DefenderControl.PLAYER_TWO_ID) +
+											   "  System: " +             control.getMap().isBuildable(mapCoords.x - 49, mapCoords.y - 49, mapCoords.x + 50, mapCoords.y + 50, DefenderControl.PLAYER_SYSTEM_ID) + "\n" 
+										   );
 						
-//			this.control.startUnitControlForMouse(clickVector, button);	
-			this.control.startMenueControlForMouse(clickVector, button);	
+			this.control.startUnitControlForMouse(clickVector, button);	
+//			this.control.startMenueControlForMouse(clickVector, button);	
 			
 		}
     }
