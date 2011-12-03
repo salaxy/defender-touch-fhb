@@ -29,10 +29,15 @@ public class Gamemap {
 	public Gamemap() {
 
 		try {
-			// Alte Testmap:
+			// Kleine Testmap:
 			visibleMap = new Image("./maps/vtestmap_small.png");
 			informationalMap = new Image("./maps/itestmap_small.png");
+
+			// Groﬂe Testmap:
+//			visibleMap = new Image("./maps/vtestmap.png");
+//			informationalMap = new Image("./maps/itestmap.png");			
 			
+			// Debug-Map:
 //			visibleMap = new Image("./maps/vdebug.png");
 //			informationalMap = new Image("./maps/idebug.png");
 			
