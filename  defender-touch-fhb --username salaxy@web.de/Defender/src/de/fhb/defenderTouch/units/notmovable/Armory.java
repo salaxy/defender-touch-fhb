@@ -14,17 +14,19 @@ import de.fhb.defenderTouch.units.root.BaseUnit;
 import de.fhb.defenderTouch.units.root.Building;
 
 public class Armory extends Building {
-
+	
 	public static final int PRICE = 70;
 	protected int size = 0;
 
-	private int timeTillNextSpawn = 6000;
+	private int timeTillNextSpawn = 10000;
 
 	private long startingTime = new Date().getTime();
 	private long tickerTime;
 
 	public Armory(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
+		healthpointsMax = 200;
+		healthpointsStat = 200;
 	}
 
 	public void drawFigure(Graphics graphics) {
@@ -65,13 +67,13 @@ public class Armory extends Building {
 	public void update() {
 		tickerTime = new Date().getTime();
 
-		if (createNewGroundUnit(startingTime, tickerTime)) {
+		if (createNewUnit(startingTime, tickerTime)) {
 			new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), BaseUnit.MODE_NORMAL, this.owner, gamelogic);
 		}
 
 	}
 
-	public boolean createNewGroundUnit(long startingTime, long tickerTime) {
+	public boolean createNewUnit(long startingTime, long tickerTime) {
 		long helpTime = tickerTime - startingTime;
 		if (helpTime >= timeTillNextSpawn) {
 			this.startingTime = new Date().getTime();

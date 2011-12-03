@@ -12,6 +12,9 @@ import de.fhb.defenderTouch.units.root.Building;
 
 public class Support extends Building {
 
+	protected int healthpointsMax = 100;
+	protected int healthpointsStat = 100;
+	
 	public static final int PRICE = 50;
 	protected int size = 0;
 
