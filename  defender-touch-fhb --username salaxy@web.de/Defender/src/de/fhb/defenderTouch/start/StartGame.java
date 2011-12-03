@@ -13,7 +13,7 @@ public class StartGame extends StateBasedGame {
 	 *  Konstruktor
 	 */
 	public StartGame() {
-		super("DEFENDER ALPHA");
+		super("DEFENDER ALPHA v.0.0.0.0.0.0.1");
 	}
 
 	/**
