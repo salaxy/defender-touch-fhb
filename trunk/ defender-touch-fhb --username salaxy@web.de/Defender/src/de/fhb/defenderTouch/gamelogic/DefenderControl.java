@@ -173,7 +173,7 @@ public class DefenderControl implements TuioListener {
 		graphics.scale(1.2f, 1.2f);
 		graphics.drawString("Credits: " + playerOne.getCredits(), 10, -18);
 		graphics.drawString("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(PLAYER_ONE_ID), 180, -18);
-		graphics.drawString("Gebäude: " + menuePlayerOne.getActualBuildingName(), 350, -18);
+		graphics.drawString("Gebäude: " + menuePlayerOne.getActualBuildingName(), 380, -18);
 		// display.drawString("Aktuelles Gebäude: " +
 		// menuePlayerOne.getActualBuildingName(), 100, -15);
 
@@ -208,10 +208,11 @@ public class DefenderControl implements TuioListener {
 		graphics.translate(510, 768);
 		graphics.rotate(0, 0, -90);
 		// display.scale(1.05f, 1.05f);
-		// XXX ??? scalieren laesst schrift verschwinden
+		// XXX ??? scalieren laesst schrift verschwinden, too gud :D
 
 		graphics.drawString("Credits: " + playerTwo.getCredits(), 25, 490);
 		graphics.drawString("Gebäudeanzahl: " + menuePlayerTwo.getActualBuildingCount(PLAYER_TWO_ID), 180, 490);
+		graphics.drawString("Gebäude: " + menuePlayerOne.getActualBuildingName(), 380, 490);
 		// display.drawString("Aktuelles Gebäude: " +
 		// menuePlayerTwo.getActualBuildingName(), 100, 490);
 
@@ -283,14 +284,15 @@ public class DefenderControl implements TuioListener {
 				TuioPoint start_point = (TuioPoint) pointList.firstElement();
 				for (int j = 0; j < pointList.size(); j++) {
 					TuioPoint end_point = (TuioPoint) pointList.elementAt(j);
-					 graphics.drawLine(start_point.getScreenX(width),start_point.getScreenY(height),end_point.getScreenX(width),end_point.getScreenY(height));
+					graphics.drawLine(start_point.getScreenX(width), start_point.getScreenY(height), end_point.getScreenX(width), end_point.getScreenY(height));
 					start_point = end_point;
 				}
 				graphics.setColor(Color.gray);
-				graphics.fillOval( tcur.getScreenX(width),
-				 tcur.getScreenY(height),10,10); //draw ellipse at
-//				 tcur.getScreenY(height),cur_size,cur_size); //draw ellipse at
-//				 (current) position of cursor
+				graphics.fillOval(tcur.getScreenX(width), tcur.getScreenY(height), 10, 10); // draw
+																							// ellipse
+																							// at
+				// tcur.getScreenY(height),cur_size,cur_size); //draw ellipse at
+				// (current) position of cursor
 				graphics.setColor(Color.gray);
 
 				graphics.drawString("" + tcur.getCursorID(), tcur.getScreenX(width) - 5, tcur.getScreenY(height) + 5); // draw

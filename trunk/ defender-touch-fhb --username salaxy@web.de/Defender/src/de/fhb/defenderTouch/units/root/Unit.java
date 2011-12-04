@@ -170,10 +170,9 @@ public class Unit {
 	 * sagt aus ob sich die Unit gerade in Bewegung befindet
 	 */
 	protected boolean isMoving = false;
-	
-	
-//	protected BaseUnit targetUnit=null;
-//	
+
+	// protected BaseUnit targetUnit=null;
+	//
 
 	/**
 	 * Besitzer der Unit
@@ -272,6 +271,7 @@ public class Unit {
 		if (this.isMoving) {
 			drawTail(player, graphics);
 		}
+		
 
 		// zurücksetzen der Umgebung, Seiteneffekte vermeiden
 		graphics.resetTransform();
@@ -415,7 +415,7 @@ public class Unit {
 	protected void drawRotateAndPulseAppearance(Player player, Graphics graphics) {
 
 		// solange die skala noch nicht durchlaufen ist
-		if (rotatingAngle < (float)Math.PI*2) {
+		if (rotatingAngle < (float) Math.PI * 2) {
 			rotatingAngle += this.rotationSpeed;
 		} else {
 			// sosnt wieder von vorne anfangen
@@ -461,18 +461,18 @@ public class Unit {
 	 */
 	public void commandDestination(Vector2f dest) {
 
-		if(this.gamelogic.getMap().isFlyable(dest)){
-			
+		if (this.gamelogic.getMap().isFlyable(dest)) {
+
 			// neuen Zielvektor setzen
 			this.destinationVector = dest;
-	
+
 			// Richtungsvektor berechnen
 			direction = VectorHelper.sub(destinationVector, position);
 			// richtungsvektor normieren
 			direction.normalise();
-	
+
 			// neue Blickrichtung berechnen
-			berechneNeueBlickrichtung();	
+			berechneNeueBlickrichtung();
 		}
 
 	}
@@ -521,16 +521,16 @@ public class Unit {
 		if (isAutoAttackOn && isAttackPossible()) {
 			autoAttack();
 		}
-		
-//		if (!isAutoAttackOn) {
-//			if(this.isDestinationInRange()){
-//				if(this.targetUnit!=null){
-//					this.attack(this.targetUnit);				
-//				}else{
-//					isAutoAttackOn=true;
-//				}
-//			}
-//		}
+
+		// if (!isAutoAttackOn) {
+		// if(this.isDestinationInRange()){
+		// if(this.targetUnit!=null){
+		// this.attack(this.targetUnit);
+		// }else{
+		// isAutoAttackOn=true;
+		// }
+		// }
+		// }
 	}
 
 	/**
@@ -541,14 +541,14 @@ public class Unit {
 		for (Unit u : this.gamelogic.getGlobalUnits()) {
 
 			// wenn eine unit aktiviert wird dann die anderen deaktiveren
-			if (u.getPosition().distance(this.position) > this.attackRange+1) {
+			if (u.getPosition().distance(this.position) > this.attackRange + 1) {
 				// zu weit weg
 			} else {
 				// nah dran
 				if (this.getPlayerID() != u.getPlayerID() && u.getPlayerID() != DefenderControl.PLAYER_SYSTEM_ID) {
 					// Feind erkannt
 					// angriff
-					this.attack(u,true);
+					this.attack(u, true);
 				}
 			}
 		}
@@ -565,11 +565,13 @@ public class Unit {
 
 		for (Unit unit : gamelogic.getGlobalUnits()) {
 			// wenn nicht diese Unit (die ist in der menge mit drin)
-			if (this.id != unit.id&&unit.getPlayerID()!=DefenderControl.PLAYER_SYSTEM_ID) {
+			if (this.id != unit.id && unit.getPlayerID() != DefenderControl.PLAYER_SYSTEM_ID) {
 				// und wenn entfernung kleiner ist als die kollisionsradien der
 				// beiden einheiten zusammen
 				if (VectorHelper.distance(unit.position, newPosition) < (unit.collisionRadius + this.collisionRadius)) {
-//					System.out.println("UNIT " + this.id + " is in collision at " + newPosition + " with UNIT " + unit.id + " at " + unit.position);
+					// System.out.println("UNIT " + this.id +
+					// " is in collision at " + newPosition + " with UNIT " +
+					// unit.id + " at " + unit.position);
 
 					// nur wenn die naechste position nicht weiter entfernt sein
 					// wird, soll sich unit nicht mehr weiter bewegen
@@ -696,15 +698,14 @@ public class Unit {
 	 * 
 	 * @param destinationUnit
 	 */
-	public void attack(Unit destinationUnit,boolean wasAutoAttack) {
+	public void attack(Unit destinationUnit, boolean wasAutoAttack) {
 		System.out.println("UNIT " + this.id + " is attacking UNIT " + destinationUnit.id);
 
-		
-//		 if(!wasAutoAttack){
-//			 moveToAttackDestination(destinationUnit);
-//		 }
+		// if(!wasAutoAttack){
+		// moveToAttackDestination(destinationUnit);
+		// }
 
-		 //TODO wieder aktivieren
+		// TODO wieder aktivieren
 		if (isAttackPossible()) {
 			this.lastShootTime = System.currentTimeMillis();
 			this.startShoot(destinationUnit);
@@ -734,7 +735,7 @@ public class Unit {
 		// wenn nicht in Angriffsreichweite dann hinfliegen bis in reichweite
 		if (this.position.distance(destinationUnit.getPosition()) > this.attackRange) {
 			this.commandDestination(destinationUnit.getPosition());
-			this.commandDestination(VectorHelper.add(this.position, VectorHelper.mult(direction, (float) this.attackRange+1)));
+			this.commandDestination(VectorHelper.add(this.position, VectorHelper.mult(direction, (float) this.attackRange + 1)));
 		}
 
 	}
@@ -743,11 +744,10 @@ public class Unit {
 		return (System.currentTimeMillis() - lastShootTime) > this.shootMinTime;
 	}
 
-	
 	protected boolean isDestinationInRange() {
-		return this.destinationVector.distance(this.position)<this.attackRange+10;
+		return this.destinationVector.distance(this.position) < this.attackRange + 10;
 	}
-	
+
 	public void getDamage(int damage) {
 		this.healthpointsStat = this.healthpointsStat - damage;
 
@@ -792,10 +792,9 @@ public class Unit {
 
 		// eigendrehung hinzurechnen
 		graphics.rotate(0, 0, this.actualAngle);
-		
+
 	}
-	
-	
+
 	public void playExplosionSound() {
 		try {
 			new SampleThread("/sounds/Explosion.mp3", 0.0f, true).start();
