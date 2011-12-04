@@ -1,5 +1,6 @@
 package de.fhb.defenderTouch.units.movable;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -13,10 +14,10 @@ public class Tank extends Unit {
 	protected int size = 0;
 
 	public Tank(int x, int y, int mode, Player player, DefenderControl gamelogic) {
-		super(x, y, mode, player, gamelogic);	
+		super(x, y, mode, player, gamelogic);
 		damagePerHit = 60;
 		attackRange = 250;
-		healthpointsMax = 120;
+		healthpointsMax = 255;
 		healthpointsStat = 120;
 		movementSpeed = 1.5f;
 	}
@@ -25,7 +26,7 @@ public class Tank extends Unit {
 
 		graphics.scale(1.0f, 1.0f);
 		size = 20;
-		
+
 		graphics.drawOval(-15, -17, 30, 30);
 		Image image = null;
 		try {
@@ -35,14 +36,20 @@ public class Tank extends Unit {
 			e.printStackTrace();
 		}
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
+
+		//Lebensanzeige
+		//TODO
+		graphics.setColor(new Color(0,0,healthpointsStat));
+		graphics.fillRect(20,-25,-40,3);
+
 		graphics.resetTransform();
 	}
 
 	protected void startShoot(Unit destinationUnit) {
 		new ShootWithRange((int) this.position.x, (int) this.position.y, Unit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
 	}
-	
-	protected void drawTail(Player player, Graphics graphics){
-		//tail aus
+
+	protected void drawTail(Player player, Graphics graphics) {
+		// tail aus
 	}
 }
