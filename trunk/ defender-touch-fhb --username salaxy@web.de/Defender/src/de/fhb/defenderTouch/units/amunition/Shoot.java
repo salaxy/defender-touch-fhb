@@ -94,7 +94,7 @@ public class Shoot extends Unit {
 	
 //	private void playDestroySound(){
 //		try {
-//			new SampleThread("/sounds/boom_kurz.mp3",10.0f,true).start();
+//			new SampleThread("/data/sounds/boom_kurz.mp3",10.0f,true).start();
 //		} catch (FormatProblemException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
