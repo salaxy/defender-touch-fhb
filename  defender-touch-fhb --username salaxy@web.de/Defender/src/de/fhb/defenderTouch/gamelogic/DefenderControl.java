@@ -335,7 +335,7 @@ public class DefenderControl implements TuioListener {
 
 	private void playBackgroundSound() {
 		try {
-			new SampleThread("/sounds/background.mp3", 10.0f, true).start();
+			new SampleThread("/data/sounds/background.mp3", 10.0f, true).start();
 		} catch (FormatProblemException e) {
 			e.printStackTrace();
 		}

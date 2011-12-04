@@ -654,7 +654,7 @@ public class Unit {
 		active = true;
 
 		try {
-			new SampleThread("/sounds/fehler.mp3", 10.0f, true).start();
+			new SampleThread("/data/sounds/fehler.mp3", 10.0f, true).start();
 		} catch (FormatProblemException e) {
 			e.printStackTrace();
 		}
@@ -797,7 +797,7 @@ public class Unit {
 
 	public void playExplosionSound() {
 		try {
-			new SampleThread("/sounds/Explosion.mp3", 0.0f, true).start();
+			new SampleThread("/data/sounds/Explosion.mp3", 0.0f, true).start();
 		} catch (FormatProblemException e) {
 			e.printStackTrace();
 		}
