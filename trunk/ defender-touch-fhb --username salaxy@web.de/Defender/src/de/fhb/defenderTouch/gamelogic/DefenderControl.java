@@ -121,7 +121,7 @@ public class DefenderControl implements TuioListener {
 		menuePlayerTwo = new Menu(this.globalUnits, playerTwo);
 
 		// TODO mucka an
-		// this.playBackgroundSound();
+		 this.playBackgroundSound();
 
 		tuioClient.addTuioListener(this);
 
@@ -170,7 +170,7 @@ public class DefenderControl implements TuioListener {
 		// info zeichnen
 		graphics.setColor(Color.black);
 		graphics.rotate(0, 0, 90);
-		graphics.scale(1.2f, 1.2f);
+//		graphics.scale(1.2f, 1.2f);
 		graphics.drawString("Credits: " + playerOne.getCredits(), 10, -18);
 		graphics.drawString("Gebäudeanzahl: " + menuePlayerOne.getActualBuildingCount(PLAYER_ONE_ID), 180, -18);
 		graphics.drawString("Gebäude: " + menuePlayerOne.getActualBuildingName(), 380, -18);
