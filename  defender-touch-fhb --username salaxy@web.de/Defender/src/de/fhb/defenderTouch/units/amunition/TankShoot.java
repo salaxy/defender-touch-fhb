@@ -22,7 +22,6 @@ public class TankShoot extends Shoot {
 		int size = 5;
 		try {
 			image = new Image("data/shots/Tank.png");
-			// image = image.getScaledCopy(size, size);
 			image.setRotation(actualAngle + 90);
 		} catch (SlickException e) {
 			e.printStackTrace();

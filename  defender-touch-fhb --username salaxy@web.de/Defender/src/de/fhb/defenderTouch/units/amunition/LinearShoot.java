@@ -11,5 +11,4 @@ public class LinearShoot extends ShootWithRange{
 		super(x, y, mode, player, destinationUnit, damage, gamelogic);
 		// TODO Auto-generated constructor stub
 	}
-
 }

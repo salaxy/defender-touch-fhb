@@ -15,16 +15,11 @@ public class RoundShoot extends ShootWithRange{
 
 	public void zeichneKugel(Graphics graphics){
 		
-		
 		graphics.setColor(Color.black);
 		graphics.scale(0.5f,0.5f);
-	
 		graphics.fillOval(-10, -10, 20, 20);
-		
 		graphics.resetTransform();
-		
 	}
-	
 	
 	public void drawFigure(Graphics graphics){
 
@@ -43,8 +38,7 @@ public class RoundShoot extends ShootWithRange{
 				
 //				smallExplosion.stop();
 			}
-			
-			
+				
 			graphics.resetTransform();
 			this.nochXFramesZeichnen--;
 		}
@@ -52,7 +46,6 @@ public class RoundShoot extends ShootWithRange{
 		if(shouldBeDelete&&nochXFramesZeichnen==0){
 			this.deleteWirklich();
 		}
-
 	}	
 	
 	protected void drawTail(Player player,Graphics graphics){
