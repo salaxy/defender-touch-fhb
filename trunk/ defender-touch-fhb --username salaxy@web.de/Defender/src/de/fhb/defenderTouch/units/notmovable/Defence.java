@@ -10,7 +10,6 @@ import de.fhb.defenderTouch.units.root.Building;
 
 public class Defence extends Building {
 
-
 	public static final int PRICE = 40;
 	protected int size = 0;
 
@@ -30,9 +29,11 @@ public class Defence extends Building {
 			break;
 		case LEVEL_TWO:
 			size = 20;
+			damagePerHit += 20;
 			break;
 		case LEVEL_THREE:
 			size = 22;
+			damagePerHit += 20;
 			break;
 		}
 		graphics.drawRect(-15, -17, 30, 30);
@@ -46,8 +47,7 @@ public class Defence extends Building {
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
 	}
-	
-	
+
 	public void update() {
 		// AutoAngriffs Algorithmus aufrufen wenn moeglich
 		if (isAutoAttackOn && isAttackPossible()) {
