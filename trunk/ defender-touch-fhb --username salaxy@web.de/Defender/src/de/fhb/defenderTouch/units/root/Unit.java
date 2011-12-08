@@ -154,7 +154,7 @@ public class Unit {
 	/**
 	 * Kollisionssradius um das Zentrum der Einheit
 	 */
-	protected float collisionRadius = 20;
+	protected float collisionRadius = 10;
 
 	/**
 	 * jede einheit hat eine eindeutige ID zur identifizierung
