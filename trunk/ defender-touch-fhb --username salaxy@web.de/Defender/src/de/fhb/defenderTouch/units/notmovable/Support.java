@@ -36,9 +36,11 @@ public class Support extends Building {
 			break;
 		case LEVEL_TWO:
 			size = 20;
+			creditsPerTime = 2;
 			break;
 		case LEVEL_THREE:
 			size = 22;
+			creditsPerTime = 3;
 			break;
 		}
 
