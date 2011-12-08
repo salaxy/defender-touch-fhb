@@ -29,8 +29,8 @@ public class Gamemap {
 
 		try {
 			// Kleine Testmap:
-			 visibleMap = new Image("./maps/vtestmap_small.png");
-			 informationalMap = new Image("./maps/itestmap_small.png");
+//			 visibleMap = new Image("./maps/vtestmap_small.png");
+//			 informationalMap = new Image("./maps/itestmap_small.png");
 
 			// Groﬂe Testmap:
 //			visibleMap = new Image("./maps/vtestmap.png");
@@ -41,8 +41,8 @@ public class Gamemap {
 			// informationalMap = new Image("./maps/idebug.png");			
 
 			// Neue Map:
-//			 visibleMap = new Image("./maps/vnewmap.png");
-//			 informationalMap = new Image("./maps/inewmap.png");
+			 visibleMap = new Image("./maps/vnewmap.png");
+			 informationalMap = new Image("./maps/inewmap.png");
 
 		} catch (SlickException e) {
 			e.printStackTrace();
