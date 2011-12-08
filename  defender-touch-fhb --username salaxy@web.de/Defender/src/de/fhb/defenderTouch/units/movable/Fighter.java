@@ -1,5 +1,6 @@
 package de.fhb.defenderTouch.units.movable;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -16,8 +17,8 @@ public class Fighter extends Unit {
 		super(x, y, mode, player, gamelogic);
 		damagePerHit = 20;
 		attackRange = 250;
-		maximumHealth = 50;
-		actualHealth = 50;
+		maximumHealth = 150;
+		actualHealth = 150;
 		movementSpeed = 2f;
 	}
 
@@ -37,6 +38,12 @@ public class Fighter extends Unit {
 		}
 		image.rotate(180);
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
+		
+		
+		int help = maximumHealth-actualHealth ;
+		graphics.setColor(new Color(help,actualHealth,0));
+		graphics.fillRect(20,-25,-40,3);
+		
 		graphics.resetTransform();
 	}
 
