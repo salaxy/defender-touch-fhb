@@ -26,8 +26,8 @@ public class Soldier extends Unit {
 	public void drawFigure(Graphics graphics) {
 
 		graphics.scale(1.0f, 1.0f);
-		
 		graphics.drawOval(-15, -17, 30, 30);
+		
 		Image image = null;
 		try {
 			image = new Image("data/units/Soldier.png");
@@ -40,6 +40,7 @@ public class Soldier extends Unit {
 		int help = (int) ((255f * (float) actualHealth) / (float) maximumHealth);
 		graphics.setColor(new Color(255 - help, help, 0));
 		graphics.fillRect(20, -25, -40, 3);
+		
 		graphics.resetTransform();
 	}
 

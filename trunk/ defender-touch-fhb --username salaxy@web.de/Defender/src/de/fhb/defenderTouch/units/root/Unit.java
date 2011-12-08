@@ -14,10 +14,7 @@ import de.fhb.defenderTouch.graphics.VectorHelper;
 import de.fhb.defenderTouch.units.amunition.ShootWithRange;
 
 /**
- * BaseUnit Version 0.9 vom 02.12.2011
- * 
- * @author Andy Klay <klay@fh-brandenburg.de>
- * 
+ * Klasse für die Units
  */
 public class Unit {
 

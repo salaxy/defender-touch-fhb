@@ -38,12 +38,14 @@ public class Armory extends Building {
 			e.printStackTrace();
 		}
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
+		
 		graphics.resetTransform();
 	}
 
 	public void update() {
 		tickerTime = new Date().getTime();
 		if (createNewUnit(startingTime, tickerTime)) {
+			
 			new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), Unit.MODE_NORMAL,
 					this.owner, gamelogic);
 		}

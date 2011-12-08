@@ -25,8 +25,8 @@ public class Tank extends Unit {
 	public void drawFigure(Graphics graphics) {
 
 		graphics.scale(1.0f, 1.0f);
-
 		graphics.drawOval(-15, -17, 30, 30);
+		
 		Image image = null;
 		try {
 			image = new Image("data/units/Tank.png");
@@ -35,21 +35,7 @@ public class Tank extends Unit {
 			e.printStackTrace();
 		}
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
-
-		// Lebensanzeige
-		// TODO
-		graphics.setColor(Color.black);
-		graphics.drawRect(20, -25, -40, 3);
-		//
-		// if(this.healthpointsStat==this.healthpointsMax){
-		//
-		// }else if(){
-		//
-		// }else if(){
-		//
-		// }
-		// TODO
-		// int help = maximumHealth-actualHealth ;
+		
 		int help = (int) ((255f * (float) actualHealth) / (float) maximumHealth);
 		graphics.setColor(new Color(255 - help, help, 0));
 		graphics.fillRect(20, -25, -40, 3);
