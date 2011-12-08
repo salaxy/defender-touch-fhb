@@ -40,6 +40,7 @@ public class Barracks extends Building {
 			e.printStackTrace();
 		}
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
+		
 		graphics.resetTransform();
 	}
 
