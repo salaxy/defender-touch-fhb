@@ -18,7 +18,7 @@ public class Fighter extends Unit {
 		damagePerHit = 20;
 		attackRange = 250;
 		maximumHealth = 150;
-		actualHealth = 150;
+		actualHealth = maximumHealth;
 		movementSpeed = 2f;
 	}
 
@@ -39,11 +39,9 @@ public class Fighter extends Unit {
 		image.rotate(180);
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		
-		
-		int help = maximumHealth-actualHealth ;
-		graphics.setColor(new Color(help,actualHealth,0));
-		graphics.fillRect(20,-25,-40,3);
-		
+		int help = (int) ((255f * (float) actualHealth) / (float) maximumHealth);
+		graphics.setColor(new Color(255 - help, help, 0));
+		graphics.fillRect(20, -25, -40, 3);
 		graphics.resetTransform();
 	}
 

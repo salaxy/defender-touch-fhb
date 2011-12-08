@@ -13,34 +13,23 @@ import de.fhb.defenderTouch.units.root.Unit;
 import de.fhb.defenderTouch.units.root.Building;
 
 public class Barracks extends Building {
-	
+
+	public static final int PRICE = 30;
+	protected int size = 18;
+
 	private int timeTillNextSpawn = 14000;
-	
+
 	private long startingTime = new Date().getTime();
 	private long tickerTime;
-	
-	public static final int PRICE = 30;
-	protected int size = 0;
 
 	public Barracks(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
 		maximumHealth = 250;
-		actualHealth = 250;
+		actualHealth = maximumHealth;
 	}
 
 	public void drawFigure(Graphics graphics) {
 		graphics.scale(1.0f, 1.0f);
-		switch (this.level) {
-		case LEVEL_ONE:
-			size = 18;
-			break;
-		case LEVEL_TWO:
-			size = 20;
-			break;
-		case LEVEL_THREE:
-			size = 22;
-			break;
-		}
 
 		graphics.drawRect(-15, -16, 30, 30);
 		Image image = null;
@@ -53,11 +42,12 @@ public class Barracks extends Building {
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		graphics.resetTransform();
 	}
-	
+
 	public void update() {
 		tickerTime = new Date().getTime();
 		if (createNewUnit(startingTime, tickerTime)) {
-			new Soldier(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), Unit.MODE_NORMAL, this.owner, gamelogic);
+			new Soldier(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), Unit.MODE_NORMAL,
+					this.owner, gamelogic);
 		}
 	}
 
@@ -77,5 +67,25 @@ public class Barracks extends Building {
 		else
 			help = (int) -(this.activateRadius * 2);
 		return x + help;
+	}
+
+	public void upgrade() {
+		super.upgrade();
+
+		switch (this.level) {
+		case LEVEL_ONE:
+			size = 18;
+			break;
+		case LEVEL_TWO:
+			size = 20;
+			maximumHealth += 40;
+			actualHealth += 40;
+			break;
+		case LEVEL_THREE:
+			size = 22;
+			maximumHealth += 40;
+			actualHealth += 40;
+			break;
+		}
 	}
 }

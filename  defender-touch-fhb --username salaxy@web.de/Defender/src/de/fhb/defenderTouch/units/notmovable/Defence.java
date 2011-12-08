@@ -11,31 +11,19 @@ import de.fhb.defenderTouch.units.root.Building;
 public class Defence extends Building {
 
 	public static final int PRICE = 40;
-	protected int size = 0;
+	protected int size = 18;
 
 	public Defence(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
+		damagePerHit = 50;
 		maximumHealth = 250;
-		actualHealth = 250;
-		damagePerHit = 80;
+		actualHealth = maximumHealth;
 		attackRange = 350;
 	}
 
 	public void drawFigure(Graphics graphics) {
 		graphics.scale(1.0f, 1.0f);
-		switch (this.level) {
-		case LEVEL_ONE:
-			size = 18;
-			break;
-		case LEVEL_TWO:
-			size = 20;
-			damagePerHit += 20;
-			break;
-		case LEVEL_THREE:
-			size = 22;
-			damagePerHit += 20;
-			break;
-		}
+
 		graphics.drawRect(-15, -17, 30, 30);
 		Image image = null;
 		try {
@@ -53,6 +41,23 @@ public class Defence extends Building {
 		if (isAutoAttackOn && isAttackPossible()) {
 			autoAttack();
 		}
+	}
 
+	public void upgrade() {
+		super.upgrade();
+
+		switch (this.level) {
+		case LEVEL_ONE:
+			size = 18;
+			break;
+		case LEVEL_TWO:
+			size = 20;
+			damagePerHit += 20;
+			break;
+		case LEVEL_THREE:
+			size = 22;
+			damagePerHit += 20;
+			break;
+		}
 	}
 }
