@@ -11,9 +11,9 @@ import de.fhb.defenderTouch.units.root.Unit;
 import de.fhb.defenderTouch.units.root.Building;
 
 public class Armory extends Building {
-	
+
 	public static final int PRICE = 70;
-	protected int size = 0;
+	protected int size = 18;
 
 	private int timeTillNextSpawn = 17000;
 
@@ -23,22 +23,11 @@ public class Armory extends Building {
 	public Armory(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
 		maximumHealth = 200;
-		actualHealth = 200;
+		actualHealth = maximumHealth;
 	}
 
 	public void drawFigure(Graphics graphics) {
 		graphics.scale(1.0f, 1.0f);
-		switch (this.level) {
-		case LEVEL_ONE:
-			size = 18;
-			break;
-		case LEVEL_TWO:
-			size = 20;
-			break;
-		case LEVEL_THREE:
-			size = 22;
-			break;
-		}
 
 		graphics.drawRect(-15, -14, 30, 30);
 		Image image = null;
@@ -55,7 +44,8 @@ public class Armory extends Building {
 	public void update() {
 		tickerTime = new Date().getTime();
 		if (createNewUnit(startingTime, tickerTime)) {
-			new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), Unit.MODE_NORMAL, this.owner, gamelogic);
+			new Tank(generateRandomNumber((int) this.position.x), generateRandomNumber((int) this.position.y), Unit.MODE_NORMAL,
+					this.owner, gamelogic);
 		}
 	}
 
@@ -75,5 +65,23 @@ public class Armory extends Building {
 		else
 			help = (int) -(this.activateRadius * 2);
 		return x + help;
+	}
+
+	public void upgrade() {
+		super.upgrade();
+
+		switch (this.level) {
+		case LEVEL_ONE:
+			size = 18;
+			break;
+		case LEVEL_TWO:
+			size = 20;
+			damagePerHit += 20;
+			break;
+		case LEVEL_THREE:
+			size = 22;
+			damagePerHit += 20;
+			break;
+		}
 	}
 }

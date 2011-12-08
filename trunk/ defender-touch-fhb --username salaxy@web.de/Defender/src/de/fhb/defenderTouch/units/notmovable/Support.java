@@ -13,13 +13,14 @@ import de.fhb.defenderTouch.units.root.Building;
 public class Support extends Building {
 
 	public static final int PRICE = 50;
-	protected int size = 0;
+	protected int size = 18;
 
 	private int timeTillNextIncome = 1000;
-	private int creditsPerTime = 1;
 
 	private long startingTime = new Date().getTime();
 	private long tickerTime;
+
+	private int creditsPerTime = 1;
 
 	public Support(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
@@ -29,20 +30,6 @@ public class Support extends Building {
 
 	public void drawFigure(Graphics graphics) {
 		graphics.scale(1.0f, 1.0f);
-
-		switch (this.level) {
-		case LEVEL_ONE:
-			size = 18;
-			break;
-		case LEVEL_TWO:
-			size = 20;
-			creditsPerTime = 2;
-			break;
-		case LEVEL_THREE:
-			size = 22;
-			creditsPerTime = 3;
-			break;
-		}
 
 		graphics.drawRect(-15, -14, 30, 30);
 		Image image = null;
@@ -79,4 +66,21 @@ public class Support extends Building {
 		return false;
 	}
 
+	public void upgrade() {
+		super.upgrade();
+
+		switch (this.level) {
+		case LEVEL_ONE:
+			size = 18;
+			break;
+		case LEVEL_TWO:
+			size = 20;
+			creditsPerTime += 1;
+			break;
+		case LEVEL_THREE:
+			size = 22;
+			creditsPerTime += 1;
+			break;
+		}
+	}
 }

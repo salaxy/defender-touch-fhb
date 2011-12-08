@@ -16,10 +16,10 @@ public class Soldier extends Unit {
 
 	public Soldier(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);	
-		damagePerHit = 10;
+		damagePerHit = 20;
 		attackRange = 250;
 		maximumHealth = 125;
-		actualHealth = 125;
+		actualHealth = maximumHealth;
 		movementSpeed = 0.8f;
 	}
 
@@ -38,11 +38,9 @@ public class Soldier extends Unit {
 		}
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 		
-		
-		int help = maximumHealth-actualHealth ;
-		graphics.setColor(new Color(help,actualHealth,0));
-		graphics.fillRect(20,-25,-40,3);
-		
+		int help = (int) ((255f * (float) actualHealth) / (float) maximumHealth);
+		graphics.setColor(new Color(255 - help, help, 0));
+		graphics.fillRect(20, -25, -40, 3);
 		graphics.resetTransform();
 	}
 
