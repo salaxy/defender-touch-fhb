@@ -339,7 +339,6 @@ public class DefenderControl implements TuioListener {
 	}
 
 	public void updateGame() {
-
 		// Berechnen der Positionen aller Units
 		for (Unit unit : globalUnits) {
 			unit.update();
@@ -416,8 +415,6 @@ public class DefenderControl implements TuioListener {
 	 *            - menu welches geoeffnet werden soll
 	 */
 	private void openMenue(Vector2f realClickKoordinates, Menu menu) {
-
-		// TODO entweder 2 karten oder gg
 		System.out.println(map.isBuildable(realClickKoordinates, menu.getOwnerID()));
 		if (!menu.isMenuOpen() && !menu.isBuildingOpen() && map.isBuildable(realClickKoordinates, menu.getOwnerID())) {
 			menu.setPosition(realClickKoordinates);

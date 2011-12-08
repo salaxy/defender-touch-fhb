@@ -60,7 +60,7 @@ public class Player {
 	/**
 	 * Ressourceneinheiten des Spielers
 	 */
-	private int credits=5000;
+	private int credits=500;
 
 	/**
 	 * Liste der aktivierten Units des Spielers
