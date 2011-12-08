@@ -25,7 +25,7 @@ public class Support extends Building {
 	public Support(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
 		maximumHealth = 150;
-		actualHealth = 150;
+		actualHealth = maximumHealth;
 	}
 
 	public void drawFigure(Graphics graphics) {
@@ -54,7 +54,6 @@ public class Support extends Building {
 				gamelogic.getPlayerTwo().addCredits(this.creditsPerTime);
 			}
 		}
-
 	}
 
 	public boolean getNewIncome(long startingTime, long tickerTime) {
