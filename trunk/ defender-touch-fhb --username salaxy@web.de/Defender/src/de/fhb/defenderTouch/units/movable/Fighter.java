@@ -14,10 +14,10 @@ public class Fighter extends Unit {
 
 	public Fighter(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
-		damagePerHit = 40;
+		damagePerHit = 20;
 		attackRange = 250;
-		healthpointsMax = 50;
-		healthpointsStat = 50;
+		maximumHealth = 50;
+		actualHealth = 50;
 		movementSpeed = 2f;
 	}
 

@@ -22,8 +22,8 @@ public class Armory extends Building {
 
 	public Armory(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
-		healthpointsMax = 200;
-		healthpointsStat = 200;
+		maximumHealth = 200;
+		actualHealth = 200;
 	}
 
 	public void drawFigure(Graphics graphics) {

@@ -15,10 +15,10 @@ public class Soldier extends Unit {
 
 	public Soldier(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);	
-		damagePerHit = 40;
+		damagePerHit = 10;
 		attackRange = 250;
-		healthpointsMax = 50;
-		healthpointsStat = 50;
+		maximumHealth = 50;
+		actualHealth = 50;
 		movementSpeed = 0.8f;
 	}
 

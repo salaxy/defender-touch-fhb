@@ -24,8 +24,8 @@ public class Barracks extends Building {
 
 	public Barracks(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
-		healthpointsMax = 250;
-		healthpointsStat = 250;
+		maximumHealth = 250;
+		actualHealth = 250;
 	}
 
 	public void drawFigure(Graphics graphics) {

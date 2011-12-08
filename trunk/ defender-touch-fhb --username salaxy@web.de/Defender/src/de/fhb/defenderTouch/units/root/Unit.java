@@ -23,8 +23,8 @@ public class Unit {
 
 	protected DefenderControl gamelogic;
 
-	protected int healthpointsMax = 250;
-	protected int healthpointsStat = 250;
+	protected int maximumHealth = 250;
+	protected int actualHealth = 250;
 	protected int damagePerHit = 50;
 	protected int attackRange = 300;
 
@@ -749,9 +749,9 @@ public class Unit {
 	}
 
 	public void getDamage(int damage) {
-		this.healthpointsStat = this.healthpointsStat - damage;
+		this.actualHealth = this.actualHealth - damage;
 
-		if (this.healthpointsStat < 0) {
+		if (this.actualHealth < 0) {
 			this.delete();
 		}
 	}

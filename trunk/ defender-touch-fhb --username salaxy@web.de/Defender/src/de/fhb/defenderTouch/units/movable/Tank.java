@@ -15,10 +15,10 @@ public class Tank extends Unit {
 
 	public Tank(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
-		damagePerHit = 60;
+		damagePerHit = 30;
 		attackRange = 250;
-		healthpointsMax = 255;
-		healthpointsStat = 120;
+		maximumHealth = 255;
+		actualHealth = 255;
 		movementSpeed = 1.5f;
 	}
 
@@ -39,7 +39,19 @@ public class Tank extends Unit {
 
 		//Lebensanzeige
 		//TODO
-		graphics.setColor(new Color(0,0,healthpointsStat));
+		graphics.setColor(Color.black);
+		graphics.drawRect(20,-25,-40,3);
+//		
+//		if(this.healthpointsStat==this.healthpointsMax){
+//			
+//		}else if(){
+//			
+//		}else if(){
+//			
+//		}
+		//TODO
+		int help = maximumHealth-actualHealth ;
+		graphics.setColor(new Color(help,actualHealth,0));
 		graphics.fillRect(20,-25,-40,3);
 
 		graphics.resetTransform();
