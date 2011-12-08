@@ -38,7 +38,11 @@ public class Gamemap {
 
 			// Debug-Map:
 			// visibleMap = new Image("./maps/vdebug.png");
-			// informationalMap = new Image("./maps/idebug.png");
+			// informationalMap = new Image("./maps/idebug.png");			
+
+			// Neue Map:
+			 visibleMap = new Image("./maps/vnewmap.png");
+			 informationalMap = new Image("./maps/inewmap.png");
 
 		} catch (SlickException e) {
 			e.printStackTrace();
