@@ -100,8 +100,8 @@ public class DefenderViewSlick extends BasicGameState{
 										   );
 						
 	    	if(isMouseUsingOn){
-				this.control.startUnitControlForMouse(clickVector, button);	
-//				this.control.startMenueControlForMouse(clickVector, button);		    		
+//				this.control.startUnitControlForMouse(clickVector, button);	
+				this.control.startMenueControlForMouse(clickVector, button);		    		
 	    	}	
 		}
     }
