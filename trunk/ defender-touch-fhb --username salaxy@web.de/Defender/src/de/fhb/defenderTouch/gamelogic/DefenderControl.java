@@ -105,6 +105,8 @@ public class DefenderControl implements TuioListener {
 		tuioClient = new TuioClient();
 
 		gestures = new Gestures(tuioClient);
+		gestures.setWidth(width);
+		gestures.setHeight(height);
 
 		// map init
 		map = new Gamemap();
@@ -305,6 +307,33 @@ public class DefenderControl implements TuioListener {
 																														// of
 																														// cursor
 			}
+		}
+		
+		int[] rangeDifferent= gestures.rangeDifferent(tuioCursorList);
+		if(rangeDifferent!=null){
+			zoomInterface(rangeDifferent[0],rangeDifferent[1],
+					rangeDifferent[2],rangeDifferent[3]);
+		}
+		Vector2f v = gestures.twoFingersInRange(tuioCursorList, 2);
+		if(v!=null){
+			if(v.x < width/2){
+				if(menuePlayerOne.isMenuOpen()){
+					startMenueControlForMouse(v, 1);
+				}else{
+					startMenueControlForMouse(v, 0);
+				}
+			}else{
+				if(menuePlayerTwo.isMenuOpen()){
+					startMenueControlForMouse(v, 1);
+				}else{
+					startMenueControlForMouse(v, 0);
+				}
+			}			
+		}
+		int[] schiebeCoordinate= gestures.schiebeMap(tuioCursorList);
+		if(schiebeCoordinate!=null){
+			schiebeInterface(schiebeCoordinate[0],schiebeCoordinate[1],
+					schiebeCoordinate[2],schiebeCoordinate[3]);
 		}
 
 	}
@@ -622,16 +651,26 @@ public class DefenderControl implements TuioListener {
 	@Override
 	public void addTuioCursor(TuioCursor arg0) {
 		// TODO MINKE
-		System.out.println("add cursor " + arg0.getCursorID() + " (" + arg0.getSessionID() + ") " + arg0.getX() + " " + arg0.getY());
+//		System.out.println("add cursor " + arg0.getCursorID() + " (" + arg0.getSessionID() + ") " + arg0.getX() + " " + arg0.getY());
+		Vector2f clickVector = new Vector2f(arg0.getScreenX(width), arg0.getScreenY(height));
 
-		Vector2f clickVector = new Vector2f(arg0.getScreenX(DefenderViewSlick.HEIGHT), arg0.getScreenY(DefenderViewSlick.WIDTH));
+		if((menuePlayerOne.isMenuOpen() || menuePlayerOne.isBuildingOpen() )&& clickVector.x < (width/2)){
+			this.startMenueControlForMouse(clickVector,0);
+		}else{
+			
+		}
+		if((menuePlayerTwo.isMenuOpen()||menuePlayerOne.isBuildingOpen())&& clickVector.x > (width/2)){
+			this.startMenueControlForMouse(clickVector,0);
+		}
+		
+
 
 		this.startUnitControlForMouse(clickVector, 0);
+		
 	}
-
 	@Override
 	public void addTuioObject(TuioObject tobj) {
-		System.out.println("add object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " " + tobj.getY() + " " + tobj.getAngle());
+		//System.out.println("add object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " " + tobj.getY() + " " + tobj.getAngle());
 	}
 
 	@Override
@@ -651,7 +690,7 @@ public class DefenderControl implements TuioListener {
 	@Override
 	public void removeTuioObject(TuioObject tobj) {
 		// XXX MINKE
-		System.out.println("remove object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ")");
+		//System.out.println("remove object " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ")");
 
 	}
 
@@ -663,9 +702,9 @@ public class DefenderControl implements TuioListener {
 
 		// XXX MINKE
 
-		if (gestures.twoFingersInRange(tuioClient.getTuioCursors(), 2)) {
-			// XXX MINKE
-		}
+//		if (gestures.twoFingersInRange(tuioClient.getTuioCursors(), 2)) {
+//			// XXX MINKE
+//		}
 
 	}
 
