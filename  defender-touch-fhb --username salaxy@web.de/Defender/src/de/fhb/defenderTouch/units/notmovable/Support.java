@@ -23,8 +23,8 @@ public class Support extends Building {
 
 	public Support(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
-		healthpointsMax = 150;
-		healthpointsStat = 150;
+		maximumHealth = 150;
+		actualHealth = 150;
 	}
 
 	public void drawFigure(Graphics graphics) {
