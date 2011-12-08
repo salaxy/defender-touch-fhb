@@ -112,8 +112,8 @@ public class Gamemap {
 		for (int x = (int) x1; x < (int) x2; x++)
 			for (int y = (int) y1; y < (int) y2; y++) {
 				if (player == DefenderControl.PLAYER_ONE_ID) {
-					temp = informationalMap.getColor(x, y).r;
-					if (informationalMap.getColor(x, y).r < 0.5f) {
+					temp = informationalMap.getColor(x, y).b;
+					if (informationalMap.getColor(x, y).b < 0.5f) {
 						return false;
 					}
 				}
@@ -124,8 +124,8 @@ public class Gamemap {
 					}
 				}
 				if (player == DefenderControl.PLAYER_SYSTEM_ID) {
-					temp = informationalMap.getColor(x, y).b;
-					if (informationalMap.getColor(x, y).b < 0.5f) {
+					temp = informationalMap.getColor(x, y).r;
+					if (informationalMap.getColor(x, y).r < 0.5f) {
 						return false;
 					}
 				}
