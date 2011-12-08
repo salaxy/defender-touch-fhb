@@ -17,8 +17,8 @@ public class Tank extends Unit {
 		super(x, y, mode, player, gamelogic);
 		damagePerHit = 30;
 		attackRange = 250;
-		maximumHealth = 255;
-		actualHealth = 255;
+		maximumHealth = 400;
+		actualHealth = maximumHealth;
 		movementSpeed = 1.5f;
 	}
 
@@ -37,28 +37,30 @@ public class Tank extends Unit {
 		}
 		graphics.drawImage(image, -image.getHeight() / 2, -image.getWidth() / 2, size, size, 0f, 0f);
 
-		//Lebensanzeige
-		//TODO
+		// Lebensanzeige
+		// TODO
 		graphics.setColor(Color.black);
-		graphics.drawRect(20,-25,-40,3);
-//		
-//		if(this.healthpointsStat==this.healthpointsMax){
-//			
-//		}else if(){
-//			
-//		}else if(){
-//			
-//		}
-		//TODO
-		int help = maximumHealth-actualHealth ;
-		graphics.setColor(new Color(help,actualHealth,0));
-		graphics.fillRect(20,-25,-40,3);
+		graphics.drawRect(20, -25, -40, 3);
+		//
+		// if(this.healthpointsStat==this.healthpointsMax){
+		//
+		// }else if(){
+		//
+		// }else if(){
+		//
+		// }
+		// TODO
+		// int help = maximumHealth-actualHealth ;
+		int help = (int) ((255f * (float) actualHealth) / (float) maximumHealth);
+		graphics.setColor(new Color(255 - help, help, 0));
+		graphics.fillRect(20, -25, -40, 3);
 
 		graphics.resetTransform();
 	}
 
 	protected void startShoot(Unit destinationUnit) {
-		new ShootWithRange((int) this.position.x, (int) this.position.y, Unit.MODE_NORMAL, this.gamelogic.getPlayerSystem(), destinationUnit, this.damagePerHit, gamelogic);
+		new ShootWithRange((int) this.position.x, (int) this.position.y, Unit.MODE_NORMAL, this.gamelogic.getPlayerSystem(),
+				destinationUnit, this.damagePerHit, gamelogic);
 	}
 
 	protected void drawTail(Player player, Graphics graphics) {
