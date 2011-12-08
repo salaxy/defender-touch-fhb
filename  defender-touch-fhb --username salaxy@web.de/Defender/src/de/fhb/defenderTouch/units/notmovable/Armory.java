@@ -15,7 +15,7 @@ public class Armory extends Building {
 	public static final int PRICE = 70;
 	protected int size = 0;
 
-	private int timeTillNextSpawn = 1000;
+	private int timeTillNextSpawn = 10000;
 
 	private long startingTime = new Date().getTime();
 	private long tickerTime;
