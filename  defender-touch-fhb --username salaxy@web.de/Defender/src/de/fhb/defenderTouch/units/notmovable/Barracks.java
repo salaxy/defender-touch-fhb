@@ -14,7 +14,7 @@ import de.fhb.defenderTouch.units.root.Building;
 
 public class Barracks extends Building {
 	
-	private int timeTillNextSpawn = 8000;
+	private int timeTillNextSpawn = 14000;
 	
 	private long startingTime = new Date().getTime();
 	private long tickerTime;
