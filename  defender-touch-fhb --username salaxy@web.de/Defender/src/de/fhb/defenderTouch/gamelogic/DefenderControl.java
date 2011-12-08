@@ -389,7 +389,8 @@ public class DefenderControl implements TuioListener {
 	private void openMenue(Vector2f realClickKoordinates, Menu menu) {
 
 		// TODO entweder 2 karten oder gg
-		if (!menu.isMenuOpen() && !menu.isBuildingOpen() && map.isBuildable(realClickKoordinates, 0)) {
+		System.out.println(map.isBuildable(realClickKoordinates, menu.getOwnerID()));
+		if (!menu.isMenuOpen() && !menu.isBuildingOpen() && map.isBuildable(realClickKoordinates, menu.getOwnerID())) {
 			menu.setPosition(realClickKoordinates);
 			if (menu.isPlaceTaken(realClickKoordinates)) {
 				System.out.println("open building menu");
