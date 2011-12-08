@@ -26,30 +26,22 @@ public class Shoot extends Unit {
 	protected  Unit destinationUnit;
 	protected int damage;
 	
-	
 	public Shoot(int x, int y, int mode, Player player, Unit destinationUnit, int damage, DefenderControl gamelogic){
 		super(x, y, mode, player, gamelogic);
 		
 		//Einheit ist sehr schnell
 		this.movementSpeed=5f;
-		
 		this.damage=damage;
 		this.destinationUnit=destinationUnit;
 		this.commandDestination(destinationUnit.getPosition());
-		
 	}
-	
 	
 	public void drawFigure(Graphics graphics){
 		
-
 		graphics.setColor(Color.black);
 		graphics.scale(0.5f,0.5f);
-	
 		graphics.fillRect(0, 0, 10, 30);
-		
 		graphics.resetTransform();
-		
 	}
 	
 	/**
@@ -58,8 +50,6 @@ public class Shoot extends Unit {
 	public void update(){
 		
 		this.commandDestination(destinationUnit.getPosition());
-
-
 		Vector2f newPosition;
 		
 		//wenn aktuelle position noch weit weg vom ziel, dann weiter bewegen
@@ -83,14 +73,12 @@ public class Shoot extends Unit {
 		}
 	}
 	
-	
 	private void hasReachedDestination(){
 		
 //		this.playDestroySound();
 		this.destinationUnit.getDamage(damage);
 		this.delete();
 	}
-	
 	
 //	private void playDestroySound(){
 //		try {

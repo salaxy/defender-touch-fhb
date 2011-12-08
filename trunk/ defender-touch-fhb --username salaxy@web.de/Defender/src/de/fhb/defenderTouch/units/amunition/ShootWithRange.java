@@ -12,16 +12,17 @@ import de.fhb.defenderTouch.graphics.Animations;
 import de.fhb.defenderTouch.graphics.GraphicTools;
 import de.fhb.defenderTouch.units.root.Unit;
 import org.newdawn.slick.Graphics;
+
 public class ShootWithRange extends Shoot {
 
 	protected int maxRange = 400;
 	protected Vector2f startPostion;
 	protected Animation smallExplosion;
 	protected Player player;
-	protected  Animations gl;
+	protected Animations gl;
 	protected Graphics graphics;
-	protected boolean shouldBeDelete=false;
-	protected int nochXFramesZeichnen=10;
+	protected boolean shouldBeDelete = false;
+	protected int nochXFramesZeichnen = 10;
 
 	public ShootWithRange(int x, int y, int mode, Player player, Unit destinationUnit, int damage, DefenderControl gamelogic) {
 
@@ -43,42 +44,40 @@ public class ShootWithRange extends Shoot {
 
 	public void delete() {
 
-		this.shouldBeDelete=true;
-//		super.delete();
+		this.shouldBeDelete = true;
+		// super.delete();
 	}
-	
-	
-	public void drawFigure(Graphics graphics){
 
-		if(!shouldBeDelete){
+	public void drawFigure(Graphics graphics) {
+
+		if (!shouldBeDelete) {
 			super.drawFigure(graphics);
 		}
-		
-		if(shouldBeDelete&&nochXFramesZeichnen>0){
-		
-			smallExplosion.draw((-smallExplosion.getHeight() / 2) * player.getActualZoom(), (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight()
-					* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
+
+		if (shouldBeDelete && nochXFramesZeichnen > 0) {
+
+			smallExplosion.draw((-smallExplosion.getHeight() / 2) * player.getActualZoom(), (-smallExplosion.getWidth() / 2)
+					* player.getActualZoom(), smallExplosion.getHeight() * player.getActualZoom(), smallExplosion.getWidth()
+					* player.getActualZoom());
 			graphics.resetTransform();
-			
-			graphics.resetTransform();
+
 			this.nochXFramesZeichnen--;
 		}
-		
-		if(shouldBeDelete&&nochXFramesZeichnen==0){
+
+		if (shouldBeDelete && nochXFramesZeichnen == 0) {
 			this.deleteWirklich();
 		}
 
-	}		
-	
-	public void deleteWirklich(){
+	}
+
+	public void deleteWirklich() {
 		this.playExplosionSound();
 		super.delete();
 	}
-	
-	
-	protected void drawTail(Player player, Graphics graphics){
-		
-		if(!shouldBeDelete){
+
+	protected void drawTail(Player player, Graphics graphics) {
+
+		if (!shouldBeDelete) {
 			super.drawTail(player, graphics);
 		}
 	}
