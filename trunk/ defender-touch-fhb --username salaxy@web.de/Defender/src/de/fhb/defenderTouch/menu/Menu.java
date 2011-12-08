@@ -157,7 +157,7 @@ public class Menu {
 	/**
 	 * Besitzer dieses Menue objekts
 	 */
-	private Player player;
+	private Player owner;
 
 	/**
 	 * ANIMATION
@@ -178,10 +178,10 @@ public class Menu {
 	 * Constructor of Menu
 	 * 
 	 */
-	public Menu(CopyOnWriteArrayList<Unit> buildings, Player player) {
+	public Menu(CopyOnWriteArrayList<Unit> buildings, Player owner) {
 		this.position = new Vector2f(0, 0);
 		this.buildings = buildings;
-		this.player = player;
+		this.owner = owner;
 		RADIUS = DOUBLERADIUS / 2;
 		TEXTSIZE = DOUBLERADIUS / 4;
 		DISTANCE = -DOUBLERADIUS + 5;
@@ -207,6 +207,10 @@ public class Menu {
 
 	}
 
+	public int getOwnerID() {
+		return owner.getId();
+	}
+
 	/**
 	 * Playing the animation for the explosion when a building is destroyed
 	 * 
@@ -214,8 +218,8 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		smallExplosion.draw((-smallExplosion.getHeight() / 2) * player.getActualZoom(), (-smallExplosion.getWidth() / 2) * player.getActualZoom(), smallExplosion.getHeight()
-				* player.getActualZoom(), smallExplosion.getWidth() * player.getActualZoom());
+		smallExplosion.draw((-smallExplosion.getHeight() / 2) * owner.getActualZoom(), (-smallExplosion.getWidth() / 2) * owner.getActualZoom(), smallExplosion.getHeight()
+				* owner.getActualZoom(), smallExplosion.getWidth() * owner.getActualZoom());
 		graphics.resetTransform();
 		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
@@ -229,7 +233,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void calcDrawTransformation(Graphics graphics) {
-		GraphicTools.calcDrawTransformationForSlick(player, graphics, position);
+		GraphicTools.calcDrawTransformationForSlick(owner, graphics, position);
 	}
 
 	/**
@@ -238,7 +242,7 @@ public class Menu {
 	 * @param graphics
 	 */
 	public void calcDrawTransformationBuildings(Graphics graphics) {
-		GraphicTools.calcDrawTransformationForSlick(player, graphics, positionBuilding);
+		GraphicTools.calcDrawTransformationForSlick(owner, graphics, positionBuilding);
 	}
 
 	/**
@@ -260,19 +264,19 @@ public class Menu {
 		switch (getActualChosenBuilding()) {
 		case 0:
 			System.out.println("building a Armory building");
-			new Armory((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.player, defenderControl);
+			new Armory((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.owner, defenderControl);
 			break;
 		case 1:
 			System.out.println("building a Defence building");
-			new Defence((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.player, defenderControl);
+			new Defence((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.owner, defenderControl);
 			break;
 		case 2:
 			System.out.println("building a Support building");
-			new Support((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.player, defenderControl);
+			new Support((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.owner, defenderControl);
 			break;
 		case 3:
 			System.out.println("building a Barracks building");
-			new Barracks((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.player, defenderControl);
+			new Barracks((int) getPositionX(), (int) getPositionY(), Unit.MODE_NORMAL, this.owner, defenderControl);
 			break;
 		default:
 			System.out.println();
@@ -411,7 +415,7 @@ public class Menu {
 	 *         looking if enough credits are there
 	 */
 	public boolean isEnoughCredits(int credits) {
-		if (player.getCredits() - credits >= 0) {
+		if (owner.getCredits() - credits >= 0) {
 			return true;
 		}
 		return false;
@@ -476,7 +480,7 @@ public class Menu {
 		if (this.menu[0].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 1");
 			if (isEnoughCredits(Armory.PRICE)) {
-				player.setCredits(player.getCredits() - Armory.PRICE);
+				owner.setCredits(owner.getCredits() - Armory.PRICE);
 				setActualChosenBuilding(0);
 				setMenuOpen(false);
 				return true;
@@ -485,7 +489,7 @@ public class Menu {
 		if (this.menu[1].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 2");
 			if (isEnoughCredits(Defence.PRICE)) {
-				player.setCredits(player.getCredits() - Defence.PRICE);
+				owner.setCredits(owner.getCredits() - Defence.PRICE);
 				setActualChosenBuilding(1);
 				setMenuOpen(false);
 				return true;
@@ -494,7 +498,7 @@ public class Menu {
 		if (this.menu[2].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 3");
 			if (isEnoughCredits(Support.PRICE)) {
-				player.setCredits(player.getCredits() - Support.PRICE);
+				owner.setCredits(owner.getCredits() - Support.PRICE);
 				setActualChosenBuilding(2);
 				setMenuOpen(false);
 				return true;
@@ -503,7 +507,7 @@ public class Menu {
 		if (this.menu[3].distance(clickVector) < this.RADIUS) {
 			System.out.println("Menue 4");
 			if (isEnoughCredits(Barracks.PRICE)) {
-				player.setCredits(player.getCredits() - Barracks.PRICE);
+				owner.setCredits(owner.getCredits() - Barracks.PRICE);
 				setActualChosenBuilding(3);
 				setMenuOpen(false);
 				return true;
@@ -546,8 +550,8 @@ public class Menu {
 	 * looking if there are enough credits
 	 */
 	public void upgradeBuilding() {
-		if (player.getCredits() - getActualBuildingPrice() >= 0 && actualBuilding.getLevel() != 3) {
-			player.setCredits(player.getCredits() - getActualBuildingPrice());
+		if (owner.getCredits() - getActualBuildingPrice() >= 0 && actualBuilding.getLevel() != 3) {
+			owner.setCredits(owner.getCredits() - getActualBuildingPrice());
 		}
 	}
 
@@ -591,13 +595,13 @@ public class Menu {
 		smallExplosionPlaying = true;
 		smallExplosion.restart();
 		if (actualBuilding instanceof Defence)
-			player.setCredits(player.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
+			owner.setCredits(owner.getCredits() + (Defence.PRICE * actualBuilding.getLevel()) / 2);
 		if (actualBuilding instanceof Armory)
-			player.setCredits(player.getCredits() + (Armory.PRICE * actualBuilding.getLevel()) / 2);
+			owner.setCredits(owner.getCredits() + (Armory.PRICE * actualBuilding.getLevel()) / 2);
 		if (actualBuilding instanceof Support)
-			player.setCredits(player.getCredits() + (Support.PRICE * actualBuilding.getLevel()) / 2);
+			owner.setCredits(owner.getCredits() + (Support.PRICE * actualBuilding.getLevel()) / 2);
 		if (actualBuilding instanceof Barracks) {
-			player.setCredits(player.getCredits() + (Barracks.PRICE * actualBuilding.getLevel()) / 2);
+			owner.setCredits(owner.getCredits() + (Barracks.PRICE * actualBuilding.getLevel()) / 2);
 		}
 	}
 
