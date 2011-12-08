@@ -68,7 +68,7 @@ public class DefenderViewSlick extends BasicGameState{
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
     	
     	g.setAntiAlias(true);
-    	g.setBackground(Color.white);
+    	g.setBackground(Color.blue);
 
     	//alles zeichnen
     	this.control.drawAll(g);  
@@ -100,8 +100,8 @@ public class DefenderViewSlick extends BasicGameState{
 										   );
 						
 	    	if(isMouseUsingOn){
-//				this.control.startUnitControlForMouse(clickVector, button);	
-				this.control.startMenueControlForMouse(clickVector, button);		    		
+				this.control.startUnitControlForMouse(clickVector, button);	
+//				this.control.startMenueControlForMouse(clickVector, button);		    		
 	    	}	
 		}
     }

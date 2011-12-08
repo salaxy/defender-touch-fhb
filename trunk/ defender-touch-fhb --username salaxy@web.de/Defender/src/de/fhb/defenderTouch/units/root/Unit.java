@@ -688,6 +688,7 @@ public class Unit {
 	public void delete() {
 		this.deactivate();
 		gamelogic.getGlobalUnits().remove(this);
+		this.owner.getActiveUnits().remove(this);
 	}
 
 	/**
