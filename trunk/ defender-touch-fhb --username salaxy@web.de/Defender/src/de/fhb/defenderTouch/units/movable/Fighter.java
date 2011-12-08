@@ -11,7 +11,7 @@ import de.fhb.defenderTouch.units.root.Unit;
 
 public class Fighter extends Unit {
 
-	protected int size = 0;
+	protected int size = 20;
 
 	public Fighter(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);
@@ -25,7 +25,6 @@ public class Fighter extends Unit {
 	public void drawFigure(Graphics graphics) {
 
 		graphics.scale(1.0f, 1.0f);
-		size = 20;
 		
 		graphics.drawOval(-15, -17, 30, 30);
 		

@@ -12,7 +12,7 @@ import de.fhb.defenderTouch.units.root.Unit;
 
 public class Soldier extends Unit {
 
-	protected int size = 0;
+	protected int size = 20;
 
 	public Soldier(int x, int y, int mode, Player player, DefenderControl gamelogic) {
 		super(x, y, mode, player, gamelogic);	
@@ -26,7 +26,6 @@ public class Soldier extends Unit {
 	public void drawFigure(Graphics graphics) {
 
 		graphics.scale(1.0f, 1.0f);
-		size = 20;
 		
 		graphics.drawOval(-15, -17, 30, 30);
 		Image image = null;
