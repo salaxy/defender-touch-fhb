@@ -204,7 +204,6 @@ public class Menu {
 		}
 		gl = new Animations("small explosion", 17);
 		smallExplosion = gl.getAni();
-
 	}
 
 	public int getOwnerID() {
