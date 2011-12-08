@@ -659,7 +659,7 @@ public class DefenderControl implements TuioListener {
 		}else{
 			
 		}
-		if((menuePlayerTwo.isMenuOpen()||menuePlayerOne.isBuildingOpen())&& clickVector.x > (width/2)){
+		if((menuePlayerTwo.isMenuOpen()||menuePlayerTwo.isBuildingOpen())&& clickVector.x > (width/2)){
 			this.startMenueControlForMouse(clickVector,0);
 		}
 		
