@@ -767,31 +767,31 @@ public class DefenderControl implements TuioListener {
 	 */
 	public void createTestUnits() {
 
-		 // TestUnitBetas schaffen
-		 Unit test = new Unit(100, 200, Unit.MODE_ROTATE,
-		 this.playerOne, this);
-		 test.commandDestination(new Vector2f(1000, 700));
-		
-		 // Testflugstaffel
-		 new Tank(100, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Defence(200, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Armory(300, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Barracks(400, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Support(500, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Fighter(600, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Fighter(700, 50, Unit.MODE_PULSE_IF_ACTIVE, this.playerTwo,
-		 this);
-		
-		 // Testflugstaffel playerOne
-		 new Fighter(100, 700, Unit.MODE_NORMAL, this.playerOne, this);
-		 new Fighter(200, 700, Unit.MODE_NORMAL, this.playerOne, this);
-		 new Fighter(300, 700, Unit.MODE_NORMAL, this.playerOne, this);
-		 new Fighter(400, 700, Unit.MODE_NORMAL, this.playerOne, this);
-		 new Fighter(500, 700, Unit.MODE_NORMAL, this.playerOne, this);
-		 new Unit(600, 700, Unit.MODE_PULSE, this.playerOne, this);
-		 new Unit(700, 700, Unit.MODE_ROTATE_AND_PULSE,
-		 this.playerOne, this);
-		 new Unit(800, 700, Unit.MODE_NORMAL, this.playerOne, this);
+//		 // TestUnitBetas schaffen
+//		 Unit test = new Unit(100, 200, Unit.MODE_ROTATE,
+//		 this.playerOne, this);
+//		 test.commandDestination(new Vector2f(1000, 700));
+//		
+//		 // Testflugstaffel
+//		 new Tank(100, 50, Unit.MODE_NORMAL, this.playerTwo, this);
+//		 new Defence(200, 50, Unit.MODE_NORMAL, this.playerTwo, this);
+//		 new Armory(300, 50, Unit.MODE_NORMAL, this.playerTwo, this);
+//		 new Barracks(400, 50, Unit.MODE_NORMAL, this.playerTwo, this);
+//		 new Support(500, 50, Unit.MODE_NORMAL, this.playerTwo, this);
+//		 new Fighter(600, 50, Unit.MODE_NORMAL, this.playerTwo, this);
+//		 new Fighter(700, 50, Unit.MODE_PULSE_IF_ACTIVE, this.playerTwo,
+//		 this);
+//		
+//		 // Testflugstaffel playerOne
+//		 new Fighter(100, 700, Unit.MODE_NORMAL, this.playerOne, this);
+//		 new Fighter(200, 700, Unit.MODE_NORMAL, this.playerOne, this);
+//		 new Fighter(300, 700, Unit.MODE_NORMAL, this.playerOne, this);
+//		 new Fighter(400, 700, Unit.MODE_NORMAL, this.playerOne, this);
+//		 new Fighter(500, 700, Unit.MODE_NORMAL, this.playerOne, this);
+//		 new Unit(600, 700, Unit.MODE_PULSE, this.playerOne, this);
+//		 new Unit(700, 700, Unit.MODE_ROTATE_AND_PULSE,
+//		 this.playerOne, this);
+//		 new Unit(800, 700, Unit.MODE_NORMAL, this.playerOne, this);
 
 	}
 }
