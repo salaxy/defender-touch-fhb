@@ -40,7 +40,8 @@ public class Shoot extends Unit {
 		
 		graphics.setColor(Color.black);
 		graphics.scale(0.5f,0.5f);
-		graphics.fillRect(0, 0, 10, 30);
+		graphics.fillRoundRect(-10, -10, 20, 40,45);
+//		graphics.fillRoundRect(5, -5, 10, 20,90);
 		graphics.resetTransform();
 	}
 	
