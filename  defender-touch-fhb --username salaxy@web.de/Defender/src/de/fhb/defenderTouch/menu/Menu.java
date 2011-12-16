@@ -168,12 +168,12 @@ public class Menu {
 	 * ANIMATION playing?
 	 */
 	private boolean smallExplosionPlaying = false;
-	
+
 	/**
 	 * GIFLOADER
 	 */
 	private Animations smallExplosionLoader;
-	
+
 	private InitializeAnimations iniAnimations;
 
 	/**
@@ -206,7 +206,7 @@ public class Menu {
 		}
 		smallExplosionLoader = new Animations("small explosion", 17);
 		smallExplosion = smallExplosionLoader.getAni();
-		
+
 		iniAnimations = new InitializeAnimations();
 	}
 
@@ -221,16 +221,14 @@ public class Menu {
 	 */
 	public void animationSmallExplosion(Graphics graphics) {
 		calcDrawTransformation(graphics);
-		smallExplosion.draw((-smallExplosion.getHeight() / 2) * owner.getActualZoom(), (-smallExplosion.getWidth() / 2) * owner.getActualZoom(), smallExplosion.getHeight()
-				* owner.getActualZoom(), smallExplosion.getWidth() * owner.getActualZoom());
+		smallExplosion.draw((-smallExplosion.getHeight() / 2) * owner.getActualZoom(), (-smallExplosion.getWidth() / 2) * owner.getActualZoom(),
+				smallExplosion.getHeight() * owner.getActualZoom(), smallExplosion.getWidth() * owner.getActualZoom());
 		graphics.resetTransform();
 		if (smallExplosion.getFrame() == smallExplosionLoader.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
 			smallExplosion.stop();
 		}
 	}
-	
-
 
 	/**
 	 * Calculating the actual position of the click with coordinates
@@ -348,9 +346,10 @@ public class Menu {
 		 */
 		if (smallExplosionPlaying)
 			animationSmallExplosion(smallExplosionLoader.getGraphics());
-
-		iniAnimations.showTree1(graphics,owner);
+		iniAnimations.showTree2(graphics, owner);
+		iniAnimations.showTree1(graphics, owner);
 		
+
 		/**
 		 * here is the complete normal menu Ground Defence Support
 		 * 
