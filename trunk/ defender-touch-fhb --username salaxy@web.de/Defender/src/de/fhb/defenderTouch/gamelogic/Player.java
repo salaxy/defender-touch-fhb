@@ -26,7 +26,7 @@ public class Player {
 	private Vector2f originPosition;
 	
 	private final float zoomMin=0.3f;
-	private final float zoomMax=3.0f;
+	private final float zoomMax=0.55f;
 	
 	/**
 	 * Relative Position der Sicht im Verhältnis zum Ursprung (originPosition) des Spielers
@@ -50,7 +50,7 @@ public class Player {
 	/**
 	 * Zoomfaktor der aktuellen Spielersicht
 	 */
-	private float actualZoom=0.5f;
+	private float actualZoom;
 	
 	/**
 	 * Einheitenfarbe des Spielers
@@ -126,7 +126,9 @@ public class Player {
 	 * @param viewPosition
 	 */
 	public void setOriginOffset(Vector2f viewPosition) {
-		this.originOffset = viewPosition;
+		if(viewPosition.length()<500){
+				this.originOffset = viewPosition;	
+		}
 	}
 
 	public float getActualZoom() {

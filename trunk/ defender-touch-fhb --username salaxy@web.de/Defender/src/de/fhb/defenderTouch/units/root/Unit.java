@@ -229,6 +229,14 @@ public class Unit {
 	 */
 	public void paint(Player player, Graphics graphics, boolean drawActive) {
 
+
+		
+		// zeichne Schweif wenn in bewegung
+		if (this.isMoving) {
+			drawTail(player, graphics);		
+			
+		}	
+		
 		// Umrechnung auf Spielersicht
 		// Transformationen
 		calcDrawPosition(player, graphics);
@@ -264,11 +272,6 @@ public class Unit {
 			}
 		}
 
-		// zeichne Schweif wenn in bewegung
-		if (this.isMoving) {
-			drawTail(player, graphics);
-		}
-		
 
 		// zurücksetzen der Umgebung, Seiteneffekte vermeiden
 		graphics.resetTransform();
@@ -609,6 +612,7 @@ public class Unit {
 		// Eigendrehung ausgleichen (wird in calcDrawPostion gesetzt)
 		graphics.rotate(0, 0, -this.actualAngle);
 
+		graphics.setColor(Color.orange);
 		// linien zeichnen
 		graphics.drawLine(0, 0, ende.x / 2, ende.y / 2);
 		graphics.drawLine(1, 1, ende.x / 2, ende.y / 2);

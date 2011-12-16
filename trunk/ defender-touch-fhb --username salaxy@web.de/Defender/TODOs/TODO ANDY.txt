@@ -6,7 +6,9 @@ ALLES ERLEDIGT
 nicht vergessen!!
 -  hintergrundmusik an..zuletzt
 
-
+ - evtl prüfen oib unit im sichtbaren bereich dann nicht rendern lassen
+ if(sichtbar){ zeichnen}
+ 
 
 
 egal jetzt--->

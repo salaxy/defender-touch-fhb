@@ -47,6 +47,7 @@ public class DefenderViewSlick extends BasicGameState{
     //gamelogic initialisieren  
   	  control = new DefenderControl();
   	  control.createTestUnits();
+  	  control.createPraesentationUnits();
   	  
   	  gc.setShowFPS(true);
   	  gc.setTargetFrameRate(25);
@@ -100,8 +101,8 @@ public class DefenderViewSlick extends BasicGameState{
 										   );
 						
 	    	if(isMouseUsingOn){
-//				this.control.startUnitControlForMouse(clickVector, button);	
-				this.control.startMenueControlForMouse(clickVector, button);		    		
+				this.control.startUnitControlForMouse(clickVector, button);	
+//				this.control.startMenueControlForMouse(clickVector, button);		    		
 	    	}	
 		}
     }
