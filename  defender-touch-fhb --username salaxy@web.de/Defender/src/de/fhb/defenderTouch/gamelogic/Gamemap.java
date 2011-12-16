@@ -41,7 +41,7 @@ public class Gamemap {
 			// informationalMap = new Image("./maps/idebug.png");			
 
 			// Neue Map:
-			 visibleMap = new Image("./maps/vnewmap.png");
+			 visibleMap = new Image("./maps/vnewmap2.png");
 			 informationalMap = new Image("./maps/inewmap.png");
 
 		} catch (SlickException e) {
