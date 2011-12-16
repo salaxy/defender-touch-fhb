@@ -168,11 +168,26 @@ public class Menu {
 	 * ANIMATION playing?
 	 */
 	private boolean smallExplosionPlaying = false;
+	
+	/**
+	 * GIFLOADER
+	 */
+	private Animations smallExplosionLoader;
+	
+	/**
+	 * ANIMATION
+	 */
+	private Animation tree1;
+
+	/**
+	 * ANIMATION playing?
+	 */
+	private boolean tree1Playing = true;
 
 	/**
 	 * GIFLOADER
 	 */
-	private Animations gl;
+	private Animations tree1Loader;
 
 	/**
 	 * Constructor of Menu
@@ -202,8 +217,11 @@ public class Menu {
 		for (int i = 0; i < menuBuildings.length; i++) {
 			menuBuildings[i] = new Vector2f(0, 0);
 		}
-		gl = new Animations("small explosion", 17);
-		smallExplosion = gl.getAni();
+		smallExplosionLoader = new Animations("small explosion", 17);
+		smallExplosion = smallExplosionLoader.getAni();
+		
+		tree1Loader = new Animations("tree1", 10);
+		smallExplosion = tree1Loader.getAni();
 	}
 
 	public int getOwnerID() {
@@ -220,10 +238,22 @@ public class Menu {
 		smallExplosion.draw((-smallExplosion.getHeight() / 2) * owner.getActualZoom(), (-smallExplosion.getWidth() / 2) * owner.getActualZoom(), smallExplosion.getHeight()
 				* owner.getActualZoom(), smallExplosion.getWidth() * owner.getActualZoom());
 		graphics.resetTransform();
-		if (smallExplosion.getFrame() == gl.getNumberPictures() - 1) {
+		if (smallExplosion.getFrame() == smallExplosionLoader.getNumberPictures() - 1) {
 			smallExplosionPlaying = false;
 			smallExplosion.stop();
 		}
+	}
+	
+	/**
+	 * Playing the animation for the tree1 when a building is destroyed
+	 * 
+	 * @param graphics
+	 */
+	public void tree1(Graphics graphics) {
+		calcDrawTransformation(graphics);
+		tree1.draw((-tree1.getHeight() / 2) * owner.getActualZoom(), (-tree1.getWidth() / 2) * owner.getActualZoom(), tree1.getHeight()
+				* owner.getActualZoom(), tree1.getWidth() * owner.getActualZoom());
+		graphics.resetTransform();
 	}
 
 	/**
@@ -335,13 +365,16 @@ public class Menu {
 		/**
 		 * needed for saying the animation which grphics should be taken
 		 */
-		gl.setGraphics(graphics);
+		smallExplosionLoader.setGraphics(graphics);
 
 		/**
 		 * here is the explosion when a building is destroyed
 		 */
 		if (smallExplosionPlaying)
-			animationSmallExplosion(gl.getGraphics());
+			animationSmallExplosion(smallExplosionLoader.getGraphics());
+		
+		if (tree1Playing)
+			animationSmallExplosion(smallExplosionLoader.getGraphics());
 
 		/**
 		 * here is the complete normal menu Ground Defence Support
