@@ -174,20 +174,7 @@ public class Menu {
 	 */
 	private Animations smallExplosionLoader;
 	
-	/**
-	 * ANIMATION
-	 */
-	private Animation tree1;
-
-	/**
-	 * ANIMATION playing?
-	 */
-	private boolean tree1Playing = true;
-
-	/**
-	 * GIFLOADER
-	 */
-	private Animations tree1Loader;
+	private InitializeAnimations iniAnimations;
 
 	/**
 	 * Constructor of Menu
@@ -220,8 +207,7 @@ public class Menu {
 		smallExplosionLoader = new Animations("small explosion", 17);
 		smallExplosion = smallExplosionLoader.getAni();
 		
-		tree1Loader = new Animations("tree1", 10);
-		smallExplosion = tree1Loader.getAni();
+		iniAnimations = new InitializeAnimations();
 	}
 
 	public int getOwnerID() {
@@ -244,17 +230,7 @@ public class Menu {
 		}
 	}
 	
-	/**
-	 * Playing the animation for the tree1 when a building is destroyed
-	 * 
-	 * @param graphics
-	 */
-	public void tree1(Graphics graphics) {
-		calcDrawTransformation(graphics);
-		tree1.draw((-tree1.getHeight() / 2) * owner.getActualZoom(), (-tree1.getWidth() / 2) * owner.getActualZoom(), tree1.getHeight()
-				* owner.getActualZoom(), tree1.getWidth() * owner.getActualZoom());
-		graphics.resetTransform();
-	}
+
 
 	/**
 	 * Calculating the actual position of the click with coordinates
@@ -372,10 +348,9 @@ public class Menu {
 		 */
 		if (smallExplosionPlaying)
 			animationSmallExplosion(smallExplosionLoader.getGraphics());
-		
-		if (tree1Playing)
-			animationSmallExplosion(smallExplosionLoader.getGraphics());
 
+		iniAnimations.showTree1(graphics,owner);
+		
 		/**
 		 * here is the complete normal menu Ground Defence Support
 		 * 

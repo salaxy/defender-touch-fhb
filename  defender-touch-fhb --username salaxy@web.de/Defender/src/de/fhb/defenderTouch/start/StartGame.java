@@ -22,7 +22,6 @@ public class StartGame extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
 		addState(new DefenderViewSlick());
-
 	}
 
 	/**
@@ -32,7 +31,6 @@ public class StartGame extends StateBasedGame {
 	 * @throws SlickException 
 	 */
 	public static void main(String[] args) throws SlickException {
-		
         AppGameContainer defender = new AppGameContainer(new StartGame());
         defender.setDisplayMode(DefenderViewSlick.WIDTH, DefenderViewSlick.HEIGHT, false);
         defender.setVSync(true);
@@ -40,7 +38,5 @@ public class StartGame extends StateBasedGame {
         defender.setAlwaysRender(true);
         defender.setIcon("data/logos/DefenderTouchDeluxe32.png");
         defender.start();
-
 	}
-
 }
