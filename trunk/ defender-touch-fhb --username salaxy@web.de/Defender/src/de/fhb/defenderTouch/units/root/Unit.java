@@ -117,7 +117,7 @@ public class Unit {
 	/**
 	 * Geschwindigkeitsfaktor der Rotation
 	 */
-	protected float rotationSpeed = 0.1f;
+	protected float rotationSpeed = 10f;
 
 	/**
 	 * Bewegungsgeschwindigkeit

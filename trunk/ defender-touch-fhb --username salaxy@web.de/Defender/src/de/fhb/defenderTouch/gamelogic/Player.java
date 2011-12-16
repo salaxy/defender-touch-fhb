@@ -126,7 +126,7 @@ public class Player {
 	 * @param viewPosition
 	 */
 	public void setOriginOffset(Vector2f viewPosition) {
-		if(viewPosition.length()<500){
+		if(viewPosition.length()<700){
 				this.originOffset = viewPosition;	
 		}
 	}

@@ -114,6 +114,7 @@ public class DefenderControl implements TuioListener {
 		// die beiden Spieler initialisieren
 		playerOne = new Player(this, 90, 0.35f, ORIGIN_POSITION_LEFT, Color.blue, PLAYER_ONE_ID);
 		playerTwo = new Player(this, 270, 0.35f, ORIGIN_POSITION_RIGHT, Color.green, PLAYER_TWO_ID);
+		playerTwo.setOriginOffset(new Vector2f(0,320));
 		playerSystem = new Player(this, 0, 1f, ORIGIN_POSITION_RIGHT, Color.black, PLAYER_SYSTEM_ID);
 
 		globalUnits = new CopyOnWriteArrayList<Unit>();
@@ -763,7 +764,7 @@ public class DefenderControl implements TuioListener {
 			tempVec.y = tempVec.y + newy - oldy;
 			tempVec.x = tempVec.x + newx - oldx;
 			
-			this.getPlayerOne().setOriginOffset(tempVec);
+			this.getPlayerTwo().setOriginOffset(tempVec);
 		}
 	}
 
@@ -805,31 +806,44 @@ public class DefenderControl implements TuioListener {
 	 */
 	public void createPraesentationUnits() {
 
-		 // TestUnitBetas schaffen
-		 Unit test = new Unit(100, 200, Unit.MODE_ROTATE,
-		 this.playerOne, this);
-		 test.commandDestination(new Vector2f(1000, 700));
+		//***************************************************************
+		//Player One
+		new Defence(900, 1120, Unit.MODE_NORMAL, this.playerOne, this);
+		new Defence(900, 1080, Unit.MODE_NORMAL, this.playerOne, this);
+		new Defence(900, 1040, Unit.MODE_NORMAL, this.playerOne, this);
+		new Defence(900, 1000, Unit.MODE_NORMAL, this.playerOne, this);
 		
-		 // Testflugstaffel
-		 new Tank(100, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Defence(200, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Armory(300, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Barracks(400, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Support(500, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Fighter(600, 50, Unit.MODE_NORMAL, this.playerTwo, this);
-		 new Fighter(700, 50, Unit.MODE_PULSE_IF_ACTIVE, this.playerTwo,
-		 this);
+		new Defence(900, 510, Unit.MODE_NORMAL, this.playerOne, this);
+		new Defence(900, 470, Unit.MODE_NORMAL, this.playerOne, this);
+		new Defence(900, 430, Unit.MODE_NORMAL, this.playerOne, this);
+		new Defence(900, 390, Unit.MODE_NORMAL, this.playerOne, this);
 		
-		 // Testflugstaffel playerOne
-		 new Fighter(100, 700, Unit.MODE_NORMAL, this.playerOne, this);
-		 new Fighter(200, 700, Unit.MODE_NORMAL, this.playerOne, this);
-		 new Fighter(300, 700, Unit.MODE_NORMAL, this.playerOne, this);
-		 new Fighter(400, 700, Unit.MODE_NORMAL, this.playerOne, this);
-		 new Fighter(500, 700, Unit.MODE_NORMAL, this.playerOne, this);
-		 new Unit(600, 700, Unit.MODE_PULSE, this.playerOne, this);
-		 new Unit(700, 700, Unit.MODE_ROTATE_AND_PULSE,
-		 this.playerOne, this);
-		 new Unit(800, 700, Unit.MODE_NORMAL, this.playerOne, this);
+		new Support(265, 980, Unit.MODE_NORMAL, this.playerOne, this);
+		new Support(297, 474, Unit.MODE_NORMAL, this.playerOne, this);
+		
+		new Fighter(671, 800, Unit.MODE_NORMAL, this.playerOne, this);
+		new Fighter(671, 700, Unit.MODE_NORMAL, this.playerOne, this);
+		new Fighter(671, 600, Unit.MODE_NORMAL, this.playerOne, this);
+		
+		
+		//***************************************************************
+		//Player Two
+		new Defence(2200, 1120, Unit.MODE_NORMAL, this.playerTwo, this);
+		new Defence(2200, 1080, Unit.MODE_NORMAL, this.playerTwo, this);
+		new Defence(2200, 1040, Unit.MODE_NORMAL, this.playerTwo, this);
+		new Defence(2200, 1000, Unit.MODE_NORMAL, this.playerTwo, this);
+		
+		new Defence(2200, 620, Unit.MODE_NORMAL, this.playerTwo, this);
+		new Defence(2200, 580, Unit.MODE_NORMAL, this.playerTwo, this);
+		new Defence(2200, 540, Unit.MODE_NORMAL, this.playerTwo, this);
+		new Defence(2200, 500, Unit.MODE_NORMAL, this.playerTwo, this);
+		
+		new Support(2691, 1231, Unit.MODE_NORMAL, this.playerTwo, this);
+		new Support(2637, 400, Unit.MODE_NORMAL, this.playerTwo, this);
+		
+		new Fighter(2482, 1000, Unit.MODE_NORMAL, this.playerTwo, this);
+		new Fighter(2482, 900, Unit.MODE_NORMAL, this.playerTwo, this);
+		new Fighter(2482, 800, Unit.MODE_NORMAL, this.playerTwo, this);
 
 	}
 }
