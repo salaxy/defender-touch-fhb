@@ -21,6 +21,7 @@ public class Gestures {
 	private int width;
 	private ArrayList<Cursor> tuioCursorListOld = new ArrayList<Cursor>();
 	private ArrayList<int[]> tuioCursorListForSecondsToWait = new ArrayList<int[]>();
+	private ArrayList<Cursor> tuioCursorListActual = new ArrayList<Cursor>();
 	private int zaehler = 2;
 	TuioTime time;
 
@@ -29,19 +30,17 @@ public class Gestures {
 
 	public Gestures(TuioClient tuioClient) {
 		this.tuioClient = tuioClient;
-		
-
 	}
 
 	public void countFrames() {
 
 		TuioCursor tcur1, tcur2;
+		Cursor cursorOld;
 		Vector tuioCursorList = tuioClient.getTuioCursors(); // gets all cursors
 																// (fingers)
 																// which are
 																// currently on
 																// the screen
-
 		// alle X Frames aktuallisieren;
 		if (zaehler == 2) {			
 			tuioCursorListOld.clear();
@@ -60,6 +59,22 @@ public class Gestures {
 			zaehler = 0;
 		}
 		zaehler++;		
+		
+		for(int i=0;i<tuioCursorList.size();i++){
+			tcur1 = (TuioCursor)tuioCursorList.get(i);
+			for(int j =0 ;j<tuioCursorListOld.size();j++){
+				cursorOld = tuioCursorListOld.get(j);
+				if(cursorOld.getTcur1ID() == tcur1.getCursorID()){
+					if(tcur1.getScreenX(width) < width/2 && !cursorOld.getTcur1Player1()){
+						cursorOld.setTcur1Player1(true);
+					}
+				}else if( cursorOld.getTcur2ID() == tcur1.getCursorID()){
+					if(tcur1.getScreenX(width) < width/2 && !cursorOld.getTcur1Player1()){
+						cursorOld.setTcur2Player1(true);
+					}
+				}
+			}
+		}
 	}
 	
 	public int[] schiebeMap(Vector tuioCursorList){
@@ -69,36 +84,79 @@ public class Gestures {
 		int tcurP2=0;
 		TuioCursor tcur1;
 		
-		if(twoFingersInRange(tuioCursorList,0)!= null && rangeDifferent(tuioCursorList) != null){
-			return null;
-		}
+//		for(int i = 0 ; i<tuioCursorList.size();i++){
+//			tcur1=(TuioCursor)tuioCursorList.get(i);
+//			if(tcur1.getScreenX(width) < width/2){
+//				countCurP1++;
+//			}else{
+//				countCurP2++;
+//			}
+//		}
+		
+//		if(twoFingersInRange(tuioCursorList,0)!= null && rangeDifferent(tuioCursorList) != null){
+//			return null;
+//		}
 		
 		for(int i=0;i<tuioCursorList.size(); i++){
 			tcur1= (TuioCursor)tuioCursorList.get(i);
-			for(int j = 0; j<tuioCursorListOld.size();j++){
-					if(tuioCursorListOld.get(j).getTcur1ID()==tcur1.getCursorID()){
-						if(tuioCursorListOld.get(j).getTcur1Player1()){
+//			for(int j = 0; j<tuioCursorListOld.size();j++){
+//					if(tuioCursorListOld.get(j).getTcur1ID()==tcur1.getCursorID()){
+//						if(tuioCursorListOld.get(j).getTcur1Player1()){
+						if(tcur1.getScreenX(width) <= width/2){
 							tcurP1++;
-							coordinate1[0]=(int)tuioCursorListOld.get(j).getTcur1ScreenX();
-							coordinate1[1]=(int)tuioCursorListOld.get(j).getTcur1ScreenY();
-							coordinate1[2]=tcur1.getScreenX(width);
-							coordinate1[3]=tcur1.getScreenY(height);
+//							coordinate1[0]=(int)tuioCursorListOld.get(j).getTcur1ScreenX();
+//							coordinate1[1]=(int)tuioCursorListOld.get(j).getTcur1ScreenY();
+//							coordinate1[2]=tcur1.getScreenX(width);
+//							coordinate1[3]=tcur1.getScreenY(height);
+//							System.out.println("tcur1= "+tcurP1);
 						}else{
 							tcurP2++;
-							coordinate2[0]=(int)tuioCursorListOld.get(j).getTcur1ScreenX();
-							coordinate2[1]=(int)tuioCursorListOld.get(j).getTcur1ScreenY();
-							coordinate2[2]=tcur1.getScreenX(width);
-							coordinate2[3]=tcur1.getScreenY(height);
+//							coordinate2[0]=(int)tuioCursorListOld.get(j).getTcur1ScreenX();
+//							coordinate2[1]=(int)tuioCursorListOld.get(j).getTcur1ScreenY();
+//							coordinate2[2]=tcur1.getScreenX(width);
+//							coordinate2[3]=tcur1.getScreenY(height);
+//							System.out.println("tcur2= "+tcurP2);
 						}						
+//					}
+//			}
+		
+			
+		}
+		for(int i=0;i<tuioCursorList.size(); i++){
+			tcur1= (TuioCursor)tuioCursorList.get(i);
+			for(int j = 0; j<tuioCursorListOld.size();j++){
+				if(tcurP1 == 1 && tcur1.getScreenX(width) <= width/2){
+					System.out.println("hallo");
+					if(tuioCursorListOld.get(j).getTcur1ID() == tcur1.getCursorID()){
+						System.out.println("bin ich drin oder was");
+						coordinate1[0]=(int)tuioCursorListOld.get(j).getTcur1ScreenX();
+						coordinate1[1]=(int)tuioCursorListOld.get(j).getTcur1ScreenY();
+						coordinate1[2]=tcur1.getScreenX(width);
+						coordinate1[3]=tcur1.getScreenY(height);
+						return coordinate1;
 					}
-			}			
+				}
+				if(tcurP2 == 1 && tcur1.getScreenX(width) >= width/2){
+					System.out.println("buhuuuuu");;
+					if(tuioCursorListOld.get(j).getTcur1ID() == tcur1.getCursorID()){
+						System.out.println("ich bin drin");
+						coordinate1[0]=(int)tuioCursorListOld.get(j).getTcur1ScreenX();
+						coordinate1[1]=(int)tuioCursorListOld.get(j).getTcur1ScreenY();
+						coordinate1[2]=tcur1.getScreenX(width);
+						coordinate1[3]=tcur1.getScreenY(height);
+						return coordinate1;
+					}
+				}
+			}
 		}
-		if(tcurP1==1){
-			return coordinate1;
-		}
-		if(tcurP2==1){
-			return coordinate2;
-		}	
+		
+		
+//		if(tcurP1==1){
+//			return coordinate1;
+//		}
+//		if(tcurP2==1){
+//			return coordinate2;
+//		}	
 		return null;
 	}
 
@@ -220,7 +278,7 @@ public class Gestures {
 		TuioCursor tcur1, tcur2;
 		Vector2f tcur;
 		double range;
-		// Die Entfernung von 3 Cursor zueinander vergleichen
+		// Die Entfernung von 2 Cursor zueinander vergleichen
 		for (int i = 0; i < tuioCursorList.size(); i++) {
 			tcur1 = (TuioCursor) tuioCursorList.elementAt(i);
 			for (int j = i + 1; j < tuioCursorList.size(); j++) {
@@ -251,9 +309,10 @@ public class Gestures {
 	 *         Sekunden, nah beieinander liegen)
 	 * 
 	 */
-	public void threeFingersInRange(Vector tuioCursorList) {
+	public Vector2f threeFingersInRange(Vector tuioCursorList, int secondsTwoWait) {
 		TuioCursor tcur1, tcur2, tcur3;
 		double range1, range2, range3;
+		Vector2f tcur;
 		// Die Entfernung von 3 Cursor zueinander vergleichen
 		for (int i = 0; i < tuioCursorList.size(); i++) {
 			tcur1 = (TuioCursor) tuioCursorList.elementAt(i);
@@ -271,10 +330,16 @@ public class Gestures {
 								|| (range2 <= 0.025 && (range1 <= 0.025 || range3 <= 0.025))
 								|| (range3 <= 0.025 && (range1 <= 0.025 || range2 <= 0.025))) {
 							System.out.println("3 Finger erkannt");
+							if (waitXSeconds(secondsTwoWait, tcur1, tcur2) && waitXSeconds(secondsTwoWait, tcur1, tcur3) &&waitXSeconds(secondsTwoWait, tcur3, tcur2)){
+								
+							}
+							tcur= new Vector2f(tcur1.getScreenX(width),tcur1.getScreenY(height));
+							return tcur;
 						}
 					}
 			}
 		}
+		return null;
 	}
 	
 	/**
@@ -307,24 +372,27 @@ public class Gestures {
 //							if(tuioCursorListOld.get(k).getTcur1Player1()){
 								if ((tuioCursorListOld.get(k).getTcur1ID() == tcur1.getCursorID()&& tuioCursorListOld.get(k).getTcur2ID() == tcur2.getCursorID()) ||
 										(tuioCursorListOld.get(k).getTcur1ID() == tcur2.getCursorID()&& tuioCursorListOld.get(k).getTcur2ID() == tcur1.getCursorID())){
-									if (tcur1.getMotionSpeed() > 0.10){
-										rangeDifferent = endRange - tuioCursorListOld.get(k).getDistance();
-										if (rangeDifferent !=0){
-											trailCoordinate[0]= tuioCursorListOld.get(k).getTcur1ScreenX();
-											trailCoordinate[1]= tuioCursorListOld.get(k).getTcur1ScreenY();
-											trailCoordinate[2]=tcur1.getScreenX(width);
-											trailCoordinate[3]=tcur1.getScreenY(height);
-											return trailCoordinate;
+								
+									if(tuioCursorListOld.get(k).getTcur1Player1() == tuioCursorListOld.get(k).getTcur2Player1()){
+										if (tcur1.getMotionSpeed() > 0.10){
+											rangeDifferent = endRange - tuioCursorListOld.get(k).getDistance();
+											if (rangeDifferent !=0){
+												trailCoordinate[0]= tuioCursorListOld.get(k).getTcur1ScreenX();
+												trailCoordinate[1]= tuioCursorListOld.get(k).getTcur1ScreenY();
+												trailCoordinate[2]=tcur1.getScreenX(width);
+												trailCoordinate[3]=tcur1.getScreenY(height);
+												return trailCoordinate;
+											}
+										}else{
+											if(tcur2.getMotionSpeed() > 0.10){
+												trailCoordinate[0]= tuioCursorListOld.get(k).getTcur2ScreenX();
+												trailCoordinate[1]= tuioCursorListOld.get(k).getTcur2ScreenY();
+												trailCoordinate[2]=tcur2.getScreenX(width);
+												trailCoordinate[3]=tcur2.getScreenY(height);
+												return trailCoordinate;
+											}
 										}
-									}else{
-										if(tcur2.getMotionSpeed() > 0.10){
-											trailCoordinate[0]= tuioCursorListOld.get(k).getTcur2ScreenX();
-											trailCoordinate[1]= tuioCursorListOld.get(k).getTcur2ScreenY();
-											trailCoordinate[2]=tcur2.getScreenX(width);
-											trailCoordinate[3]=tcur2.getScreenY(height);
-											return trailCoordinate;
-										}
-									}
+									}									
 								}
 //							}else{
 //								if ((tuioCursorListOld.get(k).getTcur1ID() == tcur1.getCursorID()&& tuioCursorListOld.get(k).getTcur2ID() == tcur2.getCursorID()) ||

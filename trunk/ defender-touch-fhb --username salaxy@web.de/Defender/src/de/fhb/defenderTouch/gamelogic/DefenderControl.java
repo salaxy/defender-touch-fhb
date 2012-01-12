@@ -15,14 +15,11 @@ import TUIO.TuioPoint;
 import TUIO.TuioTime;
 import de.fhb.defenderTouch.audio.FormatProblemException;
 import de.fhb.defenderTouch.audio.SampleThread;
-import de.fhb.defenderTouch.display.DefenderViewSlick;
 import de.fhb.defenderTouch.graphics.GraphicTools;
+import de.fhb.defenderTouch.graphics.VectorHelper;
 import de.fhb.defenderTouch.menu.Menu;
 import de.fhb.defenderTouch.ui.Gestures;
 import de.fhb.defenderTouch.units.movable.Fighter;
-import de.fhb.defenderTouch.units.movable.Tank;
-import de.fhb.defenderTouch.units.notmovable.Armory;
-import de.fhb.defenderTouch.units.notmovable.Barracks;
 import de.fhb.defenderTouch.units.notmovable.Defence;
 import de.fhb.defenderTouch.units.notmovable.Support;
 import de.fhb.defenderTouch.units.root.Unit;
@@ -112,8 +109,8 @@ public class DefenderControl implements TuioListener {
 		map = new Gamemap();
 
 		// die beiden Spieler initialisieren
-		playerOne = new Player(this, 90, 0.35f, ORIGIN_POSITION_LEFT, Color.blue, PLAYER_ONE_ID);
-		playerTwo = new Player(this, 270, 0.35f, ORIGIN_POSITION_RIGHT, Color.green, PLAYER_TWO_ID);
+		playerOne = new Player(this, 90, 0.5f, ORIGIN_POSITION_LEFT, Color.blue, PLAYER_ONE_ID);
+		playerTwo = new Player(this, 270, 0.5f, ORIGIN_POSITION_RIGHT, Color.green, PLAYER_TWO_ID);
 		playerTwo.setOriginOffset(new Vector2f(0,320));
 		playerSystem = new Player(this, 0, 1f, ORIGIN_POSITION_RIGHT, Color.black, PLAYER_SYSTEM_ID);
 
@@ -310,11 +307,11 @@ public class DefenderControl implements TuioListener {
 			}
 		}
 		
-		int[] rangeDifferent= gestures.rangeDifferent(tuioCursorList);
-		if(rangeDifferent!=null){
-			zoomInterface(rangeDifferent[0],rangeDifferent[1],
-					rangeDifferent[2],rangeDifferent[3]);
-		}
+//		int[] rangeDifferent= gestures.rangeDifferent(tuioCursorList);
+//		if(rangeDifferent!=null){
+//			zoomInterface(rangeDifferent[0],rangeDifferent[1],
+//					rangeDifferent[2],rangeDifferent[3]);
+//		}
 		Vector2f v = gestures.twoFingersInRange(tuioCursorList, 2);
 		if(v!=null){
 			if(v.x < width/2){
@@ -330,10 +327,25 @@ public class DefenderControl implements TuioListener {
 					startMenueControlForMouse(v, 0);
 				}
 			}			
-		}
+		}	
+		
 		int[] schiebeCoordinate= gestures.schiebeMap(tuioCursorList);
+		
 		if(schiebeCoordinate!=null){
+//			for(int i = 0; i<schiebeCoordinate.length; i++){
+//				System.out.println("i="+i+" = "+schiebeCoordinate[i]);
+//			}
+//			if(schiebeCoordinate[0]!= -1){
+//				schiebeInterface(schiebeCoordinate[0],schiebeCoordinate[1],
+//						schiebeCoordinate[2],schiebeCoordinate[3]);
+//			}
+//			if(schiebeCoordinate[4]!= -1){
+//				schiebeInterface(schiebeCoordinate[4],schiebeCoordinate[5],
+//						schiebeCoordinate[6],schiebeCoordinate[7]);
+//			}
 			schiebeInterface(schiebeCoordinate[0],schiebeCoordinate[1],
+					schiebeCoordinate[2],schiebeCoordinate[3]);
+			schiebeInterfacePlayerTwo(schiebeCoordinate[0],schiebeCoordinate[1],
 					schiebeCoordinate[2],schiebeCoordinate[3]);
 		}
 
@@ -381,7 +393,7 @@ public class DefenderControl implements TuioListener {
 		Menu menu = null;
 		Vector2f realClickKoordinates = null;
 
-		// wenn bei Spielr Zwei
+//		 wenn bei Spielr Zwei
 		if (clickVector.x > 512) {
 			// menue aus der Hauptlogik holen
 			menu = this.getMenuePlayerTwo();
@@ -723,18 +735,18 @@ public class DefenderControl implements TuioListener {
 	public void zoomInterface(int oldx, int oldy, int newx, int newy) {
 		if (newx < 512) {
 
-			// Vector2f old=GraphicTools.calcInputVector(new Vector2f(newx,
-			// newy), this.playerOne);
-
-			this.getPlayerOne().setActualZoom(this.getPlayerOne().getActualZoom() + (newy - oldy) * 0.001f);
-
-			// Vector2f neu=GraphicTools.calcInputVector(new Vector2f(newx,
-			// newy), this.playerOne);
-			// Experiment Zoompunkt setzen
-			// Vector2f difference=VectorHelper.sub(old,neu);
-			// this.getPlayerOne().setOriginOffset(this.getPlayerOne().getOriginOffset().sub(difference));
-			// this.getPlayerOne().getOriginOffset().scale(1 +(( oldy - newy ) *
-			// 0.01f));
+//			 Vector2f old=GraphicTools.calcInputVector(new Vector2f(newx,
+//			 newy), this.playerOne);
+//
+//			this.getPlayerOne().setActualZoom(this.getPlayerOne().getActualZoom() + (newy - oldy) * 0.001f);
+//
+//			 Vector2f neu=GraphicTools.calcInputVector(new Vector2f(newx,
+//			 newy), this.playerOne);
+////			 Experiment Zoompunkt setzen
+//			 Vector2f difference=VectorHelper.sub(old,neu);
+//			 this.getPlayerOne().setOriginOffset(this.getPlayerOne().getOriginOffset().sub(difference));
+//			 this.getPlayerOne().getOriginOffset().scale(1 +(( oldy - newy ) *
+//			 0.01f));
 
 		} else {
 			this.getPlayerTwo().setActualZoom(this.getPlayerTwo().getActualZoom() + (newy - oldy) * 0.001f);
@@ -768,6 +780,18 @@ public class DefenderControl implements TuioListener {
 		}
 	}
 
+
+	public void schiebeInterfacePlayerTwo(float oldx, float oldy, float newx, float newy){
+		if(newx>=512) {
+		
+		Vector2f tempVec = this.getPlayerTwo().getOriginOffset().copy();
+		tempVec.y = tempVec.y + newy - oldy;
+		tempVec.x = tempVec.x + newx - oldx;
+		
+		this.getPlayerTwo().setOriginOffset(tempVec);
+	}
+	}
+	
 	/**
 	 * Creating some Test Units
 	 */
