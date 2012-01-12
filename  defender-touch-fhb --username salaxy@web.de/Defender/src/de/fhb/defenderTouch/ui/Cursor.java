@@ -22,6 +22,7 @@ public class Cursor {
 		this.tcur1Player1 = setPlayer(tcur1ScreenX);
 		this.tcur2Player1 = setPlayer(tcur2ScreenX);
 	}
+	
 	public Cursor(int tcur1ID,int tcur2ID,double distance,int tcur1ScreenX,int tcur1ScreenY,int tcur2ScreenX, int tcur2ScreenY){
 		this.tcur1ID = tcur1ID;
 		this.tcur2ID = tcur2ID;
@@ -30,6 +31,8 @@ public class Cursor {
 		this.tcur1ScreenY = tcur1ScreenY;
 		this.tcur2ScreenX = tcur2ScreenX;
 		this.tcur2ScreenY = tcur2ScreenY;		
+		this.tcur1Player1 = setPlayer(tcur1ScreenX);
+		this.tcur2Player1 = setPlayer(tcur2ScreenX);
 		
 	}
 	
@@ -38,9 +41,7 @@ public class Cursor {
 			return true;
 		}
 		return false;
-	}
-	
-	
+	}	
 	
 	public int getTcur1ID() {
 		return tcur1ID;
